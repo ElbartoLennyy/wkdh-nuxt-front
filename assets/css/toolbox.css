@@ -164,6 +164,7 @@ textarea,
 select,
 button {
     font-synthesis: none;
+    font-feature-settings: 'kern';
     -moz-font-feature-settings: 'kern';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -630,6 +631,7 @@ label.toolbox-field {
     font-weight: 200;
     line-height: 60px;
     color: transparent;
+    background-clip: text;
     -webkit-background-clip: text;
     -webkit-text-fill-color: transparent;
 }
@@ -820,7 +822,6 @@ label.toolbox-field {
 
 #toolbox section.selection-content div.tile-box .toolbox-field {
     display: inline;
-    width: 190px;
     padding-top: 20px;
     padding-bottom: 20px;
     margin-right: 6px;
@@ -851,7 +852,6 @@ label.toolbox-field {
         padding-left: 35px;
         padding-right: 40px !important;
     }
-    #toolbox section.selection-content {}
 }
 
 @media screen and (min-width: 1272px) {
@@ -866,7 +866,6 @@ label.toolbox-field {
         padding-left: 50px;
         padding-right: 50px !important;
     }
-    #toolbox section.selection-content {}
 }
 
 @media screen and (min-width: 1558px) {

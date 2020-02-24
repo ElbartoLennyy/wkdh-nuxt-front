@@ -156,6 +156,7 @@ textarea,
 select,
 button {
     font-synthesis: none;
+    font-feature-settings: 'kern';
     -moz-font-feature-settings: 'kern';
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
@@ -444,8 +445,6 @@ abbr {
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
     background-image: -webkit-linear-gradient(280deg, #fc5278, #fc274d);
     background-image: linear-gradient(280deg, #fc5278, #fc274d)
 }
@@ -461,8 +460,6 @@ abbr {
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
     background-image: -webkit-linear-gradient(140deg, #26c5ff, #054fe7);
     background-image: linear-gradient(140deg, #26c5ff, #054fe7);
 }
@@ -478,8 +475,6 @@ abbr {
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
     background-image: -webkit-linear-gradient(225deg, #53dcc9, #4fb2b4);
     background-image: linear-gradient(225deg, #53dcc9, #4fb2b4)
 }
@@ -495,8 +490,6 @@ abbr {
     color: transparent;
     -webkit-background-clip: text;
     background-clip: text;
-    -webkit-text-fill-color: transparent;
-    text-fill-color: transparent;
     background-image: -webkit-linear-gradient(225deg, #bf32fb, #7830c4);
     background-image: linear-gradient(225deg, #bf32fb, #7830c4)
 }
