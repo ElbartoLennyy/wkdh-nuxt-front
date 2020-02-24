@@ -48,6 +48,14 @@ module.exports = {
   ** See https://axios.nuxtjs.org/options
   */
   axios: {
+    proxy: true,
+    prefix: '/api'
+  },
+  proxy: {
+    '/api/': {
+      target: 'https://dev.wirkaufendeinhandy.shop/',
+      pathRewrite: { '^/api/': '' }
+    }
   },
   /*
   ** Build configuration
@@ -56,7 +64,7 @@ module.exports = {
     /*
     ** You can extend webpack config here
     */
-    extend (config, ctx) {
+    extend(config, ctx) {
     }
   }
 }
