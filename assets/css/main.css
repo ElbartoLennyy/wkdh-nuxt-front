@@ -1177,7 +1177,7 @@ nav#pagenav>ul>li>a.local-link-active {
 }
 
 nav#pagenav a.link-home {
-    background-image: url("../images/icons/logo-link.png");
+    background-image: url("~assets/img/icons/logo-link.png");
     background-size: 20px;
     background-repeat: no-repeat;
     background-position: center;
@@ -1258,7 +1258,7 @@ nav#pagenav a.link-action {
     margin-left: auto;
     margin-right: auto;
     display: block;
-    background-image: url("../images/logo.png");
+    background-image: url("~assets/img/icons/logo.png");
     background-repeat: no-repeat;
     background-size: 50%;
     background-position: center;
@@ -1267,7 +1267,7 @@ nav#pagenav a.link-action {
 #main .area-hero {
     position: relative;
     background-color: #1d1e27;
-    background-image: url('../images/background.svg');
+    background-image: url('~assets/img/background.svg');
     background-repeat: no-repeat;
     background-position: right;
     background-size: 100%;
@@ -1302,7 +1302,7 @@ nav#pagenav a.link-action {
 }
 
 #main .area-hero.area-action {
-    background-image: url('../images/background.svg');
+    background-image: url('~assets/img/background.svg');
 }
 
 @media screen and (max-width: 735px) {
