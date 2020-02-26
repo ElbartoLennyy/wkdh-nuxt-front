@@ -2,7 +2,7 @@
   <div id="toolbox">
     <section class="meta-content">
       <div id="meta-progress" class="progress-indicator">
-        <div style="width: 5%" />
+        <div :style="{ width: `${progress}%` }" />
       </div>
 
       <button id="meta-back" class="inline-button" @click="back">
@@ -433,7 +433,11 @@ export default {
       Place: ''
     }
   }),
-  computed: {},
+  computed: {
+    progress () {
+      return [0, 20, 40, 60, 80][this.stage]
+    }
+  },
   methods: {
     async validateAddress () {
       try {
