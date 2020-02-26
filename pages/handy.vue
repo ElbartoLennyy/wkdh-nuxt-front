@@ -276,6 +276,7 @@ export default {
       this.next()
     },
     confirmAccessories () {
+      this.offer = null
       this.next()
 
       // eslint-disable-next-line no-undef
