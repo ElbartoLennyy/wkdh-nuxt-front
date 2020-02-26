@@ -17,9 +17,17 @@
     "bootstrap": "^4.4.1",
     "cross-env": "^5.2.0",
     "dotenv": "^8.2.0",
+    "ebay-node-api": "^2.7.7",
     "express": "^4.16.4",
+    "firebase-admin": "^8.9.2",
+    "geo-distance": "^0.2.0",
+    "iban": "^0.0.14",
+    "morgan": "^1.9.1",
+    "node-geocoder": "^3.25.0",
     "nuxt": "^2.0.0",
-    "vue-flatpickr-component": "^8.1.5"
+    "request": "^2.88.2",
+    "vue-flatpickr-component": "^8.1.5",
+    "xlsx": "^0.15.5"
   },
   "devDependencies": {
     "@nuxtjs/eslint-config": "^2.0.0",
