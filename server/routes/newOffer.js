@@ -1,6 +1,6 @@
 const express = require('express')
 const router = express.Router()
-const fbData = require('../server/fb')
+const fbData = require('../lib/firebase')
 
 router.post('/getData', function(req, res, next) {
   res.contentType('json')

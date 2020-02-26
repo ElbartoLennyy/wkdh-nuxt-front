@@ -1,10 +1,10 @@
 const express = require('express')
 const router = express.Router()
 const request = require('request')
-const fbData = require('../server/fb')
-const geocoder = require('../server/geocoder')
-const validator = require('../server/validation')
-const sendcloud = require('../server/sendcloud')
+const fbData = require('../lib/firebase')
+const geocoder = require('../lib/geocoder')
+const validator = require('../lib/validation')
+const sendcloud = require('../lib/sendcloud')
 
 router.post('/getData', function(req, res, next) {
   res.contentType('json')

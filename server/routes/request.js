@@ -1,8 +1,8 @@
 const express = require('express')
 const request = require('request')
-const fb = require('../server/fb')
-const priceCalc = require('../server/priceCalc')
-const helper = require('../server/helper')
+const fbData = require('../lib/firebase')
+const priceCalc = require('../lib/priceCalc')
+const helper = require('../lib/helper')
 const router = express.Router()
 
 const brands = {
@@ -379,7 +379,7 @@ router.post('/getPrice', function(req, res, next) {
           Price: false,
         }))
       } else {
-        fb.uploadPriceRequest(price, currentPhone, (requestID) => {
+        fbData.uploadPriceRequest(price, currentPhone, (requestID) => {
           res.status(200).send(JSON.stringify({
             Price: price,
             RequestID: requestID,
@@ -393,7 +393,7 @@ router.post('/getPrice', function(req, res, next) {
 router.post('/accept', function(req, res, next) {
   res.contentType('json')
 
-  fb.creatNewUser(req.body.ReqID, () => {
+  fbData.creatNewUser(req.body.ReqID, () => {
     res.status(200).send(JSON.stringify({
       Status: 'done',
     }))
@@ -403,7 +403,7 @@ router.post('/accept', function(req, res, next) {
 router.post('/reject', function(req, res, next) {
   res.contentType('json')
 
-  fb.deletePriceRequest(req.body.ReqID, () => {
+  fbData.deletePriceRequest(req.body.ReqID, () => {
     res.status(200).send(JSON.stringify({
       Status: 'done',
     }))
