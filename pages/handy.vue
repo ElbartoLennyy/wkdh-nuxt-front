@@ -320,6 +320,7 @@ export default {
   },
   head: () => ({
     title: 'Handyauswahl',
+    htmlAttrs: { class: 'toolbox-styles' },
     link: [
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
     ],
@@ -329,5 +330,3 @@ export default {
   })
 }
 </script>
-
-<style src="~/assets/css/toolbox.css"/>

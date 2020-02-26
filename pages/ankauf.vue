@@ -156,7 +156,16 @@
   </div>
 </template>
 
-<style src="~/assets/css/main.css" />
+<script>
+export default {
+  head () {
+    return {
+      title: 'Ankauf',
+      htmlAttrs: { class: 'main-styles' }
+    }
+  }
+}
+</script>
 
 <style>
 .background-click-here { background-image: url('~assets/img/svg/click-here.svg'); }

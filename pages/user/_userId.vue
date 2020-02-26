@@ -36,6 +36,7 @@ export default {
         pickUp: 'Abholung',
         shipping: 'Versand'
       })[this.offer.State],
+      htmlAttrs: { class: 'toolbox-styles' },
       link: [
         {
           rel: 'stylesheet',
@@ -56,5 +57,3 @@ export default {
   }
 }
 </script>
-
-<style src="~/assets/css/toolbox.css"/>

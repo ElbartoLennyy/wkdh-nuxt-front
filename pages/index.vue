@@ -139,6 +139,7 @@ export default {
     return {
       title: 'Wir kaufen dein Handy und holen es zuverlässig ab!',
       titleTemplate: null,
+      htmlAttrs: { class: 'main-styles' },
       meta: [
         { name: 'description', content: 'Du hast ein altes Handy und willst Geld dafür? Füll einfach das Formular aus erhalte ein Preisangebot und wir holen dein Handy kostenlos vor deiner Haustür ab. Du hast keinen Aufwand!' },
         { name: 'keywords', content: ['wirkaufendeinhandy', 'Handy', 'Ankauf', 'Handy Görlitz', 'Handy verkaufen', 'Görlitz', 'Handyreparatur Görlitz'] }
@@ -147,8 +148,6 @@ export default {
   }
 }
 </script>
-
-<style src="~/assets/css/main.css" />
 
 <style scoped>
 .background-svg-exchange {

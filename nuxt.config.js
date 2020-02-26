@@ -12,6 +12,10 @@ module.exports = {
       { rel: 'icon', type: 'image/png', href: '/favicon.png' }
     ]
   },
+  css: [
+    '~/assets/css/main.scss',
+    '~/assets/css/toolbox.scss'
+  ],
   loading: { color: '#fff' },
   buildModules: [
     '@nuxtjs/eslint-module'
