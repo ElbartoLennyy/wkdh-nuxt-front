@@ -2,6 +2,7 @@ module.exports = {
   mode: 'universal',
   head: {
     title: 'Wir kaufen dein Handy!',
+    titleTemplate: '%s • wirkaufendeinhandy.shop',
     htmlAttrs: { lang: 'de' },
     meta: [
       { charset: 'utf-8' },
