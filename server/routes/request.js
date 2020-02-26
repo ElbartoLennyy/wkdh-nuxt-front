@@ -6,7 +6,7 @@ const helper = require('../server/helper')
 const router = express.Router()
 
 const brands = {
-  brands: ['Apple', 'Samsung', 'LG', 'Huawei', 'Nokia', 'HTC', 'Google', 'OnePlus', 'Sony', 'Xiaomi']
+  brands: ['Apple', 'Samsung', 'LG', 'Huawei', 'Nokia', 'HTC', 'Google', 'OnePlus', 'Sony', 'Xiaomi'],
 }
 
 const phones = {
@@ -74,8 +74,8 @@ const phones = {
       'iPhone SE Space Grey',
       'iPhone SE Silver',
       'iPhone SE Rose Gold',
-      'iPhone SE Gold'
-    ]
+      'iPhone SE Gold',
+    ],
   },
   Samsung: {
     phones: [
@@ -144,8 +144,8 @@ const phones = {
       'Galaxy A20e',
       'Galaxy A20',
       'Galaxy A10s',
-      'Galaxy A10'
-    ]
+      'Galaxy A10',
+    ],
 
   },
   LG: {
@@ -169,8 +169,8 @@ const phones = {
       'G3s',
       'G3',
       'G2 mini ',
-      'G2'
-    ]
+      'G2',
+    ],
   },
   Nokia: {
     phones: ['Nokia 9 PureView',
@@ -188,12 +188,12 @@ const phones = {
       'Nokia 3.2',
       'Nokia 3',
       'Nokia 2.2 Steel',
-      'Nokia 2.2'
-    ]
+      'Nokia 2.2',
+    ],
 
   },
   HTC: {
-    phones: ['Desire 12s', 'U12 life', 'U12+', 'Desire 12/12+', 'U11 life', 'U11+', 'U11']
+    phones: ['Desire 12s', 'U12 life', 'U12+', 'Desire 12/12+', 'U11 life', 'U11+', 'U11'],
   },
   Huawei: {
     phones: ['P30 Pro',
@@ -225,8 +225,8 @@ const phones = {
       'Nova 3',
       'Nova 2',
       'Nova',
-      'Honor 8'
-    ]
+      'Honor 8',
+    ],
 
   },
   Google: {
@@ -237,8 +237,8 @@ const phones = {
       'Pixel 3 XL',
       'Pixel 3A XL',
       'Pixel 4',
-      'Pixel 4 XL'
-    ]
+      'Pixel 4 XL',
+    ],
   },
   OnePlus: {
     phones: ['7 Pro Nebula',
@@ -252,8 +252,8 @@ const phones = {
       '5T',
       '5',
       '3T',
-      '3'
-    ]
+      '3',
+    ],
 
   },
   Sony: {
@@ -316,8 +316,8 @@ const phones = {
       'Xperia 10 Navy',
       'Xperia 10',
       'Xperia 1',
-      'Xperia XZ2 Compact'
-    ]
+      'Xperia XZ2 Compact',
+    ],
 
   },
   Xiaomi: {
@@ -330,13 +330,13 @@ const phones = {
       'Mi 6',
       'mi 5A',
       'mi 5',
-      'mi 4 (4X)'
-    ]
-  }
+      'mi 4 (4X)',
+    ],
+  },
 
 }
 
-router.post('/getData', function (req, res, next) {
+router.post('/getData', function(req, res, next) {
   if (req.body.Stage === 0) {
     return res.send(brands)
   } else if (req.body.Stage === 1) {
@@ -347,7 +347,7 @@ router.post('/getData', function (req, res, next) {
   return res.sendStatus(400)
 })
 
-router.post('/getPrice', function (req, res, next) {
+router.post('/getPrice', function(req, res, next) {
   res.contentType('json')
 
   const token = req.body.Token
@@ -376,13 +376,13 @@ router.post('/getPrice', function (req, res, next) {
     priceCalc.getPrice(currentPhone, (price) => {
       if (price === undefined || price === false) {
         res.status(200).send(JSON.stringify({
-          Price: false
+          Price: false,
         }))
       } else {
         fb.uploadPriceRequest(price, currentPhone, (requestID) => {
           res.status(200).send(JSON.stringify({
             Price: price,
-            RequestID: requestID
+            RequestID: requestID,
           }))
         })
       }
@@ -390,22 +390,22 @@ router.post('/getPrice', function (req, res, next) {
   })
 })
 
-router.post('/accept', function (req, res, next) {
+router.post('/accept', function(req, res, next) {
   res.contentType('json')
 
   fb.creatNewUser(req.body.ReqID, () => {
     res.status(200).send(JSON.stringify({
-      Status: 'done'
+      Status: 'done',
     }))
   })
 })
 
-router.post('/reject', function (req, res, next) {
+router.post('/reject', function(req, res, next) {
   res.contentType('json')
 
   fb.deletePriceRequest(req.body.ReqID, () => {
     res.status(200).send(JSON.stringify({
-      Status: 'done'
+      Status: 'done',
     }))
   })
 })

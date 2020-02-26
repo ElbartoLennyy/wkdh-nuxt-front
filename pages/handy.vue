@@ -240,7 +240,7 @@ import options from '~/data/options'
 export default {
   components: { RecaptchaNotice },
   asyncData: async context => ({
-    brandOptions: await context.$axios.$post('/handy/getData', { Stage: 0 })
+    brandOptions: await context.$axios.$post('/handy/getData', { Stage: 0 }),
   }),
   data: () => ({
     stage: 0,
@@ -251,45 +251,45 @@ export default {
       storage: null,
       condition: null,
       technicalCondition: null,
-      accessories: []
+      accessories: [],
     },
-    offer: null
+    offer: null,
   }),
   computed: {
-    progress () {
+    progress() {
       return [5, 15, 30, 45, 60, 68, 75][this.stage]
-    }
+    },
   },
-  created () {
+  created() {
     // TODO: Find a cleaner way to do this
     this.options.brands = this.brandOptions.brands
   },
   methods: {
-    async selectBrand (brand) {
+    async selectBrand(brand) {
       this.request.brand = brand
       this.options.phones = (
         await this.$axios.$post('/handy/getData', { Stage: 1, Brand: brand })
       ).phones
       this.next()
     },
-    selectPhone (phone) {
+    selectPhone(phone) {
       this.request.phone = phone
       this.next()
     },
-    selectStorage (storage) {
+    selectStorage(storage) {
       this.request.storage = storage.title
       this.next()
     },
-    confirmAccessories () {
+    confirmAccessories() {
       this.offer = null
       this.next()
 
       // eslint-disable-next-line no-undef
-      grecaptcha.ready(async () => {
+      grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(
           process.env.NUXT_ENV_RECAPTCHA_TOKEN,
-          { action: 'homepage' }
+          { action: 'homepage' },
         )
 
         const data = await this.$axios.$post('/handy/getPrice', {
@@ -299,37 +299,37 @@ export default {
           Condition: this.request.condition,
           TechnicalCondition: this.request.technicalCondition,
           Accessorys: this.request.accessories.join(','),
-          Token: token
+          Token: token,
         })
 
         this.offer = { price: data.Price, id: data.RequestID }
       })
     },
-    acceptOffer () {
+    acceptOffer() {
       this.$axios
         .post('/handy/accept', { ReqID: this.offer.id })
         .then(() => (this.$router.push(`/user/${this.offer.id}`)))
         .catch(error => (this.error = error))
     },
-    rejectOffer () {
+    rejectOffer() {
       this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {
         this.$router.push('https://wirkaufendeinhandy.shop/ankauf')
       })
     },
-    back () {
+    back() {
       if (this.stage === 0) { return this.$router.back() }
       this.stage--
     },
-    next () {
+    next() {
       this.stage++
-    }
+    },
   },
   head: () => ({
     title: 'Handyauswahl',
     htmlAttrs: { class: 'toolbox-styles' },
     script: [
-      { src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}` }
-    ]
-  })
+      { src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}` },
+    ],
+  }),
 }
 </script>

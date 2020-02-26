@@ -11,9 +11,10 @@ module.exports = {
     '@nuxtjs',
     'plugin:nuxt/recommended'
   ],
-  // add your custom rules here
   rules: {
     'nuxt/no-cjs-in-config': 'off',
-    'vue/singleline-html-element-content-newline': 'off'
-  }
+    'vue/singleline-html-element-content-newline': 'off',
+    'space-before-function-paren': ['error', 'never'],
+    'comma-dangle': ['error', 'always-multiline'],
+  },
 }

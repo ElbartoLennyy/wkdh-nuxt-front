@@ -19,8 +19,8 @@ export default {
   props: {
     value: {
       type: String,
-      required: true
-    }
+      required: true,
+    },
   },
   data: () => ({
     flatPickrConfig: {
@@ -33,8 +33,8 @@ export default {
       minTime: '12:00',
       maxTime: '19:30',
       disableMobile: true,
-      locale: German
-    }
-  })
+      locale: German,
+    },
+  }),
 }
 </script>

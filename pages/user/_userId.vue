@@ -20,29 +20,29 @@ import ShippingPage from '~/components/user/ShippingPage'
 
 export default {
   components: { OfferPage, PickUpPage, ShippingPage },
-  async asyncData (context) {
+  async asyncData(context) {
     const offer = (
       await context.$axios.$post('/offer/getData', {
-        uID: context.route.params.userId
+        uID: context.route.params.userId,
       })
     ).Obj
 
     return { offer }
   },
-  head () {
+  head() {
     return {
       title: ({
         offer: 'Angebot',
         pickUp: 'Abholung',
-        shipping: 'Versand'
+        shipping: 'Versand',
       })[this.offer.State],
       htmlAttrs: { class: 'toolbox-styles' },
       script: [
         {
-          src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`
-        }
-      ]
+          src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`,
+        },
+      ],
     }
-  }
+  },
 }
 </script>

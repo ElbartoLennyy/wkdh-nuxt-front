@@ -6,7 +6,7 @@ const geocoder = require('../server/geocoder')
 const validator = require('../server/validation')
 const sendcloud = require('../server/sendcloud')
 
-router.post('/getData', function (req, res, next) {
+router.post('/getData', function(req, res, next) {
   res.contentType('json')
 
   fbData.getOffer(JSON.stringify(req.body.uID), (obj) => {
@@ -14,7 +14,7 @@ router.post('/getData', function (req, res, next) {
   })
 })
 
-router.post('/validateAddress', function (req, res, next) {
+router.post('/validateAddress', function(req, res, next) {
   res.contentType('json')
 
   geocoder.validateAddress(req.body, (data, pickUp) => {
@@ -26,7 +26,7 @@ router.post('/validateAddress', function (req, res, next) {
 
     res.status(200).send(JSON.stringify({
       Location: data,
-      PickUp: pickUp
+      PickUp: pickUp,
     }))
   })
 })
@@ -43,7 +43,7 @@ router.post('/validatePaymentData', (req, res) => {
   }
 
   res.status(200).send(JSON.stringify({
-    Result: result
+    Result: result,
   }))
 })
 
@@ -59,7 +59,7 @@ router.post("/deleteUser", (req, res) => {
 })
 */
 
-router.post('/accept', function (req, res, next) {
+router.post('/accept', function(req, res, next) {
   res.contentType('json')
 
   const token = req.body.Token

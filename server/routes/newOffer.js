@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const fbData = require('../server/fb')
 
-router.post('/getData', function (req, res, next) {
+router.post('/getData', function(req, res, next) {
   res.contentType('json')
 
   fbData.getNewOffer(JSON.stringify(req.body.uID), (obj) => {
@@ -10,7 +10,7 @@ router.post('/getData', function (req, res, next) {
   })
 })
 
-router.post('/accept', function (req, res, next) {
+router.post('/accept', function(req, res, next) {
   res.contentType('json')
 
   fbData.setCheckDone(JSON.stringify(req.body.uID), () => {
@@ -18,7 +18,7 @@ router.post('/accept', function (req, res, next) {
   })
 })
 
-router.post('/return', function (req, res, next) {
+router.post('/return', function(req, res, next) {
   res.contentType('json')
 
   fbData.setReturn(JSON.stringify(req.body.uID), () => {

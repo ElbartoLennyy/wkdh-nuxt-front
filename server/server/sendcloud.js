@@ -6,7 +6,7 @@ const axios = require('axios')
 const publicKey = process.env.SENDCLOUD_PUBLIC_KEY
 const secretKey = process.env.SENDCLOUD_PRIVATE_KEY
 
-function creatParcel (userID, data, _callback) {
+function creatParcel(userID, data, _callback) {
   const newParcelData = {
     parcel: {
       name: 'Alexander Gerick',
@@ -21,7 +21,7 @@ function creatParcel (userID, data, _callback) {
       country: 'DE',
       shipment: {
         // TODO: Turn this into an environment variable
-        id: 8 // 111 for production
+        id: 8, // 111 for production
       },
       weight: '1.000',
       order_number: userID,
@@ -35,8 +35,8 @@ function creatParcel (userID, data, _callback) {
       from_postal_code: data.Location.zipcode,
       from_country: 'DE',
       from_telephone: '',
-      from_email: ''
-    }
+      from_email: '',
+    },
   }
 
   const options = {
@@ -44,11 +44,11 @@ function creatParcel (userID, data, _callback) {
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64')
+      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
     },
-    json: newParcelData
+    json: newParcelData,
   }
-  request(options, function (_, res, body) {
+  request(options, function(_, res, body) {
     console.log(body)
 
     try {
@@ -64,68 +64,68 @@ function creatParcel (userID, data, _callback) {
   })
 }
 
-function downloadLabel (parcelID, userID) {
+function downloadLabel(parcelID, userID) {
   const output = path.join('./data/shippmentLabels', userID + '.pdf')
 
-  const downloadPDF = async (url, output) => {
+  const downloadPDF = async(url, output) => {
     await axios({
       method: 'GET',
       url,
       responseType: 'stream',
       auth: {
         username: publicKey,
-        password: secretKey
-      }
+        password: secretKey,
+      },
     }).then((response) => {
       response.data.pipe(
-        fs.createWriteStream(output)
+        fs.createWriteStream(output),
       )
     })
   }
 
-  (async () => {
+  (async() => {
     downloadPDF('https://panel.sendcloud.sc/api/v2/labels/normal_printer/' + parcelID + '?start_from=0', output)
   })()
 }
 
-function deleteParcel (parcelID, _callback) {
+function deleteParcel(parcelID, _callback) {
   const options = {
     url: 'https://panel.sendcloud.sc/api/v2/parcels/' + parcelID + '/cancel',
     method: 'POST',
     headers: {
       Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64')
-    }
+      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
+    },
   }
-  request(options, function (_, res, body) {
+  request(options, function(_, res, body) {
     _callback(body)
   })
 }
 
-function returnParcel (parcelID, _callback) {
+function returnParcel(parcelID, _callback) {
   const options = {
     url: 'https://panel.sendcloud.sc/api/v2/parcels/' + parcelID + '/return_portal_url',
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64')
-    }
+      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
+    },
   }
-  request(options, function (_, res, body) {
+  request(options, function(_, res, body) {
     _callback(body)
   })
 }
 
-function getParcels (_callback) {
+function getParcels(_callback) {
   const options = {
     url: 'https://panel.sendcloud.sc/api/v2/parcels',
     method: 'GET',
     headers: {
       Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64')
-    }
+      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
+    },
   }
-  request(options, function (_, res, body) {
+  request(options, function(_, res, body) {
     _callback(body)
   })
 }

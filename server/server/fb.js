@@ -3,20 +3,20 @@ const serviceAccount = require('../../firebase-account.json')
 const encryption = require('./encryption')
 const helper = require('./helper')
 
-function getCurrentDate () {
+function getCurrentDate() {
   return (new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }))
 }
 
 // console.log(getCurrentDate());
 
 admin.initializeApp({
-  credential: admin.credential.cert(serviceAccount)
+  credential: admin.credential.cert(serviceAccount),
 })
 
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-function uploadPriceRequest (price, phone, _callback) {
+function uploadPriceRequest(price, phone, _callback) {
   const id = helper.getRandomId()
 
   const docRequest = db.collection('request').doc(id)
@@ -25,13 +25,13 @@ function uploadPriceRequest (price, phone, _callback) {
     Date: getCurrentDate(),
     ID: id,
     Price: price,
-    phone
+    phone,
   }).then(() => {
     _callback(id)
   })
 }
 
-function deletePriceRequest (id, _callback) {
+function deletePriceRequest(id, _callback) {
   db.collection('request').doc(id).delete()
     .then(() => {
       _callback()
@@ -46,7 +46,7 @@ function deleteUser(id, _callback) {
 }
 */
 
-function creatNewUser (id, _callback) {
+function creatNewUser(id, _callback) {
   const docRequest = db.collection('request').doc(id)
   const docUser = db.collection('DEV').doc(id)
 
@@ -64,7 +64,7 @@ function creatNewUser (id, _callback) {
           ID: id,
           Price: data.Price,
           State: 'offer',
-          phone
+          phone,
         }).then(() => {
           deletePriceRequest(id)
           _callback()
@@ -76,7 +76,7 @@ function creatNewUser (id, _callback) {
     })
 }
 
-function setRejectNewOffer (uID) {
+function setRejectNewOffer(uID) {
   uID = uID.replace(/"/g, '')
 
   const docRequest = db.collection('DEV').doc(uID)
@@ -84,11 +84,11 @@ function setRejectNewOffer (uID) {
   docRequest.set({
     Date: getCurrentDate(),
     ID: uID,
-    State: 'reject/newOffer'
+    State: 'reject/newOffer',
   })
 }
 
-function setOfferAccept (uID, data, _callback) {
+function setOfferAccept(uID, data, _callback) {
   uID = uID.replace(/"/g, '')
 
   const docRequest = db.collection('DEV').doc(uID)
@@ -107,14 +107,14 @@ function setOfferAccept (uID, data, _callback) {
     Date: getCurrentDate(),
     ID: uID,
     State: data.TransportType,
-    data
+    data,
   })
     .then(() => {
       _callback()
     })
 }
 
-function getData (uID, _callback) {
+function getData(uID, _callback) {
   uID = uID.replace(/"/g, '')
   const refUser = db.collection('DEV').doc(uID)
 
@@ -129,7 +129,7 @@ function getData (uID, _callback) {
     })
 }
 
-function getOffer (uID, _callback) {
+function getOffer(uID, _callback) {
   uID = uID.replace(/"/g, '')
 
   // console.log(uID)
@@ -149,7 +149,7 @@ function getOffer (uID, _callback) {
     })
 }
 
-function getNewOffer (uID, _callback) {
+function getNewOffer(uID, _callback) {
   uID = uID.replace(/"/g, '')
 
   // console.log(uID)
@@ -169,7 +169,7 @@ function getNewOffer (uID, _callback) {
         state = (doc.data().State)
       }
     })
-    .then(function () {
+    .then(function() {
       if (state === 'newOffer') {
         refPhone.get()
           .then((doc) => {
@@ -179,7 +179,7 @@ function getNewOffer (uID, _callback) {
               dataPhone = (doc.data())
             }
           })
-          .then(function () {
+          .then(function() {
             refPrice.get()
               .then((doc) => {
                 if (!doc.exists) {
@@ -188,7 +188,7 @@ function getNewOffer (uID, _callback) {
                   price = doc.data()
                 }
               })
-              .then(function () {
+              .then(function() {
                 const data = [price, dataPhone]
                 _callback(data)
               })
@@ -199,7 +199,7 @@ function getNewOffer (uID, _callback) {
     })
 }
 
-function setReturn (uID, _callback) {
+function setReturn(uID, _callback) {
   uID = uID.replace(/"/g, '')
 
   const docRequest = db.collection('DEV').doc(uID)
@@ -207,7 +207,7 @@ function setReturn (uID, _callback) {
   docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
-    State: 'return'
+    State: 'return',
   }).then(() => {
     _callback()
   })

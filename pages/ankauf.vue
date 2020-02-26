@@ -158,12 +158,12 @@
 
 <script>
 export default {
-  head () {
+  head() {
     return {
       title: 'Ankauf',
-      htmlAttrs: { class: 'main-styles' }
+      htmlAttrs: { class: 'main-styles' },
     }
-  }
+  },
 }
 </script>
 

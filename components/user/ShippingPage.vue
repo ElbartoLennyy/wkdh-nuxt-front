@@ -44,7 +44,7 @@
 <script>
 export default {
   props: {
-    offer: { type: Object, required: true }
-  }
+    offer: { type: Object, required: true },
+  },
 }
 </script>

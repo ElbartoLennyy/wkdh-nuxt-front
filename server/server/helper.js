@@ -1,4 +1,4 @@
-function checkAccessory (acc, accID) {
+function checkAccessory(acc, accID) {
   switch (accID) {
     case 1:
       return acc.includes('Originalverpackung')
@@ -11,16 +11,16 @@ function checkAccessory (acc, accID) {
   }
 }
 
-function getRandomId () {
+function getRandomId() {
   return Math.random().toString(36).substr(2, 9)
 }
 
-function convertToSafeString (s) {
+function convertToSafeString(s) {
   const str = s.replace(/[&/\\#+()$~%'":*?<>{}]/g, '')
   return str
 }
 
-function convertToJsonPhone (obj) {
+function convertToJsonPhone(obj) {
   console.log(obj)
 
   obj.Brand = convertToSafeString(JSON.stringify(obj.Brand))
@@ -33,7 +33,7 @@ function convertToJsonPhone (obj) {
     OVP: checkAccessory(JSON.stringify(obj.Accessorys), 1),
     Cabel: checkAccessory(JSON.stringify(obj.Accessorys), 2),
     Charger: checkAccessory(JSON.stringify(obj.Accessorys), 3),
-    Headphones: checkAccessory(JSON.stringify(obj.Accessorys), 4)
+    Headphones: checkAccessory(JSON.stringify(obj.Accessorys), 4),
   }
 
   return {
@@ -46,8 +46,8 @@ function convertToJsonPhone (obj) {
       OVP: obj.Accessorys.OVP,
       cabel: obj.Accessorys.Cabel,
       charger: obj.Accessorys.Charger,
-      headphones: obj.Accessorys.Headphones
-    }
+      headphones: obj.Accessorys.Headphones,
+    },
   }
 }
 

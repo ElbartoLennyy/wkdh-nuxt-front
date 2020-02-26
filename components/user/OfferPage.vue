@@ -408,7 +408,7 @@ import RecaptchaNotice from '~/components/RecaptchaNotice'
 export default {
   components: { PickupTimePicker, RecaptchaNotice },
   props: {
-    offer: { type: Object, required: true }
+    offer: { type: Object, required: true },
   },
   data: () => ({
     // TODO: Start at 0 instead of 1 (stage 0 was a loading screen)
@@ -423,23 +423,23 @@ export default {
       PaymentData: '',
       TransportData: '',
       TransportType: 'shipping',
-      PickUpPossible: false
+      PickUpPossible: false,
     },
     // TODO: Fix "Adress" typo and weird terminology
     address: {
       Adress: '',
       HouseNumber: '',
       PLZ: '',
-      Place: ''
-    }
+      Place: '',
+    },
   }),
   computed: {
-    progress () {
+    progress() {
       return [0, 20, 40, 60, 80][this.stage]
-    }
+    },
   },
   methods: {
-    async validateAddress () {
+    async validateAddress() {
       try {
         const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
 
@@ -458,11 +458,11 @@ export default {
         alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
       }
     },
-    async validatePaymentData () {
+    async validatePaymentData() {
       try {
         const { PaymentMethod, PaymentData } = this.form
         await this.$axios.$post('/offer/validatePaymentData', {
-          PaymentMethod, PaymentData
+          PaymentMethod, PaymentData,
         })
 
         this.next()
@@ -471,35 +471,35 @@ export default {
         alert('Es gibt ein Problem mit den angegebenen Zahlungsdaten. Bitte überprüfe deine Eingaben.')
       }
     },
-    acceptOffer () {
+    acceptOffer() {
       // eslint-disable-next-line no-undef
-      grecaptcha.ready(async () => {
+      grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'homepage' })
 
         await this.$axios.post('/offer/accept', {
           uID: this.offer.ID,
           data: this.form,
-          Token: token
+          Token: token,
         })
 
         this.offer.State = this.form.TransportType
       })
     },
-    next () {
+    next() {
       this.stage++
     },
-    back () {
+    back() {
       if (this.stage === 0) { return this.$router.back() }
       this.stage--
-    }
+    },
   },
   head: () => ({
     script: [
       {
-        src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`
-      }
-    ]
-  })
+        src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`,
+      },
+    ],
+  }),
 }
 </script>

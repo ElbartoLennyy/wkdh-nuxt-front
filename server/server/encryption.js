@@ -5,7 +5,7 @@ const IV_LENGTH = 16
 
 // TODO: Encryption for encryption KEY
 
-function encrypt (text) {
+function encrypt(text) {
   const iv = crypto.randomBytes(IV_LENGTH)
 
   const cipher = crypto.createCipheriv('aes-256-cbc', Buffer.from(process.env.ENCRYPTION_KEY), iv)
@@ -16,7 +16,7 @@ function encrypt (text) {
   return iv.toString('hex') + ':' + encrypted.toString('hex')
 }
 
-function decrypt (text, encKey) {
+function decrypt(text, encKey) {
   const textParts = text.split(':')
   const iv = Buffer.from(textParts.shift(), 'hex')
   const encryptedText = Buffer.from(textParts.join(':'), 'hex')
