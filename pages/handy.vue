@@ -321,9 +321,6 @@ export default {
   head: () => ({
     title: 'Handyauswahl',
     htmlAttrs: { class: 'toolbox-styles' },
-    link: [
-      { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
-    ],
     script: [
       { src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}` }
     ]

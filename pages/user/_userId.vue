@@ -37,17 +37,6 @@ export default {
         shipping: 'Versand'
       })[this.offer.State],
       htmlAttrs: { class: 'toolbox-styles' },
-      link: [
-        {
-          rel: 'stylesheet',
-          href: 'https://fonts.googleapis.com/icon?family=Material+Icons'
-        },
-        {
-          rel: 'stylesheet',
-          // TODO: Reconsider including the entirety of Bootstrap for some typography styles
-          href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css'
-        }
-      ],
       script: [
         {
           src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`
