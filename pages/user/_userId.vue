@@ -14,8 +14,6 @@
 </template>
 
 <script>
-import { RECAPTCHA_TOKEN } from '~/secrets'
-
 import OfferPage from '~/components/user/OfferPage'
 import PickUpPage from '~/components/user/PickUpPage'
 import ShippingPage from '~/components/user/ShippingPage'
@@ -45,7 +43,7 @@ export default {
     ],
     script: [
       {
-        src: `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_TOKEN}`
+        src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`
       }
     ]
   })

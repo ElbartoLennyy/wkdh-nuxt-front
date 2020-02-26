@@ -230,7 +230,6 @@
 </template>
 
 <script>
-import { RECAPTCHA_TOKEN } from '~/secrets'
 import options from '~/data/options'
 
 export default {
@@ -283,7 +282,7 @@ export default {
       grecaptcha.ready(async () => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(
-          RECAPTCHA_TOKEN,
+          process.env.NUXT_ENV_RECAPTCHA_TOKEN,
           { action: 'homepage' }
         )
 
@@ -324,7 +323,7 @@ export default {
       { rel: 'stylesheet', href: 'https://fonts.googleapis.com/icon?family=Material+Icons' }
     ],
     script: [
-      { src: `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_TOKEN}` }
+      { src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}` }
     ]
   })
 }

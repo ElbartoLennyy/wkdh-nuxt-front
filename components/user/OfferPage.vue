@@ -401,8 +401,6 @@
 </template>
 
 <script>
-import { RECAPTCHA_TOKEN } from '~/secrets'
-
 import PickupTimePicker from '~/components/PickupTimePicker'
 
 export default {
@@ -466,7 +464,7 @@ export default {
       // eslint-disable-next-line no-undef
       grecaptcha.ready(async () => {
         // eslint-disable-next-line no-undef
-        const token = await grecaptcha.execute(RECAPTCHA_TOKEN, { action: 'homepage' })
+        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'homepage' })
 
         this.$axios.post('/offer/accept', {
           uID: this.offer.ID,
@@ -499,7 +497,7 @@ export default {
     ],
     script: [
       {
-        src: `https://www.google.com/recaptcha/api.js?render=${RECAPTCHA_TOKEN}`
+        src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`
       }
     ]
   })
