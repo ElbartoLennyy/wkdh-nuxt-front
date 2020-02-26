@@ -437,6 +437,11 @@ export default {
       try {
         const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
 
+        // TODO: Move this validation logic to the back-end (and return appropriate status code)
+        if (!Location.streetName || !Location.streetNumber) {
+          throw new Error('Not enough details!')
+        }
+
         this.form.Location = Location
         this.form.PickUpPossible = PickUp
         this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
