@@ -20,9 +20,10 @@
           </h3>
         </div>
 
-        <p class="typo-footnote">
-          Bitte trage deine Daten ein und bestätige die AGBs sowie die Datenschutzbestimmungen um den Kauf erfolgreich abzuschließen.
-        </p>
+        <div class="typo-footnote">
+          <p>Bitte trage deine Daten ein und bestätige die AGBs sowie die Datenschutzbestimmungen um den Kauf erfolgreich abzuschließen.</p>
+          <recaptcha-notice />
+        </div>
       </div>
     </section>
 
@@ -402,9 +403,10 @@
 
 <script>
 import PickupTimePicker from '~/components/PickupTimePicker'
+import RecaptchaNotice from '~/components/RecaptchaNotice'
 
 export default {
-  components: { PickupTimePicker },
+  components: { PickupTimePicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true }
   },

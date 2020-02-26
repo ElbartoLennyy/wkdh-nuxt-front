@@ -13,13 +13,16 @@
       <a id="meta-help" href="contactUs" class="inline-button">
         <i class="material-icons">help_outline</i>Hilfe
       </a>
-      <p class="typo-footnote">
-        Informationen zur Datenerhebung, -verarbeitung, -speicherung und -löschung:
-        <a
-          target="_blank"
-          href="privacy"
-        >wirkaufenihrhandy.shop/privacy</a>
-      </p>
+      <div class="typo-footnote">
+        <p>
+          Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
+          <a
+            target="_blank"
+            href="privacy"
+          >Datenschutzerklärung</a>.
+        </p>
+        <recaptcha-notice />
+      </div>
       <button class="elevated-button" onclick="window.location = '/'">
         Startseite
       </button>
@@ -230,10 +233,12 @@
 </template>
 
 <script>
+import RecaptchaNotice from '~/components/RecaptchaNotice'
+
 import options from '~/data/options'
 
 export default {
-  name: 'App',
+  components: { RecaptchaNotice },
   asyncData: async context => ({
     brandOptions: await context.$axios.$post('/handy/getData', { Stage: 0 })
   }),
