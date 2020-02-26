@@ -466,13 +466,13 @@ export default {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'homepage' })
 
-        this.$axios.post('/offer/accept', {
+        await this.$axios.post('/offer/accept', {
           uID: this.offer.ID,
           data: this.form,
           Token: token
         })
 
-        location.reload()
+        this.offer.State = this.form.TransportType
       })
     },
     next () {
