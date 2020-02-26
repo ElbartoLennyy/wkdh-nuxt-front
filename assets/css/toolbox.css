@@ -171,12 +171,12 @@ button {
     text-align: left
 }
 
-h1,
-h2,
-h3,
-h4,
-h5,
-h6 {
+#toolbox h1,
+#toolbox h2,
+#toolbox h3,
+#toolbox h4,
+#toolbox h5,
+#toolbox h6 {
     color: #111
 }
 
