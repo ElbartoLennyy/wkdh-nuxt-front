@@ -3,17 +3,17 @@
     <nav id="pagenav">
       <ul>
         <li>
-          <a href="/" class="link-home local-link-active" />
+          <nuxt-link to="/" class="link-home local-link-active" />
         </li>
         <li>
-          <a href="/ankauf">
+          <nuxt-link to="/ankauf">
             <span>Ankauf</span>
-          </a>
+          </nuxt-link>
         </li>
         <li>
-          <a href="/shop">
+          <nuxt-link to="/shop">
             <span>Shop</span>
-          </a>
+          </nuxt-link>
         </li>
       </ul>
     </nav>
@@ -25,7 +25,9 @@
             Wir Kaufen Dein Handy
           </h1>
           <h2 class="font-headline">
-            <a href="/ankauf">Und holen es an deiner Haustür ab!</a>
+            <nuxt-link to="/ankauf">
+              Und holen es an deiner Haustür ab!
+            </nuxt-link>
           </h2>
         </div>
       </section>
@@ -120,10 +122,10 @@
         <div class="footer-container">
           <p>Wirkaufendeinhandy GbR</p>
           <div class="footer-linklist">
-            <a href="imprint">Impressum</a>
-            <a href="privacy">Datenschutzerklärung</a>
-            <a href="AGB">AGB</a>
-            <a href="contactUs">Kontakt</a>
+            <nuxt-link to="/imprint">Impressum</nuxt-link>
+            <nuxt-link to="/privacy">Datenschutzerklärung</nuxt-link>
+            <nuxt-link to="/AGB">AGB</nuxt-link>
+            <nuxt-link to="/contactUs">Kontakt</nuxt-link>
           </div>
         </div>
       </div>

@@ -479,7 +479,7 @@ export default {
       this.stage++
     },
     back () {
-      if (this.stage === 0) { return (window.location = '/') }
+      if (this.stage === 0) { return this.$router.back() }
       this.stage--
     }
   },

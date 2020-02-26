@@ -3,20 +3,25 @@
     <nav id="pagenav">
       <ul>
         <li>
-          <a href="/" class="link-home" />
+          <nuxt-link to="/" class="link-home" />
         </li>
         <li>
-          <a href="/ankauf" class="local-link-active"><span>Ankauf</span></a>
+          <nuxt-link to="/ankauf" class="local-link-active">
+            <span>Ankauf</span>
+          </nuxt-link>
         </li>
         <li>
-          <a href="/shop"><span>Shop</span></a>
+          <nuxt-link to="/shop">
+            <span>Shop</span>
+          </nuxt-link>
         </li>
 
         <li class="hidden-on-phone">
-          <a href="handy" class="link-action">
+          <nuxt-link to="handy" class="link-action">
             <span class="hidden-on-tablet">Jetzt anfragen &#8594;</span>
             <span class="hidden-on-desktop">Anfragen &#8594;</span>
-          </a>
+            </a>
+          </nuxt-link>
         </li>
       </ul>
     </nav>
@@ -25,7 +30,7 @@
         <div class="area-content">
           <div class="hero-container">
             <div class="hero-left">
-              <figure id="logo" /><a href="/handy" class="elevated-button">Jetzt Handy verkaufen &#8594;</a>
+              <figure id="logo" /><nuxt-link to="/handy" class="elevated-button">Jetzt Handy verkaufen &#8594;</nuxt-link>
               <p class="font-caption" data-translucent="">
                 Deine Anfrage ist kostenlos und unverbindlich.
               </p>
@@ -36,7 +41,7 @@
               </h1>
               <h2 class="font-headline" data-grey>
                 Und holen es an deiner Haustür ab!
-              </h2><a href="/handy" class="elevated-button">Jetzt Handy verkaufen &#8594;</a>
+              </h2><nuxt-link to="/handy" class="elevated-button">Jetzt Handy verkaufen &#8594;</nuxt-link>
               <p class="font-caption" data-translucent="">
                 Deine Anfrage ist kostenlos und unverbindlich.
               </p>
@@ -140,10 +145,10 @@
         <div class="footer-container">
           <p>Wirkaufendeinhandy GbR</p>
           <div class="footer-linklist">
-            <a href="imprint">Impressum</a>
-            <a href="privacy">Datenschutzerklärung</a>
-            <a href="AGB">AGB</a>
-            <a href="contactUs">Kontakt</a>
+            <nuxt-link to="/imprint">Impressum</nuxt-link>
+            <nuxt-link to="/privacy">Datenschutzerklärung</nuxt-link>
+            <nuxt-link to="/AGB">AGB</nuxt-link>
+            <nuxt-link to="/contactUs">Kontakt</nuxt-link>
           </div>
         </div>
       </div>

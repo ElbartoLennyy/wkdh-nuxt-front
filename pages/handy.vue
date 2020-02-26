@@ -302,16 +302,16 @@ export default {
     acceptOffer () {
       this.$axios
         .post('/handy/accept', { ReqID: this.offer.id })
-        .then(() => (window.location = `/user/${this.offer.id}`))
+        .then(() => (this.$router.push(`/user/${this.offer.id}`)))
         .catch(error => (this.error = error))
     },
     rejectOffer () {
       this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {
-        window.location = 'https://wirkaufendeinhandy.shop/ankauf'
+        this.$router.push('https://wirkaufendeinhandy.shop/ankauf')
       })
     },
     back () {
-      if (this.stage === 0) { return (window.location = '/') }
+      if (this.stage === 0) { return this.$router.back() }
       this.stage--
     },
     next () {
