@@ -3,6 +3,8 @@ const logger = require('morgan')
 
 const app = express()
 
+app.get('/user/:userId/label.pdf', require('./routes/label'))
+
 const api = express.Router()
 app.use('/api', api)
 

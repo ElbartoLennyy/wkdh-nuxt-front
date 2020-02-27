@@ -28,13 +28,12 @@
           width="80%"
           height="100%"
           type="application/pdf"
-          :data="`/${offer.ID}.pdf`"
+          :data="labelUrl"
         />
 
         <h2 class="typo-subheader">
           Wird es nicht richtig angezeit?
-          <!-- TODO: Make sure this link actually works -->
-          <a :href="`/${offer.ID}.pdf`"> Clicke hier!</a>
+          <a :href="labelUrl">Klicke hier!</a>
         </h2>
       </div>
     </section>
@@ -45,6 +44,11 @@
 export default {
   props: {
     offer: { type: Object, required: true },
+  },
+  computed: {
+    labelUrl() {
+      return `/user/${this.offer.ID}/label.pdf`
+    },
   },
 }
 </script>

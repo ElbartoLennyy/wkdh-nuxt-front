@@ -1,12 +1,18 @@
 const fs = require('fs')
 const path = require('path')
-const request = require('request')
 const axios = require('axios')
 
 const publicKey = process.env.SENDCLOUD_PUBLIC_KEY
 const secretKey = process.env.SENDCLOUD_PRIVATE_KEY
 
-function createParcel(userID, data, _callback) {
+const client = axios.create({
+  auth: {
+    username: publicKey,
+    password: secretKey,
+  },
+})
+
+async function createParcel(userID, data, _callback) {
   const newParcelData = {
     parcel: {
       name: 'Alexander Gerick',
@@ -39,95 +45,39 @@ function createParcel(userID, data, _callback) {
     },
   }
 
-  const options = {
-    url: 'https://panel.sendcloud.sc/api/v2/parcels',
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
-    },
-    json: newParcelData,
-  }
-  request(options, function(_, res, body) {
-    console.log(body)
-
-    try {
-      if (body.parcel.status.id == 1000) {
-        downloadLabel(body.parcel.id, userID)
-        _callback(body.parcel.id)
-      } else {
-        _callback('error')
-      }
-    } catch (e) {
+  const { data: body } = await client.post('https://panel.sendcloud.sc/api/v2/parcels', newParcelData)
+  try {
+    if (body.parcel.status.id === 1000) {
+      _callback(body.parcel.id)
+    } else {
       _callback('error')
     }
-  })
-}
-
-function downloadLabel(parcelID, userID) {
-  const output = path.join('./data/shippmentLabels', userID + '.pdf')
-
-  const downloadPDF = async(url, output) => {
-    await axios({
-      method: 'GET',
-      url,
-      responseType: 'stream',
-      auth: {
-        username: publicKey,
-        password: secretKey,
-      },
-    }).then((response) => {
-      response.data.pipe(
-        fs.createWriteStream(output),
-      )
-    })
+  } catch (e) {
+    _callback('error')
   }
-
-  (async() => {
-    downloadPDF('https://panel.sendcloud.sc/api/v2/labels/normal_printer/' + parcelID + '?start_from=0', output)
-  })()
 }
 
-function deleteParcel(parcelID, _callback) {
-  const options = {
-    url: 'https://panel.sendcloud.sc/api/v2/parcels/' + parcelID + '/cancel',
-    method: 'POST',
-    headers: {
-      Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
-    },
-  }
-  request(options, function(_, res, body) {
-    _callback(body)
-  })
+async function downloadLabel(parcelID, outputPath) {
+  const response = await client.get(
+    `https://panel.sendcloud.sc/api/v2/labels/normal_printer/${parcelID}?start_from=0`,
+    { responseType: 'stream' },
+  )
+  return { stream: response.data, length: response.headers['content-length'] }
 }
 
-function returnParcel(parcelID, _callback) {
-  const options = {
-    url: 'https://panel.sendcloud.sc/api/v2/parcels/' + parcelID + '/return_portal_url',
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
-    },
-  }
-  request(options, function(_, res, body) {
-    _callback(body)
-  })
+async function deleteParcel(parcelID, _callback) {
+  const { data } = await client.post(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/cancel`)
+  _callback(data)
 }
 
-function getParcels(_callback) {
-  const options = {
-    url: 'https://panel.sendcloud.sc/api/v2/parcels',
-    method: 'GET',
-    headers: {
-      Accept: 'application/json',
-      Authorization: 'Basic ' + Buffer.from(publicKey + ':' + secretKey).toString('base64'),
-    },
-  }
-  request(options, function(_, res, body) {
-    _callback(body)
-  })
+async function returnParcel(parcelID, _callback) {
+  const { data } = await axios.get(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/return_portal_url`)
+  _callback(data)
 }
 
-module.exports = { createParcel }
+async function getParcels(_callback) {
+  const { data } = await axios.get('https://panel.sendcloud.sc/api/v2/parcels')
+  _callback(data)
+}
+
+module.exports = { createParcel, downloadLabel }
