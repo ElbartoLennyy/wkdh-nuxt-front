@@ -84,7 +84,7 @@ router.post('/accept', function(req, res, next) {
     }
 
     if (req.body.data.TransportType === 'shipping') {
-      sendcloud.creatParcel(req.body.uID, req.body.data, (data) => {
+      sendcloud.createParcel(req.body.uID, req.body.data, (data) => {
         req.body.data.TransportData = data
 
         fbData.setOfferAccept(req.body.uID, req.body.data, () => {

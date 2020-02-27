@@ -6,7 +6,7 @@ const axios = require('axios')
 const publicKey = process.env.SENDCLOUD_PUBLIC_KEY
 const secretKey = process.env.SENDCLOUD_PRIVATE_KEY
 
-function creatParcel(userID, data, _callback) {
+function createParcel(userID, data, _callback) {
   const newParcelData = {
     parcel: {
       name: 'Alexander Gerick',
@@ -130,4 +130,4 @@ function getParcels(_callback) {
   })
 }
 
-module.exports = { creatParcel }
+module.exports = { createParcel }
