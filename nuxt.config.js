@@ -17,7 +17,7 @@ module.exports = {
       {
         rel: 'stylesheet',
         // TODO: Reconsider including the entirety of Bootstrap for some typography styles
-        href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
+        // href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
       },
     ],
   },
@@ -28,6 +28,7 @@ module.exports = {
   loading: { color: '#fff' },
   buildModules: [
     '@nuxtjs/eslint-module',
+    '@nuxtjs/tailwindcss',
   ],
   modules: [
     '@nuxtjs/axios',

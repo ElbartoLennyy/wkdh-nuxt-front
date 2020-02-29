@@ -33,29 +33,6 @@ export default {
         'Dein Gerät wurde stark genutzt und weißt nun vermehrt Kratzer auf.',
     },
   ],
-  technicalConditions: [
-    {
-      title: 'Kein Technischer Defekt',
-      description: 'Alles funktioniert problemlos.',
-    },
-    {
-      title: 'Akku in schlechtem Zustand',
-      description: 'Akku entlädt sich sehr schnell oder lädt nicht mehr.',
-    },
-    {
-      title: 'Defekter Anschluss',
-      description: 'Der Kopfhöreranschluss oder die Ladebuchse ist defekt.',
-    },
-    {
-      title: 'Displayschaden',
-      description:
-        'Dein Display ist gesplittert, reagiert nicht mehr auf eingaben oder bleibt schwarz.',
-    },
-    {
-      title: 'Kaputte Rückseite',
-      description: 'Das Glas auf der Rückseite ist gesplittert,',
-    },
-  ],
   accessories: [
     'Originalverpackung',
     'Ladekabel',

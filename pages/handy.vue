@@ -104,35 +104,34 @@
           </template>
           <template v-else-if="stage === 4">
             <h1 class="typo-subheader">
-              In welchem technischen Zustand ist dein Handy?
+              Welche Defekte besitzt dein Handy?
             </h1>
             <form>
               <div
-                v-for="technicalCondition in options.technicalConditions"
-                :key="technicalCondition.title"
+                v-for="(defect, defectId) in values.defects"
+                :key="defectId"
               >
                 <input
-                  :id="technicalCondition.title"
-                  v-model="request.technicalCondition"
+                  :id="defectId"
+                  v-model="request.defects"
                   class="toolbox-checkbox"
-                  type="radio"
-                  :value="technicalCondition.title"
+                  type="checkbox"
+                  :value="defectId"
                 >
-                <label class="toolbox-field" :for="technicalCondition.title">
-                  {{ technicalCondition.title }}
+                <label class="toolbox-field" :for="defectId">
+                  {{ defect.title }}
                   <i class="material-icons selection-icon">check</i>
                 </label>
                 <p class="typo-caption">
-                  {{ technicalCondition.description }}
+                  {{ defect.description }}
                 </p>
               </div>
             </form>
             <button
               class="toolbox-field selected"
-              :disabled="!request.technicalCondition"
               @click="next"
             >
-              Weiter
+              Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
             </button>
           </template>
           <template v-else-if="stage === 5">
@@ -236,6 +235,7 @@
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 
 import options from '~/data/options'
+import * as values from '~/data/values'
 
 export default {
   components: { RecaptchaNotice },
@@ -245,12 +245,13 @@ export default {
   data: () => ({
     stage: 0,
     options,
+    values,
     request: {
       brand: null,
       phone: null,
       storage: null,
       condition: null,
-      technicalCondition: null,
+      defects: [],
       accessories: [],
     },
     offer: null,
