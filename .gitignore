@@ -3,7 +3,7 @@
 /.env
 /cache
 /firebase-account.json
-/priceParts
+/server/data/priceParts
 
 /logs
 *.log

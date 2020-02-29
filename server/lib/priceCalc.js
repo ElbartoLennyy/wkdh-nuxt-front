@@ -18,8 +18,13 @@ let ebay = new Ebay({
 });
 
 
-function getPrice(currentPhone, _callback) {
+async function getPrice(currentPhone) {
 
+    console.log(currentPhone)
+
+    return 200;
+
+    /*
     phone = currentPhone
 
     if (phone.Brand == "Apple") {
@@ -56,6 +61,8 @@ function getPrice(currentPhone, _callback) {
                 //console.log(error);
             });
         });
+        */
+
 }
 
 

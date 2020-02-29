@@ -475,7 +475,7 @@ export default {
       // eslint-disable-next-line no-undef
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
-        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'homepage' })
+        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
 
         await this.$axios.post('/offer/accept', {
           uID: this.offer.ID,

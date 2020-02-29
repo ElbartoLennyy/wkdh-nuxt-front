@@ -35,7 +35,7 @@
               Von welcher Marke ist dein Handy?
             </h1>
             <button
-              v-for="brand in options.brands"
+              v-for="brand in values.brands"
               :key="brand"
               class="toolbox-field"
               @click="selectBrand(brand)"
@@ -48,7 +48,7 @@
               Was für ein Modell ist es?
             </h1>
             <button
-              v-for="phone in options.phones"
+              v-for="phone in values.phones"
               :key="phone"
               class="toolbox-field"
               @click="selectPhone(phone)"
@@ -62,10 +62,10 @@
             </h1>
             <div class="tile-box">
               <button
-                v-for="storage in options.storages"
-                :key="storage.title"
+                v-for="(storage, storageId) in values.storages"
+                :key="storageId"
                 class="toolbox-field"
-                @click="selectStorage(storage)"
+                @click="selectStorage(storageId)"
               >
                 <span :class="`unit-figure ${storage.color}`" data-unit="GB">{{ storage.title }}</span>
               </button>
@@ -76,16 +76,16 @@
               In welchem äußerlichen Zustand ist dein Handy?
             </h1>
             <form>
-              <div v-for="condition in options.conditions" :key="condition.title">
+              <div v-for="(condition, conditionId ) in values.conditions" :key="conditionId">
                 <input
-                  :id="condition.title"
+                  :id="conditionId"
                   v-model="request.condition"
                   class="toolbox-checkbox"
                   name="condition"
                   type="radio"
-                  :value="condition.title"
+                  :value="conditionId"
                 >
-                <label class="toolbox-field" :for="condition.title">
+                <label class="toolbox-field" :for="conditionId">
                   {{ condition.title }}
                   <i class="material-icons selection-icon">check</i>
                 </label>
@@ -139,15 +139,15 @@
               Welches Zubehör hast du noch?
             </h1>
             <form>
-              <div v-for="accessory in options.accessories" :key="accessory">
+              <div v-for="(accessory,accessoryId) in values.accessories" :key="accessoryId">
                 <input
-                  :id="accessory"
+                  :id="accessoryId"
                   v-model="request.accessories"
                   class="toolbox-checkbox"
                   type="checkbox"
-                  :value="accessory"
+                  :value="accessoryId"
                 >
-                <label class="toolbox-field" :for="accessory">
+                <label class="toolbox-field" :for="accessoryId">
                   {{ accessory }}
                   <i class="material-icons selection-icon">check</i>
                 </label>
@@ -184,26 +184,32 @@
                 <h3
                   class="icon-header-title"
                 >
-                  {{ request.brand }} {{ request.phone }} {{ request.storage }}Gb
+                  {{ request.brand }} {{ request.phone }} {{ values.storages[request.storage].title }}Gb
                 </h3>
               </div>
 
               <h2 class="typo-subheader">
                 Zustand
               </h2>
-              <p>{{ request.condition }}</p>
+              <p>{{ values.conditions[request.condition].title }}</p>
 
-              <h2 class="typo-subheader">
-                Technischer Zustand
-              </h2>
-              <p>{{ request.technicalCondition }}</p>
-
+              <template v-if="request.defects.length >= 1">
+                <h2 class="typo-subheader">
+                  Defekte
+                </h2>
+                <p>
+                  <template v-for="defect in request.defects">
+                    {{ values.defects[defect].title }}
+                    <br :key="defect">
+                  </template>
+                </p>
+              </template>
               <h2 class="typo-subheader">
                 Zubehör
               </h2>
               <p>
-                <template v-for="accessory in options.accessories">
-                  {{ accessory }}
+                <template v-for="accessory in request.accessories">
+                  {{ values.accessories[accessory] }}
                   <br :key="accessory">
                 </template>
               </p>
@@ -234,7 +240,6 @@
 <script>
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 
-import options from '~/data/options'
 import * as values from '~/data/values'
 
 export default {
@@ -244,7 +249,6 @@ export default {
   }),
   data: () => ({
     stage: 0,
-    options,
     values,
     request: {
       brand: null,
@@ -263,12 +267,12 @@ export default {
   },
   created() {
     // TODO: Find a cleaner way to do this
-    this.options.brands = this.brandOptions.brands
+    this.values.brands = this.brandOptions.brands
   },
   methods: {
     async selectBrand(brand) {
       this.request.brand = brand
-      this.options.phones = (
+      this.values.phones = (
         await this.$axios.$post('/handy/getData', { Stage: 1, Brand: brand })
       ).phones
       this.next()
@@ -278,7 +282,7 @@ export default {
       this.next()
     },
     selectStorage(storage) {
-      this.request.storage = storage.title
+      this.request.storage = storage
       this.next()
     },
     confirmAccessories() {
@@ -290,7 +294,7 @@ export default {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(
           process.env.NUXT_ENV_RECAPTCHA_TOKEN,
-          { action: 'homepage' },
+          { action: 'request' },
         )
 
         const data = await this.$axios.$post('/handy/getPrice', {
@@ -298,8 +302,8 @@ export default {
           Phone: this.request.phone,
           Storage: this.request.storage,
           Condition: this.request.condition,
-          TechnicalCondition: this.request.technicalCondition,
-          Accessorys: this.request.accessories.join(','),
+          Defects: this.request.defects,
+          Accessorys: this.request.accessories,
           Token: token,
         })
 

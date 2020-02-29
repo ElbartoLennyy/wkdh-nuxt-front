@@ -16,9 +16,7 @@ function validateAddress(place, _callback) {
 
   // eslint-disable-next-line handle-callback-err
   geocoder.geocode(placeString, function(err, res) {
-    console.log(res)
-    if (res[0] == undefined) {
-      console.log('Something Wrong with the Place')
+    if (res[0] === undefined) {
       _callback('placeError')
       return
     }
@@ -26,7 +24,6 @@ function validateAddress(place, _callback) {
     if (res[0].extra.confidence >= 6) {
       _callback(res[0], checkPickUpDistance(res[0]))
     } else {
-      console.log('Something Wrong with the Place')
       _callback('placeError')
     }
   })

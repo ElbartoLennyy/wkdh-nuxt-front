@@ -77,8 +77,6 @@ function creatNewUser(id, _callback) {
 }
 
 function setRejectNewOffer(uID) {
-  uID = uID.replace(/"/g, '')
-
   const docRequest = db.collection('DEV').doc(uID)
 
   docRequest.set({
@@ -89,8 +87,6 @@ function setRejectNewOffer(uID) {
 }
 
 function setOfferAccept(uID, data, _callback) {
-  uID = uID.replace(/"/g, '')
-
   const docRequest = db.collection('DEV').doc(uID)
 
   data.Location.latitude = encryption.encrypt(helper.convertToSafeString(data.Location.latitude.toString()))
@@ -115,7 +111,6 @@ function setOfferAccept(uID, data, _callback) {
 }
 
 function getData(uID, _callback) {
-  uID = uID.replace(/"/g, '')
   const refUser = db.collection('DEV').doc(uID)
 
   refUser.get()
@@ -130,8 +125,6 @@ function getData(uID, _callback) {
 }
 
 function getOffer(uID, _callback) {
-  uID = uID.replace(/"/g, '')
-
   // console.log(uID)
   const refUser = db.collection('DEV').doc(uID)
 
@@ -150,8 +143,6 @@ function getOffer(uID, _callback) {
 }
 
 function getNewOffer(uID, _callback) {
-  uID = uID.replace(/"/g, '')
-
   // console.log(uID)
   const refUser = db.collection('DEV').doc(uID)
   const refPhone = refUser.collection('phone').doc('request')
@@ -200,8 +191,6 @@ function getNewOffer(uID, _callback) {
 }
 
 function setReturn(uID, _callback) {
-  uID = uID.replace(/"/g, '')
-
   const docRequest = db.collection('DEV').doc(uID)
 
   docRequest.update({

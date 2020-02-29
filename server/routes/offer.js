@@ -7,16 +7,12 @@ const validator = require('../lib/validation')
 const sendcloud = require('../lib/sendcloud')
 
 router.post('/getData', function(req, res, next) {
-  res.contentType('json')
-
-  fbData.getOffer(JSON.stringify(req.body.uID), (obj) => {
-    res.status(200).send(JSON.stringify({ Obj: obj }))
+  fbData.getOffer(req.body.uID, (obj) => {
+    res.send({ Obj: obj })
   })
 })
 
 router.post('/validateAddress', function(req, res, next) {
-  res.contentType('json')
-
   geocoder.validateAddress(req.body, (data, pickUp) => {
     if (data === 'placeError') {
       // error
@@ -24,7 +20,7 @@ router.post('/validateAddress', function(req, res, next) {
       console.log(data, 'abholung: ' + pickUp)
     }
 
-    res.status(200).send(JSON.stringify({
+    res.send(({
       Location: data,
       PickUp: pickUp,
     }))
@@ -32,8 +28,6 @@ router.post('/validateAddress', function(req, res, next) {
 })
 
 router.post('/validatePaymentData', (req, res) => {
-  res.contentType('json')
-
   let result
 
   if (req.body.PaymentMethod === 'PayPal') {
@@ -42,9 +36,9 @@ router.post('/validatePaymentData', (req, res) => {
     result = validator.validateIBAN(req.body.PaymentData)
   }
 
-  res.status(200).send(JSON.stringify({
+  res.send({
     Result: result,
-  }))
+  })
 })
 
 /*
@@ -60,12 +54,10 @@ router.post("/deleteUser", (req, res) => {
 */
 
 router.post('/accept', function(req, res, next) {
-  res.contentType('json')
-
   const token = req.body.Token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    return res.status(500).send(JSON.stringify({ responseError: 'Please select captcha first' }))
+    return res.status(500).send({ responseError: 'Please select captcha first' })
   }
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
@@ -73,14 +65,14 @@ router.post('/accept', function(req, res, next) {
   request(verificationURL, (err, response, body) => {
     if (err) {
       console.log(err)
-      return res.status(500).send(JSON.stringify({ responseError: JSON.stringify(err) }))
+      return res.status(500).send({ responseError: err })
     }
 
     body = JSON.parse(body)
 
     if (body.success !== undefined && !body.success) {
-      console.log('Failed captcha verification error:' + JSON.stringify(body))
-      return res.status(500).sendJSON.stringify(({ responseError: 'Failed captcha verification' }))
+      console.log('Failed captcha verification error:' +body)
+      return res.status(500).send({ responseError: 'Failed captcha verification' })
     }
 
     if (req.body.data.TransportType === 'shipping') {
@@ -88,12 +80,12 @@ router.post('/accept', function(req, res, next) {
         req.body.data.TransportData = data
 
         fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-          res.status(200).send(JSON.stringify({ Obj: 'done' }))
+          res.send({ Obj: 'done' })
         })
       })
     } else if (req.body.data.TransportType === 'pickUp') {
       fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-        res.status(200).send(JSON.stringify({ Obj: 'done' }))
+        res.send({ Obj: 'done' })
       })
     }
   })

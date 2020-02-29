@@ -3,26 +3,20 @@ const router = express.Router()
 const fbData = require('../lib/firebase')
 
 router.post('/getData', function(req, res, next) {
-  res.contentType('json')
-
-  fbData.getNewOffer(JSON.stringify(req.body.uID), (obj) => {
-    res.status(200).send(JSON.stringify({ Obj: obj }))
+  fbData.getNewOffer(req.body.uID, (obj) => {
+    res.send({ Obj: obj })
   })
 })
 
 router.post('/accept', function(req, res, next) {
-  res.contentType('json')
-
-  fbData.setCheckDone(JSON.stringify(req.body.uID), () => {
-    res.status(200).send(JSON.stringify({ Obj: 'done' }))
+  fbData.setCheckDone(req.body.uID, () => {
+    res.send({ Obj: 'done' })
   })
 })
 
 router.post('/return', function(req, res, next) {
-  res.contentType('json')
-
-  fbData.setReturn(JSON.stringify(req.body.uID), () => {
-    res.status(200).send(JSON.stringify({ Obj: 'done' }))
+  fbData.setReturn(req.body.uID, () => {
+    res.send({ Obj: 'done' })
   })
 })
 

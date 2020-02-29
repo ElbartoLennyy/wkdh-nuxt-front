@@ -10,16 +10,37 @@ export const paymentMethods = {
   TRANSFER: 'Überweisung',
 }
 
-export const condition = {
+export const storages = {
+  STORAGE8: { title: '8', color: 'grey' },
+  STORAGE16: { title: '16', color: 'grey' },
+  STORAGE32: { title: '32', color: 'blue' },
+  STORAGE64: { title: '64', color: 'blue' },
+  STORAGE128: { title: '128', color: 'purple' },
+  STORAGE256: { title: '256', color: 'purple' },
+  STORAGE512: { title: '512', color: 'pink' },
+
+}
+
+export const conditions = {
   LIKE_NEW: {
     title: 'Wie neu',
     description:
       'Dein Gerät wurde nicht bis kaum genutzt und weißt keinerlei Kratzer oder Verschmutzungen auf.',
   },
-  REALLY_GOD: {
+  REALLY_GOOD: {
     title: 'Sehr gut',
     description:
       'Dein Gerät wurde eine wenig genutzt, jedoch sind kaum Kratzer oder Mikrokratzer zu sehen.',
+  },
+  GOOD: {
+    title: 'Gut',
+    description:
+      'Dein Gerät war eine Weile im Gebrauch und weißt nun einige Kratzer auf aber nur vereinzelt.',
+  },
+  ACCEPTABLE: {
+    title: 'Akzeptabel',
+    description:
+        'Dein Gerät wurde   stark genutzt und weißt nun vermehrt Kratzer auf.',
   },
 }
 
