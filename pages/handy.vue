@@ -267,7 +267,7 @@ export default {
   },
   created() {
     // TODO: Find a cleaner way to do this
-    this.values.brands = this.brandOptions.brands
+    this.values.brands = this.brandOptions
   },
   methods: {
     async selectBrand(brand) {

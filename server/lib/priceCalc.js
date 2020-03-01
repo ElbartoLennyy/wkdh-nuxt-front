@@ -1,106 +1,25 @@
 /* eslint-disable */
 // TODO: Refactor this entire file
-
-let Ebay = require('ebay-node-api')
 var xlsx = require('xlsx');
 
 
-let ebay = new Ebay({
-    clientID: process.env.EBAY_CLIENT_ID,
-    clientSecret: process.env.EBAY_CLIENT_SECRET,
-    headers: { // optional
-        'X-EBAY-C-MARKETPLACE-ID': 'EBAY_DE'
-    },
-    body: {
-        grant_type: 'client_credentials',
-        scope: 'https://api.ebay.com/oauth/api_scope'
-    }
-});
 
 
 async function getPrice(currentPhone) {
 
-    console.log(currentPhone)
-
-    return 200;
-
-    /*
-    phone = currentPhone
-
-    if (phone.Brand == "Apple") {
-        currentPhone.Phone = currentPhone.Phone.replace("Silver", "").replace("Grey", "").replace("Gold", "").replace("Green", "").replace("Yellow", "").replace("White", "").replace("Red", "").replace("Black", "").replace("Space grey", "").replace("Coral", "").replace("Jet Black", "").replace("Rose", "")
-    }
-    console.log(currentPhone.Phone)
-
-
-    //Search for Items by Keyword.
-    ebay.getAccessToken()
-        .then((data) => {
-            ebay.searchItems({
-                keyword: phone.Brand + " " + currentPhone.Phone + " " + phone.Storage + "Gb",
-                categoryId: 9355,
-                limit: '50',
-                filter: {
-                    itemLocationCountry: "DE",
-                    price: '[50..800]',
-                    priceCurrency: 'EUR',
-                    conditionIds: "{5000|3000|4000}",
-                    buyingOptions: "{FIXED_PRICE}",
-
-                },
-                aspect_filter: {
-                    categoryId: 9355,
-                    Brand: "{" + phone.Brand + "}",
-                    Storage: "{" + phone.Storage + "}"
-                }
-            }).then((data) => {
-                calcPrice(data, phone, price => {
-                    _callback(price)
-                })
-            }, (error) => {
-                //console.log(error);
-            });
-        });
-        */
+    calcPrice(data, phone, price => {
+        _callback(price)
+    })
 
 }
 
 
-function calcPrice(data, phoneData, _callback) {
-
-    var jsonData = JSON.parse(data)
-    var priceArray = []
-
-    for (let i = 0; i < Object.keys(jsonData.itemSummaries).length; i++) {
-
-        title = (jsonData.itemSummaries[i].title).toLowerCase()
-
-
-        if (checkTitle(jsonData.itemSummaries[i].title, phoneData)) {
-            console.log(jsonData.itemSummaries[i].title)
-
-            var price = parseInt(jsonData.itemSummaries[i].price.value)
-
-            if (!(Number.isNaN(price)) && price != undefined && price != null) {
-                priceArray.push(price)
-
-            }
-        }
-
-    }
-
-    var optimizedPriceArray = optimisePriceArray(priceArray)
-
-    if (optimisePriceArray == false) {
-        _callback(false)
-        console.log("price Array too short")
-        return;
-    }
+function calcPrice(currentPrice, phoneData, _callback) {
     var currentPrice = optimizedPriceArray
-    currentPrice = calcCondition(currentPrice, phoneData)
-    currentPrice = currentPrice - calcAccessories(currentPrice, phoneData)
+   // currentPrice = calcCondition(currentPrice, phoneData)
+   // currentPrice = currentPrice - calcAccessories(currentPrice, phoneData)
     console.log("Marktpreis" + currentPrice)
-    var technicalConditionPrice = checkTechnicalCondition(phoneData.TechnicalCondition, phoneData)
+    //var technicalConditionPrice = checkTechnicalCondition(phoneData.TechnicalCondition, phoneData)
 
     if (technicalConditionPrice == false || currentPrice < technicalConditionPrice) {
         console.log("TechnicalCondition error")
@@ -617,5 +536,3 @@ function checkTitle(title, phoneData) {
     return true;
 }
 
-
-module.exports = { getPrice }

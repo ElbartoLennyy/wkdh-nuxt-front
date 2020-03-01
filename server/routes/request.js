@@ -1,16 +1,11 @@
 const express = require('express')
 const request = require('request')
 const fbData = require('../lib/firebase')
-const priceCalc = require('../lib/priceCalc')
 const helper = require('../lib/helper')
 const phonesData = require('../lib/phones')
 const router = express.Router()
 
-const generater = require('../lib/generatePriceList')
-
 router.post('/getData', function(req, res, next) {
-
-  generater.generatePriceList()
 
   if (req.body.Stage === 0) {
     return res.send(phonesData.brands)
