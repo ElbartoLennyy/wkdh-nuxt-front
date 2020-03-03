@@ -1,220 +1,162 @@
 <template>
-  <div class="template-one">
-    <nav id="pagenav">
-      <ul>
-        <li>
-          <nuxt-link to="/" class="link-home" />
-        </li>
-        <li>
-          <nuxt-link to="/ankauf" class="local-link-active">
-            <span>Ankauf</span>
-          </nuxt-link>
-        </li>
-        <li>
-          <nuxt-link to="/shop">
-            <span>Shop</span>
-          </nuxt-link>
-        </li>
-
-        <li class="hidden-on-phone">
-          <nuxt-link to="handy" class="link-action">
-            <span class="hidden-on-tablet">Jetzt anfragen &#8594;</span>
-            <span class="hidden-on-desktop">Anfragen &#8594;</span>
-            </a>
-          </nuxt-link>
-        </li>
-      </ul>
-    </nav>
-    <main id="main" role="main">
-      <section id="l" class="area area-hero area-action">
-        <div class="area-content">
-          <div class="hero-container">
-            <div class="hero-left">
-              <figure id="logo" /><nuxt-link to="/handy" class="elevated-button">Jetzt Handy verkaufen &#8594;</nuxt-link>
-              <p class="font-caption" data-translucent="">
-                Deine Anfrage ist kostenlos und unverbindlich.
-              </p>
-            </div>
-            <div class="hero-right">
-              <h1 class="font-headline-big">
-                Wir kaufen dein altes Handy.
-              </h1>
-              <h2 class="font-headline" data-grey>
-                Und holen es an deiner Haustür ab!
-              </h2><nuxt-link to="/handy" class="elevated-button">Jetzt Handy verkaufen &#8594;</nuxt-link>
-              <p class="font-caption" data-translucent="">
-                Deine Anfrage ist kostenlos und unverbindlich.
-              </p>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      <section class="area">
-        <div class="area-content">
-          <div class="card-header is-animatable fade-in">
-            <h2 class="font-headline-regular text-center">
-              Das alte Handy einfach gegen Geld eintauschen!
-            </h2>
-          </div>
-
-          <div class="timeline">
-            <div class="timeline-entry">
-              <figure class="picture background-click-here" />
-              <div>
-                <h3 class="font-headline-small" data-lblue>
-                  Formular ausfüllen
-                </h3>
-                <!-- <p class="font-subtitle" data-grey>Beantworten Sie alle Fragen zu Ihrem Smartphone.</p>  --->
-              </div>
-            </div>
-            <div class="timeline-entry">
-              <figure class="picture background-message" />
-              <div>
-                <h3 class="font-headline-small" data-lblue>
-                  Angebot erhalten
-                </h3>
-              </div>
-            </div>
-            <div class="timeline-entry">
-              <figure class="picture background-calendar" />
-              <div>
-                <h3 class="font-headline-small" data-lblue>
-                  Daten angeben und Abholtermin vereinbaren.
-                </h3>
-              </div>
-            </div>
-            <div class="timeline-entry">
-              <figure class="picture background-phone" />
-              <div>
-                <h3 class="font-headline-small" data-lblue>
-                  Bote holt Handy ab
-                </h3>
-              </div>
-            </div>
-            <div class="timeline-entry" style="margin-bottom:0">
-              <figure class="picture background-earn-money" />
-              <div>
-                <h3 class="font-headline-small" data-lblue>
-                  Geldbetrag erhalten
-                </h3>
-              </div>
-            </div>
-          </div>
-          <div id="divider" class="divider" />
-        </div>
-      </section>
-      <section class="area" style="padding-bottom:100px">
-        <div class="area-content">
-          <div class="card-header is-animatable fade-in">
-            <figure class="picture inlinee background-privacy" style="width: 200px; height: 164px" />
-            <h3 class="font-headline" data-lblue="">
-              Deine Daten bleiben auch privat!
-            </h3>
-            <p class="font-subtitle" data-lgrey="">
-              Auf Handys sind heutzutage Informationen über jegliche Lebensbereiche eines Menschen gespeichert. Diese Daten gehen niemanden etwas an! Um deine Privatsphäre zu schützen, setzen wir deshalb jedes Handy vor dem Weiterverkauf auf die
-              Werkseinstellungen zurück. Im Anschluss verwenden wir noch so genannte Shredder-Apps, wodurch deine Daten endgültig und unwiderruflich überschrieben werden. Du kannst dein Mobilgerät auch gerne schon vor Übergabe zurücksetzen oder
-              uns auf das Thema Datenschutz ansprechen, wenn du Fragen oder Bedenken hast.
-            </p>
-          </div>
-
-          <div class="card-header is-animatable fade-in">
-            <h2 class="font-headline-regular">
-              Abholservice derzeit begrenzt
-            </h2>
-            <p class="font-subtitle" data-grey="">
-              Wir von wirkaufendeinhandy.shop arbeiten täglich an der Ausweitung unserer Kundenbereiche. Da wir derzeit noch am Beginn unserer Firmengeschichte stehen, ist der Abholservice derzeit nur auf den städtischen Raum von Dresden und Görlitz
-              begrenzt.
-            </p>
-          </div>
-
-          <div class="card-header is-animatable fade-in">
-            <h2 class="font-headline-regular">
-              Paket selbst versenden? Kein Problem!
-            </h2>
-            <p class="font-subtitle" data-grey="">
-              Sende einfach das entsprechende Paket an unsere Adresse und fülle das unterstehende Formular dafür aus. Der Kauf wird im Anschluss nach genormter Prüfung standardisiert abgewickelt und du erhältst sogar 5€ zusätzlich für dein Gerät
-              als Aufwandsentschädigung!
-            </p>
-          </div>
-        </div>
-      </section>
-    </main>
-    <footer id="pagefooter" class="area">
-      <div class="area-content">
-        <div class="footer-container">
-          <p>Wirkaufendeinhandy GbR</p>
-          <div class="footer-linklist">
-            <nuxt-link to="/imprint">Impressum</nuxt-link>
-            <nuxt-link to="/privacy">Datenschutzerklärung</nuxt-link>
-            <nuxt-link to="/AGB">AGB</nuxt-link>
-            <nuxt-link to="/contactUs">Kontakt</nuxt-link>
-          </div>
+  <div class="font-sans pt-24 bg-gray-900 text-white min-h-screen">
+    <div class="fixed top-0 inset-x-0 flex">
+      <div class="mt-3 bg-gray-800 mx-auto flex rounded-full items-center p-1 shadow-md">
+        <nuxt-link to="/" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex py-1">
+          <img class="h-full mx-auto" src="~assets/img/icons/logo-link.png" alt="Logo">
+        </nuxt-link>
+        <div class="ml-1 p-1 flex">
+          <nuxt-link to="/ankauf" class="block py-1 px-3 bg-white hover:no-underline rounded-full text-gray-900">Ankauf</nuxt-link>
+          <nuxt-link to="/shop" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Shop</nuxt-link>
+          <nuxt-link to="/handy" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-blue-600 text-blue-400 hover:text-white hover:no-underline rounded-full">Anfragen →</nuxt-link>
         </div>
       </div>
-    </footer>
+    </div>
+
+    <div class="sm:bg-illustration bg-contain bg-no-repeat min-h-screen px-4">
+      <div class="max-w-4xl mx-auto">
+        <section class="md:flex">
+          <div class="mr-20 text-center">
+            <img
+              class="mt-5 inline w-24"
+              src="~assets/img/icons/logo.png"
+              alt="Logo"
+            >
+            <nuxt-link to="/handy">
+              <button class="bg-buttonBlue rounded-lg font-semibold mt-8 text-lg truncate p-2 pl-12 pr-12 hover:text-blue-200 hover:no-underline shadow-xl">
+                Jetzt Handy verkaufen →
+              </button>
+            </nuxt-link>
+            <p class="text-gray-500 font-light text-sm">
+              Deine Anfrage ist kostenlos und unverbindlich.
+            </p>
+          </div>
+
+          <div>
+            <h1 class="mt-5 text-4xl md:text-6xl font-semibold leading-tight md:tracking-wide">
+              Wir kaufen dein altes Handy.
+            </h1>
+            <nuxt-link to="/handy" class="block mt-2 text-2xl md:text-3xl text-blue-300 hover:text-blue-200 font-semibold">
+              <h2>Und holen es an deiner Haustür ab!</h2>
+            </nuxt-link>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="mt-12 sm:mt-24 text-2xl md:text-5xl font-bold text-center">
+            Das alte Handy einfach gegen Geld eintauschen!
+          </h2>
+          <div>
+            <div class="flex mt-6 md:mt-24">
+              <div class="w-1/4 ml-12">
+                <img class="w-full" src="~assets/img/svg/click-here.svg">
+              </div>
+              <div class="sm:w-1/2 sm:pr-0 m-auto">
+                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Formular ausfüllen</p>
+              </div>
+            </div>
+            <div class="flex mt-6 md:mt-24">
+              <div class="w-1/4 ml-12">
+                <img class="w-full" src="~assets/img/svg/message.svg">
+              </div>
+              <div class="sm:w-1/2 sm:pr-0 m-auto">
+                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Angebot erhalten</p>
+              </div>
+            </div>
+            <div class="flex mt-6 md:mt-24">
+              <div class="w-1/4 ml-12">
+                <img class="w-full" src="~assets/img/svg/calendar.svg">
+              </div>
+              <div class="sm:w-1/2 sm:pr-0 m-auto">
+                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Daten angeben und Abholtermin vereinbaren.</p>
+              </div>
+            </div>
+            <div class="flex mt-6 md:mt-24">
+              <div class="w-1/4 ml-12">
+                <img class="w-full" src="~assets/img/svg/phone.svg">
+              </div>
+              <div class="sm:w-1/2 sm:pr-0 m-auto">
+                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Bote holt Handy ab</p>
+              </div>
+            </div>
+            <div class="flex mt-6 md:mt-24">
+              <div class="w-1/4 ml-12">
+                <img class="w-full" src="~assets/img/svg/earn-money.svg">
+              </div>
+              <div class="sm:w-1/2 sm:pr-0 m-auto">
+                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Geldbetrag erhalten </p>
+              </div>
+            </div>
+          </div>
+        </section>
+
+        <section class="sm:flex mt-12 sm:mt-24 bg-gray-800 rounded-lg">
+          <div class="pt-12 sm:pt-0 sm:w-1/2 flex">
+            <img class="w-3/5 m-auto" src="~assets/img/svg/privacy.svg">
+          </div>
+          <div class="sm:w-1/2 p-8 sm:p-12 sm:pl-0">
+            <h3 class="font-bold text-3xl text-blue-400 leading-10">
+              Deine Daten bleiben auch privat!
+            </h3>
+            <p class="mt-4">
+              Auf Handys sind heutzutage Informationen über jegliche Lebensbereiche eines Menschen gespeichert. Diese Daten gehen niemanden etwas an! Um deine Privatsphäre zu schützen, setzen wir deshalb jedes Handy vor dem Weiterverkauf auf die Werkseinstellungen zurück. Im Anschluss verwenden wir noch so genannte Shredder-Apps, wodurch deine Daten endgültig und unwiderruflich überschrieben werden. Du kannst dein Mobilgerät auch gerne schon vor Übergabe zurücksetzen oder uns auf das Thema Datenschutz ansprechen, wenn du Fragen oder Bedenken hast.
+            </p>
+          </div>
+        </section>
+
+        <section>
+          <h2 class="mt-12 sm:mt-24 text-4xl font-bold">
+            Abholservice derzeit begrenzt
+          </h2>
+          <p class="mt-4 text-xl text-gray-500">
+            Wir von wirkaufendeinhandy.shop arbeiten täglich an der Ausweitung unserer Kundenbereiche. Da wir derzeit noch am Beginn unserer Firmengeschichte stehen, ist der Abholservice derzeit nur auf den städtischen Raum von Dresden und Görlitz begrenzt.
+          </p>
+        </section>
+
+        <section>
+          <h2 class="mt-12 sm:mt-24 text-4xl font-bold">
+            Paket selbst versenden? Kein Problem!
+          </h2>
+          <p class="mt-4 text-xl text-gray-500">
+            Wähle einfach am Ende des Verkauf "Selbst Verschicken" aus. Das Versandlabel bekommst du von uns und du musst nur noch dein Handy verschicken
+          </p>
+        </section>
+
+        <footer class="mt-12 sm:mt-24 py-4 border-t border-gray-800 text-gray-500">
+          Wirkaufendeinhandy GbR
+          <div class="mt-2 text-gray-600 text-sm font-bold">
+            <nuxt-link
+              v-for="[linkLabel, linkUrl] in links"
+              :key="linkUrl"
+              :to="linkUrl"
+              class="mr-1"
+            >
+              {{ linkLabel }}
+            </nuxt-link>
+          </div>
+        </footer>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  head() {
-    return {
-      title: 'Ankauf',
-      htmlAttrs: { class: 'main-styles' },
-    }
-  },
+  data: () => ({
+    links: [
+      ['Impressum', '/imprint'],
+      ['Datenschutzerklärung', '/privacy'],
+      ['AGB', '/agb'],
+      ['Kontakt', '/contactUs'],
+    ],
+  }),
 }
 </script>
 
 <style>
-.background-click-here { background-image: url('~assets/img/svg/click-here.svg'); }
-.background-message { background-image: url('~assets/img/svg/message.svg'); }
-.background-calendar { background-image: url('~assets/img/svg/calendar.svg'); }
-.background-phone { background-image: url('~assets/img/svg/phone.svg'); }
-.background-earn-money { background-image: url('~assets/img/svg/earn-money.svg'); }
-.background-privacy { background-image: url('~assets/img/svg/privacy.svg'); }
-
-.timeline-entry {
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-start;
-}
-
-.timeline-entry .picture {
-  width: 200px;
-  max-width: 200px;
-  height: auto;
-  background-size: 100%;
-  background-position: left center;
-}
-
-.timeline-entry > div {
-  width: 70%;
-  padding-left: 80px;
-}
-
-#divider {
-  margin-top: 80px;
-}
-
-@media screen and (max-width: 735px) {
-  .timeline-entry {
-    margin-bottom: 36px
-  }
-  .timeline-entry>div {
-    padding-left: 32px
-  }
-}
-
-@media screen and (min-width: 730px) {
-  .timeline {
-    width: 700px;
-    margin: 0 auto
-  }
-  .timeline-entry>div {
-    width: calc(100% - 200px)
+@responsive {
+  .bg-illustration {
+    background-image: url('~assets/img/background.svg');
   }
 }
 </style>

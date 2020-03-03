@@ -143,7 +143,7 @@ function checkTechnicalCondition(technicalCondition, phoneData) {
 
             currentPrices.forEach(element => {
 
-                if (element['Model description'].includes(phoneData.Phone)) {
+                if (element['Model code'].includes(phoneData.Phone)) {
                     priceScreen.push(element["Price ex tax"])
                 }
             });
