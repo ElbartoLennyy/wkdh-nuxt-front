@@ -4,11 +4,12 @@ const encryption = require('./encryption')
 const helper = require('./helper')
 
 function getCurrentDate() {
-  return (new Date().toLocaleString('de-DE', { timeZone: 'Europe/Berlin' }))
+  return (new Date().toISOString())
 }
 
 // console.log(getCurrentDate());
 
+const obj = await fbData.getData(req.body.State)
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
@@ -89,15 +90,15 @@ function setRejectNewOffer(uID) {
 function setOfferAccept(uID, data, _callback) {
   const docRequest = db.collection('DEV').doc(uID)
 
-  data.Location.latitude = encryption.encrypt(helper.convertToSafeString(data.Location.latitude.toString()))
-  data.Location.longitude = encryption.encrypt(helper.convertToSafeString(data.Location.longitude.toString()))
-  data.Location.streetName = encryption.encrypt(helper.convertToSafeString(data.Location.streetName))
-  data.Location.streetNumber = encryption.encrypt(helper.convertToSafeString(data.Location.streetNumber))
+  data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
+  data.Location.longitude = helper.convertToSafeString(data.Location.longitude.toString())
+  data.Location.streetName = helper.convertToSafeString(data.Location.streetName)
+  data.Location.streetNumber = helper.convertToSafeString(data.Location.streetNumber)
 
-  data.Name = encryption.encrypt(helper.convertToSafeString(data.Name))
-  data.FirstName = encryption.encrypt(helper.convertToSafeString(data.FirstName))
+  data.Name = helper.convertToSafeString(data.Name)
+  data.FirstName = helper.convertToSafeString(data.FirstName)
 
-  data.PaymentData = encryption.encrypt(helper.convertToSafeString(data.PaymentData))
+  data.PaymentData = helper.convertToSafeString(data.PaymentData)
 
   docRequest.update({
     Date: getCurrentDate(),
