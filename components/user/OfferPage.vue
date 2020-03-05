@@ -5,9 +5,10 @@
         <div :style="{ width: `${progress}%` }" />
       </div>
 
-      <button id="meta-back" class="inline-button" @click="back">
-        <i class="material-icons">chevron_left</i>Zurück
-      </button>
+      <nuxt-link id="meta-back" to="/" class="inline-button" @click="back">
+        <i class="material-icons">chevron_left</i>
+        <span class="text-gray-800">Abbrechen</span>
+      </nuxt-link>
 
       <div id="idSection">
         <div>
@@ -93,7 +94,7 @@
               </div>
             </div>
 
-            <button type="submit" class="toolbox-field">
+            <button type="submit" class="toolbox-field selected">
               Weiter
             </button>
           </form>
@@ -161,8 +162,11 @@
               </div>
             </div>
 
-            <button type="submit" class="toolbox-field">
+            <button type="submit" class="toolbox-field selected">
               Weiter
+            </button>
+            <button type="button" class="toolbox-field" @click.prevent="back()">
+              Zurück
             </button>
           </form>
 
@@ -254,6 +258,9 @@
 
             <button type="submit" class="toolbox-field selected">
               Weiter
+            </button>
+            <button type="button" class="toolbox-field" @click="back()">
+              Zurück
             </button>
           </form>
 
@@ -363,10 +370,13 @@
             <input class="toolbox-field" type="text" :value="form.PaymentMethod" readonly>
             <input class="toolbox-field" type="text" :value="form.PaymentData" readonly>
 
-            <p>Daten fehlerhaft? Nutze den Zurück-Knopf oben.</p>
+            <p>Daten fehlerhaft? Nutze den Zurück-Knopf.</p>
 
             <button type="submit" class="toolbox-field selected">
               Weiter
+            </button>
+            <button type="button" class="toolbox-field" @click="back()">
+              Zurück
             </button>
           </form>
 
@@ -500,7 +510,6 @@ export default {
       this.stage++
     },
     back() {
-      if (this.stage === 0) { return this.$router.back() }
       this.stage--
     },
   },

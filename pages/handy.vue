@@ -4,9 +4,10 @@
       <div id="meta-progress" class="progress-indicator">
         <div :style="{ width: `${progress}%` }" />
       </div>
-      <button id="meta-back" class="inline-button" @click="back">
-        <i class="material-icons">chevron_left</i>Zurück
-      </button>
+      <nuxt-link id="meta-back" to="/" class="inline-button" @click="back">
+        <i class="material-icons">chevron_left</i>
+        <span class="text-gray-800">Abbrechen</span>
+      </nuxt-link>
       <h1 id="explanation" class="typo-title">
         Wähle die passenden Daten für dein Handy aus
       </h1>
@@ -23,9 +24,6 @@
         </p>
         <recaptcha-notice />
       </div>
-      <button class="elevated-button" onclick="window.location = '/'">
-        Startseite
-      </button>
     </section>
     <section class="selection-content" data-switch-appearance>
       <div class="box">
@@ -235,6 +233,11 @@
               </button>
             </template>
           </template>
+          <div class="mt-2 w-full">
+            <button v-if="stage !== 0 && stage !== 6" type="button" class="toolbox-field" @click.prevent="back()">
+              Zurück
+            </button>
+          </div>
         </div>
       </div>
     </section>
@@ -326,7 +329,6 @@ export default {
       })
     },
     back() {
-      if (this.stage === 0) { return this.$router.back() }
       this.stage--
     },
     next() {
