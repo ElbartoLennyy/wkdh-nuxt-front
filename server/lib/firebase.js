@@ -1,6 +1,5 @@
 const admin = require('firebase-admin')
 const serviceAccount = require('../../firebase-account.json')
-const encryption = require('./encryption')
 const helper = require('./helper')
 
 function getCurrentDate() {
@@ -9,7 +8,6 @@ function getCurrentDate() {
 
 // console.log(getCurrentDate());
 
-const obj = await fbData.getData(req.body.State)
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
