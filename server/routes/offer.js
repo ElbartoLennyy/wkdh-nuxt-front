@@ -5,6 +5,7 @@ const fbData = require('../lib/firebase')
 const geocoder = require('../lib/geocoder')
 const validator = require('../lib/validation')
 const sendcloud = require('../lib/sendcloud')
+const sendMail = require('../lib/sendMail')
 
 router.post('/getData', function(req, res, next) {
   fbData.getOffer(req.body.uID, (obj) => {
@@ -71,7 +72,7 @@ router.post('/accept', function(req, res, next) {
     body = JSON.parse(body)
 
     if (body.success !== undefined && !body.success) {
-      console.log('Failed captcha verification error:' +body)
+      console.log('Failed captcha verification error:' + body)
       return res.status(500).send({ responseError: 'Failed captcha verification' })
     }
 
@@ -80,11 +81,13 @@ router.post('/accept', function(req, res, next) {
         req.body.data.TransportData = data
 
         fbData.setOfferAccept(req.body.uID, req.body.data, () => {
+          sendMail.sendOfferAcceptMail(req.body.uID, req.body.data.Email, req.body.data.TransportType)
           res.send({ Obj: 'done' })
         })
       })
     } else if (req.body.data.TransportType === 'pickUp') {
       fbData.setOfferAccept(req.body.uID, req.body.data, () => {
+        sendMail.sendOfferAcceptMail(req.body.uID, req.body.data.Email, req.body.data.TransportType)
         res.send({ Obj: 'done' })
       })
     }
