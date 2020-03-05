@@ -40,10 +40,15 @@
 
         <section>
           <h2 class="mt-12 sm:mt-24 text-4xl font-bold">
-            Sie wollen ein gebrauchtes Handy zu einem fairen Preis kaufen? Kein Problem!
+            Kaufe doch lieber ein gebrauchtes Handy in top
+            Zustand und dazu noch zum super Preis!
           </h2>
           <p class="mt-4 text-xl text-gray-500">
-            Schicken Sie uns einfach Ihre Vorstellungen über Ihr Wunschtelefon und wir werden unser Bestes geben, um Ihre Erwartungen noch zu übertreffen! Egal, ob Sie schon genau wissen, welches Handymodell Sie wollen oder ob Sie lediglich eine Preisvorstellung haben. Wir werden in unserem Lager nachsehen, ob wir ein für Sie passendes Gerät auf Vorrat haben. Wenn das nicht gleich möglich ist, können Sie uns auch gerne einen Zeitraum nennen, in welchem wir Sie kontaktieren sollen, falls wir in dieser Zeit ein für Sie passendes Telefon ausfindig machen. Seien Sie nicht offen zu uns Ihre Wünsche zu äußern und schenken sie uns Ihr Vertrauen, denn wir sind da, um Ihre Zufriedenheit zu gewährleisten!
+            Auf Kaufedeinhandy.de kannst du sofort gebrauchte Geräte zu besten Preisen
+            erwerben! Alle Geräte sind von uns auf volle technische Funktionsweise geprüft und
+            mit dem entsprechenden optischen Zustand und weiteren Fotos aus allen
+            Blickwinkeln beschrieben. Klicke einfach oben auf „Zum Shop“ und kaufe noch heute
+            dein neues Smartphone!
           </p>
         </section>
 
