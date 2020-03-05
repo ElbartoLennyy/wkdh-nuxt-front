@@ -220,11 +220,36 @@
               <h2 class="typo-subheader">
                 Wir kaufen dein Handy!
               </h2>
-              <h1 class="icon-header-title">
+              <h1 class="icon-header-title text-3xl">
                 Wir bieten dir
-                <b>{{ offer.price.price }}</b>€
+                <b>{{ offer.price.price }}</b> €
               </h1>
-              <br>
+              <button @click="priceDetailsShown = !priceDetailsShown">
+                <div class="text-gray-500 text-sm flex items-center">
+                  <span class="icon-header-icon material-icons">
+                    {{ priceDetailsShown ? 'expand_less' : 'expand_more' }}
+                  </span>
+                  Wie entsteht der Preis?
+                </div>
+              </button>
+              <div
+                v-if="priceDetailsShown"
+                class="w-full mt-2 mb-4 bg-white text-gray-900 p-4"
+                style="border-radius: 14px"
+              >
+                <div class="font-semibold">Potentieller Endverkaufswert: {{ offer.price.sellingPrice }} €</div>
+                <div class="text-gray-700">
+                  <div>– Marktplatz-Verkaufsgebühren (5%): {{ offer.price.sellingPrice * 0.05 }} €</div>
+                  <div>– Überprüfungs- und Verwaltungsaufwand: 4 €</div>
+                  <div>– Hosting- und Marketingkosten: 6 €</div>
+                  <div>– Differenzbesteuerung (19%): {{ (offer.price.sellingPrice - offer.price.price) * 0.19 }} €</div>
+                  <div>– Versandkosten: 10 €</div>
+                  <div>– Abholkosten (optional): 6 €</div>
+                  <div v-if="request.defects.length > 0">– Reparaturkosten</div>
+                </div>
+                <div class="font-semibold">= Unser Angebot: {{ offer.price.price }} €</div>
+              </div>
+              <div class="w-full pt-2" />
               <button class="toolbox-field selected" @click="acceptOffer">
                 Weiter
               </button>
@@ -266,6 +291,7 @@ export default {
       accessories: [],
     },
     offer: null,
+    priceDetailsShown: false,
   }),
   computed: {
     progress() {
