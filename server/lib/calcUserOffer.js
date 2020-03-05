@@ -2,25 +2,27 @@ const xlsx = require('xlsx')
 const phones = require('../data/priceListPhones')
 
 function getPrice(userPhone) {
-  return 200
-
   let price
-
   for (const phone of phones) {
     if (phone.Phone === userPhone.Phone && phone.Storage === userPhone.Storage) {
       price = phone.Price
       break
     }
   }
-  return calcPrice(userPhone, price)
+
+  const prices = calcPrice(userPhone, price)
+
+  return prices
 }
 
 function calcPrice(userPhone, price) {
   price = price * calcCondition(price, userPhone)
   price = price - calcAccessorys(price, userPhone)
-  if (userPhone.Defects) {
+  let sellingPrice = price
+  if (userPhone.Defects.length >= 1) {
     const defectPrice = calcDefects(userPhone)
     if (defectPrice) { price = price - defectPrice } else {
+      console.log('because of defect')
       return false
     }
   }
@@ -42,10 +44,17 @@ function calcPrice(userPhone, price) {
   price -= 10
 
   if (price <= 40) {
+    console.log('price to low')
+
     return false
   } else {
-    //TODO round to better number
-    return Math.floor(price)
+    // TODO round to better number
+    price = Math.floor(price)
+    price = Math.ceil(price / 5) * 5
+
+    sellingPrice = Math.floor(sellingPrice)
+    sellingPrice = Math.ceil(sellingPrice / 5) * 5
+    return { sellingPrice, price }
   }
 }
 
@@ -66,27 +75,27 @@ function calcDefects(userPhone) {
     const samsungNamesList = samsungName.SheetNames
     const samsungNames = xlsx.utils.sheet_to_json(samsungName.Sheets[samsungNamesList[0]])
 
-    for (const phoneCode in samsungNames) {
+    for (const phoneCode of samsungNames) {
       if (phoneCode['Modell Bezeichnung'].trim() === ((userPhone.Brand).trim() + ' ' + (userPhone.Phone).trim())) {
         userPhone.Phone = phoneCode['Modell Nummer']
       }
     }
   }
 
-  const strs = ['plus', 'plus', 'max', 'X', 'Xs']
+  const strs = ['plus', 'plus', 'max', 'X', 'Xs', '+']
 
-  if (userPhone.Brand === 'Apple') {
-    for (const element in priceList) {
+  if (brand === 'apple') {
+    for (const element of priceList) {
       if (element['Model code'].includes(userPhone.Phone)) {
-        for (const str in strs) {
-          if (userPhone.Phone.includes(str)) {
-            if (!element['Model code'].includes(str)) {
+        for (const str of strs) {
+          if (userPhone.Phone.toLowerCase().includes(str)) {
+            if (!element['Model code'].toLowerCase().includes(str)) {
               break
             }
           }
 
-          if (!userPhone.Phone.includes(str)) {
-            if (element['Model code'].includes(str)) {
+          if (!userPhone.Phone.toLowerCase().includes(str)) {
+            if (element['Model code'].toLowerCase().includes(str)) {
               break
             }
           }
@@ -96,14 +105,12 @@ function calcDefects(userPhone) {
       }
     }
   } else {
-    for (const element in priceList) {
-      console.log(element)
-      if (element[1].trim() === (userPhone.Phone).trim()) {
+    for (const element of priceList) {
+      if (element['Model code'].includes(userPhone.Phone)) {
         phoneDefectsPrice.push(element)
       }
     }
   }
-
   if (defects.includes('BATTERY')) {
     const prices = []
     for (const element in phoneDefectsPrice) {
@@ -116,11 +123,11 @@ function calcDefects(userPhone) {
 
     // eslint-disable-next-line no-return-assign
     const sum = prices.reduce((previous, current) => current += previous)
-    defectPrice += (sum / prices.length * 1.1 + 16) * 1.45
+    defectPrice += (sum / prices.length * 1.1 + 21) * 1.45
   }
   if (defects.includes('PORT')) {
     const prices = []
-    for (const element in phoneDefectsPrice) {
+    for (const element of phoneDefectsPrice) {
       if (element['Part category'].includes('Connector')) {
         prices.push(element['Price ex tax'])
       }
@@ -130,13 +137,35 @@ function calcDefects(userPhone) {
 
     // eslint-disable-next-line no-return-assign
     const sum = prices.reduce((previous, current) => current += previous)
-    defectPrice += (sum / prices.length * 1.1 + 16) * 1.45
+    defectPrice += (sum / prices.length * 1.1 + 21) * 1.45
   }
   if (defects.includes('SCREEN')) {
     const prices = []
-    for (const element in phoneDefectsPrice) {
-      if (element['Part category'].includes('LCD')) {
-        prices.push(element['Price ex tax'])
+    if (userPhone.Brand === 'Apple') {
+      for (const element of phoneDefectsPrice) {
+        if (element['Part category'].includes('LCD') && element.Quality.includes('In-Cell')) {
+          prices.push(element['Price ex tax'])
+        }
+      }
+      if (prices.length === 0) {
+        for (const element of phoneDefectsPrice) {
+          if (element['Part category'].includes('LCD') && element.Quality.includes('OEM refurb')) {
+            prices.push(element['Price ex tax'])
+          }
+        }
+      }
+      if (prices.length === 0) {
+        for (const element of phoneDefectsPrice) {
+          if (element['Part category'].includes('LCD') && element.Quality.includes('Compatible')) {
+            prices.push(element['Price ex tax'])
+          }
+        }
+      }
+    } else {
+      for (const element of phoneDefectsPrice) {
+        if (element['Part category'].includes('LCD')) {
+          prices.push(element['Price ex tax'])
+        }
       }
     }
 
@@ -144,11 +173,11 @@ function calcDefects(userPhone) {
 
     // eslint-disable-next-line no-return-assign
     const sum = prices.reduce((previous, current) => current += previous)
-    defectPrice += (sum / prices.length * 1.1 + 16) * 1.45
+    defectPrice += (sum / prices.length * 1.1 + 21) * 1.45
   }
   if (defects.includes('BACK')) {
     const prices = []
-    for (const element in phoneDefectsPrice) {
+    for (const element of phoneDefectsPrice) {
       if (element['Part category'].includes('Housing') || element['Part category'].includes('Cover')) {
         prices.push(element['Price ex tax'])
       }
@@ -158,7 +187,7 @@ function calcDefects(userPhone) {
 
     // eslint-disable-next-line no-return-assign
     const sum = prices.reduce((previous, current) => current += previous)
-    defectPrice += (sum / prices.length * 1.1 + 16) * 1.45
+    defectPrice += (sum / prices.length * 1.1 + 21) * 1.45
   }
 
   return defectPrice

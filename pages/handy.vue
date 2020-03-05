@@ -65,7 +65,7 @@
                 v-for="(storage, storageId) in values.storages"
                 :key="storageId"
                 class="toolbox-field"
-                @click="selectStorage(storageId)"
+                @click="selectStorage(storage.title)"
               >
                 <span :class="`unit-figure ${storage.color}`" data-unit="GB">{{ storage.title }}</span>
               </button>
@@ -163,7 +163,7 @@
                 <div id="loader" />
               </div>
             </template>
-            <template v-else-if="!offer.price">
+            <template v-else-if="!offer.price.price">
               <h3
                 class="icon-header-title"
               >
@@ -184,9 +184,14 @@
                 <h3
                   class="icon-header-title"
                 >
-                  {{ request.brand }} {{ request.phone }} {{ values.storages[request.storage].title }}Gb
+                  {{ request.brand }} {{ request.phone }}
                 </h3>
               </div>
+
+              <h2 class="typo-subheader">
+                Speicher
+              </h2>
+              <p> {{ request.storage }} Gb</p>
 
               <h2 class="typo-subheader">
                 Zustand
@@ -219,10 +224,9 @@
               </h2>
               <h1 class="icon-header-title">
                 Wir bieten dir
-                <b>{{ offer.price }}</b>€
+                <b>{{ offer.price.price }}</b>€
               </h1>
               <br>
-
               <button class="toolbox-field selected" @click="acceptOffer">
                 Weiter
               </button>
@@ -282,7 +286,7 @@ export default {
       this.next()
     },
     selectStorage(storage) {
-      this.request.storage = storage
+      this.request.storage = parseInt(storage)
       this.next()
     },
     confirmAccessories() {
@@ -318,7 +322,7 @@ export default {
     },
     rejectOffer() {
       this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {
-        this.$router.push('https://wirkaufendeinhandy.shop/ankauf')
+        this.$router.push('/ankauf')
       })
     },
     back() {

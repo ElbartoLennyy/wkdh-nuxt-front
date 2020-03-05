@@ -68,7 +68,7 @@
           </div>
           <div class="sm:w-1/2 p-8 sm:p-12 sm:pl-0">
             <h3 class="font-bold text-3xl text-blue-400 leading-10">
-              Was ist <span class="font-normal">wir</span><wbr>kaufen<br><span class="font-normal">dein</span><wbr>handy<wbr><span class="font-normal">.shop</span>?
+              Der Grüne Aspekt
             </h3>
             <p class="mt-4">Wir sind zwar ein wirtschaftlich selbstständiges Unternehmen, doch eines unserer wichtigsten Ziele besteht auch darin, etwas an die Gesellschaft und an die Umwelt zurückzugeben.</p>
             <p class="mt-3">In Zeiten von großer Umweltverschmutzung und sozialen Unterschieden, wollen wir einfach unseren Beitrag leisten und dafür sorgen, dass alte Mobilgeräte nicht einfach in der Schublade oder im Müll landen, sondern bis zu ihrem endgültigen Ableben genutzt werden.</p>

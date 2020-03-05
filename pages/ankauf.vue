@@ -15,15 +15,15 @@
 
     <div class="sm:bg-illustration bg-contain bg-no-repeat min-h-screen px-4">
       <div class="max-w-4xl mx-auto">
-        <section class="md:flex">
-          <div class="mr-20 text-center">
+        <section class="md:flex text-center">
+          <div class="md:mr-20 text-center">
             <img
               class="mt-5 inline w-24"
               src="~assets/img/icons/logo.png"
               alt="Logo"
             >
             <nuxt-link to="/handy">
-              <button class="bg-buttonBlue rounded-lg font-semibold mt-8 text-lg truncate p-2 pl-12 pr-12 hover:text-blue-200 hover:no-underline shadow-xl">
+              <button class="bg-buttonBlue rounded-lg font-semibold mt-8 text-lg truncate p-2 pl-12 pr-12 hover:text-blue-200 hover:no-underline shadow-xl ">
                 Jetzt Handy verkaufen →
               </button>
             </nuxt-link>
@@ -33,7 +33,7 @@
           </div>
 
           <div>
-            <h1 class="mt-5 text-4xl md:text-6xl font-semibold leading-tight md:tracking-wide">
+            <h1 class="mt-5 text-4xl md:text-6xl font-semibold leading-tight md:tracking-wide md:text-left">
               Wir kaufen dein altes Handy.
             </h1>
             <nuxt-link to="/handy" class="block mt-2 text-2xl md:text-3xl text-blue-300 hover:text-blue-200 font-semibold">
@@ -47,7 +47,7 @@
             Das alte Handy einfach gegen Geld eintauschen!
           </h2>
           <div>
-            <div class="flex mt-6 md:mt-24">
+            <div class="flex mt-6 md:mt-24 px-1">
               <div class="w-1/4 ml-12">
                 <img class="w-full" src="~assets/img/svg/click-here.svg">
               </div>
@@ -64,7 +64,7 @@
               </div>
             </div>
             <div class="flex mt-6 md:mt-24">
-              <div class="w-1/4 ml-12">
+              <div class="w-1/4 ml-12 flex-shrink-0 mr-5">
                 <img class="w-full" src="~assets/img/svg/calendar.svg">
               </div>
               <div class="sm:w-1/2 sm:pr-0 m-auto">

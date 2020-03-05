@@ -16,7 +16,7 @@
           </h1>
           <h3 class="icon-header-title">
             Wir bieten dir
-            <b>{{ offer.Price }}</b>€
+            <b>{{ offer.Price.price }}</b>€
           </h3>
         </div>
 
@@ -265,34 +265,41 @@
               <div class="icon-header-icon material-icons">
                 smartphone
               </div>
-              <h3 class="icon-header-title">
-                {{ offer.phone.Brand }}
-                {{ offer.phone.Phone }}
-                {{ offer.phone.Storage }}GB
+              <h3
+                class="icon-header-title"
+              >
+                {{ offer.phone.Brand }} {{ offer.phone.Phone }}
               </h3>
             </div>
 
             <h2 class="typo-subheader">
+              Speicher
+            </h2>
+            <p> {{ offer.phone.Storage }} GB</p>
+
+            <h2 class="typo-subheader">
               Zustand
             </h2>
-            <p>{{ offer.phone.Condition }}</p><p /><h2 class="typo-subheader">
-              Technischer Zustand
-            </h2>
-            <p>{{ offer.phone.TechnicalCondition }}</p><p /><h2 class="typo-subheader">
+            <p>{{ values.conditions[offer.phone.Condition].title }}</p>
+
+            <template v-if="offer.phone.Defects.length >= 1">
+              <h2 class="typo-subheader">
+                Defekte
+              </h2>
+              <p>
+                <template v-for="defect in offer.phone.Defects">
+                  {{ values.defects[defect].title }}
+                  <br :key="defect">
+                </template>
+              </p>
+            </template>
+            <h2 class="typo-subheader">
               Zubehör
             </h2>
             <p>
-              <template v-if="offer.phone.Accessorys.OVP">
-                OVP<br>
-              </template>
-              <template v-if="offer.phone.Accessorys.cabel">
-                Kabel<br>
-              </template>
-              <template v-if="offer.phone.Accessorys.charger">
-                Netzteil<br>
-              </template>
-              <template v-if="offer.phone.Accessorys.headphones">
-                Kopfhörer<br>
+              <template v-for="accessory in offer.phone.Accessorys">
+                {{ values.accessories[accessory] }}
+                <br :key="accessory">
               </template>
             </p>
 
@@ -405,6 +412,8 @@
 import PickupTimePicker from '~/components/PickupTimePicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 
+import * as values from '~/data/values'
+
 export default {
   components: { PickupTimePicker, RecaptchaNotice },
   props: {
@@ -413,6 +422,7 @@ export default {
   data: () => ({
     // TODO: Start at 0 instead of 1 (stage 0 was a loading screen)
     stage: 1,
+    values,
     form: {
       Email: '',
       Salutation: 'Herr',

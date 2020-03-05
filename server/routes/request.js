@@ -7,7 +7,6 @@ const priceCalc = require('../lib/calcUserOffer')
 const router = express.Router()
 
 router.post('/getData', function(req, res, next) {
-
   if (req.body.Stage === 0) {
     return res.send(phonesData.brands)
   } else if (req.body.Stage === 1) {
@@ -43,6 +42,7 @@ router.post('/getPrice', function(req, res, next) {
     // const currentPhone = (helper.convertToJsonPhone(req.body)) Schauenn ob Alle in enum definiert sind
 
     const currentPhone = req.body
+    delete currentPhone.Token
 
     const price = await priceCalc.getPrice(currentPhone)
 
