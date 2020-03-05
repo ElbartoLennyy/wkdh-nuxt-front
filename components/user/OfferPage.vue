@@ -252,8 +252,19 @@
               :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
               required
             >
-            <p class="typo-caption">
-              Bitte trage deine Daten ein, damit wir dir das Geld überweisen können
+            <p
+              v-if="form.PaymentMethod === 'PayPal' && form.PaymentData !== form.Email"
+              class="typo-caption"
+            >
+              <button
+                type="button"
+                class="hover:underline"
+                @click="form.PaymentData = form.Email"
+              >
+                Gleiche Emailadresse (<span
+                  class="text-gray-500"
+                >{{ form.Email }}</span>) für PayPal verwenden
+              </button>
             </p>
 
             <button type="submit" class="toolbox-field selected">

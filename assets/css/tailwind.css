@@ -3,3 +3,8 @@
 @import 'tailwindcss/components';
 /* purgecss end ignore */
 @import 'tailwindcss/utilities';
+
+:-moz-ui-invalid {
+  /* Hide red outline around inputs */
+  box-shadow: none;
+}
