@@ -22,7 +22,6 @@ module.exports = {
     ],
   },
   css: [
-    '~/assets/css/main.scss',
     '~/assets/css/toolbox.scss',
   ],
   loading: { color: '#fff' },
