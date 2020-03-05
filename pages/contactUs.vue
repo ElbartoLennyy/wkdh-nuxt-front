@@ -64,8 +64,8 @@ export default {
   data: () => ({
     links: [
       ['Impressum', '/imprint'],
-      ['Datenschutzerklärung', '/privacy'],
-      ['AGB', '/agb'],
+      ['Datenschutzerklärung', '/privacy.pdf'],
+      ['AGB', '/agb.pdf'],
       ['Kontakt', '/contactUs'],
     ],
   }),
