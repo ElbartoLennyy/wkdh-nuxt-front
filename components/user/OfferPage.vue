@@ -192,9 +192,6 @@
               </h2>
 
               <pickup-picker v-model="pickupTime" />
-              <p class="typo-caption">
-                Das Gerät werden wir innerhalb der darauffolgenden Stunde abholen
-              </p>
             </template>
 
             <template v-else-if="form.TransportType === 'shipping'">
@@ -369,6 +366,8 @@
             </div>
 
             <h2 v-if="offer.TransportType === 'pickUp'" class="typo-subheader">
+      <!-- {{ formatDay(selectedDay) }} zwischen {{ selectedStartTime[0] }}:{{ padZeros(selectedStartTime[1]) }}
+      und {{ selectedStartTime[0] + 1 }}:{{ padZeros(selectedStartTime[1]) }} -->
               Wir holen dein Handy ab am {{ form.TransportData }}
             </h2>
             <h2 v-else-if="offer.TransportType === 'shipping'" class="typo-subheader">
@@ -391,7 +390,7 @@
             </button>
           </form>
 
-          <form v-else-if="stage === 5" @submit.prevent="next">
+          <form v-else-if="stage === 5" @submit.prevent="acceptOffer">
             <h2 class="typo-subheader">
               Bitte bestätige folgendes
             </h2>
@@ -419,7 +418,7 @@
               Schließe den Verkauf deines Gerätes verbindlich ab
             </h2>
 
-            <button class="toolbox-field selected" value="submit" @click="acceptOffer">
+            <button type="submit" class="toolbox-field selected">
               Bestätigen und Verkauf abschließen
             </button>
             <button type="button" class="toolbox-field" @click.prevent="back()">

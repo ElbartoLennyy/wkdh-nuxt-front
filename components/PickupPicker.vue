@@ -1,6 +1,11 @@
 <template>
   <div>
-    <select v-model="selectedDay" class="px-3 py-2 toolbox-field" required>
+    <select
+      v-model="selectedDay"
+      class="px-3 py-2 toolbox-field"
+      required
+      @input="selectedStart = null"
+    >
       <option value="" disabled selected>Wähle einen Tag aus…</option>
       <option
         v-for="day in availableDays"
@@ -19,11 +24,6 @@
           und {{ startHour + 1 }}:{{ padZeros(startMinute) }}
         </option>
       </select>
-    </div>
-
-    <div v-if="finishedDate" class="mt-3">
-      {{ formatDay(selectedDay) }} zwischen {{ selectedStartTime[0] }}:{{ padZeros(selectedStartTime[1]) }}
-      und {{ selectedStartTime[0] + 1 }}:{{ padZeros(selectedStartTime[1]) }}
     </div>
   </div>
 </template>
@@ -109,15 +109,12 @@ export default {
     },
   },
   watch: {
-    selectedDay() {
-      this.selectedStart = null
-    },
     finishedDate(date) {
-      this.$emit('input', {
+      this.$emit('input', date ? {
         day: this.selectedDay,
         start: this.selectedStart,
         date,
-      })
+      } : null)
     },
   },
   methods: {
