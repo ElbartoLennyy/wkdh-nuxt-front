@@ -25,6 +25,8 @@
           <p>Bitte trage deine Daten ein und bestätige die AGBs sowie die Datenschutzbestimmungen um den Kauf erfolgreich abzuschließen.</p>
           <recaptcha-notice />
         </div>
+
+        <pickup-picker />
       </div>
     </section>
 
@@ -422,6 +424,9 @@
             <button class="toolbox-field" value="submit" @click="acceptOffer">
               Bestätigen und Verkauf abschließen
             </button>
+            <button type="button" class="toolbox-field" @click.prevent="back()">
+              Zurück
+            </button>
           </form>
         </div>
       </div>
@@ -430,13 +435,14 @@
 </template>
 
 <script>
+import PickupPicker from '~/components/PickupPicker'
 import PickupTimePicker from '~/components/PickupTimePicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 
 import * as values from '~/data/values'
 
 export default {
-  components: { PickupTimePicker, RecaptchaNotice },
+  components: { PickupPicker, PickupTimePicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true },
   },
