@@ -19,7 +19,7 @@
           <div class="md:mr-20 text-center">
             <img
               class="mt-5 inline w-24"
-              src="~assets/img/icons/logo.png"
+              src="~assets/img/icons/logo-kaufedeinhandy.png"
               alt="Logo"
             >
             <a href="https://www.kaufedeinhandy.de">
