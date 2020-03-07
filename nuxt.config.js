@@ -1,3 +1,5 @@
+require('dotenv').config()
+
 module.exports = {
   mode: 'universal',
   head: {
@@ -22,7 +24,7 @@ module.exports = {
     ],
   },
   css: [
-    '~/assets/css/toolbox.scss',
+    '~/assets/css/toolbox.css',
   ],
   loading: { color: '#fff' },
   buildModules: [
@@ -41,5 +43,9 @@ module.exports = {
   ],
   axios: {
     prefix: '/api',
+    proxyHeaders: false,
+  },
+  build: {
+    extractCSS: true,
   },
 }
