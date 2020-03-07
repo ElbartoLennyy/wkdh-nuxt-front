@@ -34,6 +34,10 @@ module.exports = {
     ['nuxt-facebook-pixel-module', {
       pixelId: process.env.FACEBOOK_PIXEL_ID,
     }],
+    ['@netsells/nuxt-hotjar', {
+      id: process.env.HOTJAR_ID,
+      sv: 6,
+    }],
   ],
   axios: {
     prefix: '/api',
