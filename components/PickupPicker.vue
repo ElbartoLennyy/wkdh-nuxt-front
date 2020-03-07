@@ -35,7 +35,7 @@ export default {
   props: {
     value: {
       type: Object,
-      required: true,
+      default: null,
     },
   },
   created() {
@@ -114,6 +114,9 @@ export default {
         day: this.selectedDay,
         start: this.selectedStart,
         date,
+        formattedDay: this.formatDay(this.selectedDay),
+        formattedStartTime: `${this.selectedStartTime[0]}:${this.padZeros(this.selectedStartTime[1])}`,
+        formattedEndTime: `${this.selectedStartTime[0] + 1}:${this.padZeros(this.selectedStartTime[1])}`,
       } : null)
     },
   },

@@ -162,7 +162,7 @@
               </div>
             </div>
 
-            <button type="submit" class="toolbox-field selected">
+            <button type="submit" class="toolbox-field selected" :disabled="validatingAddress">
               Weiter
             </button>
             <button type="button" class="toolbox-field" @click.prevent="back()">
@@ -365,12 +365,15 @@
               </div>
             </div>
 
-            <h2 v-if="offer.TransportType === 'pickUp'" class="typo-subheader">
-      <!-- {{ formatDay(selectedDay) }} zwischen {{ selectedStartTime[0] }}:{{ padZeros(selectedStartTime[1]) }}
-      und {{ selectedStartTime[0] + 1 }}:{{ padZeros(selectedStartTime[1]) }} -->
-              Wir holen dein Handy ab am {{ form.TransportData }}
-            </h2>
-            <h2 v-else-if="offer.TransportType === 'shipping'" class="typo-subheader">
+            <template v-if="form.TransportType === 'pickUp'">
+              <h2 class="typo-subheader">Wir holen dein Handy ab am</h2>
+              <div class="toolbox-field">
+                {{ pickupTime.formattedDay }}
+                zwischen {{ pickupTime.formattedStartTime }} und {{ pickupTime.formattedEndTime }}
+              </div>
+            </template>
+
+            <h2 v-else-if="form.TransportType === 'shipping'" class="typo-subheader">
               Du verschickst dein Handy selbst. Das Label erhältst du am Ende.
             </h2>
 
@@ -380,7 +383,7 @@
             <input class="toolbox-field" type="text" :value="form.PaymentMethod" readonly>
             <input class="toolbox-field" type="text" :value="form.PaymentData" readonly>
 
-            <p>Daten fehlerhaft? Nutze den Zurück-Knopf.</p>
+            <h2 cclass="typo-subheader">Daten fehlerhaft? Nutze den Zurück-Knopf.</h2>
 
             <button type="submit" class="toolbox-field selected">
               Weiter
@@ -459,6 +462,7 @@ export default {
       PickUpPossible: false,
     },
     pickupTime: null,
+    validatingAddress: false,
     // TODO: Fix "Adress" typo and weird terminology
     address: {
       Adress: '',
@@ -480,6 +484,7 @@ export default {
   methods: {
     async validateAddress() {
       try {
+        this.validatingAddress = true
         const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
 
         // TODO: Move this validation logic to the back-end (and return appropriate status code)
@@ -496,6 +501,8 @@ export default {
         // TODO: Make sure server returns appropriate status code instead of 502
         alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
       }
+
+      this.validatingAddress = false
     },
     async validatePaymentData() {
       try {
