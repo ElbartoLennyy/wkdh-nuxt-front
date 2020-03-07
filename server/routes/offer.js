@@ -81,13 +81,13 @@ router.post('/accept', function(req, res, next) {
         req.body.data.TransportData = data
 
         fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-          sendMail.sendOfferAcceptMail(req.body.uID, req.body.data.Email, req.body.data.TransportType)
+          sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
           res.send({ Obj: 'done' })
         })
       })
     } else if (req.body.data.TransportType === 'pickUp') {
       fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-        sendMail.sendOfferAcceptMail(req.body.uID, req.body.data.Email, req.body.data.TransportType)
+        sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
         res.send({ Obj: 'done' })
       })
     }

@@ -334,6 +334,9 @@
               <div class="right">
                 <input id="name" class="toolbox-field" type="text" :value="form.Name" readonly>
               </div>
+              <div class="toolbox-row">
+                <input id="name" class="toolbox-field" type="text" :value="form.Email" readonly>
+              </div>
             </div>
 
             <h2 class="typo-subheader">
@@ -421,7 +424,7 @@
               Schließe den Verkauf deines Gerätes verbindlich ab
             </h2>
 
-            <button class="toolbox-field" value="submit" @click="acceptOffer">
+            <button class="toolbox-field selected" value="submit" @click="acceptOffer">
               Bestätigen und Verkauf abschließen
             </button>
             <button type="button" class="toolbox-field" @click.prevent="back()">

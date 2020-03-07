@@ -20,8 +20,7 @@
       <div class="box">
         <div id="selGrid" class="grid">
           <h2 class="typo-subheader">
-            Vielen Dank - wir holen dein Gerät
-            <b>{{ offer.TransportData }}</b> ab
+            Vielen Dank - wir holen dein Gerät ab. Du hast eine Email mit weiteren Informationen erhalten.
           </h2>
         </div>
       </div>

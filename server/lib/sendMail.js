@@ -39,17 +39,69 @@ function sendMail(message, test = false) {
   })
 }
 
-const sendTestMail = (message) => sendMail(message, true)
+const sendTestMail = message => sendMail(message, true)
 
-function sendOfferAcceptMail(uID, email, shippingType) {
-  sendMail({
-    from: 'info@wirkaufendeinhandy.shop',
-    to: email,
-    // TODO: Insert actual email copy
-    subject: 'Details über die Abholung',
-    text: `Sehe alle Details über die Abholung: https://wirkaufendeinhandy.shop/user/${uID}`,
-    html: `<p><a href='https://wirkaufendeinhandy.shop/user/${uID}'>Sehe alle Details über die Abholung</a></p>`,
-  })
+function sendOfferAcceptMail(uID, userDetails) {
+  if (userDetails.TransportType === 'pickUp') {
+    sendMail({
+      from: 'info@wirkaufendeinhandy.shop',
+      to: userDetails.Email,
+      // TODO: Insert actual email copy
+      subject: 'Auftragsbestätigung - Abholung von deinem Handy',
+      text: `Hey ${userDetails.FirstName},hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.
+      Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
+      ${userDetails.TransportData} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      soll.`,
+      html: `<h2>Hey ${userDetails.FirstName},</h2>
+
+      <p>hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.</p>
+      
+      <p>Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
+      ${userDetails.TransportData} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      soll.</p>
+      
+      <p> Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein
+      angegebenes Konto.</p>
+      
+      <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du zu dem genannten Zeitraum
+      bitte bei dir Zuhause bist.</p>
+      
+      <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
+      uns doch bitte einfach via Mail an <ahref="mailto:kontakt@wirkaufendeinhandy.shop"> kontakt@wirkaufendeinhandy.shop.</a></p>
+      
+      <h3>Bis bald und alles Gute,<br>
+      Alex von Wirkaufendeinhandy.shop</h3>`,
+    })
+  } else if (userDetails.TransportType === 'shipping') {
+    let date = new Date()
+    date.setDate(date.getDate() + 7)
+    date = date.toLocaleDateString('de-DE')
+    sendMail({
+      from: 'info@wirkaufendeinhandy.shop',
+      to: userDetails.Email,
+      // TODO: Insert actual email copy
+      subject: 'Auftragsbestätigung - Versandt von deinem Handy',
+      text: `Sehe alle Details über die Abholung: https://wirkaufendeinhandy.shop/user/${uID}`,
+      html: `<h2>Hey ${userDetails.FirstName},</h2>
+
+      <p>hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.</p>
+      
+      <p>Du hast bei deiner Versandmethode gewählt, dass du uns dein Gerät via Post zusendest.
+      Den Versandschein um dein Gerät zu versenden findest als PDF Datei auf unserer Website. <a href='https://wirkaufendeinhandy.shop/user/${uID}'>Folge einfach dem Link</a></p>
+      
+      <p>Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein
+      angegebenes Konto.</p>
+      
+      <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du uns dein Gerät spätestens
+      bis zum ${date} losschickst.</p>
+      
+      <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
+      uns doch bitte einfach via Mail an kontakt@wirkaufendeinhandy.shop.</p>
+      
+      <h3>Bis bald und alles Gute,<br>
+      Alex von Wirkaufendeinhandy.shop</h3>`,
+    })
+  }
 }
 
 module.exports = { sendOfferAcceptMail }
