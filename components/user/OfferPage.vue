@@ -25,8 +25,6 @@
           <p>Bitte trage deine Daten ein und bestätige die AGBs sowie die Datenschutzbestimmungen um den Kauf erfolgreich abzuschließen.</p>
           <recaptcha-notice />
         </div>
-
-        <pickup-picker />
       </div>
     </section>
 
@@ -193,10 +191,7 @@
                 Bitte wähle die Zeit aus, wann wir dein Gerät abholen sollen
               </h2>
 
-              <pickup-time-picker
-                v-model="form.TransportData"
-                class="toolbox-field"
-              />
+              <pickup-picker v-model="pickupTime" />
               <p class="typo-caption">
                 Das Gerät werden wir innerhalb der darauffolgenden Stunde abholen
               </p>
@@ -439,13 +434,12 @@
 
 <script>
 import PickupPicker from '~/components/PickupPicker'
-import PickupTimePicker from '~/components/PickupTimePicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 
 import * as values from '~/data/values'
 
 export default {
-  components: { PickupPicker, PickupTimePicker, RecaptchaNotice },
+  components: { PickupPicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true },
   },
@@ -465,6 +459,7 @@ export default {
       TransportType: 'shipping',
       PickUpPossible: false,
     },
+    pickupTime: null,
     // TODO: Fix "Adress" typo and weird terminology
     address: {
       Adress: '',
@@ -476,6 +471,11 @@ export default {
   computed: {
     progress() {
       return [0, 20, 40, 60, 80][this.stage]
+    },
+  },
+  watch: {
+    pickupTime({ date }) {
+      this.form.TransportData = date.toISOString()
     },
   },
   methods: {

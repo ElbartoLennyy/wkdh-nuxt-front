@@ -1,5 +1,9 @@
 const noma = require('nodemailer')
 
+const addHours = require('date-fns/addHours')
+const formatDate = require('date-fns/format')
+const deLocale = require('date-fns/locale/de')
+
 const testTransport = noma.createTransport({
   host: 'smtp.ethereal.email',
   port: 587,
@@ -43,31 +47,38 @@ const sendTestMail = message => sendMail(message, true)
 
 function sendOfferAcceptMail(uID, userDetails) {
   if (userDetails.TransportType === 'pickUp') {
+    const startDate = new Date(userDetails.TransportData)
+    const endDate = addHours(startDate, 1)
+    const formattedDay = formatDate(startDate, 'PPPP', { locale: deLocale })
+    const formattedStartTime = startDate.toLocaleDateString('de', { timeStyle: 'short', timeZone: 'Europe/Berlin' })
+    const formattedEndTime = endDate.toLocaleDateString('de', { timeStyle: 'short', timeZone: 'Europe/Berlin' })
+
     sendMail({
       from: 'info@wirkaufendeinhandy.shop',
       to: userDetails.Email,
-      // TODO: Insert actual email copy
       subject: 'Auftragsbestätigung - Abholung von deinem Handy',
-      text: `Hey ${userDetails.FirstName},hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.
+      text: `Hey ${userDetails.FirstName}, hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.
       Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
-      ${userDetails.TransportData} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      ${formattedDay} zwischen ${formattedStartTime}
+      und ${formattedEndTime} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
       soll.`,
       html: `<h2>Hey ${userDetails.FirstName},</h2>
 
       <p>hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.</p>
       
       <p>Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
-      ${userDetails.TransportData} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      <strong>${formattedDay}</strong> zwischen <strong>${formattedStartTime}</strong>
+      und <strong>${formattedEndTime}</strong> bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
       soll.</p>
       
-      <p> Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein
+      <p>Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein
       angegebenes Konto.</p>
       
       <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du zu dem genannten Zeitraum
       bitte bei dir Zuhause bist.</p>
       
       <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
-      uns doch bitte einfach via Mail an <ahref="mailto:kontakt@wirkaufendeinhandy.shop"> kontakt@wirkaufendeinhandy.shop.</a></p>
+      uns doch bitte einfach via Mail an <a href="mailto:kontakt@wirkaufendeinhandy.shop">kontakt@wirkaufendeinhandy.shop.</a></p>
       
       <h3>Bis bald und alles Gute,<br>
       Alex von Wirkaufendeinhandy.shop</h3>`,
