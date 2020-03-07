@@ -31,6 +31,11 @@ module.exports = {
   ],
   modules: [
     '@nuxtjs/axios',
+    ['nuxt-facebook-pixel-module', {
+      track: 'PageView',
+      pixelId: process.env.FACEBOOK_PIXEL_ID,
+      disabled: false,
+    }],
   ],
   axios: {
     prefix: '/api',
