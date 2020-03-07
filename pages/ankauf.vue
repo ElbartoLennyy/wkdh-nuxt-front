@@ -121,18 +121,25 @@
             Wähle einfach am Ende des Verkauf "Selbst Verschicken" aus. Das Versandlabel bekommst du von uns und du musst nur noch dein Handy verschicken
           </p>
         </section>
-
         <footer class="mt-12 sm:mt-24 py-4 border-t border-gray-800 text-gray-500">
           Wirkaufendeinhandy GbR
           <div class="mt-2 text-gray-600 text-sm font-bold">
             <nuxt-link
-              v-for="[linkLabel, linkUrl] in links"
+              v-for="[linkLabel, linkUrl] in nuxtLinks"
               :key="linkUrl"
               :to="linkUrl"
               class="mr-1"
             >
               {{ linkLabel }}
             </nuxt-link>
+            <a
+              v-for="[linkLabel, linkUrl] in links"
+              :key="linkUrl"
+              :href="linkUrl"
+              class="mr-1"
+            >
+              {{ linkLabel }}
+            </a>
           </div>
         </footer>
       </div>
@@ -143,6 +150,10 @@
 <script>
 export default {
   data: () => ({
+    nuxtLinks: [
+      ['Impressum', '/imprint'],
+      ['Kontakt', '/contactUs'],
+    ],
     links: [
       ['Datenschutzerklärung', '/privacy.pdf'],
       ['AGB', '/agb.pdf'],
