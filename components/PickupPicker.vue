@@ -38,25 +38,24 @@ export default {
       default: null,
     },
   },
-  created() {
-    if (!this.value) {
-      return
-    }
-
-    this.selectedDay = this.value.day
-    this.selectedStart = this.value.start
-  },
   data: () => ({
     selectedDay: '',
     selectedStart: null,
     daySlots: {
-      '2020-03-09': [
-        { start: [12, 30], end: [14, 30] },
-        { start: [15, 30], end: [17, 0] },
-      ],
       '2020-03-10': [
+        { start: [7, 30], end: [9, 30] },
+      ],
+      '2020-03-13': [
+        { start: [16, 0], end: [18, 0] },
+      ],
+      '2020-03-14': [
+        { start: [15, 0], end: [17, 0] },
+      ],
+      '2020-03-15': [
+        { start: [15, 0], end: [17, 0] },
+      ],
+      '2020-03-16': [
         { start: [11, 0], end: [13, 0] },
-        { start: [14, 0], end: [18, 0] },
       ],
     },
   }),
@@ -65,7 +64,7 @@ export default {
       const days = []
       const today = new Date()
 
-      for (let i = 2; i < 9; i++) {
+      for (let i = 1; i < 9; i++) {
         const day = addDays(today, i)
         days.push(day.toISOString().substr(0, 10))
       }
@@ -119,6 +118,14 @@ export default {
         formattedEndTime: `${this.selectedStartTime[0] + 1}:${this.padZeros(this.selectedStartTime[1])}`,
       } : null)
     },
+  },
+  created() {
+    if (!this.value) {
+      return
+    }
+
+    this.selectedDay = this.value.day
+    this.selectedStart = this.value.start
   },
   methods: {
     padZeros(number) {

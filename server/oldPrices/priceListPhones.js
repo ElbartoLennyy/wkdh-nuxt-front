@@ -1,3 +1,4 @@
+//Stand 1.3.2020
 const phones = [{
   Brand: 'Apple',
   Phone: 'iPhone 6',

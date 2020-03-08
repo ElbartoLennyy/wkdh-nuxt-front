@@ -5,6 +5,10 @@ const Zentrum = {
   lat: 51.149588,
   lon: 14.985929,
 }
+const dustin = {
+  lat: 51.043529,
+  lon: 13.736304,
+}
 
 function validateAddress(place, _callback) {
   const placeString = place.Adress + ' ' + place.HouseNumber + ' ' + place.PLZ + ' ' + place.Place
@@ -38,6 +42,8 @@ function checkPickUpDistance(data) {
   const aToB = Distance.between(Zentrum, userPlace)
 
   if (aToB <= Distance('5 km')) {
+    return true
+  } else if (Distance.between(dustin, userPlace) <= Distance('5 km')) {
     return true
   } else {
     return false

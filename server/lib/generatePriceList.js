@@ -1,8 +1,9 @@
 const fs = require('fs')
 const Ebay = require('ebay-node-api')
-const phonesData = require('./phones')
+const phones = require('../data/priceListPhones')
+//const phonesData = require('./phones')
 
-const storages = [8, 16, 32, 64, 128, 256, 512]
+//const storages = [8, 16, 32, 64, 128, 256, 512]
 
 const ebay = new Ebay({
   clientID: process.env.EBAY_CLIENT_ID,
@@ -20,6 +21,16 @@ async function generatePriceList() {
   const phoneList = []
   let priceList = []
 
+  for (const phone of phones) {
+    const currentPhone = {
+      Brand: phone.Brand,
+      Phone: phone.Phone,
+      Storage: phone.Storage,
+    }
+
+    phoneList.push(currentPhone)
+  }
+  /*
   phonesData.brands.forEach((brand) => {
     phonesData.phones[brand].phones.forEach((phone) => {
       storages.forEach((storage) => {
@@ -33,7 +44,7 @@ async function generatePriceList() {
       })
     })
   })
-
+*/
   priceList = await processArray(phoneList)
 
   fs.writeFile('AAAAA.json', JSON.stringify(priceList, null, '  '), function(err) {

@@ -383,7 +383,7 @@
             <input class="toolbox-field" type="text" :value="form.PaymentMethod" readonly>
             <input class="toolbox-field" type="text" :value="form.PaymentData" readonly>
 
-            <h2 cclass="typo-subheader">Daten fehlerhaft? Nutze den Zurück-Knopf.</h2>
+            <h2 class="typo-subheader">Daten fehlerhaft? Nutze den Zurück-Knopf.</h2>
 
             <button type="submit" class="toolbox-field selected">
               Weiter

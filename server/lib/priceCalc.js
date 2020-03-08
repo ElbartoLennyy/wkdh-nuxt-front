@@ -16,10 +16,7 @@ async function getPrice(currentPhone) {
 
 function calcPrice(currentPrice, phoneData, _callback) {
     var currentPrice = optimizedPriceArray
-   // currentPrice = calcCondition(currentPrice, phoneData)
-   // currentPrice = currentPrice - calcAccessories(currentPrice, phoneData)
     console.log("Marktpreis" + currentPrice)
-    //var technicalConditionPrice = checkTechnicalCondition(phoneData.TechnicalCondition, phoneData)
 
     if (technicalConditionPrice == false || currentPrice < technicalConditionPrice) {
         console.log("TechnicalCondition error")

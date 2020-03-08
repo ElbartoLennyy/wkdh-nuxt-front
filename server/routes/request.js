@@ -1,7 +1,6 @@
 const express = require('express')
 const request = require('request')
 const fbData = require('../lib/firebase')
-const helper = require('../lib/helper')
 const phonesData = require('../lib/phones')
 const priceCalc = require('../lib/calcUserOffer')
 const router = express.Router()

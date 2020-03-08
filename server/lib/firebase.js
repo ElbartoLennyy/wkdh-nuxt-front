@@ -38,7 +38,7 @@ function deletePriceRequest(id, _callback) {
 }
 /*
 function deleteUser(id, _callback) {
-    let deleteDoc = db.collection('DEV').doc(id).delete()
+    let deleteDoc = db.collection('userPhone').doc(id).delete()
         .then(() => {
             _callback();
         })
@@ -47,7 +47,7 @@ function deleteUser(id, _callback) {
 
 function creatNewUser(id, _callback) {
   const docRequest = db.collection('request').doc(id)
-  const docUser = db.collection('DEV').doc(id)
+  const docUser = db.collection('userPhone').doc(id)
 
   let data
 
@@ -76,7 +76,7 @@ function creatNewUser(id, _callback) {
 }
 
 function setRejectNewOffer(uID) {
-  const docRequest = db.collection('DEV').doc(uID)
+  const docRequest = db.collection('userPhone').doc(uID)
 
   docRequest.set({
     Date: getCurrentDate(),
@@ -86,7 +86,7 @@ function setRejectNewOffer(uID) {
 }
 
 function setOfferAccept(uID, data, _callback) {
-  const docRequest = db.collection('DEV').doc(uID)
+  const docRequest = db.collection('userPhone').doc(uID)
 
   data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
   data.Location.longitude = helper.convertToSafeString(data.Location.longitude.toString())
@@ -110,7 +110,7 @@ function setOfferAccept(uID, data, _callback) {
 }
 
 function getData(uID, _callback) {
-  const refUser = db.collection('DEV').doc(uID)
+  const refUser = db.collection('userPhone').doc(uID)
 
   refUser.get()
     .then((doc) => {
@@ -125,7 +125,7 @@ function getData(uID, _callback) {
 
 function getOffer(uID, _callback) {
   // console.log(uID)
-  const refUser = db.collection('DEV').doc(uID)
+  const refUser = db.collection('userPhone').doc(uID)
 
   let data
 
@@ -143,7 +143,7 @@ function getOffer(uID, _callback) {
 
 function getNewOffer(uID, _callback) {
   // console.log(uID)
-  const refUser = db.collection('DEV').doc(uID)
+  const refUser = db.collection('userPhone').doc(uID)
   const refPhone = refUser.collection('phone').doc('request')
   const refPrice = refUser.collection('phone').doc('offer')
 
@@ -190,7 +190,7 @@ function getNewOffer(uID, _callback) {
 }
 
 function setReturn(uID, _callback) {
-  const docRequest = db.collection('DEV').doc(uID)
+  const docRequest = db.collection('userPhone').doc(uID)
 
   docRequest.update({
     Date: getCurrentDate(),

@@ -1,5 +1,5 @@
 <template>
-  <div class="font-sans pt-24 bg-gray-900 text-white min-h-screen">
+  <div class="font-sans pt-24 bg-yellow-700 text-white min-h-screen">
     <div class="fixed top-0 inset-x-0 flex">
       <div class="mt-3 bg-gray-800 mx-auto flex rounded-full items-center p-1 shadow-md">
         <nuxt-link to="/" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex py-1">
@@ -43,7 +43,7 @@
             Kaufe doch lieber ein gebrauchtes Handy in top
             Zustand und dazu noch zum super Preis!
           </h2>
-          <p class="mt-4 text-xl text-gray-500">
+          <p class="mt-4 text-xl text-white">
             Auf Kaufedeinhandy.de kannst du sofort gebrauchte Geräte zu besten Preisen
             erwerben! Alle Geräte sind von uns auf volle technische Funktionsweise geprüft und
             mit dem entsprechenden optischen Zustand und weiteren Fotos aus allen
@@ -52,9 +52,9 @@
           </p>
         </section>
 
-        <footer class="mt-12 sm:mt-24 py-4 border-t border-gray-800 text-gray-500">
+        <footer class="mt-12 sm:mt-24 py-4 border-t border-gray-800 text-white">
           Wirkaufendeinhandy GbR
-          <div class="mt-2 text-gray-600 text-sm font-bold">
+          <div class="mt-2 text-white text-sm font-bold">
             <nuxt-link
               v-for="[linkLabel, linkUrl] in links"
               :key="linkUrl"
