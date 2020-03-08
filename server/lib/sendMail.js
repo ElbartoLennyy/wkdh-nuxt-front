@@ -45,13 +45,17 @@ function sendMail(message, test = false) {
 
 const sendTestMail = message => sendMail(message, true)
 
+const timeFormat = new Intl.DateTimeFormat([], {
+  hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin',
+})
+
 function sendOfferAcceptMail(uID, userDetails) {
   if (userDetails.TransportType === 'pickUp') {
     const startDate = new Date(userDetails.TransportData)
     const endDate = addHours(startDate, 1)
     const formattedDay = formatDate(startDate, 'PPPP', { locale: deLocale })
-    const formattedStartTime = startDate.toLocaleDateString('de', { timeStyle: 'short', timeZone: 'Europe/Berlin' })
-    const formattedEndTime = endDate.toLocaleDateString('de', { timeStyle: 'short', timeZone: 'Europe/Berlin' })
+    const formattedStartTime = timeFormat.format(startDate)
+    const formattedEndTime = timeFormat.format(endDate)
 
     sendMail({
       from: 'info@wirkaufendeinhandy.shop',
