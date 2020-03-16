@@ -111,9 +111,10 @@ function calcDefects(userPhone) {
       }
     }
   }
+
   if (defects.includes('BATTERY')) {
     const prices = []
-    for (const element in phoneDefectsPrice) {
+    for (const element of phoneDefectsPrice) {
       if (element['Part category'].includes('Battery')) {
         prices.push(element['Price ex tax'])
       }
