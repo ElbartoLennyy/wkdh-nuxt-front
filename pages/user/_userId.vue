@@ -1,15 +1,16 @@
 <template>
   <offer-page
-    v-if="offer === 'offer'"
+    v-if="state === 'offer'"
     :offer="offer"
+    :state="state"
   />
   <pick-up-page
-    v-else-if="offer === 'pickUp'"
-    :offer="offer"
+    v-else-if="state === 'pickUp'"
+    :state="state"
   />
   <shipping-page
-    v-else-if="offer === 'shipping'"
-    :offer="offer"
+    v-else-if="state === 'shipping'"
+    :state="state"
   />
 </template>
 
@@ -21,13 +22,21 @@ import ShippingPage from '~/components/user/ShippingPage'
 export default {
   components: { OfferPage, PickUpPage, ShippingPage },
   async asyncData(context) {
-    const offer = (
+    const state = (
       await context.$axios.$post('/offer/getState', {
         uID: context.route.params.userId,
       })
     ).Obj
-
-    return { offer }
+    if (state === 'pickUp' || state === 'shipping') {
+      return { state }
+    } else if (state === 'offer') {
+      const offer = (
+        await context.$axios.$post('/offer/getData', {
+          uID: context.route.params.userId,
+        })
+      ).Obj
+      return { state, offer }
+    }
   },
   head() {
     return {
@@ -35,7 +44,7 @@ export default {
         offer: 'Angebot',
         pickUp: 'Abholung',
         shipping: 'Versand',
-      })[this.offer],
+      })[this.state],
       htmlAttrs: { class: 'toolbox-styles' },
       script: [
         {
