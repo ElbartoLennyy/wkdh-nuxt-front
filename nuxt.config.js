@@ -32,15 +32,21 @@ module.exports = {
     '@nuxtjs/tailwindcss',
   ],
   modules: [
+    '@nuxtjs/sentry',
     '@nuxtjs/axios',
+    /*
     ['nuxt-facebook-pixel-module', {
       pixelId: process.env.FACEBOOK_PIXEL_ID,
     }],
     ['@netsells/nuxt-hotjar', {
       id: process.env.HOTJAR_ID,
       sv: 6,
-    }],
+    }], */
   ],
+  sentry: {
+    dsn: process.env.SENTRY_DNS, // Enter your project's DSN here
+    config: {}, // Additional config
+  },
   axios: {
     prefix: '/api',
     proxyHeaders: false,
