@@ -100,15 +100,20 @@ async function setOfferAccept(uID, data) {
   return true
 }
 
-async function getData(uID) {
+async function getState(uID) {
   const refUser = db.collection('DEV').doc(uID)
-
   const user = await refUser.get()
-  if (user.exists()) {
+  return user.data().State
+}
+
+async function getShippmentData(uID) {
+  const refUser = db.collection('DEV').doc(uID)
+  const user = await refUser.get()
+
+  if (user.data().State === 'shipping') {
     return user.data()
-  } else {
-    return false
   }
+  return false
 }
 
 async function getOffer(uID) {
@@ -127,10 +132,9 @@ async function getNewOffer(uID) {
   const refUser = db.collection('DEV').doc(uID)
 
   const user = await refUser.get()
-  if (user.exists()) {
-    if (user.data().State === 'newOffer') {
-      return user.data()
-    }
+
+  if (user.data().State === 'newOffer') {
+    return user.data()
   }
   return false
 }
@@ -146,4 +150,4 @@ async function setReturn(uID) {
   return true
 }
 
-module.exports = { /* deleteUser, */ getOffer, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getData, uploadPriceRequest, deletePriceRequest, creatNewUser }
+module.exports = { /* deleteUser, */ getOffer, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, getState, uploadPriceRequest, deletePriceRequest, creatNewUser }

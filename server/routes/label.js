@@ -3,24 +3,23 @@ const path = require('path')
 const fbData = require('../lib/firebase')
 const sendcloud = require('../lib/sendcloud')
 
-module.exports = (req, res) => {
+module.exports = async(req, res) => {
   const { userId } = req.params
+  const shippmentData = await fbData.getShippmentData(userId)
 
-  fbData.getData(userId, async(offer) => {
-    const parcelId = offer.data.TransportData
-    const pdfPath = `cache/shipping-labels/${parcelId}.pdf`
+  const parcelId = shippmentData.data.TransportData
+  const pdfPath = `cache/shipping-labels/${parcelId}.pdf`
 
-    if (fs.existsSync(pdfPath)) {
-      res.sendFile(path.resolve(pdfPath))
-    } else {
-      const { stream, length } = await sendcloud.downloadLabel(parcelId, pdfPath)
+  if (fs.existsSync(pdfPath)) {
+    res.sendFile(path.resolve(pdfPath))
+  } else {
+    const { stream, length } = await sendcloud.downloadLabel(parcelId, pdfPath)
 
-      res.writeHead(200, {
-        'Content-Type': 'application/pdf',
-        'Content-Length': length,
-      })
-      stream.pipe(res)
-      stream.pipe(fs.createWriteStream(pdfPath))
-    }
-  })
+    res.writeHead(200, {
+      'Content-Type': 'application/pdf',
+      'Content-Length': length,
+    })
+    stream.pipe(res)
+    stream.pipe(fs.createWriteStream(pdfPath))
+  }
 }

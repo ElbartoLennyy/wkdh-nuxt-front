@@ -12,6 +12,12 @@ router.post('/getData', async function(req, res, next) {
   res.send({ Obj: userData })
 })
 
+router.post('/getState', async function(req, res, next) {
+  const userState = await fbData.getState(req.body.uID)
+  console.log(userState)
+  res.send({ Obj: userState })
+})
+
 router.post('/validateAddress', function(req, res, next) {
   geocoder.validateAddress(req.body, (data, pickUp) => {
     if (data === 'placeError') {
