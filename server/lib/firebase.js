@@ -15,26 +15,21 @@ admin.initializeApp({
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-function uploadPriceRequest(price, phone, _callback) {
+async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
   const docRequest = db.collection('request').doc(id)
-
-  docRequest.set({
+  await docRequest.set({
     Date: getCurrentDate(),
     ID: id,
     Price: price,
     phone,
-  }).then(() => {
-    _callback(id)
   })
+  return id
 }
 
-function deletePriceRequest(id, _callback) {
+function deletePriceRequest(id) {
   db.collection('request').doc(id).delete()
-    .then(() => {
-      _callback()
-    })
 }
 /*
 function deleteUser(id, _callback) {
@@ -45,13 +40,13 @@ function deleteUser(id, _callback) {
 }
 */
 
-function creatNewUser(id, _callback) {
+async function creatNewUser(id) {
   const docRequest = db.collection('request').doc(id)
   const docUser = db.collection('DEV').doc(id)
 
   let data
 
-  docRequest.get()
+  await docRequest.get()
     .then((doc) => {
       if (!doc.exists) {
         // console.log('No such document!');
@@ -64,15 +59,12 @@ function creatNewUser(id, _callback) {
           Price: data.Price,
           State: 'offer',
           phone,
-        }).then(() => {
-          deletePriceRequest(id)
-          _callback()
         })
       }
     })
-    .catch((err) => {
-      console.log('Error getting document', err)
-    })
+
+  deletePriceRequest(id)
+  return id
 }
 
 function setRejectNewOffer(uID) {
@@ -85,7 +77,7 @@ function setRejectNewOffer(uID) {
   })
 }
 
-function setOfferAccept(uID, data, _callback) {
+async function setOfferAccept(uID, data) {
   const docRequest = db.collection('DEV').doc(uID)
 
   data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
@@ -98,107 +90,60 @@ function setOfferAccept(uID, data, _callback) {
 
   data.PaymentData = helper.convertToSafeString(data.PaymentData)
 
-  docRequest.update({
+  await docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
     State: data.TransportType,
     data,
   })
-    .then(() => {
-      _callback()
-    })
+
+  return true
 }
 
-function getData(uID, _callback) {
+async function getData(uID) {
   const refUser = db.collection('DEV').doc(uID)
 
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        const data = (doc.data())
-        _callback(data)
-      }
-    })
+  const user = await refUser.get()
+  if (user.exists()) {
+    return user.data()
+  } else {
+    return false
+  }
 }
 
-function getOffer(uID, _callback) {
+async function getOffer(uID) {
+  const refUser = db.collection('DEV').doc(uID)
+
+  const user = await refUser.get()
+
+  if (user.data().State === 'offer') {
+    return user.data()
+  }
+  return false
+}
+
+async function getNewOffer(uID) {
   // console.log(uID)
   const refUser = db.collection('DEV').doc(uID)
 
-  let data
-
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        data = (doc.data())
-        // TODO: Consider security implications of returning offer object outside of "offer" state
-        _callback(data)
-      }
-    })
+  const user = await refUser.get()
+  if (user.exists()) {
+    if (user.data().State === 'newOffer') {
+      return user.data()
+    }
+  }
+  return false
 }
 
-function getNewOffer(uID, _callback) {
-  // console.log(uID)
-  const refUser = db.collection('DEV').doc(uID)
-  const refPhone = refUser.collection('phone').doc('request')
-  const refPrice = refUser.collection('phone').doc('offer')
-
-  let state
-  let dataPhone = {}
-  let price
-
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        state = (doc.data().State)
-      }
-    })
-    .then(function() {
-      if (state === 'newOffer') {
-        refPhone.get()
-          .then((doc) => {
-            if (!doc.exists) {
-              // console.log('No such document!');
-            } else {
-              dataPhone = (doc.data())
-            }
-          })
-          .then(function() {
-            refPrice.get()
-              .then((doc) => {
-                if (!doc.exists) {
-                  // console.log('No such document!');
-                } else {
-                  price = doc.data()
-                }
-              })
-              .then(function() {
-                const data = [price, dataPhone]
-                _callback(data)
-              })
-          })
-      } else {
-        // console.log("state not in newOffer");
-      }
-    })
-}
-
-function setReturn(uID, _callback) {
+async function setReturn(uID) {
   const docRequest = db.collection('DEV').doc(uID)
 
-  docRequest.update({
+  await docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
     State: 'return',
-  }).then(() => {
-    _callback()
   })
+  return true
 }
 
 module.exports = { /* deleteUser, */ getOffer, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getData, uploadPriceRequest, deletePriceRequest, creatNewUser }

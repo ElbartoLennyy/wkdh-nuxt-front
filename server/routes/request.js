@@ -50,29 +50,26 @@ router.post('/getPrice', function(req, res, next) {
         Price: false,
       })
     } else {
-      fbData.uploadPriceRequest(price, currentPhone, (requestID) => {
-        res.send({
-          Price: price,
-          RequestID: requestID,
-        })
+      const requestID = await fbData.uploadPriceRequest(price, currentPhone)
+      res.send({
+        Price: price,
+        RequestID: requestID,
       })
     }
   })
 })
 
-router.post('/accept', function(req, res, next) {
-  fbData.creatNewUser(req.body.ReqID, () => {
-    res.send({
-      Status: 'done',
-    })
+router.post('/accept', async function(req, res, next) {
+  await fbData.creatNewUser(req.body.ReqID)
+  res.send({
+    Status: 'done',
   })
 })
 
-router.post('/reject', function(req, res, next) {
-  fbData.deletePriceRequest(req.body.ReqID, () => {
-    res.send({
-      Status: 'done',
-    })
+router.post('/reject', async function(req, res, next) {
+  await fbData.deletePriceRequest(req.body.ReqID)
+  res.send({
+    Status: 'done',
   })
 })
 
