@@ -8,14 +8,8 @@ const sendcloud = require('../lib/sendcloud')
 const sendMail = require('../lib/sendMail')
 
 router.post('/getData', async function(req, res, next) {
-  const userData = await fbData.getOffer(req.body.uID)
+  const userData = await fbData.getUser(req.body.uID)
   res.send({ Obj: userData })
-})
-
-router.post('/getState', async function(req, res, next) {
-  const userState = await fbData.getState(req.body.uID)
-  console.log(userState)
-  res.send({ Obj: userState })
 })
 
 router.post('/validateAddress', function(req, res, next) {

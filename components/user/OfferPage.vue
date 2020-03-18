@@ -437,14 +437,11 @@
 <script>
 import PickupPicker from '~/components/PickupPicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
-
 import * as values from '~/data/values'
-
 export default {
   components: { PickupPicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true },
-    state: { type: String, required: true },
   },
   data: () => ({
     // TODO: Start at 0 instead of 1 (stage 0 was a loading screen)
@@ -487,22 +484,18 @@ export default {
       try {
         this.validatingAddress = true
         const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
-
         // TODO: Move this validation logic to the back-end (and return appropriate status code)
         if (!Location.streetName || !Location.streetNumber) {
           throw new Error('Not enough details!')
         }
-
         this.form.Location = Location
         this.form.PickUpPossible = PickUp
         this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
-
         this.next()
       } catch {
         // TODO: Make sure server returns appropriate status code instead of 502
         alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
       }
-
       this.validatingAddress = false
     },
     async validatePaymentData() {
@@ -511,7 +504,6 @@ export default {
         await this.$axios.$post('/offer/validatePaymentData', {
           PaymentMethod, PaymentData,
         })
-
         this.next()
       } catch {
         // TODO: Make this error message more helpful
@@ -523,14 +515,12 @@ export default {
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-
         await this.$axios.post('/offer/accept', {
           uID: this.offer.ID,
           data: this.form,
           Token: token,
         })
-
-        this.$router.go()
+        this.offer.State = this.form.TransportType
       })
     },
     next() {
