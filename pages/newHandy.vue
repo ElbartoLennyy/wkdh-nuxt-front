@@ -1,7 +1,7 @@
 <template>
   <div class="font-sans min-h-screen">
     <div class="md:flex">
-      <div class="md:w-1/3 md:min-h-screen p-12 pl-16 flex flex-col justify-between">
+      <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
           <div class="flex items-center text-center">
             <img
@@ -15,11 +15,11 @@
             </nuxt-link>
           </div>
 
-          <p class="text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
+          <p class="text-3xl md:text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
             Wähle die passenden Daten für dein Handy aus
           </p>
 
-          <div class="flex items-center text-center pt-6">
+          <div class="flex items-center text-center md:pt-6">
             <img
               class="inline w-5 "
               src="~assets/img/svg/help.svg"
@@ -216,16 +216,100 @@
               >
                 Entweder sind einige Daten falsch oder wir kaufen dein Handy derzeit nicht an
               </p>
-              <p class="text-lg text-gray-500">
+              <p class="text-base text-gray-600">
                 Trotzdem vielen Dank für deine Anfrage :D
               </p>
             </template>
             <template v-else>
-              <p
-                class=""
-              >
-                Dein Handy
-              </p>
+              <div>
+                <p class="text-gray-500 text-lg">
+                  Dein Handy<br>
+                  <span class="text-white font-bold text-xl">
+                    {{ request.brand }} {{ request.phone }}
+                  </span>
+                </p>
+
+                <p class="text-gray-500 text-lg ">
+                  Speicher<br>
+                  <span class="text-white font-bold text-base">
+                    {{ request.storage }} Gb
+                  </span>
+                </p>
+                <p class="text-gray-500 text-lg ">
+                  Zustand<br>
+                  <span class="text-white font-bold text-base">
+                    {{ values.conditions[request.condition].title }}
+                  </span>
+                </p>
+                <template v-if="request.defects.length >= 1">
+                  <p class="text-gray-500 text-lg ">
+                    Defekte<br>
+                    <span class="text-white font-bold text-base">
+                      <template v-for="defect in request.defects">
+                        {{ values.defects[defect].title }}
+                        <br :key="defect">
+                      </template>
+                    </span>
+                  </p>
+                </template>
+                <template v-if="request.accessories.length >= 1">
+                  <p class="text-gray-500 text-lg ">
+                    Zubehör<br>
+                    <span class="text-white font-bold text-base">
+                      <template v-for="accessory in request.accessories">
+                        {{ values.accessories[accessory] }}
+                        <br :key="accessory">
+                      </template>
+                    </span>
+                  </p>
+                </template>
+                <p class="text-white text-xl">Wir kaufen dein Handy!</p>
+                <p class="text-white text-2xl md:text-4xl">
+                  Wir bieten dir
+                  <b>{{ offer.price.price }}</b> €
+                </p>
+                <button @click="priceDetailsShown = !priceDetailsShown">
+                  <div class="text-gray-500 text-sm flex items-center">
+                    <span class="icon-header-icon material-icons">
+                      {{ priceDetailsShown ? 'expand_less' : 'expand_more' }}
+                    </span>
+                    Wie entsteht der Preis?
+                  </div>
+                </button>
+                <div
+                  v-if="priceDetailsShown"
+                  class="w-full mt-2 mb-4 bg-white text-gray-900 p-4"
+                  style="border-radius: 14px"
+                >
+                  <div class="font-semibold">Potentieller Endverkaufswert: {{ offer.price.sellingPrice }} €</div>
+                  <div class="text-gray-700">
+                    <div>– Marktplatz-Verkaufsgebühren (5%): {{ offer.price.sellingPrice * 0.05 }} €</div>
+                    <div>– Überprüfungs- und Verwaltungsaufwand: 4 €</div>
+                    <div>– Hosting- und Marketingkosten: 6 €</div>
+                    <div>– Differenzbesteuerung (19%): {{ (offer.price.sellingPrice - offer.price.price) * 0.19 }} €</div>
+                    <div>– Versandkosten: 10 €</div>
+                    <div>– Abholkosten (optional): 6 €</div>
+                    <div v-if="request.defects.length > 0">– Reparaturkosten</div>
+                  </div>
+                  <div class="font-semibold">= Unser Angebot: {{ offer.price.price }} €</div>
+                </div>
+                <button
+                  class="mt-4 block w-full"
+                  @click="acceptOffer"
+                >
+                  <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                    Weiter zur Dateneingabe
+                  </div>
+                </button>
+                <button
+                  class="mt-4 block w-full"
+                  @click="rejectOffer"
+                >
+                  <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                    Ablehnen
+                  </div>
+                </button>
+              </div>
             </template>
           </template>
           <div class="mt-2 w-full">
