@@ -1,49 +1,58 @@
 <template>
   <div class="font-sans min-h-screen">
     <div class="md:flex">
-      <div class="md:w-1/3 md:min-h-screen p-12 pl-16">
-        <div class="flex items-center text-center">
-          <img
-            class="inline w-5 "
-            src="~assets/img/svg/back.svg"
-            alt="back button"
-          >
+      <div class="md:w-1/3 md:min-h-screen p-12 pl-16 flex flex-col justify-between">
+        <div>
+          <div class="flex items-center text-center">
+            <img
+              class="inline w-5 "
+              src="~assets/img/svg/back.svg"
+              alt="back button"
+            >
 
-          <nuxt-link to="/" @click="back">
-            <span class="text-blue-900 font-bold pl-2">Abbrechen</span>
-          </nuxt-link>
-        </div>
+            <nuxt-link to="/" @click="back">
+              <span class="text-blue-900 font-bold pl-2">Abbrechen</span>
+            </nuxt-link>
+          </div>
 
-        <p class="text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
-          Wähle die passenden Daten für dein Handy aus
-        </p>
-
-        <div class="flex items-center text-center pt-6">
-          <img
-            class="inline w-5 "
-            src="~assets/img/svg/help.svg"
-            alt="help button"
-          >
-
-          <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
-            Hilfe erhalten
-          </a>
-        </div>
-
-        <div class="text-gray-700 text-xs md:w-2/3 pt-4">
-          <p>
-            Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
-            <a
-              target="_blank"
-              href="privacy"
-              class="text-blue-500 hover:text-blue-800"
-            >Datenschutzerklärung</a>
+          <p class="text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
+            Wähle die passenden Daten für dein Handy aus
           </p>
-          <recaptcha-notice class="pt-6" />
+
+          <div class="flex items-center text-center pt-6">
+            <img
+              class="inline w-5 "
+              src="~assets/img/svg/help.svg"
+              alt="help button"
+            >
+
+            <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
+              Hilfe erhalten
+            </a>
+          </div>
+
+          <div class="text-gray-700 text-xs md:w-3/4 pt-4">
+            <p>
+              Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
+              <a
+                target="_blank"
+                href="privacy"
+                class="text-blue-500 hover:text-blue-800"
+              >Datenschutzerklärung</a>
+            </p>
+            <recaptcha-notice class="pt-6" />
+          </div>
+        </div>
+
+        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10">
+          <div
+            class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
+            :style="{ width: `${progress}%` }"
+          />
         </div>
       </div>
       <div class="md:w-2/3 p-2 h-screen overflow-y-auto">
-        <div class="rounded-lg p-6 md:p-12 bg-gray-900">
+        <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full">
           <template v-if="stage === 0">
             <p class="text-gray-200">
               Von welcher Marke ist dein Handy?
@@ -74,6 +83,162 @@
               </div>
             </button>
           </template>
+          <template v-else-if="stage === 2">
+            <p class="text-gray-200">
+              Wieviel internen Speicher hat dein Handy?
+            </p>
+            <button
+              v-for="(storage, storageId) in values.storages"
+              :key="storageId"
+              class="mt-3 block w-full"
+              @click="selectStorage(storage.title)"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
+                <span :class="`text-${storage.color} text-4xl`">{{ storage.title }}</span> <span class="text-sm">GB</span>
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 3">
+            <p class="text-gray-200">
+              In welchem äußerlichen Zustand ist dein Handy?
+            </p>
+            <form>
+              <div
+                v-for="(condition, conditionId ) in values.conditions"
+                :key="conditionId"
+                class="w-full"
+              >
+                <input
+                  :id="conditionId"
+                  v-model="request.condition"
+                  name="condition"
+                  type="radio"
+                  :value="conditionId"
+                >
+                <label
+                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+                  :class="request.condition === conditionId ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :for="conditionId"
+                >
+                  {{ condition.title }}
+                </label>
+                <p class="mt-2 text-gray-600 text-sm">
+                  {{ condition.description }}
+                </p>
+              </div>
+            </form>
+            <button
+              class="mt-4 block w-full"
+              :disabled="!request.condition"
+              @click="next"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 4">
+            <p class="text-gray-200">
+              Welche Defekte besitzt dein Handy?
+            </p>
+            <form>
+              <div
+                v-for="(defect, defectId) in values.defects"
+                :key="defectId"
+              >
+                <input
+                  :id="defectId"
+                  v-model="request.defects"
+                  type="checkbox"
+                  :value="defectId"
+                >
+                <label
+                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+                  :class="request.defects.includes(defectId) ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :for="defectId"
+                >
+                  {{ defect.title }}
+                </label>
+                <p class="mt-2 text-gray-600 text-sm">
+                  {{ defect.description }}
+                </p>
+              </div>
+            </form>
+            <button
+              class="mt-4 block w-full"
+              @click="next"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 5">
+            <p class="text-gray-200">
+              Welches Zubehör hast du noch?
+            </p>
+            <form>
+              <div v-for="(accessory,accessoryId) in values.accessories" :key="accessoryId">
+                <input
+                  :id="accessoryId"
+                  v-model="request.accessories"
+                  type="checkbox"
+                  :value="accessoryId"
+                >
+                <label
+                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+                  :class="request.accessories.includes(accessoryId) ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :for="accessoryId"
+                >
+                  {{ accessory }}
+                </label>
+              </div>
+            </form>
+
+            <button
+              class="mt-4 block w-full"
+              @click="confirmAccessories"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 6">
+            <template v-if="!offer">
+              <div style="width:100%">
+                <div id="loader" />
+              </div>
+            </template>
+            <template v-else-if="!offer.price.price">
+              <p
+                class="text-2xl text-white"
+              >
+                Entweder sind einige Daten falsch oder wir kaufen dein Handy derzeit nicht an
+              </p>
+              <p class="text-lg text-gray-500">
+                Trotzdem vielen Dank für deine Anfrage :D
+              </p>
+            </template>
+            <template v-else>
+              <p
+                class=""
+              >
+                Dein Handy
+              </p>
+            </template>
+          </template>
+          <div class="mt-2 w-full">
+            <button
+              v-if="stage !== 0 && stage !== 6"
+              class="mt-4 block w-full"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                Zurück
+              </div>
+            </button>
+          </div>
         </div>
       </div>
     </div>
