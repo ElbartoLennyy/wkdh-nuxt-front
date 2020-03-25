@@ -15,43 +15,38 @@ admin.initializeApp({
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-function uploadPriceRequest(price, phone, _callback) {
+async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
   const docRequest = db.collection('request').doc(id)
-
-  docRequest.set({
+  await docRequest.set({
     Date: getCurrentDate(),
     ID: id,
     Price: price,
     phone,
-  }).then(() => {
-    _callback(id)
   })
+  return id
 }
 
-function deletePriceRequest(id, _callback) {
+function deletePriceRequest(id) {
   db.collection('request').doc(id).delete()
-    .then(() => {
-      _callback()
-    })
 }
 /*
 function deleteUser(id, _callback) {
-    let deleteDoc = db.collection('userPhone').doc(id).delete()
+    let deleteDoc = db.collection('DEV').doc(id).delete()
         .then(() => {
             _callback();
         })
 }
 */
 
-function creatNewUser(id, _callback) {
+async function creatNewUser(id) {
   const docRequest = db.collection('request').doc(id)
-  const docUser = db.collection('userPhone').doc(id)
+  const docUser = db.collection('DEV').doc(id)
 
   let data
 
-  docRequest.get()
+  await docRequest.get()
     .then((doc) => {
       if (!doc.exists) {
         // console.log('No such document!');
@@ -64,19 +59,16 @@ function creatNewUser(id, _callback) {
           Price: data.Price,
           State: 'offer',
           phone,
-        }).then(() => {
-          deletePriceRequest(id)
-          _callback()
         })
       }
     })
-    .catch((err) => {
-      console.log('Error getting document', err)
-    })
+
+  deletePriceRequest(id)
+  return id
 }
 
 function setRejectNewOffer(uID) {
-  const docRequest = db.collection('userPhone').doc(uID)
+  const docRequest = db.collection('DEV').doc(uID)
 
   docRequest.set({
     Date: getCurrentDate(),
@@ -85,8 +77,8 @@ function setRejectNewOffer(uID) {
   })
 }
 
-function setOfferAccept(uID, data, _callback) {
-  const docRequest = db.collection('userPhone').doc(uID)
+async function setOfferAccept(uID, data) {
+  const docRequest = db.collection('DEV').doc(uID)
 
   data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
   data.Location.longitude = helper.convertToSafeString(data.Location.longitude.toString())
@@ -98,107 +90,60 @@ function setOfferAccept(uID, data, _callback) {
 
   data.PaymentData = helper.convertToSafeString(data.PaymentData)
 
-  docRequest.update({
+  await docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
     State: data.TransportType,
     data,
   })
-    .then(() => {
-      _callback()
-    })
+
+  return true
 }
 
-function getData(uID, _callback) {
-  const refUser = db.collection('userPhone').doc(uID)
+async function getShippmentData(uID) {
+  const refUser = db.collection('DEV').doc(uID)
+  const user = await refUser.get()
 
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        const data = (doc.data())
-        _callback(data)
-      }
-    })
+  if (user.data().State === 'shipping') {
+    return user.data()
+  }
+  return false
 }
 
-function getOffer(uID, _callback) {
+async function getUser(uID) {
+  const refUser = db.collection('DEV').doc(uID)
+
+  const user = await refUser.get()
+
+  if (user.data().State === 'offer') {
+    return user.data()
+  } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+    return { State: user.data().State }
+  }
+  return false
+}
+
+async function getNewOffer(uID) {
   // console.log(uID)
-  const refUser = db.collection('userPhone').doc(uID)
+  const refUser = db.collection('DEV').doc(uID)
 
-  let data
+  const user = await refUser.get()
 
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        data = (doc.data())
-        // TODO: Consider security implications of returning offer object outside of "offer" state
-        _callback(data)
-      }
-    })
+  if (user.data().State === 'newOffer') {
+    return user.data()
+  }
+  return false
 }
 
-function getNewOffer(uID, _callback) {
-  // console.log(uID)
-  const refUser = db.collection('userPhone').doc(uID)
-  const refPhone = refUser.collection('phone').doc('request')
-  const refPrice = refUser.collection('phone').doc('offer')
+async function setReturn(uID) {
+  const docRequest = db.collection('DEV').doc(uID)
 
-  let state
-  let dataPhone = {}
-  let price
-
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        state = (doc.data().State)
-      }
-    })
-    .then(function() {
-      if (state === 'newOffer') {
-        refPhone.get()
-          .then((doc) => {
-            if (!doc.exists) {
-              // console.log('No such document!');
-            } else {
-              dataPhone = (doc.data())
-            }
-          })
-          .then(function() {
-            refPrice.get()
-              .then((doc) => {
-                if (!doc.exists) {
-                  // console.log('No such document!');
-                } else {
-                  price = doc.data()
-                }
-              })
-              .then(function() {
-                const data = [price, dataPhone]
-                _callback(data)
-              })
-          })
-      } else {
-        // console.log("state not in newOffer");
-      }
-    })
-}
-
-function setReturn(uID, _callback) {
-  const docRequest = db.collection('userPhone').doc(uID)
-
-  docRequest.update({
+  await docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
     State: 'return',
-  }).then(() => {
-    _callback()
   })
+  return true
 }
 
-module.exports = { /* deleteUser, */ getOffer, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getData, uploadPriceRequest, deletePriceRequest, creatNewUser }
+module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser }

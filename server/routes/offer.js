@@ -7,10 +7,9 @@ const validator = require('../lib/validation')
 const sendcloud = require('../lib/sendcloud')
 const sendMail = require('../lib/sendMail')
 
-router.post('/getData', function(req, res, next) {
-  fbData.getOffer(req.body.uID, (obj) => {
-    res.send({ Obj: obj })
-  })
+router.post('/getData', async function(req, res, next) {
+  const userData = await fbData.getUser(req.body.uID)
+  res.send({ Obj: userData })
 })
 
 router.post('/validateAddress', function(req, res, next) {
@@ -63,7 +62,7 @@ router.post('/accept', function(req, res, next) {
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
 
-  request(verificationURL, (err, response, body) => {
+  request(verificationURL, async(err, response, body) => {
     if (err) {
       console.log(err)
       return res.status(500).send({ responseError: err })
@@ -77,19 +76,17 @@ router.post('/accept', function(req, res, next) {
     }
 
     if (req.body.data.TransportType === 'shipping') {
-      sendcloud.createParcel(req.body.uID, req.body.data, (data) => {
+      sendcloud.createParcel(req.body.uID, req.body.data, async(data) => {
         req.body.data.TransportData = data
 
-        fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-          sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
-          res.send({ Obj: 'done' })
-        })
-      })
-    } else if (req.body.data.TransportType === 'pickUp') {
-      fbData.setOfferAccept(req.body.uID, req.body.data, () => {
+        await fbData.setOfferAccept(req.body.uID, req.body.data)
         sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
         res.send({ Obj: 'done' })
       })
+    } else if (req.body.data.TransportType === 'pickUp') {
+      await fbData.setOfferAccept(req.body.uID, req.body.data)
+      sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
+      res.send({ Obj: 'done' })
     }
   })
 })

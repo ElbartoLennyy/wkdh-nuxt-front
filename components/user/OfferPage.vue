@@ -437,9 +437,7 @@
 <script>
 import PickupPicker from '~/components/PickupPicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
-
 import * as values from '~/data/values'
-
 export default {
   components: { PickupPicker, RecaptchaNotice },
   props: {
@@ -481,39 +479,23 @@ export default {
       this.form.TransportData = date.toISOString()
     },
   },
-  mounted() {
-    // eslint-disable-next-line no-unused-vars
-    const fbq = !(function(f, b, e, v, n, t, s) {
-      if (f.fbq) { return } n = f.fbq = function() {
-        n.callMethod
-          ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-      }; if (!f._fbq) { f._fbq = n }
-      n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0
-      t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
-    }(window,
-      document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'))
-  },
   methods: {
     async validateAddress() {
       try {
         this.validatingAddress = true
         const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
-
         // TODO: Move this validation logic to the back-end (and return appropriate status code)
         if (!Location.streetName || !Location.streetNumber) {
           throw new Error('Not enough details!')
         }
-
         this.form.Location = Location
         this.form.PickUpPossible = PickUp
         this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
-
         this.next()
       } catch {
         // TODO: Make sure server returns appropriate status code instead of 502
         alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
       }
-
       this.validatingAddress = false
     },
     async validatePaymentData() {
@@ -522,7 +504,6 @@ export default {
         await this.$axios.$post('/offer/validatePaymentData', {
           PaymentMethod, PaymentData,
         })
-
         this.next()
       } catch {
         // TODO: Make this error message more helpful
@@ -534,13 +515,11 @@ export default {
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-
         await this.$axios.post('/offer/accept', {
           uID: this.offer.ID,
           data: this.form,
           Token: token,
         })
-
         this.offer.State = this.form.TransportType
       })
     },

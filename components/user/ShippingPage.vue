@@ -1,11 +1,10 @@
 <template>
   <div id="toolbox">
-    <img
+    <!--   <img
       height="1"
       width="1"
       style="display:none"
-      src="https://www.facebook.com/tr?id=480915019270567&ev=Lead&noscript=1"
-    >
+      src="https://www.facebook.com/tr?id=480915019270567&ev=Lead&noscript=1"/> -->
     <section class="meta-content">
       <div id="idSection">
         <h1 id="explanation" class="typo-title">
@@ -48,12 +47,9 @@
 
 <script>
 export default {
-  props: {
-    offer: { type: Object, required: true },
-  },
   computed: {
     labelUrl() {
-      return `/user/${this.offer.ID}/label.pdf`
+      return `/user/${this.$route.params.userId}/label.pdf`
     },
   },
 }

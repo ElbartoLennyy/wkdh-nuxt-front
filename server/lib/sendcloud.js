@@ -27,7 +27,7 @@ async function createParcel(userID, data, _callback) {
       country: 'DE',
       shipment: {
         // TODO: Turn this into an environment variable
-        id: 111, // 111 for production
+        id: 8, // 111 for production
       },
       weight: '1.000',
       order_number: userID,

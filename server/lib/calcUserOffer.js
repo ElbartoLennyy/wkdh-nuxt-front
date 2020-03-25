@@ -65,10 +65,15 @@ function calcDefects(userPhone) {
   const defects = JSON.stringify(userPhone.Defects)
 
   const brand = userPhone.Brand.toLowerCase()
+  let priceList
 
-  const workbook = xlsx.readFile(`./priceParts/${brand}.xlsx`)
-  const sheetNameList = workbook.SheetNames
-  const priceList = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]])
+  try {
+    const workbook = xlsx.readFile(`./priceParts/${brand}.xlsx`)
+    const sheetNameList = workbook.SheetNames
+    priceList = xlsx.utils.sheet_to_json(workbook.Sheets[sheetNameList[0]])
+  } catch (error) {
+    return false
+  }
 
   if (userPhone.Brand === 'Samsung') {
     const samsungName = xlsx.readFile('./priceParts/samsung_name.xlsx')
@@ -111,9 +116,12 @@ function calcDefects(userPhone) {
       }
     }
   }
+
+  if (phoneDefectsPrice.length === 0) { return false }
+
   if (defects.includes('BATTERY')) {
     const prices = []
-    for (const element in phoneDefectsPrice) {
+    for (const element of phoneDefectsPrice) {
       if (element['Part category'].includes('Battery')) {
         prices.push(element['Price ex tax'])
       }

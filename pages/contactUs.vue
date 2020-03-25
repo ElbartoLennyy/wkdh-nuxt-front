@@ -7,7 +7,7 @@
         </nuxt-link>
         <div class="ml-1 p-1 flex">
           <nuxt-link to="/ankauf" class="block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Ankauf</nuxt-link>
-      <!--    <nuxt-link to="/shop" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Shop</nuxt-link> -->
+          <!--    <nuxt-link to="/shop" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Shop</nuxt-link> -->
         </div>
       </div>
     </div>
