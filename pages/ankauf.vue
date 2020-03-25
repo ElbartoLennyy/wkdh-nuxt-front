@@ -8,7 +8,7 @@
         <div class="ml-1 p-1 flex">
           <nuxt-link to="/ankauf" class="block py-1 px-3 bg-white hover:no-underline rounded-full text-gray-900">Ankauf</nuxt-link>
           <!--<nuxt-link to="/shop" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Shop</nuxt-link>--->
-          <nuxt-link to="/handy" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-blue-600 text-blue-400 hover:text-white hover:no-underline rounded-full">Anfragen →</nuxt-link>
+          <nuxt-link to="/offline" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-blue-600 text-blue-400 hover:text-white hover:no-underline rounded-full">Anfragen →</nuxt-link>
         </div>
       </div>
     </div>
@@ -22,7 +22,7 @@
               src="~assets/img/icons/logo.png"
               alt="Logo"
             >
-            <nuxt-link to="/handy">
+            <nuxt-link to="/offline">
               <button class="bg-buttonBlue rounded-lg font-semibold mt-8 text-lg truncate p-2 pl-12 pr-12 hover:text-blue-200 hover:no-underline shadow-xl ">
                 Jetzt Handy verkaufen →
               </button>
@@ -36,7 +36,7 @@
             <h1 class="mt-5 text-4xl md:text-6xl font-semibold leading-tight md:tracking-wide md:text-left">
               Wir kaufen dein altes Handy.
             </h1>
-            <nuxt-link to="/handy" class="block mt-2 text-2xl md:text-3xl text-blue-300 hover:text-blue-200 font-semibold">
+            <nuxt-link to="/offline" class="block mt-2 text-2xl md:text-3xl text-blue-300 hover:text-blue-200 font-semibold">
               <h2>Und holen es an deiner Haustür ab!</h2>
             </nuxt-link>
           </div>
