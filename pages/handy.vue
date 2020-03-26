@@ -100,6 +100,42 @@
           </template>
           <template v-else-if="stage === 3">
             <p class="text-gray-200">
+              Welche Defekte besitzt dein Handy?
+            </p>
+            <form>
+              <div
+                v-for="(defect, defectId) in values.defects"
+                :key="defectId"
+              >
+                <input
+                  :id="defectId"
+                  v-model="request.defects"
+                  type="checkbox"
+                  :value="defectId"
+                >
+                <label
+                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+                  :class="request.defects.includes(defectId) ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :for="defectId"
+                >
+                  {{ defect.title }}
+                </label>
+                <p class="mt-2 text-gray-600 text-sm">
+                  {{ defect.description }}
+                </p>
+              </div>
+            </form>
+            <button
+              class="mt-4 block w-full"
+              @click="next"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 4">
+            <p class="text-gray-200">
               In welchem äußerlichen Zustand ist dein Handy?
             </p>
             <form>
@@ -134,42 +170,6 @@
             >
               <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
                 Weiter
-              </div>
-            </button>
-          </template>
-          <template v-else-if="stage === 4">
-            <p class="text-gray-200">
-              Welche Defekte besitzt dein Handy?
-            </p>
-            <form>
-              <div
-                v-for="(defect, defectId) in values.defects"
-                :key="defectId"
-              >
-                <input
-                  :id="defectId"
-                  v-model="request.defects"
-                  type="checkbox"
-                  :value="defectId"
-                >
-                <label
-                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.defects.includes(defectId) ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
-                  :for="defectId"
-                >
-                  {{ defect.title }}
-                </label>
-                <p class="mt-2 text-gray-600 text-sm">
-                  {{ defect.description }}
-                </p>
-              </div>
-            </form>
-            <button
-              class="mt-4 block w-full"
-              @click="next"
-            >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
-                Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
               </div>
             </button>
           </template>
