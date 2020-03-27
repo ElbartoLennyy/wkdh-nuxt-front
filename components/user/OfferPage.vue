@@ -50,11 +50,11 @@
             v-if="stage === 1"
             @submit.prevent="next"
           >
-            <h2 class="typo-subheader">
+            <p class="text-white text-xl">
               Anrede
-            </h2>
+            </p>
 
-            <select id="salutation" v-model="form.Salutation" class="toolbox-field">
+            <select id="salutation" v-model="form.Salutation" class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
               <option value="Herr">
                 Herr
               </option>
@@ -63,54 +63,131 @@
               </option>
             </select>
 
-            <h2 class="typo-subheader">
+            <p class="text-white text-xl mt-4">
               Name
-            </h2>
+            </p>
 
-            <div class="toolbox-row">
-              <div class="left">
-                <input
-                  id="firstName"
-                  v-model.trim="form.FirstName"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Vorname"
-                  required
-                >
-                <p class="typo-caption">
-                  Vorname
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+              <input
+                id="firstName"
+                v-model.trim="form.FirstName"
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+                type="text"
+                placeholder="Vorname*"
+                required
+              >
+            </div>
+            <p class="text-white text-base font-light mb-4">
+              Vorname
+            </p>
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+              <input
+                id="name"
+                v-model.trim="form.Name"
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+                type="text"
+                placeholder="Nachname*"
+                required
+              >
+            </div>
+            <p class="text-white text-base font-light mb-4">
+              Nachname
+            </p>
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+              <input
+                id="email"
+                v-model.trim="form.Email"
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+                type="email"
+                placeholder="Email*"
+                required
+              >
+            </div>
+            <p class="text-white text-base font-light mb-4">
+              Email
+            </p>
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+              <input
+                id="phoneNumber"
+                v-model.trim="form.PhoneNumber"
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+                type="tel"
+                placeholder="Telefonnummer"
+              >
+            </div>
+            <p class="text-white text-base font-light mb-4">
+              Telefonnummer (optional)
+            </p>
+
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter
+              </div>
+            </button>
+          </form>
+          <form v-else-if="stage === 2" @submit.prevent="validateAddress">
+            <p class="text-white text-xl mt-4">
+              Adresse
+            </p>
+
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+              <input
+                id="Adress"
+                v-model.trim="address.Adress"
+                class="bg-transparent text-gray-100 py-4 rounded-lg w-full"
+                type="text"
+                placeholder="Straße, Hausnummer"
+                required
+                autocomplete="shipping street-address"
+              >
+            </div>
+            <p class="text-white text-base font-light mb-4">
+              Straße, Hausnummer
+            </p>
+
+            <div class="flex">
+              <div class="w-1/3">
+                <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+                  <input
+                    id="PLZ"
+                    v-model.trim="address.PLZ"
+                    class="bg-transparent text-gray-100 py-4 rounded-lg w-full"
+                    type="text"
+                    placeholder="PLZ"
+                    required
+                    autocomplete="shipping postal-code"
+                  >
+                </div>
+                <p class="text-white text-base font-light mb-4">
+                  Postleitzahl
                 </p>
               </div>
-              <div class="right">
-                <input
-                  id="name"
-                  v-model.trim="form.Name"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Nachname"
-                  required
-                >
-                <p class="typo-caption">
-                  Nachname
-                </p>
-              </div>
-              <div class="right">
-                <input
-                  id="email"
-                  v-model.trim="form.Email"
-                  class="toolbox-field"
-                  type="email"
-                  placeholder="Email"
-                  required
-                >
-                <p class="typo-caption">
-                  Email
+              <div class="w-2/3 ml-4">
+                <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700">
+                  <input
+                    id="Place"
+                    v-model.trim="address.Place"
+                    class="bg-transparent text-gray-100 py-4 rounded-lg w-full"
+                    type="text"
+                    placeholder="Ort"
+                    required
+                    autocomplete="shipping locality"
+                  >
+                </div>
+                <p class="text-white text-base font-light mb-4">
+                  Ort
                 </p>
               </div>
             </div>
 
-            <button type="submit" class="toolbox-field selected">
+            <button type="submit" class="toolbox-field selected" :disabled="validatingAddress">
               Weiter
+            </button>
+            <button type="button" class="toolbox-field" @click.prevent="back()">
+              Zurück
             </button>
           </form>
         </div>
@@ -138,19 +215,17 @@ export default {
       Salutation: 'Herr',
       Name: '',
       FirstName: '',
-      Location: '',
+      PhoneNumber: '',
       PaymentMethod: 'PayPal',
       PaymentData: '',
       TransportData: '',
       TransportType: 'shipping',
-      PickUpPossible: false,
     },
     pickupTime: null,
     validatingAddress: false,
     // TODO: Fix "Adress" typo and weird terminology
     address: {
       Adress: '',
-      HouseNumber: '',
       PLZ: '',
       Place: '',
     },
@@ -166,22 +241,25 @@ export default {
     },
   },
   methods: {
-    async validateAddress() {
-      try {
-        this.validatingAddress = true
-        const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
-        // TODO: Move this validation logic to the back-end (and return appropriate status code)
-        if (!Location.streetName || !Location.streetNumber) {
-          throw new Error('Not enough details!')
+    validateAddress() {
+      this.validatingAddress = true
+      // eslint-disable-next-line no-undef
+      grecaptcha.ready(async() => {
+        // eslint-disable-next-line no-undef
+        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
+        const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', { uID: this.offer.ID, Adress: this.address, Token: token })
+        console.log(Location)
+        if (Location !== undefined) {
+          this.address.Adress = Location.streetName + ' ' + Location.streetNumber
+          this.address.PLZ = Location.zipcode
+          this.address.Place = Location.city
+          this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
+          this.next()
+        } else {
+          alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
         }
-        this.form.Location = Location
-        this.form.PickUpPossible = PickUp
-        this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
-        this.next()
-      } catch {
-        // TODO: Make sure server returns appropriate status code instead of 502
-        alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
-      }
+      })
+
       this.validatingAddress = false
     },
     async validatePaymentData() {

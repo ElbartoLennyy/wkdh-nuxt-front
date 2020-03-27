@@ -80,11 +80,6 @@ function setRejectNewOffer(uID) {
 async function setOfferAccept(uID, data) {
   const docRequest = db.collection('DEV').doc(uID)
 
-  data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
-  data.Location.longitude = helper.convertToSafeString(data.Location.longitude.toString())
-  data.Location.streetName = helper.convertToSafeString(data.Location.streetName)
-  data.Location.streetNumber = helper.convertToSafeString(data.Location.streetNumber)
-
   data.Name = helper.convertToSafeString(data.Name)
   data.FirstName = helper.convertToSafeString(data.FirstName)
 
@@ -95,6 +90,16 @@ async function setOfferAccept(uID, data) {
     ID: uID,
     State: data.TransportType,
     data,
+  })
+
+  return true
+}
+
+async function setUserLocation(uID, location, pickUpPossible) {
+  const docRequest = db.collection('DEV').doc(uID)
+
+  await docRequest.update({
+    data: { Location: location, PickUpPossible: pickUpPossible },
   })
 
   return true
@@ -146,4 +151,4 @@ async function setReturn(uID) {
   return true
 }
 
-module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser }
+module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation }

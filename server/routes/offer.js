@@ -13,17 +13,39 @@ router.post('/getData', async function(req, res, next) {
 })
 
 router.post('/validateAddress', function(req, res, next) {
-  geocoder.validateAddress(req.body, (data, pickUp) => {
-    if (data === 'placeError') {
-      // error
-    } else {
-      console.log(data, 'abholung: ' + pickUp)
+  const uID = req.body.uID
+  const token = req.body.Token
+
+  if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
+    return res.status(500).send({ responseError: 'Please select captcha first' })
+  }
+
+  const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
+
+  request(verificationURL, async(err, response, body) => {
+    if (err) {
+      console.log(err)
+      return res.send({ responseError: err })
     }
 
-    res.send(({
-      Location: data,
-      PickUp: pickUp,
-    }))
+    body = JSON.parse(body)
+
+    if (body.success !== undefined && !body.success) {
+      console.log('Failed captcha verification error:' + body)
+      return res.status(500).send({ responseError: 'Failed captcha verification' })
+    }
+
+    const { location, pickUp } = await geocoder.validateAddress(req.body.Adress)
+
+    if (location === undefined) {
+      res.send(false)
+    } else {
+      fbData.setUserLocation(uID, location, pickUp)
+      res.send({
+        Location: location,
+        PickUp: pickUp,
+      })
+    }
   })
 })
 

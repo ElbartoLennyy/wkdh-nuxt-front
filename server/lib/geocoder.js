@@ -10,27 +10,36 @@ const dustin = {
   lon: 13.736304,
 }
 
-function validateAddress(place, _callback) {
-  const placeString = place.Adress + ' ' + place.HouseNumber + ' ' + place.PLZ + ' ' + place.Place
+async function validateAddress(place) {
+  const placeString = place.Adress + ' ' + place.PLZ + ' ' + place.Place
 
   const geocoder = NodeGeocoder({
-    provider: 'opencage',
-    apiKey: process.env.OPENCAGE_API_KEY,
+    provider: 'google',
+    apiKey: process.env.GOOGLE_API_KEY,
   })
 
-  // eslint-disable-next-line handle-callback-err
-  geocoder.geocode(placeString, function(err, res) {
-    if (res[0] === undefined) {
-      _callback('placeError')
-      return
+  const res = await geocoder.geocode(placeString)
+  try {
+    if (res[0].extra === undefined) { return false }
+    if (res[0].extra.confidence >= 4) {
+      return false
     }
+  } catch (error) {
+    return false
+  }
 
-    if (res[0].extra.confidence >= 6) {
-      _callback(res[0], checkPickUpDistance(res[0]))
-    } else {
-      _callback('placeError')
-    }
-  })
+  if (res[0].streetName === undefined || res[0].streetName === '') { return false }
+  if (res[0].streetNumber === undefined || res[0].streetNumber === '') { return false }
+  if (res[0].zipcode === undefined || res[0].zipcode === '') { return false }
+  if (res[0].city === undefined || res[0].city === '') { return false }
+  if (res[0].countryCode !== 'DE') { return false }
+  if (res[0].latitude === undefined || res[0].latitude === '') { return false }
+  if (res[0].longitude === undefined || res[0].longitude === '') { return false }
+
+  delete res[0].extra
+  delete res[0].administrativeLevels
+  console.log(res)
+  return { location: res[0], pickUp: checkPickUpDistance(res[0]) }
 }
 
 function checkPickUpDistance(data) {
