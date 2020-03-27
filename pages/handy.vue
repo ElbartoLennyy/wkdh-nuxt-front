@@ -19,7 +19,7 @@
             Wähle die passenden Daten für dein Handy aus
           </p>
 
-          <div class="flex items-center text-center md:pt-6">
+          <div class="flex items-center text-center md:pt-4">
             <img
               class="inline w-5 "
               src="~assets/img/svg/help.svg"

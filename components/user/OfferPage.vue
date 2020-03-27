@@ -1,36 +1,51 @@
 <template>
-  <div id="toolbox">
-    <section class="meta-content">
-      <div id="meta-progress" class="progress-indicator">
-        <div :style="{ width: `${progress}%` }" />
-      </div>
-
-      <nuxt-link id="meta-back" to="/" class="inline-button" @click="back">
-        <i class="material-icons">chevron_left</i>
-        <span class="text-gray-800">Abbrechen</span>
-      </nuxt-link>
-
-      <div id="idSection">
+  <div class="font-sans min-h-screen">
+    <div class="md:flex">
+      <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
-          <h1 id="explanation" class="typo-title">
+          <div class="flex items-center text-center">
+            <img
+              class="inline w-5 "
+              src="~assets/img/svg/back.svg"
+              alt="back button"
+            >
+
+            <nuxt-link to="/" @click="back">
+              <span class="text-blue-900 font-bold pl-2">Abbrechen</span>
+            </nuxt-link>
+          </div>
+
+          <p class="text-3xl md:text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
             Wir kaufen dein Handy!
-          </h1>
-          <h3 class="icon-header-title">
+          </p>
+
+          <p class="text-2xl md:text-4xl">
             Wir bieten dir
-            <b>{{ offer.Price.price }}</b>€
-          </h3>
+            <b>{{ offer.Price.price }}</b> €
+          </p>
+
+          <div class="text-gray-700 text-xs md:w-3/4 pt-4">
+            <p>
+              Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
+              <a
+                target="_blank"
+                href="privacy"
+                class="text-blue-500 hover:text-blue-800"
+              >Datenschutzerklärung</a>
+            </p>
+            <recaptcha-notice class="pt-6" />
+          </div>
         </div>
 
-        <div class="typo-footnote">
-          <p>Bitte trage deine Daten ein und bestätige die AGBs sowie die Datenschutzbestimmungen um den Kauf erfolgreich abzuschließen.</p>
-          <recaptcha-notice />
+        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10">
+          <div
+            class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
+            :style="{ width: `${progress}%` }"
+          />
         </div>
       </div>
-    </section>
-
-    <section class="selection-content" data-switch-appearance>
-      <div class="box">
-        <div id="selGrid" class="grid">
+      <div class="md:w-2/3 p-2 h-screen overflow-y-auto">
+        <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full">
           <form
             v-if="stage === 1"
             @submit.prevent="next"
@@ -98,339 +113,9 @@
               Weiter
             </button>
           </form>
-
-          <form v-else-if="stage === 2" @submit.prevent="validateAddress">
-            <h2 class="typo-subheader">
-              Adresse
-            </h2>
-
-            <div class="toolbox-row">
-              <div style="width: 100%; margin-right: 2%">
-                <input
-                  id="Adress"
-                  v-model.trim="address.Adress"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Straße"
-                  required
-                >
-                <p class="typo-caption">
-                  Straße
-                </p>
-              </div>
-              <div style="width: 75%">
-                <input
-                  id="HouseNumber"
-                  v-model.trim="address.HouseNumber"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Hausnummer"
-                  required
-                >
-                <p class="typo-caption">
-                  Hausnummer
-                </p>
-              </div>
-            </div>
-
-            <div class="toolbox-row">
-              <div class="left">
-                <input
-                  id="PLZ"
-                  v-model.trim="address.PLZ"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="PLZ"
-                  required
-                >
-                <p class="typo-caption">
-                  Postleitzahl
-                </p>
-              </div>
-              <div class="right">
-                <input
-                  id="Place"
-                  v-model.trim="address.Place"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Ort"
-                  required
-                >
-                <p class="typo-caption">
-                  Ort
-                </p>
-              </div>
-            </div>
-
-            <button type="submit" class="toolbox-field selected" :disabled="validatingAddress">
-              Weiter
-            </button>
-            <button type="button" class="toolbox-field" @click.prevent="back()">
-              Zurück
-            </button>
-          </form>
-
-          <form v-else-if="stage === 3" @submit.prevent="validatePaymentData">
-            <template v-if="form.TransportType === 'pickUp'">
-              <h2 class="typo-subheader">
-                Wir holen dein Handy ab!
-              </h2>
-
-              <h2 class="typo-subheader">
-                Willst du dein Gerät lieber selber verschicken?
-              </h2>
-              <button
-                type="button"
-                class="toolbox-field"
-                @click="form.TransportType = 'shipping'"
-              >
-                Selber verschicken
-              </button>
-
-              <h2 class="typo-subheader">
-                Bitte wähle die Zeit aus, wann wir dein Gerät abholen sollen
-              </h2>
-
-              <pickup-picker v-model="pickupTime" />
-            </template>
-
-            <template v-else-if="form.TransportType === 'shipping'">
-              <p v-if="!form.PickUpPossible">
-                Leider ist dein Gerät nicht in unserem Abholradius.
-                Wir bitten dich es daher an uns kostenlos per Post zu schicken.
-              </p>
-              <p>Nach dem Abschluss des Verkaufs erhältst du die Versandmarke, sowie eine Versandguideline.</p>
-
-              <template v-if="form.PickUpPossible">
-                <h2 class="typo-subheader">
-                  Willst du dein Gerät doch lieber abholen lassen?
-                </h2>
-                <button
-                  type="button"
-                  class="toolbox-field"
-                  @click="form.TransportType = 'pickUp'"
-                >
-                  Abholen lassen
-                </button>
-              </template>
-            </template>
-
-            <!-- TODO: Consider splitting this into a separate stage -->
-            <h2 class="typo-subheader">
-              Wie willst du das Geld erhalten?
-            </h2>
-            <input
-              id="PayPal"
-              v-model="form.PaymentMethod"
-              class="toolbox-checkbox"
-              name="paymentMethod"
-              type="radio"
-              value="PayPal"
-            >
-            <label class="toolbox-field" for="PayPal">PayPal-Gutschrift<i class="material-icons selection-icon">check</i></label>
-            <input
-              id="Überweisung"
-              v-model="form.PaymentMethod"
-              class="toolbox-checkbox"
-              name="paymentMethod"
-              type="radio"
-              value="Überweisung"
-            >
-            <label class="toolbox-field" for="Überweisung">Überweisung<i class="material-icons selection-icon">check</i></label>
-
-            <input
-              id="paymentData"
-              v-model.trim="form.PaymentData"
-              class="toolbox-field"
-              :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
-              :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
-              required
-            >
-            <p
-              v-if="form.PaymentMethod === 'PayPal' && form.PaymentData !== form.Email"
-              class="typo-caption"
-            >
-              <button
-                type="button"
-                class="hover:underline"
-                @click="form.PaymentData = form.Email"
-              >
-                Gleiche Emailadresse (<span
-                  class="text-gray-500"
-                >{{ form.Email }}</span>) für PayPal verwenden
-              </button>
-            </p>
-
-            <button type="submit" class="toolbox-field selected">
-              Weiter
-            </button>
-            <button type="button" class="toolbox-field" @click="back()">
-              Zurück
-            </button>
-          </form>
-
-          <form v-else-if="stage === 4" @submit.prevent="next">
-            <h2 class="typo-subheader">
-              Dein Handy
-            </h2>
-            <div class="icon-header">
-              <div class="icon-header-icon material-icons">
-                smartphone
-              </div>
-              <h3
-                class="icon-header-title"
-              >
-                {{ offer.phone.Brand }} {{ offer.phone.Phone }}
-              </h3>
-            </div>
-
-            <h2 class="typo-subheader">
-              Speicher
-            </h2>
-            <p> {{ offer.phone.Storage }} GB</p>
-
-            <h2 class="typo-subheader">
-              Zustand
-            </h2>
-            <p>{{ values.conditions[offer.phone.Condition].title }}</p>
-
-            <template v-if="offer.phone.Defects.length >= 1">
-              <h2 class="typo-subheader">
-                Defekte
-              </h2>
-              <p>
-                <template v-for="defect in offer.phone.Defects">
-                  {{ values.defects[defect].title }}
-                  <br :key="defect">
-                </template>
-              </p>
-            </template>
-            <h2 class="typo-subheader">
-              Zubehör
-            </h2>
-            <p>
-              <template v-for="accessory in offer.phone.Accessorys">
-                {{ values.accessories[accessory] }}
-                <br :key="accessory">
-              </template>
-            </p>
-
-            <h2 class="typo-subheader">
-              Name
-            </h2>
-
-            <div class="toolbox-row">
-              <div class="left">
-                <input id="firstName" class="toolbox-field" type="text" :value="form.FirstName" readonly>
-              </div>
-              <div class="right">
-                <input id="name" class="toolbox-field" type="text" :value="form.Name" readonly>
-              </div>
-              <div class="toolbox-row">
-                <input id="name" class="toolbox-field" type="text" :value="form.Email" readonly>
-              </div>
-            </div>
-
-            <h2 class="typo-subheader">
-              Adresse
-            </h2>
-
-            <div class="toolbox-row">
-              <div style="width: 100%; margin-right: 2%">
-                <input id="Adress" class="toolbox-field" type="text" :value="form.Location.streetName" readonly>
-                <p class="typo-caption">
-                  Straße
-                </p>
-              </div>
-              <div style="width: 75%">
-                <input id="HouseNumber" class="toolbox-field" type="text" :value="form.Location.streetNumber" readonly>
-                <p class="typo-caption">
-                  Hausnummer
-                </p>
-              </div>
-            </div>
-
-            <div class="toolbox-row">
-              <div class="left">
-                <input id="PLZ" class="toolbox-field" type="text" :value="form.Location.zipcode" readonly>
-                <p class="typo-caption">
-                  Postleitzahl
-                </p>
-              </div>
-              <div class="right">
-                <input id="Place" class="toolbox-field" type="text" :value="form.Location.city" readonly>
-                <p class="typo-caption">
-                  Ort
-                </p>
-              </div>
-            </div>
-
-            <template v-if="form.TransportType === 'pickUp'">
-              <h2 class="typo-subheader">Wir holen dein Handy ab am</h2>
-              <div class="toolbox-field">
-                {{ pickupTime.formattedDay }}
-                zwischen {{ pickupTime.formattedStartTime }} und {{ pickupTime.formattedEndTime }}
-              </div>
-            </template>
-
-            <h2 v-else-if="form.TransportType === 'shipping'" class="typo-subheader">
-              Du verschickst dein Handy selbst. Das Label erhältst du am Ende.
-            </h2>
-
-            <h2 class="typo-subheader">
-              Du erhältst dein Geld via
-            </h2>
-            <input class="toolbox-field" type="text" :value="form.PaymentMethod" readonly>
-            <input class="toolbox-field" type="text" :value="form.PaymentData" readonly>
-
-            <h2 class="typo-subheader">Daten fehlerhaft? Nutze den Zurück-Knopf.</h2>
-
-            <button type="submit" class="toolbox-field selected">
-              Weiter
-            </button>
-            <button type="button" class="toolbox-field" @click="back()">
-              Zurück
-            </button>
-          </form>
-
-          <form v-else-if="stage === 5" @submit.prevent="acceptOffer">
-            <h2 class="typo-subheader">
-              Bitte bestätige folgendes
-            </h2>
-            <input id="privacy" class="toolbox-checkbox" type="checkbox" value="privacy" required>
-            <label id="privacy-box" class="toolbox-field" for="privacy">
-              Ich bin mit der Speicherung meiner Daten gemäß Datenschutzerklärung einverstanden.
-              <i class="material-icons selection-icon">check</i>
-            </label>
-            <a href="privacy" target="_blank">Datenschutzerklärung</a>
-
-            <input id="Widerrufsrecht" class="toolbox-checkbox" type="checkbox" value="Widerrufsrecht" required>
-            <label id="Widerrufsrecht-box" class="toolbox-field" for="Widerrufsrecht">
-              Ich bestätige die Regelung bezüglich des Wiederrufsrechts bei wirkaufendeinhandy.shop (AGBs siehe 3.2)
-              <i class="material-icons selection-icon">check</i>
-            </label>
-
-            <input id="AGBs" class="toolbox-checkbox" type="checkbox" value="AGBs" required>
-            <label id="AGB-box" class="toolbox-field" for="AGBs">
-              Ich bin mit den geltenden AGBs einverstanden
-              <i class="material-icons selection-icon">check</i>
-            </label>
-            <a href="AGB" target="_blank">AGBs</a>
-
-            <h2 class="typo-subheader">
-              Schließe den Verkauf deines Gerätes verbindlich ab
-            </h2>
-
-            <button type="submit" class="toolbox-field selected">
-              Bestätigen und Verkauf abschließen
-            </button>
-            <button type="button" class="toolbox-field" @click.prevent="back()">
-              Zurück
-            </button>
-          </form>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
@@ -439,6 +124,7 @@ import PickupPicker from '~/components/PickupPicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 import * as values from '~/data/values'
 export default {
+  // eslint-disable-next-line vue/no-unused-components
   components: { PickupPicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true },
