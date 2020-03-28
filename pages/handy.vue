@@ -44,7 +44,7 @@
           </div>
         </div>
 
-        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10">
+        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
           <div
             class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
             :style="{ width: `${progress}%` }"

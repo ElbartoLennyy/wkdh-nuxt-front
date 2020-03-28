@@ -17,7 +17,11 @@
     </select>
 
     <div v-if="selectedDay" class="mt-3">
-      <select v-model="selectedStart" class="block w-full bg-gray-800 rounded-lg text-gray-100 px-3 py-4 hover:bg-gray-700" required>
+      <select
+        v-model="selectedStart"
+        class="block w-full bg-gray-800 rounded-lg text-gray-100 px-3 py-4 hover:bg-gray-700"
+        required
+      >
         <option value="" disabled selected>Wähle einen Zeitraum aus…</option>
         <option v-for="([startHour, startMinute], startIndex) in availableStarts" :key="startIndex" :value="startIndex">
           Zwischen {{ startHour }}:{{ padZeros(startMinute) }}
