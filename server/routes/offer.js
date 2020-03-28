@@ -38,7 +38,7 @@ router.post('/validateAddress', function(req, res, next) {
     const { location, pickUp } = await geocoder.validateAddress(req.body.Adress)
 
     if (location === undefined) {
-      res.send(false)
+      res.status(500).send()
     } else {
       fbData.setUserLocation(uID, location, pickUp)
       res.send({

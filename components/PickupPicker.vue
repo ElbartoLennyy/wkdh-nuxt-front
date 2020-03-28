@@ -2,7 +2,7 @@
   <div>
     <select
       v-model="selectedDay"
-      class="px-3 py-2 toolbox-field"
+      class="block w-full bg-gray-800 rounded-lg text-gray-100 px-3 py-4 hover:bg-gray-700"
       required
       @input="selectedStart = null"
     >
@@ -17,7 +17,7 @@
     </select>
 
     <div v-if="selectedDay" class="mt-3">
-      <select v-model="selectedStart" class="px-3 py-2 toolbox-field" required>
+      <select v-model="selectedStart" class="block w-full bg-gray-800 rounded-lg text-gray-100 px-3 py-4 hover:bg-gray-700" required>
         <option value="" disabled selected>Wähle einen Zeitraum aus…</option>
         <option v-for="([startHour, startMinute], startIndex) in availableStarts" :key="startIndex" :value="startIndex">
           Zwischen {{ startHour }}:{{ padZeros(startMinute) }}
@@ -42,19 +42,19 @@ export default {
     selectedDay: '',
     selectedStart: null,
     daySlots: {
-      '2020-03-10': [
+      '2020-03-31': [
         { start: [7, 30], end: [9, 30] },
       ],
-      '2020-03-13': [
+      '2020-04-02': [
         { start: [16, 0], end: [18, 0] },
       ],
-      '2020-03-14': [
+      '2020-04-06': [
         { start: [15, 0], end: [17, 0] },
       ],
-      '2020-03-15': [
+      '2020-04-08': [
         { start: [15, 0], end: [17, 0] },
       ],
-      '2020-03-16': [
+      '2020-04-16': [
         { start: [11, 0], end: [13, 0] },
       ],
     },
@@ -109,6 +109,8 @@ export default {
   },
   watch: {
     finishedDate(date) {
+      if (date === null) { return }
+
       this.$emit('input', date ? {
         day: this.selectedDay,
         start: this.selectedStart,

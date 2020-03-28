@@ -47,7 +47,7 @@
       <div class="md:w-2/3 p-2 h-screen overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full">
           <form
-            v-if="stage === 1"
+            v-if="stage === 0"
             @submit.prevent="next"
           >
             <p class="text-white text-xl">
@@ -128,7 +128,7 @@
               </div>
             </button>
           </form>
-          <form v-else-if="stage === 2" @submit.prevent="validateAddress">
+          <form v-else-if="stage === 1" @submit.prevent="validateAddress">
             <p class="text-white text-xl mt-4">
               Adresse
             </p>
@@ -183,13 +183,68 @@
               </div>
             </div>
 
-            <button type="submit" class="toolbox-field selected" :disabled="validatingAddress">
-              Weiter
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter
+              </div>
             </button>
-            <button type="button" class="toolbox-field" @click.prevent="back()">
-              Zurück
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                Zurück
+              </div>
             </button>
           </form>
+          <template v-else-if="stage === 2 && form.TransportType === 'pickUp'">
+            <p class="text-white text-2xl">Wir holen dein Handy bei dir Zuhause ab!</p>
+            <p class="text-white text-xl">Wähle bitte eine Abholzeit aus</p>
+            <pickup-picker v-model="pickupTime" />
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="pickupTime === null"
+              @click.prevent="next()"
+            >
+              <div
+                class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg"
+                :class="pickupTime === null ? 'bg-gray-400' : ''"
+              >
+                Weiter
+              </div>
+            </button>
+
+            <button
+              type="button"
+              class="mt-8 block w-full"
+              @click.prevent="form.TransportType = 'shipping' "
+            >
+              <div class="bg-gray-300 hover:bg-gray-500 text-black p-4 rounded-lg">
+                Willst du dein Handy lieber selber verschicken? - Klicke hier
+              </div>
+              <p class="text-gray-300">Das Paketlabel würdest du dann am Ende erhalten</p>
+            </button>
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                Zurück
+              </div>
+            </button>
+          </template>
         </div>
       </div>
     </div>
@@ -201,14 +256,13 @@ import PickupPicker from '~/components/PickupPicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 import * as values from '~/data/values'
 export default {
-  // eslint-disable-next-line vue/no-unused-components
   components: { PickupPicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true },
   },
   data: () => ({
     // TODO: Start at 0 instead of 1 (stage 0 was a loading screen)
-    stage: 1,
+    stage: 0,
     values,
     form: {
       Email: '',
@@ -221,6 +275,7 @@ export default {
       TransportData: '',
       TransportType: 'shipping',
     },
+    pickUpPossible: false,
     pickupTime: null,
     validatingAddress: false,
     // TODO: Fix "Adress" typo and weird terminology
@@ -247,15 +302,15 @@ export default {
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-        const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', { uID: this.offer.ID, Adress: this.address, Token: token })
-        console.log(Location)
-        if (Location !== undefined) {
+        try {
+          const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', { uID: this.offer.ID, Adress: this.address, Token: token })
           this.address.Adress = Location.streetName + ' ' + Location.streetNumber
           this.address.PLZ = Location.zipcode
           this.address.Place = Location.city
+          this.pickUpPossible = PickUp
           this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
           this.next()
-        } else {
+        } catch (error) {
           alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
         }
       })
