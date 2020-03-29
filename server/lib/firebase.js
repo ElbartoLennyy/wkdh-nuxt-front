@@ -18,6 +18,8 @@ db.settings({ timestampsInSnapshots: true })
 async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
+  if (price.price === undefined || Number.isNaN(price.price)) { return false }
+
   const docRequest = db.collection('request').doc(id)
   await docRequest.set({
     Date: getCurrentDate(),
@@ -53,6 +55,9 @@ async function creatNewUser(id) {
       } else {
         data = (doc.data())
         const phone = data.phone
+        if (data.Price === undefined || Number.isNaN(data.Price)) {
+          return false
+        }
         docUser.set({
           Date: getCurrentDate(),
           ID: id,

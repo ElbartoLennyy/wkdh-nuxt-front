@@ -204,21 +204,20 @@
               </div>
             </button>
           </form>
-          <template v-else-if="stage === 2 && form.TransportType === 'pickUp'">
+          <form
+            v-else-if="stage === 2 && form.TransportType === 'pickUp'"
+            @submit.prevent="next"
+          >
             <p class="text-white text-2xl font-bold">Wir holen dein Handy bei dir Zuhause ab!</p>
             <p class="text-white text-xl">Wähle bitte eine Abholzeit aus</p>
             <pickup-picker v-model="pickupTime" />
 
             <button
-              type="button"
+              type="submit"
               class="mt-4 block w-full"
-              :disabled="pickupTime === null"
-              @click.prevent="next()"
+              :disabled="validatingAddress"
             >
-              <div
-                class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg"
-                :class="pickupTime === null ? 'bg-gray-400' : ''"
-              >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
                 Weiter
               </div>
             </button>
@@ -244,7 +243,7 @@
                 Zurück
               </div>
             </button>
-          </template>
+          </form>
           <template v-else-if="stage === 2 && form.TransportType === 'shipping'">
             <div v-if="pickUpPossible === true">
               <p class="text-white text-2xl">Du willst dein Paket selber verschicken</p>
@@ -440,72 +439,76 @@
                   {{ form.PhoneNumber }}
                 </p>
               </div>
-
-              <p class="text-white text-xl mt-4">
-                Adresse
-              </p>
-              <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
-                <p
-                  class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
-                >
-                  {{ address.Adress }}
-                </p>
-              </div>
-              <p class="text-white text-base font-light mb-4">
-                Straße, Hausnummer
-              </p>
-              <div class="flex">
-                <div class="w-1/3">
-                  <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
-                    <p
-                      class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
-                    >
-                      {{ address.Adress }}
-                    </p>
-                  </div>
-                  <p class="text-white text-base font-light mb-4">
-                    Postleitzahl
-                  </p>
-                </div>
-                <div class="w-2/3 ml-4">
-                  <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
-                    <p
-                      class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
-                    >
-                      {{ address.Adress }}
-                    </p>
-                  </div>
-                  <p class="text-white text-base font-light mb-4">
-                    Ort
-                  </p>
-                </div>
-              </div>
-
-              <p v-if="form.TransportType === 'pickUp'" class="text-gray-300">
-                Wir holen dein Handy ab am <span class="text-white font-bold">{{ pickupTime.formattedDay }}</span>
-                zwischen <span class="text-white font-bold">{{ pickupTime.formattedStartTime }}</span> und <span class="text-white font-bold">{{ pickupTime.formattedEndTime }}</span>
-              </p>
-              <p v-else-if="form.TransportType === 'shipping'" class="text-gray-300">
-                Du verschickst dein Handy selbst. Das Label erhältst du am Ende.
-              </p>
-              <h2 class="typo-subheader">
-                Du erhältst dein Geld via
-              </h2>
-              <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
-                <p
-                  class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
-                >
-                  {{ form.PaymentMethod }}
-                </p>
-              </div> <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
-                <p
-                  class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
-                >
-                  {{ form.PaymentData }}
-                </p>
-              </div>
             </template>
+            <p class="text-white text-xl mt-4">
+              Adresse
+            </p>
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
+              <p
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+              >
+                {{ address.Adress }}
+              </p>
+            </div>
+            <p class="text-white text-base font-light mb-4">
+              Straße, Hausnummer
+            </p>
+            <div class="flex">
+              <div class="w-1/3">
+                <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
+                  <p
+                    class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+                  >
+                    {{ address.Adress }}
+                  </p>
+                </div>
+                <p class="text-white text-base font-light mb-4">
+                  Postleitzahl
+                </p>
+              </div>
+              <div class="w-2/3 ml-4">
+                <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
+                  <p
+                    class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+                  >
+                    {{ address.Adress }}
+                  </p>
+                </div>
+                <p class="text-white text-base font-light mb-4">
+                  Ort
+                </p>
+              </div>
+            </div>
+
+            <p v-if="form.TransportType === 'pickUp'" class="text-gray-300">
+              Wir holen dein Handy ab am <span class="text-white font-bold">{{ pickupTime.formattedDay }}</span>
+              zwischen <span class="text-white font-bold">{{ pickupTime.formattedStartTime }}</span> und <span class="text-white font-bold">{{ pickupTime.formattedEndTime }}</span>
+            </p>
+            <p v-else-if="form.TransportType === 'shipping'" class="text-gray-300">
+              Du verschickst dein Handy selbst. Das Label erhältst du am Ende.
+            </p>
+            <p class="text-gray-300 text-sm">
+              Du erhältst dein Geld via
+            </p>
+            <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
+              <p
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+              >
+                {{ form.PaymentMethod }}
+              </p>
+            </div> <div class="mt-3 p-4 block w-full bg-gray-800 rounded-lg">
+              <p
+                class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
+              >
+                {{ form.PaymentData }}
+              </p>
+            </div>
           </template>
+        </div>
+      </div>
+    </div>
+  </div>
+</template>
         </div>
       </div>
     </div>
