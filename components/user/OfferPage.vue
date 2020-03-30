@@ -1,5 +1,5 @@
 <template>
-  <div class="font-sans min-h-screen">
+  <div class="font-sans min-h-screen overflow-y-scroll">
     <div class="md:flex">
       <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
@@ -56,7 +56,7 @@
           />
         </div>
       </div>
-      <div class="md:w-2/3 p-2 h-screen overflow-y-auto">
+      <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full text-left">
           <form
             v-if="stage === 0"
@@ -226,7 +226,7 @@
               class="mt-8 block w-full"
               @click.prevent="form.TransportType = 'shipping' "
             >
-              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg w-1/2">
+              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg md:w-1/2">
                 Willst du dein Handy lieber selber verschicken? - Klicke hier
               </div>
               <p class="text-gray-300 text-left">Das Paketlabel würdest du dann am Ende erhalten</p>
@@ -272,7 +272,7 @@
               class="mt-8 block w-full"
               @click.prevent="form.TransportType = 'pickUp' "
             >
-              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg w-1/2">
+              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg md:w-1/2">
                 Du willst dein Handy doch lieber Abholen lassen?
               </div>
             </button>
@@ -289,7 +289,7 @@
           </template>
           <form
             v-else-if="stage === 3"
-            @submit.prevent="next"
+            @submit.prevent="validatePaymentData"
           >
             <p class="text-white text-xl mt-4">
               Wie willst du das Geld erhalten?
@@ -335,7 +335,7 @@
             >
               <button
                 type="button"
-                class="hover:underline"
+                class="hover:underline text-left"
                 @click="form.PaymentData = form.Email"
               >
                 Gleiche Emailadresse (<span

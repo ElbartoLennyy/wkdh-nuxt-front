@@ -23,6 +23,7 @@ module.exports = {
     ],
   },
   css: [
+    '~/assets/css/loader.css',
   ],
   loading: { color: '#fff' },
   buildModules: [

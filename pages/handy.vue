@@ -1,5 +1,5 @@
 <template>
-  <div class="font-sans min-h-screen">
+  <div class="font-sans min-h-screen overflow-y-scroll">
     <div class="md:flex">
       <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
@@ -51,7 +51,7 @@
           />
         </div>
       </div>
-      <div class="md:w-2/3 p-2 h-screen overflow-y-auto">
+      <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full">
           <template v-if="stage === 0">
             <p class="text-gray-200">
@@ -106,6 +106,7 @@
               <div
                 v-for="(defect, defectId) in values.defects"
                 :key="defectId"
+                class=" -mt-4"
               >
                 <input
                   :id="defectId"
@@ -121,7 +122,7 @@
                 >
                   {{ defect.title }}
                 </label>
-                <p class="mt-2 text-gray-600 text-sm">
+                <p class="mt-1 text-gray-600 text-sm">
                   {{ defect.description }}
                 </p>
               </div>
@@ -143,7 +144,7 @@
               <div
                 v-for="(condition, conditionId ) in values.conditions"
                 :key="conditionId"
-                class="w-full"
+                class="w-full -mt-4"
               >
                 <input
                   :id="conditionId"
@@ -160,7 +161,7 @@
                 >
                   {{ condition.title }}
                 </label>
-                <p class="mt-2 text-gray-600 text-sm">
+                <p class="mt-1 text-gray-600 text-sm">
                   {{ condition.description }}
                 </p>
               </div>
@@ -180,7 +181,11 @@
               Welches Zubehör hast du noch?
             </p>
             <form>
-              <div v-for="(accessory,accessoryId) in values.accessories" :key="accessoryId">
+              <div
+                v-for="(accessory,accessoryId) in values.accessories"
+                :key="accessoryId"
+                class=" -mt-4"
+              >
                 <input
                   :id="accessoryId"
                   v-model="request.accessories"

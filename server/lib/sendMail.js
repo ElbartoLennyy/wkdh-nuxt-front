@@ -90,7 +90,7 @@ function sendOfferAcceptMail(uID, userDetails, userLocation) {
   } else if (userDetails.TransportType === 'shipping') {
     let date = new Date()
     date.setDate(date.getDate() + 7)
-    date = date.toLocaleDateString('de-DE')
+    date = formatDate(date, 'PPPP', { locale: deLocale })
     sendMail({
       from: 'info@wirkaufendeinhandy.shop',
       to: userDetails.Email,

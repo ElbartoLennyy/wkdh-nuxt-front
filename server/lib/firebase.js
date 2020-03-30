@@ -125,11 +125,16 @@ async function getUser(uID) {
 
   const user = await refUser.get()
 
-  if (user.data().State === 'offer') {
-    return user.data()
-  } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
-    return { State: user.data().State }
+  try {
+    if (user.data().State === 'offer') {
+      return user.data()
+    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+      return { State: user.data().State }
+    }
+  } catch (error) {
+    console.log(`current user: ${user} \n error: ${error}`)
   }
+
   return false
 }
 
