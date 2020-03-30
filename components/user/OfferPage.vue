@@ -24,6 +24,18 @@
             <b>{{ offer.Price.price }}</b> €
           </p>
 
+          <div class="flex items-center text-center md:pt-4">
+            <img
+              class="inline w-5 "
+              src="~assets/img/svg/help.svg"
+              alt="help button"
+            >
+
+            <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
+              Hilfe erhalten
+            </a>
+          </div>
+
           <div class="text-gray-700 text-xs md:w-3/4 pt-4">
             <p>
               Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
