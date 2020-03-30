@@ -364,7 +364,10 @@
               </div>
             </button>
           </form>
-          <template v-else-if="stage === 4">
+          <form
+            v-else-if="stage === 4"
+            @submit.prevent="next"
+          >
             <div>
               <p class="text-gray-500 text-lg">
                 Dein Handy<br>
@@ -459,7 +462,7 @@
                   <p
                     class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
                   >
-                    {{ address.Adress }}
+                    {{ address.PLZ }}
                   </p>
                 </div>
                 <p class="text-white text-base font-light mb-4">
@@ -471,7 +474,7 @@
                   <p
                     class="bg-transparent text-gray-100 py-4 w-full rounded-lg"
                   >
-                    {{ address.Adress }}
+                    {{ address.Place }}
                   </p>
                 </div>
                 <p class="text-white text-base font-light mb-4">
@@ -503,12 +506,97 @@
                 {{ form.PaymentData }}
               </p>
             </div>
-          </template>
-        </div>
-      </div>
-    </div>
-  </div>
-</template>
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Weiter
+              </div>
+            </button>
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                Zurück
+              </div>
+            </button>
+          </form>
+          <form v-else-if="stage === 5" @submit.prevent="acceptOffer">
+            <p class="text-white text-xl mt-4">
+              Bitte bestätige folgendes
+            </p>
+
+            <input
+              id="privacy"
+              v-model="endCheckbox"
+              type="checkbox"
+              value="privacy"
+              required
+            >
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              :class="endCheckbox.includes('privacy') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+              :for="'privacy'"
+            >
+              Ich bin mit der Speicherung meiner Daten gemäß Datenschutzerklärung einverstanden.
+            </label>
+            <a class="text-blue-400 hover:underline" href="privacy" target="_blank">Datenschutzerklärung</a>
+
+            <input
+              id="rightOfWithdrawal"
+              v-model="endCheckbox"
+              type="checkbox"
+              value="rightOfWithdrawal"
+              required
+            >
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              :class="endCheckbox.includes('rightOfWithdrawal') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+              :for="'rightOfWithdrawal'"
+            >
+              Ich bestätige die Regelung bezüglich des Wiederrufsrechts bei wirkaufendeinhandy.shop (AGBs siehe 3.2)
+            </label>
+
+            <input
+              id="ToS"
+              v-model="endCheckbox"
+              type="checkbox"
+              value="ToS"
+              required
+            >
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              :class="endCheckbox.includes('ToS') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+              :for="'ToS'"
+            >
+              Ich bin mit den geltenden AGBs einverstanden
+            </label>
+            <a class="text-blue-400 hover:underline" href="AGB" target="_blank">AGBs</a>
+
+            <button
+              v-if="endCheckbox.length === 3"
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                Bestätigen und Verkauf verbindlich abschließen
+              </div>
+            </button>
+            <p v-else-if="endCheckbox.length != 3" class="text-white font-bold text-xl">Bitte klick auf die Button oben, um alles zu bestätigen.</p>
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                Zurück
+              </div>
+            </button>
+          </form>
         </div>
       </div>
     </div>
@@ -525,9 +613,9 @@ export default {
     offer: { type: Object, required: true },
   },
   data: () => ({
-    // TODO: Start at 0 instead of 1 (stage 0 was a loading screen)
     stage: 0,
     values,
+    endCheckbox: [],
     form: {
       Email: '',
       Salutation: 'Herr',
@@ -542,7 +630,6 @@ export default {
     pickUpPossible: false,
     pickupTime: null,
     validatingAddress: false,
-    // TODO: Fix "Adress" typo and weird terminology
     address: {
       Adress: '',
       PLZ: '',
@@ -602,6 +689,7 @@ export default {
           uID: this.offer.ID,
           data: this.form,
           Token: token,
+          locationData: this.address,
         })
         this.offer.State = this.form.TransportType
       })

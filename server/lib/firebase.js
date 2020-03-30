@@ -104,9 +104,9 @@ async function setUserLocation(uID, location, pickUpPossible) {
   const docRequest = db.collection('DEV').doc(uID)
 
   await docRequest.update({
-    data: { Location: location, PickUpPossible: pickUpPossible },
+    Location: location,
+    PickUpPossible: pickUpPossible,
   })
-
   return true
 }
 

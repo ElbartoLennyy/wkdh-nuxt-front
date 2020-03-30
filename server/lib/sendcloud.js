@@ -12,7 +12,7 @@ const client = axios.create({
   },
 })
 
-async function createParcel(userID, data, _callback) {
+async function createParcel(userID, userData, location) {
   const newParcelData = {
     parcel: {
       name: 'Alexander Gerick',
@@ -32,28 +32,28 @@ async function createParcel(userID, data, _callback) {
       weight: '1.000',
       order_number: userID,
 
-      from_name: data.FirstName + ' ' + data.Name,
+      from_name: userData.FirstName + ' ' + userData.Name,
       from_company_name: '',
-      from_address_1: data.Location.streetName,
+      from_address_1: location.streetName,
       from_address_2: '',
-      from_house_number: data.Location.streetNumber,
-      from_city: data.Location.city,
-      from_postal_code: data.Location.zipcode,
+      from_house_number: location.streetNumber,
+      from_city: location.city,
+      from_postal_code: location.zipcode,
       from_country: 'DE',
       from_telephone: '',
-      from_email: '',
+      from_email: userData.Email,
     },
   }
 
   const { data: body } = await client.post('https://panel.sendcloud.sc/api/v2/parcels', newParcelData)
   try {
     if (body.parcel.status.id === 1000) {
-      _callback(body.parcel.id)
+      return body.parcel.id
     } else {
-      _callback('error')
+      return false
     }
   } catch (e) {
-    _callback('error')
+    return false
   }
 }
 
@@ -65,19 +65,19 @@ async function downloadLabel(parcelID, outputPath) {
   return { stream: response.data, length: response.headers['content-length'] }
 }
 
-async function deleteParcel(parcelID, _callback) {
+async function deleteParcel(parcelID) {
   const { data } = await client.post(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/cancel`)
-  _callback(data)
+  return data
 }
 
-async function returnParcel(parcelID, _callback) {
+async function returnParcel(parcelID) {
   const { data } = await axios.get(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/return_portal_url`)
-  _callback(data)
+  return data
 }
 
-async function getParcels(_callback) {
+async function getParcel() {
   const { data } = await axios.get('https://panel.sendcloud.sc/api/v2/parcels')
-  _callback(data)
+  return data
 }
 
 module.exports = { createParcel, downloadLabel }

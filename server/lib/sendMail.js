@@ -49,7 +49,7 @@ const timeFormat = new Intl.DateTimeFormat([], {
   hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin',
 })
 
-function sendOfferAcceptMail(uID, userDetails) {
+function sendOfferAcceptMail(uID, userDetails, userLocation) {
   if (userDetails.TransportType === 'pickUp') {
     const startDate = new Date(userDetails.TransportData)
     const endDate = addHours(startDate, 1)
@@ -64,7 +64,7 @@ function sendOfferAcceptMail(uID, userDetails) {
       text: `Hey ${userDetails.FirstName}, hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.
       Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
       ${formattedDay} zwischen ${formattedStartTime}
-      und ${formattedEndTime} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      und ${formattedEndTime} bei dir Zuhause, ${userLocation.Place} ${userLocation.Adress}, abholen
       soll.`,
       html: `<h2>Hey ${userDetails.FirstName},</h2>
 
@@ -72,7 +72,7 @@ function sendOfferAcceptMail(uID, userDetails) {
       
       <p>Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
       <strong>${formattedDay}</strong> zwischen <strong>${formattedStartTime}</strong>
-      und <strong>${formattedEndTime}</strong> bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      und <strong>${formattedEndTime}</strong> bei dir Zuhause, ${userLocation.Place} ${userLocation.Adress}, abholen
       soll.</p>
       
       <p>Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein

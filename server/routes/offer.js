@@ -98,16 +98,16 @@ router.post('/accept', function(req, res, next) {
     }
 
     if (req.body.data.TransportType === 'shipping') {
-      sendcloud.createParcel(req.body.uID, req.body.data, async(data) => {
-        req.body.data.TransportData = data
+      const userLocation = await fbData.getUser(req.body.uID)
+      const parcelId = await sendcloud.createParcel(req.body.uID, req.body.data, userLocation.Location)
+      req.body.data.TransportData = parcelId
 
-        await fbData.setOfferAccept(req.body.uID, req.body.data)
-        sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
-        res.send({ Obj: 'done' })
-      })
-    } else if (req.body.data.TransportType === 'pickUp') {
       await fbData.setOfferAccept(req.body.uID, req.body.data)
       sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
+      res.send({ Obj: 'done' })
+    } else if (req.body.data.TransportType === 'pickUp') {
+      await fbData.setOfferAccept(req.body.uID, req.body.data)
+      sendMail.sendOfferAcceptMail(req.body.uID, req.body.data, req.body.locationData)
       res.send({ Obj: 'done' })
     }
   })
