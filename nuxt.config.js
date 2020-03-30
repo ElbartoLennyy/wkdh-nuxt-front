@@ -14,7 +14,6 @@ module.exports = {
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },
       {
         rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
       },
       {
         rel: 'stylesheet',
@@ -24,7 +23,6 @@ module.exports = {
     ],
   },
   css: [
-    '~/assets/css/toolbox.css',
   ],
   loading: { color: '#fff' },
   buildModules: [
