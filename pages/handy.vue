@@ -60,7 +60,7 @@
             <button
               v-for="brand in values.brands"
               :key="brand"
-              class="mt-3 block w-full"
+              class="mt-3 block w-full text-left"
               @click="selectBrand(brand)"
             >
               <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
@@ -78,7 +78,7 @@
               class="mt-3 block w-full"
               @click="selectPhone(phone)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
+              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
                 {{ phone }}
               </div>
             </button>
@@ -93,7 +93,7 @@
               class="mt-3 block w-full"
               @click="selectStorage(storage.title)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
+              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
                 <span :class="`text-${storage.color} text-4xl`">{{ storage.title }}</span> <span class="text-sm">GB</span>
               </div>
             </button>
@@ -111,6 +111,7 @@
                   :id="defectId"
                   v-model="request.defects"
                   type="checkbox"
+                  class="appearance-none"
                   :value="defectId"
                 >
                 <label
@@ -129,7 +130,7 @@
               class="mt-4 block w-full"
               @click="next"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                 Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
               </div>
             </button>
@@ -149,6 +150,7 @@
                   v-model="request.condition"
                   name="condition"
                   type="radio"
+                  class="appearance-none"
                   :value="conditionId"
                 >
                 <label
@@ -168,7 +170,7 @@
               :disabled="!request.condition"
               @click="next"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
@@ -183,6 +185,7 @@
                   :id="accessoryId"
                   v-model="request.accessories"
                   type="checkbox"
+                  class="appearance-none"
                   :value="accessoryId"
                 >
                 <label
@@ -199,7 +202,7 @@
               class="mt-4 block w-full"
               @click="confirmAccessories"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
@@ -270,9 +273,6 @@
                 </p>
                 <button @click="priceDetailsShown = !priceDetailsShown">
                   <div class="text-gray-500 text-sm flex items-center">
-                    <span class="icon-header-icon material-icons">
-                      {{ priceDetailsShown ? 'expand_less' : 'expand_more' }}
-                    </span>
                     Wie entsteht der Preis?
                   </div>
                 </button>
@@ -297,7 +297,7 @@
                   class="mt-4 block w-full"
                   @click="acceptOffer"
                 >
-                  <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+                  <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                     Weiter zur Dateneingabe
                   </div>
                 </button>
@@ -305,7 +305,7 @@
                   class="mt-4 block w-full"
                   @click="rejectOffer"
                 >
-                  <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                  <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
                     Ablehnen
                   </div>
                 </button>
@@ -318,7 +318,7 @@
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
                 Zurück
               </div>
             </button>
