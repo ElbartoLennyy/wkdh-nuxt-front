@@ -94,7 +94,7 @@
               @click="selectStorage(storage.title)"
             >
               <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
-                <span :class="`text-${storage.color} text-4xl`">{{ storage.title }}</span> <span class="text-sm">GB</span>
+                <span :class="`${storage.color} text-4xl`">{{ storage.title }}</span> <span class="text-sm">GB</span>
               </div>
             </button>
           </template>

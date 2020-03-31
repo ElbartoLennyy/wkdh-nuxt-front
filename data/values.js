@@ -11,13 +11,13 @@ export const paymentMethods = {
 }
 
 export const storages = {
-  STORAGE8: { title: '8', color: 'gray-500' },
-  STORAGE16: { title: '16', color: 'gray-500' },
-  STORAGE32: { title: '32', color: 'blue-500' },
-  STORAGE64: { title: '64', color: 'blue-500' },
-  STORAGE128: { title: '128', color: 'purple-500' },
-  STORAGE256: { title: '256', color: 'purple-500' },
-  STORAGE512: { title: '512', color: 'pink-500' },
+  STORAGE8: { title: '8', color: 'text-gray-500' },
+  STORAGE16: { title: '16', color: 'text-gray-500' },
+  STORAGE32: { title: '32', color: 'text-blue-500' },
+  STORAGE64: { title: '64', color: 'text-blue-500' },
+  STORAGE128: { title: '128', color: 'text-purple-500' },
+  STORAGE256: { title: '256', color: 'text-purple-500' },
+  STORAGE512: { title: '512', color: 'text-pink-500' },
 
 }
 
