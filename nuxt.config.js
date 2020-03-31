@@ -12,14 +12,6 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-      {
-        rel: 'stylesheet',
-      },
-      {
-        rel: 'stylesheet',
-        // TODO: Reconsider including the entirety of Bootstrap for some typography styles
-        // href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
-      },
     ],
   },
   css: [

@@ -94,7 +94,6 @@ function sendOfferAcceptMail(uID, userDetails, userLocation) {
     sendMail({
       from: 'info@wirkaufendeinhandy.shop',
       to: userDetails.Email,
-      // TODO: Insert actual email copy
       subject: 'Auftragsbestätigung - Versandt von deinem Handy',
       text: `Sehe alle Details über die Abholung: https://wirkaufendeinhandy.shop/user/${uID}`,
       html: `<h2>Hey ${userDetails.FirstName},</h2>

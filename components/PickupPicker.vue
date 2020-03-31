@@ -34,6 +34,7 @@
 
 <script>
 import { addDays } from 'date-fns'
+import { zonedTimeToUtc } from 'date-fns-tz'
 
 export default {
   props: {
@@ -105,7 +106,10 @@ export default {
       }
 
       const [startHours, startMinutes] = this.selectedStartTime
-      return new Date(`${this.selectedDay}T${this.padZeros(startHours)}:${this.padZeros(startMinutes)}:00.000+0100`)
+      return zonedTimeToUtc(
+        `${this.selectedDay} ${this.padZeros(startHours)}:${this.padZeros(startMinutes)}:00.000`,
+        'Europe/Berlin',
+      )
     },
     selectedStartTime() {
       return this.availableStarts[this.selectedStart]

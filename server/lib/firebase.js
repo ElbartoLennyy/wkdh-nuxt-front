@@ -132,9 +132,25 @@ async function getUser(uID) {
       return { State: user.data().State }
     }
   } catch (error) {
+    console.log(`current user: ${uID} \n error: ${error}`)
+    const returnValueUser = await setTimeout(getUserAfterError(uID), 800)
+    return returnValueUser
+  }
+}
+async function getUserAfterError(uID) {
+  const refUser = db.collection('DEV').doc(uID)
+
+  const user = await refUser.get()
+
+  try {
+    if (user.data().State === 'offer') {
+      return user.data()
+    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+      return { State: user.data().State }
+    }
+  } catch (error) {
     console.log(`current user: ${user} \n error: ${error}`)
   }
-
   return false
 }
 

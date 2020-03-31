@@ -1,5 +1,3 @@
-const fs = require('fs')
-const path = require('path')
 const axios = require('axios')
 
 const publicKey = process.env.SENDCLOUD_PUBLIC_KEY

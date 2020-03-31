@@ -15,6 +15,7 @@
     "bootstrap": "^4.4.1",
     "cross-env": "^5.2.0",
     "date-fns": "^2.11.0",
+    "date-fns-tz": "^1.0.10",
     "dotenv": "^8.2.0",
     "ebay-node-api": "^2.8.1",
     "express": "^4.16.4",
