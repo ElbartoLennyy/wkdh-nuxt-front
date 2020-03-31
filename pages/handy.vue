@@ -5,7 +5,7 @@
         <div>
           <div class="flex items-center text-center">
             <img
-              class="inline w-5 "
+              class="inline w-5 text-purple-500 text-pink-500"
               src="~assets/img/svg/back.svg"
               alt="back button"
             >
