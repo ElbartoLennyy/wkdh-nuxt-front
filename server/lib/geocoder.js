@@ -1,14 +1,12 @@
-const NodeGeocoder = require('node-geocoder')
-const Distance = require('geo-distance')
+require('dotenv').config()
 
-const Zentrum = {
-  lat: 51.149588,
-  lon: 14.985929,
-}
-const dustin = {
-  lat: 51.043529,
-  lon: 13.736304,
-}
+const NodeGeocoder = require('node-geocoder')
+const pickUp = require('./pickUp')
+validateAddress({
+  Adress: 'Azaleenweg 11',
+  PLZ: '02827',
+  Place: 'Görlitz',
+})
 
 async function validateAddress(place) {
   const placeString = place.Adress + ' ' + place.PLZ + ' ' + place.Place
@@ -39,24 +37,8 @@ async function validateAddress(place) {
   delete res[0].extra
   delete res[0].administrativeLevels
   console.log(res)
-  return { location: res[0], pickUp: checkPickUpDistance(res[0]) }
-}
-
-function checkPickUpDistance(data) {
-  const userPlace = {
-    lat: data.latitude,
-    lon: data.longitude,
-  }
-
-  const aToB = Distance.between(Zentrum, userPlace)
-
-  if (aToB <= Distance('5 km')) {
-    return true
-  } else if (Distance.between(dustin, userPlace) <= Distance('5 km')) {
-    return true
-  } else {
-    return false
-  }
+  pickUp.checkPickUp(res[0])
+  // return { location: res[0], pickUp: checkPickUpDistance(res[0]) }
 }
 
 module.exports = { validateAddress }

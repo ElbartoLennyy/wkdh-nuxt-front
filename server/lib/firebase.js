@@ -176,9 +176,7 @@ async function setReturn(uID) {
   return true
 }
 
-getPossiblePickUpTimes('Dresden')
-
-async function getPossiblePickUpTimes(city) {
+async function getCourierData(city) {
   try {
     const couriers = await db.collection('courier').where('location.city', '==', city).get()
     const pickUpTimes = []
@@ -186,7 +184,10 @@ async function getPossiblePickUpTimes(city) {
       pickUpTimes.push({
         cId: courier.data().id,
         pickUpTimes: courier.data().pickUpTimes,
-        location: courier.data().location,
+        location: {
+          lat: courier.data().location.latitude,
+          lon: courier.data().location.longitude,
+        },
       })
     }
     return pickUpTimes
@@ -196,4 +197,4 @@ async function getPossiblePickUpTimes(city) {
   }
 }
 
-module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation }
+module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
