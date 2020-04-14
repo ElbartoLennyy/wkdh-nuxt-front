@@ -171,10 +171,29 @@ async function setReturn(uID) {
 
   await docRequest.update({
     Date: getCurrentDate(),
-    ID: uID,
     State: 'return',
   })
   return true
+}
+
+getPossiblePickUpTimes('Dresden')
+
+async function getPossiblePickUpTimes(city) {
+  try {
+    const couriers = await db.collection('courier').where('location.city', '==', city).get()
+    const pickUpTimes = []
+    for (const courier of couriers.docs) {
+      pickUpTimes.push({
+        cId: courier.data().id,
+        pickUpTimes: courier.data().pickUpTimes,
+        location: courier.data().location,
+      })
+    }
+    return pickUpTimes
+  } catch (error) {
+    console.log(error)
+    return false
+  }
 }
 
 module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation }
