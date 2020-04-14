@@ -1,3 +1,4 @@
+const util = require('util')
 const Distance = require('geo-distance')
 const firebase = require('./firebase')
 
@@ -12,11 +13,16 @@ async function checkPickUp(userLocation) {
     }
     const distance = Distance.between(courier.location, userCoordinates)
     if (distance <= Distance('5 km')) {
-      courier.location.distance = distance
+      courier.location.distance = distance.radians
+      console.log(courier.location.distance)
       avaibleCouriers.push(courier)
     }
   }
-  console.log(JSON.stringify(avaibleCouriers))
+
+  avaibleCouriers.sort((a, b) => {
+    return a.location.distance - b.location.distance
+  })
+  console.log(util.inspect(avaibleCouriers, false, null, true /* enable colors */))
 }
 
 module.exports = { checkPickUp }

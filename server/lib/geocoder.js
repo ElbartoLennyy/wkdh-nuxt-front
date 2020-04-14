@@ -3,7 +3,7 @@ require('dotenv').config()
 const NodeGeocoder = require('node-geocoder')
 const pickUp = require('./pickUp')
 validateAddress({
-  Adress: 'Azaleenweg 11',
+  Adress: 'Azaleenweg 35',
   PLZ: '02827',
   Place: 'Görlitz',
 })
