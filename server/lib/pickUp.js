@@ -13,8 +13,7 @@ async function checkPickUp(userLocation) {
     }
     const distance = Distance.between(courier.location, userCoordinates)
     if (distance <= Distance('5 km')) {
-      courier.location.distance = distance.radians
-      console.log(courier.location.distance)
+      courier.location = distance.radians
       avaibleCouriers.push(courier)
     }
   }
