@@ -1,12 +1,6 @@
 require('dotenv').config()
 
 const NodeGeocoder = require('node-geocoder')
-const pickUp = require('./pickUp')
-validateAddress({
-  Adress: 'Azaleenweg 35',
-  PLZ: '02827',
-  Place: 'Görlitz',
-})
 
 async function validateAddress(place) {
   const placeString = place.Adress + ' ' + place.PLZ + ' ' + place.Place
@@ -37,8 +31,7 @@ async function validateAddress(place) {
   delete res[0].extra
   delete res[0].administrativeLevels
   console.log(res)
-  pickUp.checkPickUp(res[0])
-  // return { location: res[0], pickUp: checkPickUpDistance(res[0]) }
+  return res[0]
 }
 
 module.exports = { validateAddress }

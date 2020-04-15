@@ -132,7 +132,7 @@
               </div>
             </button>
           </form>
-          <form v-else-if="stage === 1" @submit.prevent="validateAddress">
+          <form v-else-if="stage === 1" @submit.prevent="checkPickUp">
             <p class="text-white text-xl mt-4">
               Adresse
             </p>
@@ -632,19 +632,25 @@ export default {
     },
   },
   methods: {
-    validateAddress() {
+    checkPickUp() {
       this.validatingAddress = true
       // eslint-disable-next-line no-undef
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
         try {
-          const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', { uID: this.offer.ID, Adress: this.address, Token: token })
-          this.address.Adress = Location.streetName + ' ' + Location.streetNumber
-          this.address.PLZ = Location.zipcode
-          this.address.Place = Location.city
-          this.pickUpPossible = PickUp
-          this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
+          const { location, pickUpData } = await this.$axios.$post('/offer/checkPickUp', { uID: this.offer.ID, Adress: this.address, Token: token })
+          this.address.Adress = location.streetName + ' ' + location.streetNumber
+          this.address.PLZ = location.zipcode
+          this.address.Place = location.city
+          if (pickUpData === false) {
+            this.pickUpPossible = false
+            this.form.TransportType = 'shipping'
+          } else {
+            this.pickUpPossible = true
+            this.form.TransportType = 'pickUp'
+            console.log(pickUpData)
+          }
           this.next()
         } catch (error) {
           alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')

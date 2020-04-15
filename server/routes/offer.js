@@ -2,7 +2,7 @@ const express = require('express')
 const router = express.Router()
 const request = require('request')
 const fbData = require('../lib/firebase')
-const geocoder = require('../lib/geocoder')
+const pickUp = require('../lib/pickUp')
 const validator = require('../lib/validation')
 const sendcloud = require('../lib/sendcloud')
 const sendMail = require('../lib/sendMail')
@@ -12,7 +12,7 @@ router.post('/getData', async function(req, res, next) {
   res.send({ Obj: userData })
 })
 
-router.post('/validateAddress', function(req, res, next) {
+router.post('/checkPickUp', function(req, res, next) {
   const uID = req.body.uID
   const token = req.body.Token
 
@@ -35,15 +35,20 @@ router.post('/validateAddress', function(req, res, next) {
       return res.status(500).send({ responseError: 'Failed captcha verification' })
     }
 
-    const { location, pickUp } = await geocoder.validateAddress(req.body.Adress)
+    const { location, pickUpData } = await pickUp.checkPickUp(req.body.Adress)
 
     if (location === undefined) {
-      res.status(500).send()
+      console.log('location undefined')
+      res.status(500).end()
     } else {
-      fbData.setUserLocation(uID, location, pickUp)
+      if (pickUpData === false) {
+        fbData.setUserLocation(uID, location, pickUpData)
+      } else {
+        fbData.setUserLocation(uID, location)
+      }
       res.send({
-        Location: location,
-        PickUp: pickUp,
+        location,
+        pickUpData,
       })
     }
   })
