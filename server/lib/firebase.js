@@ -103,19 +103,11 @@ async function setOfferAccept(uID, data) {
 async function setUserLocation(uID, location, pickUpPossible) {
   const docRequest = db.collection('DEV').doc(uID)
 
-  if (!pickUpPossible) {
-    await docRequest.update({
-      Location: location,
-      PickUpPossible: pickUpPossible,
-    })
-    return true
-  } else {
-    await docRequest.update({
-      Location: location,
-      PickUpPossible: true,
-    })
-    return true
-  }
+  await docRequest.update({
+    Location: location,
+    PickUpPossible: pickUpPossible,
+  })
+  return true
 }
 
 async function getShippmentData(uID) {

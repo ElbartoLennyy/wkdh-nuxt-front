@@ -209,7 +209,7 @@
           >
             <p class="text-white text-2xl font-bold">Wir holen dein Handy bei dir Zuhause ab!</p>
             <p class="text-white text-xl">Wähle bitte eine Abholzeit aus</p>
-            <pickup-picker v-model="pickupTime" />
+            <pickup-picker v-model="pickupTime" :pick-up-times="pickUpTimes" />
 
             <button
               type="submit"
@@ -613,6 +613,7 @@ export default {
       TransportType: 'shipping',
     },
     pickUpPossible: false,
+    pickUpTimes: null,
     pickupTime: null,
     validatingAddress: false,
     address: {
@@ -628,7 +629,7 @@ export default {
   },
   watch: {
     pickupTime({ date }) {
-      this.form.TransportData = date.toISOString()
+      this.form.TransportData = new Date(date).toISOString()
     },
   },
   methods: {
@@ -649,7 +650,7 @@ export default {
           } else {
             this.pickUpPossible = true
             this.form.TransportType = 'pickUp'
-            console.log(pickUpData)
+            this.pickUpTimes = pickUpData
           }
           this.next()
         } catch (error) {

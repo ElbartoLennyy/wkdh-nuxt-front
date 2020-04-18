@@ -42,9 +42,9 @@ router.post('/checkPickUp', function(req, res, next) {
       res.status(500).end()
     } else {
       if (pickUpData === false) {
-        fbData.setUserLocation(uID, location, pickUpData)
+        fbData.setUserLocation(uID, location, false)
       } else {
-        fbData.setUserLocation(uID, location)
+        fbData.setUserLocation(uID, location, true)
       }
       res.send({
         location,
