@@ -628,8 +628,8 @@ export default {
     },
   },
   watch: {
-    pickupTime({ date }) {
-      this.form.TransportData = new Date(date).toISOString()
+    pickupTime({ date, cId }) {
+      this.form.TransportData = { time: new Date(date).toISOString(), cId }
     },
   },
   methods: {

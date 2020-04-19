@@ -51,7 +51,7 @@ const timeFormat = new Intl.DateTimeFormat([], {
 
 function sendOfferAcceptMail(uID, userDetails, userLocation) {
   if (userDetails.TransportType === 'pickUp') {
-    const startDate = new Date(userDetails.TransportData)
+    const startDate = new Date(userDetails.TransportData.time)
     const endDate = addHours(startDate, 1)
     const formattedDay = formatDate(startDate, 'PPPP', { locale: deLocale })
     const formattedStartTime = timeFormat.format(startDate)
