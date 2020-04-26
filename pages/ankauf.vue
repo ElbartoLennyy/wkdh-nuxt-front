@@ -38,6 +38,7 @@
             </h1>
             <nuxt-link to="/handy" class="block mt-2 text-2xl md:text-3xl text-blue-300 hover:text-blue-200 font-semibold">
               <h2>Und holen es an deiner Haustür ab!</h2>
+              <p class="text-gray-400 text-base">Aufgrund der aktuellen vorkommnisse mit dem Coronavirus (COVID-19) ist unsere Abholung derzeit nicht verfügbar</p>
             </nuxt-link>
           </div>
         </section>

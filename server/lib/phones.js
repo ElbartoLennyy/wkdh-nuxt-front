@@ -1,279 +1,617 @@
-const brands = ['Apple', 'Samsung', 'LG', 'Huawei', 'Nokia', 'HTC', 'Google', 'OnePlus', 'Sony', 'Xiaomi']
-
 const phones = {
   Apple: {
-    phones: ['iPhone 11 Pro Max',
-      'iPhone 11 Pro',
-      'iPhone Xs Max',
-      'iPhone Xs',
-      'iPhone XR',
-      'iPhone X',
-      'iPhone 8 Plus',
-      'iPhone 8',
-      'iPhone 7 Plus',
-      'iPhone 7',
-      'iPhone 6S Plus',
-      'iPhone 6S',
-      'iPhone 6 Plus',
-      'iPhone 6'],
+    'iPhone Xs Max': {
+      64: {
+        price: 609.8536585365854,
+      },
+      256: {
+        price: 690.0540540540541,
+      },
+      512: {
+        price: 716.28,
+      },
+    },
+    'iPhone Xs': {
+      64: {
+        price: 519.6,
+      },
+      256: {
+        price: 606.3461538461538,
+      },
+      512: {
+        price: 679.5,
+      },
+    },
+    'iPhone XR': {
+      64: {
+        price: 477.16129032258067,
+      },
+      128: {
+        price: 544.6756756756756,
+      },
+      256: {
+        price: 630.4761904761905,
+      },
+    },
+    'iPhone X': {
+      64: {
+        price: 436.4102564102564,
+      },
+      256: {
+        price: 483.74418604651163,
+      },
+    },
+    'iPhone 8 Plus': {
+      64: {
+        price: 331.9142857142857,
+      },
+      128: {
+        price: 205.66666666666666,
+      },
+      256: {
+        price: 444.78125,
+      },
+    },
+    'iPhone 8': {
+      64: {
+        price: 248.4,
+      },
+      128: {
+        price: 259.75,
+      },
+      256: {
+        price: 322.7647058823529,
+      },
+    },
+    'iPhone 7 Plus': {
+      32: {
+        price: 249.28571428571428,
+      },
+      128: {
+        price: 268.57894736842104,
+      },
+      256: {
+        price: 344.9189189189189,
+      },
+    },
+    'iPhone 7': {
+      32: {
+        price: 146.42105263157896,
+      },
+      128: {
+        price: 176.94117647058823,
+      },
+      256: {
+        price: 283.5833333333333,
+      },
+    },
+    'iPhone 6S Plus': {
+      16: {
+        price: 181.82142857142858,
+      },
+      32: {
+        price: 204.47619047619048,
+      },
+      64: {
+        price: 194.0625,
+      },
+      128: {
+        price: 224.61111111111111,
+      },
+    },
+    'iPhone 6S': {
+      16: {
+        price: 94.13333333333334,
+      },
+      32: {
+        price: 112.75,
+      },
+      64: {
+        price: 122.66666666666667,
+      },
+      128: {
+        price: 144.52631578947367,
+      },
+    },
+    'iPhone 6 Plus': {
+      16: {
+        price: 146.55,
+      },
+      32: {
+        price: 197.66666666666666,
+      },
+      64: {
+        price: 173.1764705882353,
+      },
+      128: {
+        price: 211.95,
+      },
+    },
+    'iPhone 6': {
+      16: {
+        price: 78.84615384615384,
+      },
+      32: {
+        price: 98.5,
+      },
+      64: {
+        price: 115.5,
+      },
+      128: {
+        price: 139.64705882352942,
+      },
+    },
   },
   Samsung: {
-    phones: [
-      'Galaxy S10 Plus',
-      'Galaxy S10',
-      'Galaxy S10e',
-      'Galaxy S9 Plus',
-      'Galaxy S9',
-      'Galaxy S8 Plus',
-      'Galaxy S8',
-      'Galaxy S7 Edge',
-      'Galaxy S7',
-      'Galaxy S6 Edge Plus',
-      'Galaxy S6 Edge',
-      'Galaxy S6',
-      'Galaxy S5 Plus',
-      'Galaxy S5 Neo',
-      'Galaxy S5 mini',
-      'Galaxy S5 activ',
-      'Galaxy S5',
-      'Galaxy Note 10 Plus 5G',
-      'Galaxy Note 10 Plus',
-      'Galaxy Note 10 Lite',
-      'Galaxy Note 10',
-      'Galaxy Note 9',
-      'Galaxy Note 8 Duos',
-      'Galaxy Note 8',
-      'Galaxy Note 7',
-      'Galaxy Note 5',
-      'Galaxy Note 4 Edge',
-      'Galaxy Note 4',
-      'Galaxy Note 3 Neo Duos',
-      'Galaxy Note 3 Neo',
-      'Galaxy Note 3',
-      'Galaxy Note 2 LTE',
-      'Galaxy Note 2',
-      'Galaxy Note',
-      'Galaxy Grand Prime 4G',
-      'Galaxy Grand Prime',
-      'Galaxy Grand 2 Dual',
-      'Galaxy Alpha',
-      'Galaxy A90 5G',
-      'Galaxy A9 (2018)',
-      'Galaxy A80',
-      'Galaxy A8 Plus (2018)',
-      'Galaxy A8 (2018)',
-      'Galaxy A70s',
-      'Galaxy A70',
-      'Galaxy A7 (2018)',
-      'Galaxy A7',
-      'Galaxy A60',
-      'Galaxy A6 Plus (2018)',
-      'Galaxy A6 (2018)',
-      'Galaxy A50s',
-      'Galaxy A50',
-      'Galaxy A5 (2017)',
-      'Galaxy A5 (2016)',
-      'Galaxy A5',
-      'Galaxy A40',
-      'Galaxy A30s',
-      'Galaxy A30',
-      'Galaxy A3 (2017)',
-      'Galaxy A3 (2016)',
-      'Galaxy A3',
-      'Galaxy A20s',
-      'Galaxy A20e',
-      'Galaxy A20',
-      'Galaxy A10s',
-      'Galaxy A10',
-    ],
-
+    'Galaxy S10 Plus': {
+      128: {
+        price: 500,
+      },
+      512: {
+        price: 530,
+      },
+    },
+    'Galaxy S10': {
+      128: {
+        price: 435.7878787878788,
+      },
+    },
+    'Galaxy S10e': {
+      128: {
+        price: 440.875,
+      },
+    },
+    'Galaxy S9 Plus': {
+      64: {
+        price: 311.06666666666666,
+      },
+    },
+    'Galaxy S9': {
+      64: {
+        price: 240.30434782608697,
+      },
+      256: {
+        price: 358.2,
+      },
+    },
+    'Galaxy S8 Plus': {
+      64: {
+        price: 250.61111111111111,
+      },
+    },
+    'Galaxy S8': {
+      64: {
+        price: 167.4,
+      },
+    },
+    'Galaxy S7 Edge': {
+      32: {
+        price: 141.2,
+      },
+    },
+    'Galaxy S7': {
+      32: {
+        price: 117.84615384615384,
+      },
+    },
+    'Galaxy S6 Edge': {
+      32: {
+        price: 125.30434782608695,
+      },
+      64: {
+        price: 146.6,
+      },
+      128: {
+        price: 223.9,
+      },
+    },
+    'Galaxy S6': {
+      32: {
+        price: 101.3076923076923,
+      },
+      64: {
+        price: 183.07692307692307,
+      },
+      128: {
+        price: 201.85714285714286,
+      },
+    },
+    'Galaxy S5 Neo': {
+      16: {
+        price: 104.7,
+      },
+    },
+    'Galaxy S5 mini': {
+      16: {
+        price: 78,
+      },
+    },
+    'Galaxy S5': {
+      16: {
+        price: 85.06451612903226,
+      },
+    },
+    'Galaxy Note 10 Plus': {
+      256: {
+        price: 690.3333333333334,
+      },
+    },
+    'Galaxy Note 10': {
+      256: {
+        price: 572.75,
+      },
+    },
+    'Galaxy Note 9': {
+      128: {
+        price: 379.4146341463415,
+      },
+      512: {
+        price: 462.5,
+      },
+    },
+    'Galaxy Note 8 Duos': {
+      64: {
+        price: 277.55555555555554,
+      },
+    },
+    'Galaxy Note 8': {
+      64: {
+        price: 291.7837837837838,
+      },
+    },
+    'Galaxy Note 5': {
+      32: {
+        price: 140,
+      },
+    },
+    'Galaxy Note 4': {
+      32: {
+        price: 135.25,
+      },
+    },
+    'Galaxy Note 3': {
+      16: {
+        price: 126,
+      },
+      32: {
+        price: 105.18181818181819,
+      },
+    },
+    'Galaxy Grand Prime': {
+      8: {
+        price: 65.1,
+      },
+    },
+    'Galaxy Alpha': {
+      32: {
+        price: 98.5,
+      },
+    },
+    'Galaxy A80': {
+      128: {
+        price: 305,
+      },
+    },
+    'Galaxy A8 (2018)': {
+      32: {
+        price: 192.55555555555554,
+      },
+    },
+    'Galaxy A70': {
+      128: {
+        price: 260.09090909090907,
+      },
+    },
+    'Galaxy A7 (2018)': {
+      64: {
+        price: 193.07692307692307,
+      },
+    },
+    'Galaxy A7': {
+      64: {
+        price: 193.07692307692307,
+      },
+    },
+    'Galaxy A50': {
+      128: {
+        price: 254.42857142857142,
+      },
+    },
+    'Galaxy A5 (2017)': {
+      32: {
+        price: 117.65789473684211,
+      },
+    },
+    'Galaxy A5 (2016)': {
+      16: {
+        price: 94.55172413793103,
+      },
+    },
+    'Galaxy A5': {
+      16: {
+        price: 93,
+      },
+      32: {
+        price: 109.65789473684211,
+      },
+    },
+    'Galaxy A40': {
+      64: {
+        price: 183.28571428571428,
+      },
+    },
+    'Galaxy A3 (2017)': {
+      16: {
+        price: 103.06666666666666,
+      },
+    },
+    'Galaxy A3 (2016)': {
+      16: {
+        price: 96.09375,
+      },
+    },
+    'Galaxy A3': {
+      16: {
+        price: 81.37037037037037,
+      },
+    },
+    'Galaxy A20e': {
+      32: {
+        price: 125,
+      },
+    },
+    'Galaxy A20': {
+      32: {
+        price: 125,
+      },
+    },
   },
   LG: {
-    phones: ['V30',
-      'V20',
-      'V10',
-      'Q8',
-      'Optimus G',
-      'Nexus 5X',
-      'Nexus 5',
-      'L Bello',
-      'K8',
-      'K7 Titan',
-      'K7',
-      'K10',
-      'G6 Platinum',
-      'G6',
-      'G5 Titan',
-      'G5',
-      'G4c',
-      'G3s',
-      'G3',
-      'G2 mini ',
-      'G2',
-    ],
-  },
-  Nokia: {
-    phones: ['Nokia 9 PureView',
-      'Nokia 8',
-      'Nokia 7.2',
-      'Nokia 7 Steel',
-      'Nokia 7 Plus',
-      'Nokia 7',
-      'Nokia 6',
-      'Nokia 5 Plus',
-      'Nokia 5 Copper',
-      'Nokia 5',
-      'Nokia 4',
-      'Nokia 3.2 Steel',
-      'Nokia 3.2',
-      'Nokia 3',
-      'Nokia 2.2 Steel',
-      'Nokia 2.2',
-    ],
-
-  },
-  HTC: {
-    phones: ['Desire 12s', 'U12 life', 'U12+', 'Desire 12/12+', 'U11 life', 'U11+', 'U11'],
+    V30: {
+      64: {
+        price: 217.66666666666666,
+      },
+    },
+    'Nexus 5': {
+      16: {
+        price: 137.66666666666666,
+      },
+    },
+    'G6 Platinum': {
+      32: {
+        price: 149.875,
+      },
+    },
+    G6: {
+      32: {
+        price: 160.125,
+      },
+      64: {
+        price: 143,
+      },
+    },
+    'G5 Titan': {
+      32: {
+        price: 185.75,
+      },
+    },
+    G5: {
+      32: {
+        price: 169.73333333333332,
+      },
+    },
+    G3: {
+      16: {
+        price: 71,
+      },
+    },
+    G2: {
+      16: {
+        price: 68,
+      },
+    },
   },
   Huawei: {
-    phones: ['P30 Pro',
-      'P30 lite',
-      'P30',
-      'P20 Pro',
-      'P20 Lite',
-      'P20',
-      'P10 Plus',
-      'P10 Lite',
-      'P10',
-      'P9 Lite',
-      'P9',
-      'P8 Lite 2017',
-      'P8 Lite',
-      'P8',
-      'Mate 20 Pro',
-      'Mate 20 Lite',
-      'Mate 20',
-      'Mate 10 Pro',
-      'Mate 10 Lite',
-      'Mate 10',
-      'Mate 9',
-      'P Smart Plus',
-      'P Smart (2019)',
-      'P Smart',
-      'Y7 (2018)',
-      'Y6 (2018)',
-      'Nova 3',
-      'Nova 2',
-      'Nova',
-      'Honor 8',
-    ],
-
+    'P30 Pro': {
+      128: {
+        price: 460.57142857142856,
+      },
+    },
+    'P30 lite': {
+      128: {
+        price: 204,
+      },
+    },
+    P30: {
+      128: {
+        price: 342.35714285714283,
+      },
+    },
+    'P20 Pro': {
+      128: {
+        price: 263.8611111111111,
+      },
+    },
+    'P20 Lite': {
+      64: {
+        price: 139.71428571428572,
+      },
+    },
+    P20: {
+      64: {
+        price: 136.11428571428573,
+      },
+      128: {
+        price: 182.46428571428572,
+      },
+    },
+    'P10 Plus': {
+      128: {
+        price: 202.3846153846154,
+      },
+    },
+    'P10 Lite': {
+      32: {
+        price: 103.94117647058823,
+      },
+    },
+    P10: {
+      32: {
+        price: 106.625,
+      },
+      64: {
+        price: 158.3448275862069,
+      },
+    },
+    'P9 Lite': {
+      16: {
+        price: 84.54545454545455,
+      },
+    },
+    P9: {
+      16: {
+        price: 86.29032258064517,
+      },
+      32: {
+        price: 101.94117647058823,
+      },
+    },
+    'P8 Lite 2017': {
+      16: {
+        price: 72.36842105263158,
+      },
+    },
+    'P8 Lite': {
+      16: {
+        price: 65.26315789473684,
+      },
+    },
+    P8: {
+      16: {
+        price: 66.80952380952381,
+      },
+    },
+    'Mate 20 Pro': {
+      128: {
+        price: 367.47222222222223,
+      },
+    },
+    'Mate 20 Lite': {
+      64: {
+        price: 151.25,
+      },
+    },
+    'Mate 20': {
+      64: {
+        price: 149.25,
+      },
+      128: {
+        price: 266.88235294117646,
+      },
+    },
+    'Mate 10 Pro': {
+      128: {
+        price: 197.7,
+      },
+    },
+    'Mate 10 Lite': {
+      64: {
+        price: 157.36363636363637,
+      },
+    },
+    'Mate 10': {
+      64: {
+        price: 150.8,
+      },
+    },
+    'Mate 9': {
+      64: {
+        price: 186.58333333333334,
+      },
+    },
+    'P Smart': {
+      32: {
+        price: 106.4,
+      },
+      64: {
+        price: 143.77777777777777,
+      },
+    },
+    'Nova 2': {
+      64: {
+        price: 158.33333333333334,
+      },
+    },
+    Nova: {
+      32: {
+        price: 113.11111111111111,
+      },
+      64: {
+        price: 158.33333333333334,
+      },
+    },
+    'Honor 8': {
+      32: {
+        price: 93.92857142857143,
+      },
+    },
   },
-  Google: {
-    phones: [
-      'Pixel 2',
-      'Pixel 2 XL',
-      'Pixel 3',
-      'Pixel 3 XL',
-      'Pixel 3A XL',
-      'Pixel 4',
-      'Pixel 4 XL',
-    ],
+  Nokia: {
+    'Nokia 8': {
+      8: {
+        price: 81,
+      },
+      16: {
+        price: 92.15384615384616,
+      },
+      32: {
+        price: 58.6,
+      },
+    },
+    'Nokia 7': {
+      8: {
+        price: 98,
+      },
+      16: {
+        price: 105.33333333333333,
+      },
+      32: {
+        price: 169.33333333333334,
+      },
+    },
+    'Nokia 6': {
+      8: {
+        price: 114.5,
+      },
+      16: {
+        price: 87.6,
+      },
+      32: {
+        price: 110.3529411764706,
+      },
+    },
+    'Nokia 5': {
+      8: {
+        price: 103.6,
+      },
+      16: {
+        price: 78.52631578947368,
+      },
+      32: {
+        price: 132,
+      },
+    },
+    'Nokia 4': {
+      8: {
+        price: 105.22222222222223,
+      },
+    },
+    'Nokia 3': {
+      8: {
+        price: 124,
+      },
+    },
   },
-  OnePlus: {
-    phones: ['7 Pro Nebula',
-      '7 Pro Almond',
-      '7 Mirror',
-      '6T Mirror',
-      '6T Midnight',
-      '6T',
-      '6 Rose',
-      '6',
-      '5T',
-      '5',
-      '3T',
-      '3',
-    ],
-
-  },
-  Sony: {
-    phones: ['Xperia Z5 Premium Dual Chrome',
-      'Xperia Z5 Premium Dual',
-      'Xperia Z5 Premium Chrome',
-      'Xperia Z5 Premium',
-      'Xperia Z5 Green',
-      'Xperia Z5 Dual Green',
-      'Xperia Z5 Dual',
-      'Xperia Z5 Compact Yellow',
-      'Xperia Z5 Compact',
-      'Xperia Z5',
-      'Xperia Z3 Plus Dual Copper',
-      'Xperia Z3 Plus Dual',
-      'Xperia Z3 Plus Copper',
-      'Xperia Z3 Plus',
-      'Xperia Z3 Dual Copper',
-      'Xperia Z3 Dual',
-      'Xperia Z3 Copper',
-      'Xperia Z3 Compact Orange',
-      'Xperia Z3 Compact Green',
-      'Xperia Z3 Compact',
-      'Xperia Z3  green',
-      'Xperia Z3',
-      'Xperia Z2',
-      'Xperia XZ3 Green',
-      'Xperia XZ3',
-      'Xperia XZ2 Green',
-      'Xperia XZ2 Compact Green',
-      'Xperia XZ2 Compact',
-      'Xperia XZ2',
-      'Xperia XZ1 Compact ',
-      'Xperia XZ1',
-      'Xperia XZ Premium ',
-      'Xperia XZ Dual ',
-      'Xperia XZ',
-      'Xperia XA2 Ultra',
-      'Xperia XA2 Plus Green',
-      'Xperia XA2 Plus ',
-      'Xperia XA2',
-      'Xperia XA1 Ultra ',
-      'Xperia XA1',
-      'Xperia XA Rose',
-      'Xperia XA Lime',
-      'Xperia XA Dual Lime',
-      'Xperia XA Dual',
-      'Xperia XA',
-      'Xperia X Performance Rose',
-      'Xperia X Performance',
-      'Xperia X Lime',
-      'Xperia X Compact',
-      'Xperia X',
-      'Xperia M4 Aqua',
-      'Xperia L3',
-      'Xperia L2',
-      'Xperia 5',
-      'Xperia 10 Plus Navy',
-      'Xperia 10 Plus',
-      'Xperia 10 Navy',
-      'Xperia 10',
-      'Xperia 1',
-      'Xperia XZ2 Compact',
-    ],
-
-  },
-  Xiaomi: {
-    phones: ['mi Note 5A Prime',
-      'mi Note 5A',
-      'mi Note 4',
-      'Mi A2 Lite',
-      'Mi 9 Lite',
-      'mi 6A',
-      'Mi 6',
-      'mi 5A',
-      'mi 5',
-      'mi 4 (4X)',
-    ],
-  },
-
 }
 
-module.exports = { brands, phones }
+module.exports = { phones }

@@ -88,13 +88,13 @@
               Wieviel internen Speicher hat dein Handy?
             </p>
             <button
-              v-for="(storage, storageId) in values.storages"
+              v-for="storageId in values.storages"
               :key="storageId"
               class="mt-3 block w-full"
-              @click="selectStorage(storage.title)"
+              @click="selectStorage(storageId)"
             >
               <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
-                <span :class="`${storage.color} text-4xl`">{{ storage.title }}</span> <span class="text-sm">GB</span>
+                <span :class="`text-4xl`">{{ storageId }}</span> <span class="text-sm">GB</span>
               </div>
             </button>
           </template>
@@ -222,7 +222,7 @@
               <p
                 class="text-2xl text-white"
               >
-                Entweder sind einige Daten falsch oder wir kaufen dein Handy derzeit nicht an
+                Wir kaufen dein Handy mit diesem Defekt leider nicht an
               </p>
               <p class="text-base text-gray-600">
                 Trotzdem vielen Dank für deine Anfrage :D
@@ -372,11 +372,14 @@ export default {
       this.request.brand = brand
       this.values.phones = (
         await this.$axios.$post('/handy/getData', { Stage: 1, Brand: brand })
-      ).phones
+      )
       this.next()
     },
-    selectPhone(phone) {
+    async selectPhone(phone) {
       this.request.phone = phone
+      this.values.storages = (
+        await this.$axios.$post('/handy/getData', { Stage: 2, Brand: this.request.brand, Phone: phone })
+      )
       this.next()
     },
     selectStorage(storage) {
