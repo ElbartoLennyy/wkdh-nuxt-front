@@ -1,10 +1,11 @@
 <template>
-  <!--   <img
+  <div class="font-sans min-h-screen w-full">
+    <img
       height="1"
       width="1"
       style="display:none"
-      src="https://www.facebook.com/tr?id=480915019270567&ev=Lead&noscript=1"/> -->
-  <div class="font-sans min-h-screen w-full">
+      src="https://www.facebook.com/tr?id=480915019270567&ev=Lead&noscript=1"
+    >
     <div class="md:flex w-screen h-screen">
       <div class="md:w-1/3 md:pl-10 pl-2">
         <p class="text-3xl md:text-5xl font-bold mt-8 tracking-tighter leading-none">
