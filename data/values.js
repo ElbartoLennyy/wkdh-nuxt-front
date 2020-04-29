@@ -10,17 +10,6 @@ export const paymentMethods = {
   TRANSFER: 'Überweisung',
 }
 
-export const storages = {
-  STORAGE8: { title: '8', color: 'grey' },
-  STORAGE16: { title: '16', color: 'grey' },
-  STORAGE32: { title: '32', color: 'blue' },
-  STORAGE64: { title: '64', color: 'blue' },
-  STORAGE128: { title: '128', color: 'purple' },
-  STORAGE256: { title: '256', color: 'purple' },
-  STORAGE512: { title: '512', color: 'pink' },
-
-}
-
 export const conditions = {
   LIKE_NEW: {
     title: 'Wie neu',

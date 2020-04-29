@@ -1,59 +1,56 @@
 <template>
-  <div id="toolbox">
+  <div class="font-sans min-h-screen w-full">
     <img
       height="1"
       width="1"
       style="display:none"
       src="https://www.facebook.com/tr?id=480915019270567&ev=Lead&noscript=1"
     >
-    <section class="meta-content">
-      <div id="idSection">
-        <h1 id="explanation" class="typo-title">
+    <div class="md:flex w-screen h-screen">
+      <div class="md:w-1/3 md:pl-10 pl-2">
+        <p class="text-3xl md:text-5xl font-bold mt-8 tracking-tighter leading-none">
           Du willst dein Handy verschicken
-        </h1>
-
-        <h3 class="icon-header-title">
+        </p>
+        <p class="text-gray-900 text-xl">
           Bitte sorge dafür, dass dein Paket sicher und unbeschädigt bei uns ankommt.
-        </h3>
+        </p>
+        <div class="flex items-center text-center md:pt-4">
+          <img
+            class="inline w-5 "
+            src="~assets/img/svg/help.svg"
+            alt="help button"
+          >
 
-        <button class="elevated-button" onclick="window.location = '/contactUs'">
-          Probleme?
-        </button>
-      </div>
-    </section>
-
-    <section class="selection-content" data-switch-appearance>
-      <div class="box">
-        <div id="selGrid" class="grid">
-          <h2 class="typo-subheader">
-            Drucke einfach das Label aus und klebe es auf das Paket.
-          </h2>
+          <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
+            Hilfe erhalten
+          </a>
         </div>
-
-        <object
-          width="80%"
-          height="100%"
-          type="application/pdf"
-          :data="labelUrl"
-        />
-
-        <h2 class="typo-subheader">
-          Wird es nicht richtig angezeit?
-          <a :href="labelUrl">Klicke hier!</a>
-        </h2>
       </div>
-    </section>
+
+      <div class="md:w-2/3 p-2 h-full">
+        <div class="rounded-lg p-6 md:p-12 bg-gray-900 h-full">
+          <p class="text-white">Drucke einfach das Label aus und klebe es auf das Paket.</p>
+          <object
+            width="80%"
+            height="80%"
+            type="application/pdf"
+            :data="labelUrl"
+          />
+          <p class="text-white">
+            Wird es nicht richtig angezeit?
+            <a :href="labelUrl" class="text-blue-500 hover:underline">Klicke hier!</a>
+          </p>
+        </div>
+      </div>
+    </div>
   </div>
 </template>
 
 <script>
 export default {
-  props: {
-    offer: { type: Object, required: true },
-  },
   computed: {
     labelUrl() {
-      return `/user/${this.offer.ID}/label.pdf`
+      return `/user/${this.$route.params.userId}/label.pdf`
     },
   },
 }

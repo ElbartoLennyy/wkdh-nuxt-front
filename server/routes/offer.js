@@ -2,29 +2,55 @@ const express = require('express')
 const router = express.Router()
 const request = require('request')
 const fbData = require('../lib/firebase')
-const geocoder = require('../lib/geocoder')
+const pickUp = require('../lib/pickUp')
 const validator = require('../lib/validation')
 const sendcloud = require('../lib/sendcloud')
 const sendMail = require('../lib/sendMail')
 
-router.post('/getData', function(req, res, next) {
-  fbData.getOffer(req.body.uID, (obj) => {
-    res.send({ Obj: obj })
-  })
+router.post('/getData', async function(req, res, next) {
+  const userData = await fbData.getUser(req.body.uID)
+  res.send({ Obj: userData })
 })
 
-router.post('/validateAddress', function(req, res, next) {
-  geocoder.validateAddress(req.body, (data, pickUp) => {
-    if (data === 'placeError') {
-      // error
-    } else {
-      console.log(data, 'abholung: ' + pickUp)
+router.post('/checkPickUp', function(req, res, next) {
+  const uID = req.body.uID
+  const token = req.body.Token
+
+  if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
+    return res.status(500).send({ responseError: 'Please select captcha first' })
+  }
+
+  const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
+
+  request(verificationURL, async(err, response, body) => {
+    if (err) {
+      console.log(err)
+      return res.send({ responseError: err })
     }
 
-    res.send(({
-      Location: data,
-      PickUp: pickUp,
-    }))
+    body = JSON.parse(body)
+
+    if (body.success !== undefined && !body.success) {
+      console.log('Failed captcha verification error:' + body)
+      return res.status(500).send({ responseError: 'Failed captcha verification' })
+    }
+
+    const { location, pickUpData } = await pickUp.checkPickUp(req.body.Adress)
+
+    if (location === undefined) {
+      console.log('location undefined')
+      res.status(500).end()
+    } else {
+      if (pickUpData === false) {
+        fbData.setUserLocation(uID, location, false)
+      } else {
+        fbData.setUserLocation(uID, location, true)
+      }
+      res.send({
+        location,
+        pickUpData,
+      })
+    }
   })
 })
 
@@ -63,7 +89,7 @@ router.post('/accept', function(req, res, next) {
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
 
-  request(verificationURL, (err, response, body) => {
+  request(verificationURL, async(err, response, body) => {
     if (err) {
       console.log(err)
       return res.status(500).send({ responseError: err })
@@ -77,19 +103,17 @@ router.post('/accept', function(req, res, next) {
     }
 
     if (req.body.data.TransportType === 'shipping') {
-      sendcloud.createParcel(req.body.uID, req.body.data, (data) => {
-        req.body.data.TransportData = data
+      const userLocation = await fbData.getUser(req.body.uID)
+      const parcelId = await sendcloud.createParcel(req.body.uID, req.body.data, userLocation.Location)
+      req.body.data.TransportData = parcelId
 
-        fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-          sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
-          res.send({ Obj: 'done' })
-        })
-      })
+      await fbData.setOfferAccept(req.body.uID, req.body.data)
+      sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
+      res.send({ Obj: 'done' })
     } else if (req.body.data.TransportType === 'pickUp') {
-      fbData.setOfferAccept(req.body.uID, req.body.data, () => {
-        sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
-        res.send({ Obj: 'done' })
-      })
+      await fbData.setOfferAccept(req.body.uID, req.body.data)
+      sendMail.sendOfferAcceptMail(req.body.uID, req.body.data, req.body.locationData)
+      res.send({ Obj: 'done' })
     }
   })
 })

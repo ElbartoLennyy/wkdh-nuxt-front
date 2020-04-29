@@ -17,7 +17,6 @@
 import OfferPage from '~/components/user/OfferPage'
 import PickUpPage from '~/components/user/PickUpPage'
 import ShippingPage from '~/components/user/ShippingPage'
-
 export default {
   components: { OfferPage, PickUpPage, ShippingPage },
   async asyncData(context) {
@@ -26,7 +25,6 @@ export default {
         uID: context.route.params.userId,
       })
     ).Obj
-
     return { offer }
   },
   head() {

@@ -6,14 +6,23 @@ const priceCalc = require('../lib/calcUserOffer')
 const router = express.Router()
 
 router.post('/getData', function(req, res, next) {
+  const dataArray = []
   if (req.body.Stage === 0) {
-    return res.send(phonesData.brands)
+    for (const brand in phonesData.phones) {
+      console.log(brand)
+      dataArray.push(brand)
+    }
   } else if (req.body.Stage === 1) {
-    const brand = req.body.Brand
-    return res.send(phonesData.phones[brand])
+    for (const phone in phonesData.phones[req.body.Brand]) {
+      dataArray.push(phone)
+    }
+  } else if (req.body.Stage === 2) {
+    for (const storage in phonesData.phones[req.body.Brand][req.body.Phone]) {
+      dataArray.push(storage)
+    }
   }
-
-  return res.sendStatus(400)
+  console.log(dataArray)
+  return res.send(dataArray)
 })
 
 router.post('/getPrice', function(req, res, next) {
@@ -50,29 +59,26 @@ router.post('/getPrice', function(req, res, next) {
         Price: false,
       })
     } else {
-      fbData.uploadPriceRequest(price, currentPhone, (requestID) => {
-        res.send({
-          Price: price,
-          RequestID: requestID,
-        })
+      const requestID = await fbData.uploadPriceRequest(price, currentPhone)
+      res.send({
+        Price: price,
+        RequestID: requestID,
       })
     }
   })
 })
 
-router.post('/accept', function(req, res, next) {
-  fbData.creatNewUser(req.body.ReqID, () => {
-    res.send({
-      Status: 'done',
-    })
+router.post('/accept', async function(req, res, next) {
+  await fbData.creatNewUser(req.body.ReqID)
+  res.send({
+    Status: 'done',
   })
 })
 
-router.post('/reject', function(req, res, next) {
-  fbData.deletePriceRequest(req.body.ReqID, () => {
-    res.send({
-      Status: 'done',
-    })
+router.post('/reject', async function(req, res, next) {
+  await fbData.deletePriceRequest(req.body.ReqID)
+  res.send({
+    Status: 'done',
   })
 })
 

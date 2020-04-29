@@ -1,45 +1,72 @@
 <template>
-  <div id="toolbox">
-    <section class="meta-content">
-      <div id="meta-progress" class="progress-indicator">
-        <div :style="{ width: `${progress}%` }" />
-      </div>
-
-      <nuxt-link id="meta-back" to="/" class="inline-button" @click="back">
-        <i class="material-icons">chevron_left</i>
-        <span class="text-gray-800">Abbrechen</span>
-      </nuxt-link>
-
-      <div id="idSection">
+  <div class="font-sans min-h-screen overflow-y-scroll">
+    <div class="md:flex">
+      <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
-          <h1 id="explanation" class="typo-title">
+          <div class="flex items-center text-center">
+            <img
+              class="inline w-5 "
+              src="~assets/img/svg/back.svg"
+              alt="back button"
+            >
+
+            <nuxt-link to="/" @click="back">
+              <span class="text-blue-900 font-bold pl-2">Abbrechen</span>
+            </nuxt-link>
+          </div>
+
+          <p class="text-3xl md:text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
             Wir kaufen dein Handy!
-          </h1>
-          <h3 class="icon-header-title">
+          </p>
+
+          <p class="text-2xl md:text-4xl">
             Wir bieten dir
-            <b>{{ offer.Price.price }}</b>€
-          </h3>
+            <b>{{ offer.Price.price }}</b> €
+          </p>
+
+          <div class="flex items-center text-center md:pt-4">
+            <img
+              class="inline w-5 "
+              src="~assets/img/svg/help.svg"
+              alt="help button"
+            >
+
+            <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
+              Hilfe erhalten
+            </a>
+          </div>
+
+          <div class="text-gray-700 text-xs md:w-3/4 pt-4">
+            <p>
+              Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
+              <a
+                target="_blank"
+                href="privacy"
+                class="text-blue-500 hover:text-blue-800"
+              >Datenschutzerklärung</a>
+            </p>
+            <recaptcha-notice class="pt-6" />
+          </div>
         </div>
 
-        <div class="typo-footnote">
-          <p>Bitte trage deine Daten ein und bestätige die AGBs sowie die Datenschutzbestimmungen um den Kauf erfolgreich abzuschließen.</p>
-          <recaptcha-notice />
+        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
+          <div
+            class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
+            :style="{ width: `${progress}%` }"
+          />
         </div>
       </div>
-    </section>
-
-    <section class="selection-content" data-switch-appearance>
-      <div class="box">
-        <div id="selGrid" class="grid">
+      <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
+        <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full text-left">
           <form
-            v-if="stage === 1"
+            v-if="stage === 0"
             @submit.prevent="next"
           >
-            <h2 class="typo-subheader">
+            <p class="text-white text-xl">
               Anrede
-            </h2>
+            </p>
 
-            <select id="salutation" v-model="form.Salutation" class="toolbox-field">
+            <select id="salutation" v-model="form.Salutation" class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
               <option value="Herr">
                 Herr
               </option>
@@ -48,211 +75,267 @@
               </option>
             </select>
 
-            <h2 class="typo-subheader">
+            <p class="text-white text-xl mt-4">
               Name
-            </h2>
+            </p>
 
-            <div class="toolbox-row">
-              <div class="left">
-                <input
-                  id="firstName"
-                  v-model.trim="form.FirstName"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Vorname"
-                  required
-                >
-                <p class="typo-caption">
-                  Vorname
-                </p>
-              </div>
-              <div class="right">
-                <input
-                  id="name"
-                  v-model.trim="form.Name"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Nachname"
-                  required
-                >
-                <p class="typo-caption">
-                  Nachname
-                </p>
-              </div>
-              <div class="right">
-                <input
-                  id="email"
-                  v-model.trim="form.Email"
-                  class="toolbox-field"
-                  type="email"
-                  placeholder="Email"
-                  required
-                >
-                <p class="typo-caption">
-                  Email
-                </p>
-              </div>
-            </div>
+            <input
+              id="firstName"
+              v-model.trim="form.FirstName"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              type="text"
+              placeholder="Vorname*"
+              required
+            >
+            <p class="text-white text-base font-light mb-4">
+              Vorname
+            </p>
+            <input
+              id="name"
+              v-model.trim="form.Name"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              type="text"
+              placeholder="Nachname*"
+              required
+            >
+            <p class="text-white text-base font-light mb-4">
+              Nachname
+            </p>
+            <input
+              id="email"
+              v-model.trim="form.Email"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              type="email"
+              placeholder="Email*"
+              required
+            >
+            <p class="text-white text-base font-light mb-4">
+              Email
+            </p>
+            <input
+              id="phoneNumber"
+              v-model.trim="form.PhoneNumber"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              type="tel"
+              placeholder="Telefonnummer"
+            >
+            <p class="text-white text-base font-light mb-4">
+              Telefonnummer (optional)
+            </p>
 
-            <button type="submit" class="toolbox-field selected">
-              Weiter
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Weiter
+              </div>
             </button>
           </form>
-
-          <form v-else-if="stage === 2" @submit.prevent="validateAddress">
-            <h2 class="typo-subheader">
+          <form v-else-if="stage === 1" @submit.prevent="checkPickUp">
+            <p class="text-white text-xl mt-4">
               Adresse
-            </h2>
+            </p>
 
-            <div class="toolbox-row">
-              <div style="width: 100%; margin-right: 2%">
-                <input
-                  id="Adress"
-                  v-model.trim="address.Adress"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Straße"
-                  required
-                >
-                <p class="typo-caption">
-                  Straße
-                </p>
-              </div>
-              <div style="width: 75%">
-                <input
-                  id="HouseNumber"
-                  v-model.trim="address.HouseNumber"
-                  class="toolbox-field"
-                  type="text"
-                  placeholder="Hausnummer"
-                  required
-                >
-                <p class="typo-caption">
-                  Hausnummer
-                </p>
-              </div>
-            </div>
+            <input
+              id="Adress"
+              v-model.trim="address.Adress"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
 
-            <div class="toolbox-row">
-              <div class="left">
+              type="text"
+              placeholder="Straße, Hausnummer"
+              required
+              autocomplete="shipping street-address"
+            >
+            <p class="text-white text-base font-light mb-4">
+              Straße, Hausnummer
+            </p>
+
+            <div class="flex">
+              <div class="w-1/3">
                 <input
                   id="PLZ"
                   v-model.trim="address.PLZ"
-                  class="toolbox-field"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
                   type="text"
                   placeholder="PLZ"
                   required
+                  autocomplete="shipping postal-code"
                 >
-                <p class="typo-caption">
+                <p class="text-white text-base font-light mb-4">
                   Postleitzahl
                 </p>
               </div>
-              <div class="right">
+              <div class="w-2/3 ml-4">
                 <input
                   id="Place"
                   v-model.trim="address.Place"
-                  class="toolbox-field"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
                   type="text"
                   placeholder="Ort"
                   required
+                  autocomplete="shipping locality"
                 >
-                <p class="typo-caption">
+                <p class="text-white text-base font-light mb-4">
                   Ort
                 </p>
               </div>
             </div>
 
-            <button type="submit" class="toolbox-field selected" :disabled="validatingAddress">
-              Weiter
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Weiter
+              </div>
             </button>
-            <button type="button" class="toolbox-field" @click.prevent="back()">
-              Zurück
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                Zurück
+              </div>
             </button>
           </form>
+          <form
+            v-else-if="stage === 2 && form.TransportType === 'pickUp'"
+            @submit.prevent="next"
+          >
+            <p class="text-white text-2xl font-bold">Wir holen dein Handy bei dir Zuhause ab!</p>
+            <p class="text-white text-xl">Wähle bitte eine Abholzeit aus</p>
+            <pickup-picker v-model="pickupTime" :pick-up-times="pickUpTimes" />
 
-          <form v-else-if="stage === 3" @submit.prevent="validatePaymentData">
-            <template v-if="form.TransportType === 'pickUp'">
-              <h2 class="typo-subheader">
-                Wir holen dein Handy ab!
-              </h2>
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Weiter
+              </div>
+            </button>
 
-              <h2 class="typo-subheader">
-                Willst du dein Gerät lieber selber verschicken?
-              </h2>
-              <button
-                type="button"
-                class="toolbox-field"
-                @click="form.TransportType = 'shipping'"
+            <button
+              type="button"
+              class="mt-8 block w-full"
+              @click.prevent="form.TransportType = 'shipping' "
+            >
+              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg md:w-1/2">
+                Willst du dein Handy lieber selber verschicken? - Klicke hier
+              </div>
+              <p class="text-gray-300 text-left">Das Paketlabel würdest du dann am Ende erhalten</p>
+            </button>
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                Zurück
+              </div>
+            </button>
+          </form>
+          <template v-else-if="stage === 2 && form.TransportType === 'shipping'">
+            <div v-if="pickUpPossible === true">
+              <p class="text-white text-2xl">Du willst dein Paket selber verschicken</p>
+            </div>
+            <div v-if="pickUpPossible === false">
+              <p class="text-white text-2xl">Leider bist du nicht in unserem Abholradius und können dein Handy nicht abholen.</p>
+              <p class="text-white text-2xl">Du kannst es uns aber kostenlos zuschicken!</p>
+            </div>
+            <p class="text-white text-xl">Nach dem Abschluss des Verkaufs erhältst du die Versandmarke, sowie eine Versandguideline.</p>
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="pickupTime === null && form.TransportType === 'pickUp'"
+              @click.prevent="next()"
+            >
+              <div
+                class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left"
               >
-                Selber verschicken
-              </button>
+                Weiter
+              </div>
+            </button>
 
-              <h2 class="typo-subheader">
-                Bitte wähle die Zeit aus, wann wir dein Gerät abholen sollen
-              </h2>
+            <button
+              v-if="pickUpPossible === true"
+              type="button"
+              class="mt-8 block w-full"
+              @click.prevent="form.TransportType = 'pickUp' "
+            >
+              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg md:w-1/2">
+                Du willst dein Handy doch lieber Abholen lassen?
+              </div>
+            </button>
 
-              <pickup-picker v-model="pickupTime" />
-            </template>
-
-            <template v-else-if="form.TransportType === 'shipping'">
-              <p v-if="!form.PickUpPossible">
-                Leider ist dein Gerät nicht in unserem Abholradius.
-                Wir bitten dich es daher an uns kostenlos per Post zu schicken.
-              </p>
-              <p>Nach dem Abschluss des Verkaufs erhältst du die Versandmarke, sowie eine Versandguideline.</p>
-
-              <template v-if="form.PickUpPossible">
-                <h2 class="typo-subheader">
-                  Willst du dein Gerät doch lieber abholen lassen?
-                </h2>
-                <button
-                  type="button"
-                  class="toolbox-field"
-                  @click="form.TransportType = 'pickUp'"
-                >
-                  Abholen lassen
-                </button>
-              </template>
-            </template>
-
-            <!-- TODO: Consider splitting this into a separate stage -->
-            <h2 class="typo-subheader">
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                Zurück
+              </div>
+            </button>
+          </template>
+          <form
+            v-else-if="stage === 3"
+            @submit.prevent="validatePaymentData"
+          >
+            <p class="text-white text-xl mt-4">
               Wie willst du das Geld erhalten?
-            </h2>
+            </p>
             <input
               id="PayPal"
               v-model="form.PaymentMethod"
-              class="toolbox-checkbox"
               name="paymentMethod"
               type="radio"
+              class="appearance-none"
               value="PayPal"
             >
-            <label class="toolbox-field" for="PayPal">PayPal-Gutschrift<i class="material-icons selection-icon">check</i></label>
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              for="PayPal"
+              :class="form.PaymentMethod === 'PayPal' ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+            >PayPal-Gutschrift</label>
             <input
               id="Überweisung"
               v-model="form.PaymentMethod"
-              class="toolbox-checkbox"
               name="paymentMethod"
               type="radio"
+              class="appearance-none"
               value="Überweisung"
             >
-            <label class="toolbox-field" for="Überweisung">Überweisung<i class="material-icons selection-icon">check</i></label>
+            <label
+              class="-mt-4 p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              for="Überweisung"
+              :class="form.PaymentMethod === 'Überweisung' ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+            >Überweisung</label>
 
             <input
               id="paymentData"
               v-model.trim="form.PaymentData"
-              class="toolbox-field"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
               :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
               :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
               required
             >
             <p
               v-if="form.PaymentMethod === 'PayPal' && form.PaymentData !== form.Email"
-              class="typo-caption"
+              class="text-sm text-gray-600"
             >
               <button
                 type="button"
-                class="hover:underline"
+                class="hover:underline text-left"
                 @click="form.PaymentData = form.Email"
               >
                 Gleiche Emailadresse (<span
@@ -261,212 +344,280 @@
               </button>
             </p>
 
-            <button type="submit" class="toolbox-field selected">
-              Weiter
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Weiter
+              </div>
             </button>
-            <button type="button" class="toolbox-field" @click="back()">
-              Zurück
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                Zurück
+              </div>
             </button>
           </form>
+          <form
+            v-else-if="stage === 4"
+            @submit.prevent="next"
+          >
+            <div>
+              <p class="text-gray-500 text-lg">
+                Dein Handy<br>
+                <span class="text-white font-bold text-xl">
+                  {{ offer.phone.Brand }} {{ offer.phone.Phone }}
+                </span>
+              </p>
 
-          <form v-else-if="stage === 4" @submit.prevent="next">
-            <h2 class="typo-subheader">
-              Dein Handy
-            </h2>
-            <div class="icon-header">
-              <div class="icon-header-icon material-icons">
-                smartphone
-              </div>
-              <h3
-                class="icon-header-title"
-              >
-                {{ offer.phone.Brand }} {{ offer.phone.Phone }}
-              </h3>
+              <p class="text-gray-500 text-lg ">
+                Speicher<br>
+                <span class="text-white font-bold text-base">
+                  {{ offer.phone.Storage }} Gb
+                </span>
+              </p>
+              <p class="text-gray-500 text-lg ">
+                Zustand<br>
+                <span class="text-white font-bold text-base">
+                  {{ values.conditions[offer.phone.Condition].title }}                </span>
+              </p>
+              <template v-if="offer.phone.Defects.length >= 1">
+                <p class="text-gray-500 text-lg ">
+                  Defekte<br>
+                  <span class="text-white font-bold text-base">
+                    <template v-for="defect in offer.phone.Defects">
+                      {{ values.defects[defect].title }}
+                      <br :key="defect">
+                    </template>
+                  </span>
+                </p>
+              </template>
+              <template v-if="offer.phone.Accessorys.length >= 1">
+                <p class="text-gray-500 text-lg ">
+                  Zubehör<br>
+                  <span class="text-white font-bold text-base">
+                    <template v-for="accessory in offer.phone.Accessorys">
+                      {{ values.accessories[accessory] }}
+                      <br :key="accessory">
+                    </template>
+                  </span>
+                </p>
+              </template>
             </div>
-
-            <h2 class="typo-subheader">
-              Speicher
-            </h2>
-            <p> {{ offer.phone.Storage }} GB</p>
-
-            <h2 class="typo-subheader">
-              Zustand
-            </h2>
-            <p>{{ values.conditions[offer.phone.Condition].title }}</p>
-
-            <template v-if="offer.phone.Defects.length >= 1">
-              <h2 class="typo-subheader">
-                Defekte
-              </h2>
-              <p>
-                <template v-for="defect in offer.phone.Defects">
-                  {{ values.defects[defect].title }}
-                  <br :key="defect">
-                </template>
+            <p class="text-white text-xl mt-4">
+              Name
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+            >
+              {{ form.FirstName }}
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+            >
+              {{ form.Name }}
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+            >
+              {{ form.Email }}
+            </p>
+            <template v-if="form.PhoneNumber != ''">
+              <p
+                class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              >
+                {{ form.PhoneNumber }}
               </p>
             </template>
-            <h2 class="typo-subheader">
-              Zubehör
-            </h2>
-            <p>
-              <template v-for="accessory in offer.phone.Accessorys">
-                {{ values.accessories[accessory] }}
-                <br :key="accessory">
-              </template>
-            </p>
-
-            <h2 class="typo-subheader">
-              Name
-            </h2>
-
-            <div class="toolbox-row">
-              <div class="left">
-                <input id="firstName" class="toolbox-field" type="text" :value="form.FirstName" readonly>
-              </div>
-              <div class="right">
-                <input id="name" class="toolbox-field" type="text" :value="form.Name" readonly>
-              </div>
-              <div class="toolbox-row">
-                <input id="name" class="toolbox-field" type="text" :value="form.Email" readonly>
-              </div>
-            </div>
-
-            <h2 class="typo-subheader">
+            <p class="text-white text-xl mt-4">
               Adresse
-            </h2>
-
-            <div class="toolbox-row">
-              <div style="width: 100%; margin-right: 2%">
-                <input id="Adress" class="toolbox-field" type="text" :value="form.Location.streetName" readonly>
-                <p class="typo-caption">
-                  Straße
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+            >
+              {{ address.Adress }}
+            </p>
+            <p class="text-white text-base font-light mb-4">
+              Straße, Hausnummer
+            </p>
+            <div class="flex">
+              <div class="w-1/3">
+                <p
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                >
+                  {{ address.PLZ }}
                 </p>
-              </div>
-              <div style="width: 75%">
-                <input id="HouseNumber" class="toolbox-field" type="text" :value="form.Location.streetNumber" readonly>
-                <p class="typo-caption">
-                  Hausnummer
-                </p>
-              </div>
-            </div>
-
-            <div class="toolbox-row">
-              <div class="left">
-                <input id="PLZ" class="toolbox-field" type="text" :value="form.Location.zipcode" readonly>
-                <p class="typo-caption">
+                <p class="text-white text-base font-light mb-4">
                   Postleitzahl
                 </p>
               </div>
-              <div class="right">
-                <input id="Place" class="toolbox-field" type="text" :value="form.Location.city" readonly>
-                <p class="typo-caption">
+              <div class="w-2/3 ml-4">
+                <p
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                >
+                  {{ address.Place }}
+                </p>
+                <p class="text-white text-base font-light mb-4">
                   Ort
                 </p>
               </div>
             </div>
 
-            <template v-if="form.TransportType === 'pickUp'">
-              <h2 class="typo-subheader">Wir holen dein Handy ab am</h2>
-              <div class="toolbox-field">
-                {{ pickupTime.formattedDay }}
-                zwischen {{ pickupTime.formattedStartTime }} und {{ pickupTime.formattedEndTime }}
-              </div>
-            </template>
-
-            <h2 v-else-if="form.TransportType === 'shipping'" class="typo-subheader">
+            <p v-if="form.TransportType === 'pickUp'" class="text-gray-300">
+              Wir holen dein Handy ab am <span class="text-white font-bold">{{ pickupTime.formattedDay }}</span>
+              zwischen <span class="text-white font-bold">{{ pickupTime.formattedStartTime }}</span> und <span class="text-white font-bold">{{ pickupTime.formattedEndTime }}</span>
+            </p>
+            <p v-else-if="form.TransportType === 'shipping'" class="text-gray-300">
               Du verschickst dein Handy selbst. Das Label erhältst du am Ende.
-            </h2>
-
-            <h2 class="typo-subheader">
+            </p>
+            <p class="text-gray-300 text-sm">
               Du erhältst dein Geld via
-            </h2>
-            <input class="toolbox-field" type="text" :value="form.PaymentMethod" readonly>
-            <input class="toolbox-field" type="text" :value="form.PaymentData" readonly>
-
-            <h2 class="typo-subheader">Daten fehlerhaft? Nutze den Zurück-Knopf.</h2>
-
-            <button type="submit" class="toolbox-field selected">
-              Weiter
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+            >
+              {{ form.PaymentMethod }}
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+            >
+              {{ form.PaymentData }}
+            </p>
+            <button
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Weiter
+              </div>
             </button>
-            <button type="button" class="toolbox-field" @click="back()">
-              Zurück
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                Zurück
+              </div>
             </button>
           </form>
-
           <form v-else-if="stage === 5" @submit.prevent="acceptOffer">
-            <h2 class="typo-subheader">
+            <p class="text-white text-xl mt-4">
               Bitte bestätige folgendes
-            </h2>
-            <input id="privacy" class="toolbox-checkbox" type="checkbox" value="privacy" required>
-            <label id="privacy-box" class="toolbox-field" for="privacy">
+            </p>
+
+            <input
+              id="privacy"
+              v-model="endCheckbox"
+              type="checkbox"
+              class="appearance-none"
+              value="privacy"
+              required
+            >
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              :class="endCheckbox.includes('privacy') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+              :for="'privacy'"
+            >
               Ich bin mit der Speicherung meiner Daten gemäß Datenschutzerklärung einverstanden.
-              <i class="material-icons selection-icon">check</i>
             </label>
-            <a href="privacy" target="_blank">Datenschutzerklärung</a>
+            <a class="text-blue-400 hover:underline" href="privacy" target="_blank">Datenschutzerklärung</a>
 
-            <input id="Widerrufsrecht" class="toolbox-checkbox" type="checkbox" value="Widerrufsrecht" required>
-            <label id="Widerrufsrecht-box" class="toolbox-field" for="Widerrufsrecht">
+            <input
+              id="rightOfWithdrawal"
+              v-model="endCheckbox"
+              type="checkbox"
+              class="appearance-none"
+              value="rightOfWithdrawal"
+              required
+            >
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              :class="endCheckbox.includes('rightOfWithdrawal') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+              :for="'rightOfWithdrawal'"
+            >
               Ich bestätige die Regelung bezüglich des Wiederrufsrechts bei wirkaufendeinhandy.shop (AGBs siehe 3.2)
-              <i class="material-icons selection-icon">check</i>
             </label>
 
-            <input id="AGBs" class="toolbox-checkbox" type="checkbox" value="AGBs" required>
-            <label id="AGB-box" class="toolbox-field" for="AGBs">
+            <input
+              id="ToS"
+              v-model="endCheckbox"
+              type="checkbox"
+              class="appearance-none"
+              value="ToS"
+              required
+            >
+            <label
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              :class="endCheckbox.includes('ToS') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+              :for="'ToS'"
+            >
               Ich bin mit den geltenden AGBs einverstanden
-              <i class="material-icons selection-icon">check</i>
             </label>
-            <a href="AGB" target="_blank">AGBs</a>
+            <a class="text-blue-400 hover:underline" href="AGB" target="_blank">AGBs</a>
 
-            <h2 class="typo-subheader">
-              Schließe den Verkauf deines Gerätes verbindlich ab
-            </h2>
-
-            <button type="submit" class="toolbox-field selected">
-              Bestätigen und Verkauf abschließen
+            <button
+              v-if="endCheckbox.length === 3"
+              type="submit"
+              class="mt-4 block w-full"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Bestätigen und Verkauf verbindlich abschließen
+              </div>
             </button>
-            <button type="button" class="toolbox-field" @click.prevent="back()">
-              Zurück
+            <p v-else-if="endCheckbox.length != 3" class="text-white font-bold text-xl">Bitte klick auf die Button oben, um alles zu bestätigen.</p>
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              @click.prevent="back()"
+            >
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                Zurück
+              </div>
             </button>
           </form>
         </div>
       </div>
-    </section>
+    </div>
   </div>
 </template>
 
 <script>
 import PickupPicker from '~/components/PickupPicker'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
-
 import * as values from '~/data/values'
-
 export default {
   components: { PickupPicker, RecaptchaNotice },
   props: {
     offer: { type: Object, required: true },
   },
   data: () => ({
-    // TODO: Start at 0 instead of 1 (stage 0 was a loading screen)
-    stage: 1,
+    stage: 0,
     values,
+    endCheckbox: [],
     form: {
       Email: '',
       Salutation: 'Herr',
       Name: '',
       FirstName: '',
-      Location: '',
+      PhoneNumber: '',
       PaymentMethod: 'PayPal',
       PaymentData: '',
       TransportData: '',
       TransportType: 'shipping',
-      PickUpPossible: false,
     },
+    pickUpPossible: false,
+    pickUpTimes: null,
     pickupTime: null,
     validatingAddress: false,
-    // TODO: Fix "Adress" typo and weird terminology
     address: {
       Adress: '',
-      HouseNumber: '',
       PLZ: '',
       Place: '',
     },
@@ -477,42 +628,35 @@ export default {
     },
   },
   watch: {
-    pickupTime({ date }) {
-      this.form.TransportData = date.toISOString()
+    pickupTime({ date, cId }) {
+      this.form.TransportData = { time: new Date(date).toISOString(), cId }
     },
   },
-  mounted() {
-    // eslint-disable-next-line no-unused-vars
-    const fbq = !(function(f, b, e, v, n, t, s) {
-      if (f.fbq) { return } n = f.fbq = function() {
-        n.callMethod
-          ? n.callMethod.apply(n, arguments) : n.queue.push(arguments)
-      }; if (!f._fbq) { f._fbq = n }
-      n.push = n; n.loaded = !0; n.version = '2.0'; n.queue = []; t = b.createElement(e); t.async = !0
-      t.src = v; s = b.getElementsByTagName(e)[0]; s.parentNode.insertBefore(t, s)
-    }(window,
-      document, 'script', 'https://connect.facebook.net/en_US/fbevents.js'))
-  },
   methods: {
-    async validateAddress() {
-      try {
-        this.validatingAddress = true
-        const { Location, PickUp } = await this.$axios.$post('/offer/validateAddress', this.address)
-
-        // TODO: Move this validation logic to the back-end (and return appropriate status code)
-        if (!Location.streetName || !Location.streetNumber) {
-          throw new Error('Not enough details!')
+    checkPickUp() {
+      this.validatingAddress = true
+      // eslint-disable-next-line no-undef
+      grecaptcha.ready(async() => {
+        // eslint-disable-next-line no-undef
+        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
+        try {
+          const { location, pickUpData } = await this.$axios.$post('/offer/checkPickUp', { uID: this.offer.ID, Adress: this.address, Token: token })
+          this.address.Adress = location.streetName + ' ' + location.streetNumber
+          this.address.PLZ = location.zipcode
+          this.address.Place = location.city
+          if (pickUpData === false) {
+            this.pickUpPossible = false
+            this.form.TransportType = 'shipping'
+          } else {
+            this.pickUpPossible = true
+            this.form.TransportType = 'pickUp'
+            this.pickUpTimes = pickUpData
+          }
+          this.next()
+        } catch (error) {
+          alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
         }
-
-        this.form.Location = Location
-        this.form.PickUpPossible = PickUp
-        this.form.TransportType = PickUp ? 'pickUp' : 'shipping'
-
-        this.next()
-      } catch {
-        // TODO: Make sure server returns appropriate status code instead of 502
-        alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
-      }
+      })
 
       this.validatingAddress = false
     },
@@ -522,7 +666,6 @@ export default {
         await this.$axios.$post('/offer/validatePaymentData', {
           PaymentMethod, PaymentData,
         })
-
         this.next()
       } catch {
         // TODO: Make this error message more helpful
@@ -534,13 +677,12 @@ export default {
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-
         await this.$axios.post('/offer/accept', {
           uID: this.offer.ID,
           data: this.form,
           Token: token,
+          locationData: this.address,
         })
-
         this.offer.State = this.form.TransportType
       })
     },

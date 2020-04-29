@@ -2,7 +2,7 @@
   <div>
     <select
       v-model="selectedDay"
-      class="px-3 py-2 toolbox-field"
+      class="block w-full bg-gray-800 rounded-lg text-gray-100 px-3 py-4 hover:bg-gray-700"
       required
       @input="selectedStart = null"
     >
@@ -17,9 +17,13 @@
     </select>
 
     <div v-if="selectedDay" class="mt-3">
-      <select v-model="selectedStart" class="px-3 py-2 toolbox-field" required>
+      <select
+        v-model="selectedStart"
+        class="block w-full bg-gray-800 rounded-lg text-gray-100 px-3 py-4 hover:bg-gray-700"
+        required
+      >
         <option value="" disabled selected>Wähle einen Zeitraum aus…</option>
-        <option v-for="([startHour, startMinute], startIndex) in availableStarts" :key="startIndex" :value="startIndex">
+        <option v-for="([startHour, startMinute], startIndex) in orderedStartTime" :key="startIndex" :value="startIndex">
           Zwischen {{ startHour }}:{{ padZeros(startMinute) }}
           und {{ startHour + 1 }}:{{ padZeros(startMinute) }}
         </option>
@@ -29,93 +33,54 @@
 </template>
 
 <script>
-import { addDays } from 'date-fns'
-
 export default {
   props: {
     value: {
       type: Object,
       default: null,
     },
+    pickUpTimes: { type: Object, required: true },
   },
   data: () => ({
     selectedDay: '',
     selectedStart: null,
-    daySlots: {
-      '2020-03-10': [
-        { start: [7, 30], end: [9, 30] },
-      ],
-      '2020-03-13': [
-        { start: [16, 0], end: [18, 0] },
-      ],
-      '2020-03-14': [
-        { start: [15, 0], end: [17, 0] },
-      ],
-      '2020-03-15': [
-        { start: [15, 0], end: [17, 0] },
-      ],
-      '2020-03-16': [
-        { start: [11, 0], end: [13, 0] },
-      ],
-    },
   }),
   computed: {
-    possibleDays() {
-      const days = []
-      const today = new Date()
-
-      for (let i = 1; i < 9; i++) {
-        const day = addDays(today, i)
-        days.push(day.toISOString().substr(0, 10))
-      }
-
-      return days
-    },
     availableDays() {
-      return this.possibleDays.filter(dayKey => dayKey in this.daySlots)
-    },
-    availableStarts() {
-      const starts = []
-
-      for (const slot of this.daySlots[this.selectedDay]) {
-        const { start: [startHour, startMinute], end: [endHour, endMinute] } = slot
-
-        for (let h = startHour; h < endHour; h++) {
-          const exclude00 = h === startHour && startMinute === 30
-          if (!exclude00) {
-            starts.push([h, 0])
-          }
-
-          const exclude30 = h === (endHour - 1) && endMinute !== 30
-          if (!exclude30) {
-            starts.push([h, 30])
-          }
-        }
+      const days = []
+      for (const day in this.pickUpTimes) {
+        days.push(day)
       }
 
-      return starts
+      return days.sort((a, b) => {
+        return new Date(a) - new Date(b)
+      })
     },
     finishedDate() {
       if (this.selectedStart == null) {
         return null
       }
-
-      const [startHours, startMinutes] = this.selectedStartTime
-      return new Date(`${this.selectedDay}T${this.padZeros(startHours)}:${this.padZeros(startMinutes)}:00.000+0100`)
+      const [startHours, startMinutes] = this.orderedStartTime[this.selectedStart]
+      return new Date(`${this.selectedDay} ${this.padZeros(startHours)}:${this.padZeros(startMinutes)}:00.000`).toUTCString()
     },
-    selectedStartTime() {
-      return this.availableStarts[this.selectedStart]
+    orderedStartTime() {
+      return this.pickUpTimes[this.selectedDay].slice().sort((a, b) => {
+        return a[0] - b[0]
+      })
     },
   },
   watch: {
     finishedDate(date) {
+      if (date === null) { return }
+
       this.$emit('input', date ? {
         day: this.selectedDay,
         start: this.selectedStart,
         date,
         formattedDay: this.formatDay(this.selectedDay),
-        formattedStartTime: `${this.selectedStartTime[0]}:${this.padZeros(this.selectedStartTime[1])}`,
-        formattedEndTime: `${this.selectedStartTime[0] + 1}:${this.padZeros(this.selectedStartTime[1])}`,
+        formattedStartTime: `${this.orderedStartTime[this.selectedStart][0]}:${this.padZeros(this.orderedStartTime[this.selectedStart][1])}`,
+        formattedEndTime: `${this.orderedStartTime[this.selectedStart][0] + 1}:${this.padZeros(this.orderedStartTime[this.selectedStart][1])}`,
+        cId: this.orderedStartTime[this.selectedStart][2],
       } : null)
     },
   },

@@ -15,68 +15,65 @@ admin.initializeApp({
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
-function uploadPriceRequest(price, phone, _callback) {
+async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
-  const docRequest = db.collection('request').doc(id)
+  if (price.price === undefined || Number.isNaN(price.price)) { return false }
 
-  docRequest.set({
+  const docRequest = db.collection('request').doc(id)
+  await docRequest.set({
     Date: getCurrentDate(),
     ID: id,
     Price: price,
     phone,
-  }).then(() => {
-    _callback(id)
   })
+  return id
 }
 
-function deletePriceRequest(id, _callback) {
+function deletePriceRequest(id) {
   db.collection('request').doc(id).delete()
-    .then(() => {
-      _callback()
-    })
 }
 /*
 function deleteUser(id, _callback) {
-    let deleteDoc = db.collection('userPhone').doc(id).delete()
+    let deleteDoc = db.collection('user').doc(id).delete()
         .then(() => {
             _callback();
         })
 }
 */
 
-function creatNewUser(id, _callback) {
+async function creatNewUser(id) {
   const docRequest = db.collection('request').doc(id)
-  const docUser = db.collection('userPhone').doc(id)
+  const docUser = db.collection('user').doc(id)
 
   let data
 
-  docRequest.get()
+  await docRequest.get()
     .then((doc) => {
       if (!doc.exists) {
         // console.log('No such document!');
       } else {
         data = (doc.data())
         const phone = data.phone
+        if (data.Price === undefined || Number.isNaN(data.Price)) {
+          return false
+        }
         docUser.set({
           Date: getCurrentDate(),
           ID: id,
           Price: data.Price,
           State: 'offer',
           phone,
-        }).then(() => {
-          deletePriceRequest(id)
-          _callback()
         })
       }
     })
-    .catch((err) => {
-      console.log('Error getting document', err)
-    })
+
+  deletePriceRequest(id)
+  return id
 }
 
 function setRejectNewOffer(uID) {
-  const docRequest = db.collection('userPhone').doc(uID)
+  const docRequest = db.collection('user').doc(uID)
 
   docRequest.set({
     Date: getCurrentDate(),
@@ -85,120 +82,119 @@ function setRejectNewOffer(uID) {
   })
 }
 
-function setOfferAccept(uID, data, _callback) {
-  const docRequest = db.collection('userPhone').doc(uID)
-
-  data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
-  data.Location.longitude = helper.convertToSafeString(data.Location.longitude.toString())
-  data.Location.streetName = helper.convertToSafeString(data.Location.streetName)
-  data.Location.streetNumber = helper.convertToSafeString(data.Location.streetNumber)
+async function setOfferAccept(uID, data) {
+  const docRequest = db.collection('user').doc(uID)
 
   data.Name = helper.convertToSafeString(data.Name)
   data.FirstName = helper.convertToSafeString(data.FirstName)
 
   data.PaymentData = helper.convertToSafeString(data.PaymentData)
 
-  docRequest.update({
+  await docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
     State: data.TransportType,
     data,
   })
-    .then(() => {
-      _callback()
-    })
+
+  return true
 }
 
-function getData(uID, _callback) {
-  const refUser = db.collection('userPhone').doc(uID)
+async function setUserLocation(uID, location, pickUpPossible) {
+  const docRequest = db.collection('user').doc(uID)
 
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        const data = (doc.data())
-        _callback(data)
-      }
-    })
-}
-
-function getOffer(uID, _callback) {
-  // console.log(uID)
-  const refUser = db.collection('userPhone').doc(uID)
-
-  let data
-
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        data = (doc.data())
-        // TODO: Consider security implications of returning offer object outside of "offer" state
-        _callback(data)
-      }
-    })
-}
-
-function getNewOffer(uID, _callback) {
-  // console.log(uID)
-  const refUser = db.collection('userPhone').doc(uID)
-  const refPhone = refUser.collection('phone').doc('request')
-  const refPrice = refUser.collection('phone').doc('offer')
-
-  let state
-  let dataPhone = {}
-  let price
-
-  refUser.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        state = (doc.data().State)
-      }
-    })
-    .then(function() {
-      if (state === 'newOffer') {
-        refPhone.get()
-          .then((doc) => {
-            if (!doc.exists) {
-              // console.log('No such document!');
-            } else {
-              dataPhone = (doc.data())
-            }
-          })
-          .then(function() {
-            refPrice.get()
-              .then((doc) => {
-                if (!doc.exists) {
-                  // console.log('No such document!');
-                } else {
-                  price = doc.data()
-                }
-              })
-              .then(function() {
-                const data = [price, dataPhone]
-                _callback(data)
-              })
-          })
-      } else {
-        // console.log("state not in newOffer");
-      }
-    })
-}
-
-function setReturn(uID, _callback) {
-  const docRequest = db.collection('userPhone').doc(uID)
-
-  docRequest.update({
-    Date: getCurrentDate(),
-    ID: uID,
-    State: 'return',
-  }).then(() => {
-    _callback()
+  await docRequest.update({
+    Location: location,
+    PickUpPossible: pickUpPossible,
   })
+  return true
 }
 
-module.exports = { /* deleteUser, */ getOffer, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getData, uploadPriceRequest, deletePriceRequest, creatNewUser }
+async function getShippmentData(uID) {
+  const refUser = db.collection('user').doc(uID)
+  const user = await refUser.get()
+
+  if (user.data().State === 'shipping') {
+    return user.data()
+  }
+  return false
+}
+
+async function getUser(uID) {
+  const refUser = db.collection('user').doc(uID)
+
+  const user = await refUser.get()
+
+  try {
+    if (user.data().State === 'offer') {
+      return user.data()
+    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+      return { State: user.data().State }
+    }
+  } catch (error) {
+    console.log(`current user: ${uID} \n error: ${error}`)
+    const returnValueUser = await setTimeout(getUserAfterError(uID), 800)
+    return returnValueUser
+  }
+}
+async function getUserAfterError(uID) {
+  const refUser = db.collection('user').doc(uID)
+
+  const user = await refUser.get()
+
+  try {
+    if (user.data().State === 'offer') {
+      return user.data()
+    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+      return { State: user.data().State }
+    }
+  } catch (error) {
+    console.log(`current user: ${user} \n error: ${error}`)
+  }
+  return false
+}
+
+async function getNewOffer(uID) {
+  // console.log(uID)
+  const refUser = db.collection('user').doc(uID)
+
+  const user = await refUser.get()
+
+  if (user.data().State === 'newOffer') {
+    return user.data()
+  }
+  return false
+}
+
+async function setReturn(uID) {
+  const docRequest = db.collection('user').doc(uID)
+
+  await docRequest.update({
+    Date: getCurrentDate(),
+    State: 'return',
+  })
+  return true
+}
+
+async function getCourierData(city) {
+  try {
+    const couriers = await db.collection('courier').where('location.city', '==', city).get()
+    const pickUpTimes = []
+    for (const courier of couriers.docs) {
+      pickUpTimes.push({
+        cId: courier.data().id,
+        pickUpTimes: courier.data().pickUpTimes,
+        location: {
+          lat: courier.data().location.latitude,
+          lon: courier.data().location.longitude,
+        },
+      })
+    }
+    return pickUpTimes
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
