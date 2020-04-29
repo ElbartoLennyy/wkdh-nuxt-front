@@ -2,11 +2,14 @@ const xlsx = require('xlsx')
 const phones = require('./phones')
 
 function getPrice(userPhone) {
-  const price = phones.phones[userPhone.Brand][userPhone.Phone][userPhone.Storage].price
+  try {
+    const price = phones.phones[userPhone.Brand][userPhone.Phone][userPhone.Storage].price
+    const prices = calcPrice(userPhone, price)
 
-  const prices = calcPrice(userPhone, price)
-
-  return prices
+    return prices
+  } catch (error) {
+    return false
+  }
 }
 
 function calcPrice(userPhone, price) {

@@ -341,9 +341,6 @@ import * as values from '~/data/values'
 
 export default {
   components: { RecaptchaNotice },
-  asyncData: async context => ({
-    brandOptions: await context.$axios.$post('/handy/getData', { Stage: 0 }),
-  }),
   data: () => ({
     stage: 0,
     values,
@@ -364,10 +361,18 @@ export default {
     },
   },
   created() {
-    // TODO: Find a cleaner way to do this
-    this.values.brands = this.brandOptions
+    this.getBrands()
   },
   methods: {
+    async getBrands() {
+      try {
+        const res = await this.$axios.$post('/handy/getData', { Stage: 0 })
+        this.values.brands = res
+      } catch (error) {
+        this.$router.go()
+        console.log(error)
+      }
+    },
     async selectBrand(brand) {
       this.request.brand = brand
       this.values.phones = (

@@ -104,6 +104,7 @@ router.post('/accept', function(req, res, next) {
 
     if (req.body.data.TransportType === 'shipping') {
       const userLocation = await fbData.getUser(req.body.uID)
+      if (userLocation === false) { return }
       const parcelId = await sendcloud.createParcel(req.body.uID, req.body.data, userLocation.Location)
       req.body.data.TransportData = parcelId
 

@@ -121,6 +121,8 @@ async function getShippmentData(uID) {
 }
 
 async function getUser(uID) {
+  if (uID === undefined || uID === '') { return false }
+
   const refUser = db.collection('user').doc(uID)
 
   const user = await refUser.get()

@@ -31,9 +31,9 @@
               alt="help button"
             >
 
-            <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
+            <nuxt-link to="/contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
               Hilfe erhalten
-            </a>
+            </nuxt-link>
           </div>
 
           <div class="text-gray-700 text-xs md:w-3/4 pt-4">

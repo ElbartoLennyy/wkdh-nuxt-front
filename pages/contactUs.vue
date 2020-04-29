@@ -27,7 +27,7 @@
         </section>
 
         <section>
-          <h2 class="mt-6 font-bold text-3xl">WhatsApp</h2>
+          <h2 class="mt-6 font-bold text-3xl">Email</h2>
           <p>
             <a class="text-xl text-blue-300" href="mailto:kontakt@wirkaufendeinhandy.shop">kontakt@wirkaufendeinhandy.shop</a>
           </p>
