@@ -303,7 +303,7 @@
                   @click="acceptOffer"
                 >
                   <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
-                    Weiter zur Dateneingabe
+                    Angebot annehmen und jetzt Handy verkaufen!
                   </div>
                 </button>
                 <button
