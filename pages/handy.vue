@@ -58,7 +58,7 @@
               Von welcher Marke ist dein Handy?
             </p>
             <button
-              v-for="brand in values.brands"
+              v-for="brand in brands"
               :key="brand"
               class="mt-3 block w-full text-left"
               @click="selectBrand(brand)"
@@ -344,6 +344,7 @@ export default {
   data: () => ({
     stage: 0,
     values,
+    brands: null,
     request: {
       brand: null,
       phone: null,
@@ -367,9 +368,9 @@ export default {
     async getBrands() {
       try {
         const res = await this.$axios.$post('/handy/getData', { Stage: 0 })
-        this.values.brands = res
+        console.log(res)
+        this.brands = res
       } catch (error) {
-        this.$router.go()
         console.log(error)
       }
     },

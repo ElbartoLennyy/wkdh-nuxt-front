@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import OfferPage from '~/components/user/OfferPage'
+import OfferPage from '~/components/user/OfferPageNew'
 import PickUpPage from '~/components/user/PickUpPage'
 import ShippingPage from '~/components/user/ShippingPage'
 export default {
