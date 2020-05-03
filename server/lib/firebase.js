@@ -49,29 +49,28 @@ async function creatNewUser(id) {
   const docUser = db.collection(dbReference).doc(id)
 
   let data
+  try {
+    const docData = await (await docRequest.get())
+    data = docData.data()
 
-  await docRequest.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        data = (doc.data())
-        const phone = data.phone
-        if (data.Price === undefined || Number.isNaN(data.Price)) {
-          return false
-        }
-        docUser.set({
-          Date: getCurrentDate(),
-          ID: id,
-          Price: data.Price,
-          State: 'offer',
-          phone,
-        })
-      }
+    const phone = data.phone
+    if (data.Price === undefined || Number.isNaN(data.Price)) {
+      return false
+    }
+    await docUser.set({
+      Date: getCurrentDate(),
+      ID: id,
+      Price: data.Price,
+      State: 'offer',
+      phone,
     })
+  } catch (error) {
+    console.log(error)
+    return false
+  }
 
   deletePriceRequest(id)
-  return id
+  return true
 }
 
 function setRejectNewOffer(uID) {

@@ -417,11 +417,13 @@ export default {
         this.offer = { price: data.Price, id: data.RequestID }
       })
     },
-    acceptOffer() {
-      this.$axios
-        .post('/handy/accept', { ReqID: this.offer.id })
-        .then(() => (this.$router.push(`/user/${this.offer.id}`)))
-        .catch(error => (this.error = error))
+    async acceptOffer() {
+      try {
+        await this.$axios.post('/handy/accept', { ReqID: this.offer.id })
+        this.$router.push(`/user/${this.offer.id}`)
+      } catch (error) {
+        console.log(error)
+      }
     },
     rejectOffer() {
       this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {

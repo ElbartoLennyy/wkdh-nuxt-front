@@ -69,10 +69,16 @@ router.post('/getPrice', function(req, res, next) {
 })
 
 router.post('/accept', async function(req, res, next) {
-  await fbData.creatNewUser(req.body.ReqID)
-  res.send({
-    Status: 'done',
-  })
+  try {
+    const result = await fbData.creatNewUser(req.body.ReqID)
+    if (result === false) {
+      res.status(500).end()
+    } else if (result) {
+      res.send()
+    }
+  } catch (error) {
+    res.status(500).end()
+  }
 })
 
 router.post('/reject', async function(req, res, next) {
