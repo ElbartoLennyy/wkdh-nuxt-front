@@ -594,7 +594,8 @@ export default {
             this.address.Adress = location.streetName + ' ' + location.streetNumber
             this.address.PLZ = location.zipcode
             this.address.Place = location.city
-            if (pickUpData === false) {
+            console.log(pickUpData)
+            if (pickUpData === false || pickUpData.length === 0) {
               this.pickUpPossible = false
               this.form.TransportType = 'shipping'
             } else {

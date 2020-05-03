@@ -2,7 +2,7 @@ const admin = require('firebase-admin')
 const serviceAccount = require('../../firebase-account.json')
 const helper = require('./helper')
 
-const dbReference = 'DEV'
+const dbReference = 'user'
 
 function getCurrentDate() {
   return (new Date().toISOString())
