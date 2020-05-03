@@ -238,7 +238,7 @@
               Wie willst du das Geld erhalten?
             </p>
             <p class="text-white text-base font-light mb-4 mt-1">
-              Das Geld bekommst du nachdem das Handy überprüft wurde direkt ausgezahlt.
+              Das Geld bekommst du nachdem dein Handy überprüft wurde direkt ausgezahlt.
             </p>
             <input
               id="PayPal"
@@ -314,6 +314,9 @@
           </form>
           <div v-else-if="stage === 2">
             <div>
+              <p class="text-white text-2xl mb-4 font-bold text-center">
+                Bitte überprüfe noch einmal deine Daten
+              </p>
               <p class="text-gray-500 text-lg">
                 Dein Handy<br>
                 <span class="text-white font-bold text-xl">
@@ -359,16 +362,18 @@
             <p class="text-white text-xl mt-4">
               Name
             </p>
-            <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
-            >
-              {{ form.FirstName }}
-            </p>
-            <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
-            >
-              {{ form.Name }}
-            </p>
+            <div class="flex">
+              <p
+                class="w-1/2 mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+              >
+                {{ form.FirstName }}
+              </p>
+              <p
+                class="w-1/2 ml-4 mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+              >
+                {{ form.Name }}
+              </p>
+            </div>
             <p
               class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
