@@ -1,5 +1,8 @@
 <template>
   <div class="font-sans bg-gray-900 text-white min-h-screen">
+    <div class="w-full h-6 md:h-8 bg-gray-800">
+      <p class="text-center text-white tracking-tight md:tracking-wide text-sm md:text-base md:pt-1">Trotz Covid-19 sicherer und hygienischer Abholservice!</p>
+    </div>
     <div>
       <nav class="bg-gray-700 shadow-xl">
         <div class="container mx-auto px-4 sm:px-6 lg:px-8">
@@ -10,7 +13,7 @@
                 <div class="w-1/3 md:w-auto">
                   <nuxt-link
                     to="/"
-                    class="md:ml-8 inline-flex items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-900 border-gray-300 transition duration-150 ease-in-out"
+                    class="md:ml-8 inline-flex md:pb-2 items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-800 border-gray-800 transition duration-150 ease-in-out"
                   >
                     Home
                   </nuxt-link>
@@ -18,18 +21,19 @@
                 <div class="w-1/3  md:w-auto">
                   <nuxt-link
                     to="/ankauf"
-                    class=" md:ml-8 inline-flex items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-900 focus:border-gray-300 transition duration-150 ease-in-out"
+                    class=" md:ml-8 inline-flex md:pb-2 items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-800 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:border-gray-300 transition duration-150 ease-in-out"
                   >
                     Ankauf
                   </nuxt-link>
                 </div>
                 <div class="w-1/3  md:w-auto">
-                  <nuxt-link
-                    to="/shop"
-                    class=" md:ml-8 inline-flex items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-900 focus:border-gray-300 transition duration-150 ease-in-out"
+                  <a
+                    href="https://kaufedeinhandy.de"
+                    target="_blank"
+                    class=" md:ml-8 inline-flex md:pb-2 items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-800 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:border-gray-300 transition duration-150 ease-in-out"
                   >
-                    Shop
-                  </nuxt-link>
+                    zum Shop
+                  </a>
                 </div>
               </div>
             </div>

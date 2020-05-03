@@ -1,16 +1,45 @@
 <template>
-  <div class="font-sans pt-24 bg-gray-900 text-white min-h-screen">
-    <div class="fixed top-0 inset-x-0 flex">
-      <div class="mt-3 bg-gray-800 mx-auto flex rounded-full items-center p-1 shadow-md">
-        <nuxt-link to="/" class="w-10 h-10 bg-gray-700 hover:bg-gray-600 rounded-full flex py-1">
-          <img class="h-full mx-auto" src="~assets/img/icons/logo-link.png" alt="Logo">
-        </nuxt-link>
-        <div class="ml-1 p-1 flex">
-          <nuxt-link to="/ankauf" class="block py-1 px-3 bg-white hover:no-underline rounded-full text-gray-900">Ankauf</nuxt-link>
-          <nuxt-link to="/shop" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Shop</nuxt-link>
-          <nuxt-link to="/handy" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-blue-600 text-blue-400 hover:text-white hover:no-underline rounded-full">Jetzt Anfragen →</nuxt-link>
+  <div class="font-sans bg-gray-900 text-white min-h-screen">
+    <div class="w-full h-6 md:h-8 bg-gray-800">
+      <p class="text-center text-white tracking-tight md:tracking-wide text-sm md:text-base md:pt-1">Trotz Covid-19 sicherer und hygienischer Abholservice!</p>
+    </div>
+    <div>
+      <nav class="bg-gray-700 shadow-xl">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="justify-between h-auto text-center md:pt-4">
+            <img class="h-20 w-auto object-contain inline" src="~assets/img/icons/wkdh-logo-text.png">
+            <div class="flex pb-2">
+              <div class="flex w-full">
+                <div class="w-1/3 md:w-auto">
+                  <nuxt-link
+                    class=" md:ml-8 inline-flex md:pb-2 items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-800 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:border-gray-300 transition duration-150 ease-in-out"
+                    to="/"
+                  >
+                    Home
+                  </nuxt-link>
+                </div>
+                <div class="w-1/3  md:w-auto">
+                  <nuxt-link
+                    to="/ankauf"
+                    class="md:ml-8 inline-flex md:pb-2 items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-800 border-gray-800 transition duration-150 ease-in-out"
+                  >
+                    Ankauf
+                  </nuxt-link>
+                </div>
+                <div class="w-1/3  md:w-auto">
+                  <a
+                    href="https://kaufedeinhandy.de"
+                    target="_blank"
+                    class=" md:ml-8 inline-flex md:pb-2 items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-800 hover:border-gray-300 focus:outline-none focus:text-gray-800 focus:border-gray-300 transition duration-150 ease-in-out"
+                  >
+                    zum Shop
+                  </a>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
 
     <div class="sm:bg-illustration bg-contain bg-no-repeat min-h-screen px-4">
