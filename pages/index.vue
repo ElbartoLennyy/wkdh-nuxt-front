@@ -1,15 +1,41 @@
 <template>
-  <div class="font-sans pt-24 bg-gray-900 text-white min-h-screen">
-    <div class="fixed top-0 inset-x-0 flex">
-      <div class="mt-3 bg-gray-800 mx-auto flex rounded-full items-center p-1 shadow-md">
-        <nuxt-link to="/" class="w-10 h-10 bg-white rounded-full flex py-1">
-          <img class="h-full mx-auto" src="~assets/img/icons/logo-link.png" alt="Logo">
-        </nuxt-link>
-        <div class="ml-1 p-1 flex">
-          <nuxt-link to="/ankauf" class="block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Ankauf</nuxt-link>
-          <nuxt-link to="/shop" class="ml-2 block py-1 px-3 bg-gray-700 hover:bg-gray-600 hover:text-white hover:no-underline rounded-full">Shop</nuxt-link>
+  <div class="font-sans bg-gray-900 text-white min-h-screen">
+    <div>
+      <nav class="bg-gray-700 shadow-xl">
+        <div class="container mx-auto px-4 sm:px-6 lg:px-8">
+          <div class="justify-between h-auto text-center md:pt-4">
+            <img class="h-20 w-auto object-contain inline" src="~assets/img/icons/wkdh-logo-text.png">
+            <div class="flex pb-2">
+              <div class="flex w-full">
+                <div class="w-1/3 md:w-auto">
+                  <nuxt-link
+                    to="/"
+                    class="md:ml-8 inline-flex items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-900 border-gray-300 transition duration-150 ease-in-out"
+                  >
+                    Home
+                  </nuxt-link>
+                </div>
+                <div class="w-1/3  md:w-auto">
+                  <nuxt-link
+                    to="/ankauf"
+                    class=" md:ml-8 inline-flex items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-900 focus:border-gray-300 transition duration-150 ease-in-out"
+                  >
+                    Ankauf
+                  </nuxt-link>
+                </div>
+                <div class="w-1/3  md:w-auto">
+                  <nuxt-link
+                    to="/shop"
+                    class=" md:ml-8 inline-flex items-center px-1 md:pt-1 border-b-2 border-transparent text-lg font-medium leading-5 text-gray-200 hover:text-gray-900 hover:border-gray-300 focus:outline-none focus:text-gray-900 focus:border-gray-300 transition duration-150 ease-in-out"
+                  >
+                    Shop
+                  </nuxt-link>
+                </div>
+              </div>
+            </div>
+          </div>
         </div>
-      </div>
+      </nav>
     </div>
 
     <div class="sm:bg-illustration bg-contain bg-no-repeat min-h-screen px-4">
