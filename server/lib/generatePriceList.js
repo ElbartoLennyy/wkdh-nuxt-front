@@ -5,7 +5,7 @@ const Ebay = require('ebay-node-api')
 // const phones = require('../data/priceListPhones')
 const phonesData = require('./phones')
 
-const storages = [8, 16, 32, 64, 128, 256, 512]
+// const storages = [8, 16, 32, 64, 128, 256, 512]
 
 const ebay = new Ebay({
   clientID: 'Wirkaufe-Wirkaufe-PRD-9caa423c9-9449eac1',
@@ -22,19 +22,8 @@ const ebay = new Ebay({
 generatePriceList()
 
 async function generatePriceList() {
+  const phonesJson = phonesData.phones
   /*
-  for (const phone of phones) {
-    const currentPhone = {
-      Brand: phone.Brand,
-      Phone: phone.Phone,
-      Storage: phone.Storage,
-    }
-
-    phoneList.push(currentPhone)
-  }
-  */
-  const phonesJson = {}
-
   for (const brand of phonesData.brands) {
     phonesJson[brand] = {}
     for (const phone of phonesData.phones[brand].phones) {
@@ -45,7 +34,7 @@ async function generatePriceList() {
     }
   }
   console.log(phonesJson)
-
+*/
   const newPhonePriceList = await processArray(phonesJson)
   console.log(newPhonePriceList)
 

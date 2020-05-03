@@ -6,7 +6,7 @@
       <img class="h-8 w-auto ml-3 md:ml-6" src="~assets/img/icons/dpd-logo.png" alt="Dpd Logo">
       <a href="https://www.instagram.com/wirkaufendeinhandy.shop/?hl=de" target="_blank"><img class="h-8 w-auto ml-3 md:ml-6" src="~assets/img/icons/Instagram-logo.png" alt="Instagram Logo"></a>
       <a href="https://www.facebook.com/wirkaufendeinhandy" target="_blank"><img class="h-8 w-auto ml-3 md:ml-6" src="~assets/img/icons/facebook-logo.png" alt="facebook Logo"></a>
-      <a href="https://wa.me/004915206318531" target="_blank"><img class="h-8 w-auto ml-3 md:ml-6" src="~assets/img/icons/WhatsApp-logo.png" alt="facebook Logo"></a>
+      <a href="https://wa.me/4915206318531" target="_blank"><img class="h-8 w-auto ml-3 md:ml-6" src="~assets/img/icons/WhatsApp-logo.png" alt="facebook Logo"></a>
     </div>
 
     <div class="mt-2 text-gray-600 text-sm font-bold">
