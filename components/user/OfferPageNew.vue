@@ -270,7 +270,7 @@
             <input
               id="paymentData"
               v-model.trim="form.PaymentData"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
               :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
               :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
               required
@@ -360,23 +360,23 @@
               Name
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.FirstName }}
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.Name }}
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.Email }}
             </p>
             <template v-if="form.PhoneNumber != ''">
               <p
-                class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
               >
                 {{ form.PhoneNumber }}
               </p>
@@ -385,7 +385,7 @@
               Adresse
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ address.Adress }}
             </p>
@@ -395,7 +395,7 @@
             <div class="flex">
               <div class="w-1/3">
                 <p
-                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
                 >
                   {{ address.PLZ }}
                 </p>
@@ -405,7 +405,7 @@
               </div>
               <div class="w-2/3 ml-4">
                 <p
-                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
                 >
                   {{ address.Place }}
                 </p>
@@ -426,12 +426,12 @@
               Du erhältst dein Geld via
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.PaymentMethod }}
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.PaymentData }}
             </p>
