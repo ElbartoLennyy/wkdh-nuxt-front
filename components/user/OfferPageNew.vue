@@ -47,22 +47,18 @@
             </p>
             <recaptcha-notice class="pt-6" />
           </div>
+        </div>
+        <div class="text-center">
+          <p class="p-3 text-base md:text-2xl">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+          <img class="object-center inline-block h-6" src="~assets/img/icons/further-icon.png">
 
-          <div class="text-center mt-4">
-            <p class="p-3 text-lg text-green-800">1. Handyauswahl <img class="inline-block" src="~assets/img/icons/baseline_done_black_24dp.png"></p>
-            <img class="object-center inline-block" src="~assets/img/icons/baseline_arrow_downward_black_24dp.png">
+          <p class="p-3 text-base md:text-2xl">2. Abholung/Versand  <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+          <img class="object-center inline-block h-6" src="~assets/img/icons/further-icon.png">
 
-            <p class="p-3 text-lg text-green-800">2. Abholung/Versand  <img v-if="stage >=1" class="inline-block" src="~assets/img/icons/baseline_done_black_24dp.png"></p>
-            <img class="object-center inline-block" src="~assets/img/icons/baseline_arrow_downward_black_24dp.png">
+          <p class="p-3 text-base md:text-2xl">3. Auszahlung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+          <img class="object-center inline-block h-6" src="~assets/img/icons/further-icon.png">
 
-            <p v-if="stage ===1" class="p-3 text-lg text-green-800">3. Auszahlung</p>
-            <p v-if="stage >=2" class="p-3 text-lg text-green-800">3. Auszahlung <img class="inline-block" src="~assets/img/icons/baseline_done_black_24dp.png"></p>
-            <p v-if="stage === 0" class="p-3 text-lg">3. Auszahlung</p>
-            <img class="object-center inline-block" src="~assets/img/icons/baseline_arrow_downward_black_24dp.png">
-
-            <p v-if="stage >=2" class="p-3 text-lg text-green-800">4. Zusammenfassung</p>
-            <p v-else class="p-3 text-lg">4. Zusammenfassung</p>
-          </div>
+          <p class="p-3 text-base md:text-2xl">4. Zusammenfassung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
         </div>
 
         <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
@@ -578,7 +574,7 @@ export default {
   }),
   computed: {
     progress() {
-      return [25, 50, 75, 100][this.stage]
+      return [25, 50, 75, 99][this.stage]
     },
   },
   watch: {

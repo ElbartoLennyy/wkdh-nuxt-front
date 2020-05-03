@@ -80,9 +80,13 @@ function sendOfferAcceptMail(uID, userDetails, userLocation) {
       
       <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du zu dem genannten Zeitraum
       bitte bei dir Zuhause bist.</p>
+
+      <p>Hättest du kurz 30 Sekunden, um uns <a href="https://surveys.hotjar.com/s?siteId=1716177&surveyId=156379">drei Fragen zu beantworten?</a>  </p>
       
       <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
       uns doch bitte einfach via Mail an <a href="mailto:kontakt@wirkaufendeinhandy.shop">kontakt@wirkaufendeinhandy.shop.</a></p>
+
+      <p>Bitte denke daran vor der Abholung dein Handy zurückzusetzen.</p>
       
       <h3>Bis bald und alles Gute,<br>
       Alex von Wirkaufendeinhandy.shop</h3>`,
@@ -108,9 +112,13 @@ function sendOfferAcceptMail(uID, userDetails, userLocation) {
       
       <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du uns dein Gerät spätestens
       bis zum ${date} losschickst.</p>
+
+      <p>Hättest du kurz 30 Sekunden, um uns <a href="https://surveys.hotjar.com/s?siteId=1716177&surveyId=156379">drei Fragen zu beantworten?</a>  </p>
       
       <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
       uns doch bitte einfach via Mail an kontakt@wirkaufendeinhandy.shop.</p>
+
+      <p>Bitte denke daran vor dem Versand dein Handy zurückzusetzen.</p>
       
       <h3>Bis bald und alles Gute,<br>
       Alex von Wirkaufendeinhandy.shop</h3>`,

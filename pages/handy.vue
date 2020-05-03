@@ -225,7 +225,7 @@
                 Wir kaufen dein Handy mit diesem Defekt leider nicht an
               </p>
               <p class="text-base text-gray-600">
-                Trotzdem vielen Dank für deine Anfrage :D
+                Trotzdem vielen Dank für deine Anfrage
               </p>
             </template>
             <template v-else>
