@@ -1,7 +1,7 @@
 <template>
-  <div class="font-sans min-h-screen overflow-y-scroll">
+  <div class="font-sans min-h-screen">
     <div class="md:flex">
-      <div class="md:w-1/4 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
+      <div class="md:w-1/3 md:min-h-screen p-4 md:p-8 md:pl-16 flex flex-col justify-between md:overflow-hidden">
         <div>
           <div class="flex items-center text-center">
             <img
@@ -47,18 +47,25 @@
             </p>
             <recaptcha-notice class="pt-6" />
           </div>
+          <div class="text-center hidden md:block">
+            <p class="p-2 text-lg">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
+
+            <p class="p-2 text-lg">2. Abholung/Versand  <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
+
+            <p class="p-2 text-lg">3. Auszahlung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
+            <p class="p-2 text-lg">4. Zusammenfassung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+          </div>
         </div>
-        <div class="text-center">
-          <p class="p-3 text-base md:text-2xl">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
-          <img class="object-center inline-block h-6" src="~assets/img/icons/further-icon.png">
-
-          <p class="p-3 text-base md:text-2xl">2. Abholung/Versand  <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
-          <img class="object-center inline-block h-6" src="~assets/img/icons/further-icon.png">
-
-          <p class="p-3 text-base md:text-2xl">3. Auszahlung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
-          <img class="object-center inline-block h-6" src="~assets/img/icons/further-icon.png">
-
-          <p class="p-3 text-base md:text-2xl">4. Zusammenfassung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+        <div>
+          <div class="text-center md:hidden">
+            <p v-if="stage==0" class="text-base font-bold">2. Abholung/Versand </p>
+            <p v-if="stage==1" class="text-base font-bold">3. Auszahlung </p>
+            <p v-if="stage==2" class="text-base font-bold">4. Zusammenfassung </p>
+            <p v-if="stage==3" class="text-base font-bold">Fast Fertig <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+          </div>
         </div>
 
         <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
@@ -68,7 +75,7 @@
           />
         </div>
       </div>
-      <div class="md:w-3/4 p-2 h-screen md:overflow-y-auto">
+      <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full text-left">
           <form
             v-if="stage === 0"
