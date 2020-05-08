@@ -5,9 +5,9 @@
     <div class="sm:bg-illustration bg-contain bg-no-repeat min-h-screen px-4">
       <div class="max-w-4xl mx-auto">
         <section class="md:flex text-center">
-          <div class="md:mr-20 text-center">
+          <div class="md:mr-20 text-center md:inline hidden">
             <img
-              class="mt-5 w-24 md:inline hidden"
+              class="mt-5 w-24 inline"
               src="~assets/img/icons/logo.png"
               alt="Logo"
             >
@@ -29,56 +29,99 @@
               <h2>Und holen es an deiner Haustür ab!</h2>
             </nuxt-link>
           </div>
+
+          <div class="md:hidden">
+            <nuxt-link to="/handy">
+              <button class="bg-buttonBlue rounded-lg font-semibold mt-8 text-lg truncate p-2 pl-12 pr-12 hover:text-blue-200 hover:no-underline shadow-xl ">
+                Jetzt Handy verkaufen →
+              </button>
+            </nuxt-link>
+            <p class="text-gray-500 font-light text-sm">
+              Deine Anfrage ist kostenlos und unverbindlich.
+            </p>
+          </div>
         </section>
 
         <section>
-          <h2 class="mt-12 sm:mt-24 text-2xl md:text-5xl font-bold text-center">
-            Das alte Handy einfach gegen Geld eintauschen!
+          <h2 class="mt-12 sm:mt-24 text-2xl md:text-4xl font-bold text-center">
+            Das alte Handy gegen Geld eintauschen!
           </h2>
+          <div class="text-center mt-6">
+            <p class="text-2xl md:text-4xl">
+              <img
+                src="~assets/img/icons/green-check-icon.png"
+                class="inline h-4 md:h-6"
+              > Einfach
+            </p>
+            <p class="text-2xl md:text-4xl">
+              <img
+                src="~assets/img/icons/green-check-icon.png"
+                class="inline h-4 md:h-6"
+              > Schnell
+            </p>
+            <p class="text-2xl md:text-4xl">
+              <img
+                src="~assets/img/icons/green-check-icon.png"
+                class="inline h-4 md:h-6"
+              > Sicher
+            </p>
+          </div>
           <div>
-            <div class="flex mt-6 md:mt-24 px-1">
+            <div class="flex mt-6 md:mt-10">
               <div class="w-1/4 ml-12">
-                <img class="w-full" src="~assets/img/svg/click-here.svg">
+                <img class="w-auto md:h-56" src="~assets/img/svg/click-here.svg">
               </div>
               <div class="sm:w-1/2 sm:pr-0 m-auto">
                 <nuxt-link to="/handy">
-                  <p class="text-blue-400 text-lg md:text-4xl font-bold ">Formular ausfüllen</p>
+                  <p class="text-blue-400 text-lg md:text-3xl font-bold ">Formular ausfüllen</p>
                 </nuxt-link>
               </div>
             </div>
-            <div class="flex mt-6 md:mt-24">
+            <div class="flex mt-6 md:mt-8">
               <div class="w-1/4 ml-12">
-                <img class="w-full" src="~assets/img/svg/message.svg">
+                <img class="w-auto md:h-56" src="~assets/img/svg/message.svg">
               </div>
               <div class="sm:w-1/2 sm:pr-0 m-auto">
-                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Angebot erhalten</p>
+                <p class="text-blue-400 text-lg md:text-3xl font-bold ">Angebot erhalten</p>
               </div>
             </div>
-            <div class="flex mt-6 md:mt-24">
+            <div class="flex mt-6 md:mt-8">
               <div class="w-1/4 ml-12 flex-shrink-0 mr-5">
-                <img class="w-full" src="~assets/img/svg/calendar.svg">
+                <img class="w-auto md:h-56" src="~assets/img/svg/calendar.svg">
               </div>
               <div class="sm:w-1/2 sm:pr-0 m-auto">
-                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Daten angeben und Abholtermin vereinbaren.</p>
+                <p class="text-blue-400 text-lg md:text-3xl font-bold ">Daten angeben und Abholtermin vereinbaren.</p>
               </div>
             </div>
-            <div class="flex mt-6 md:mt-24">
+            <div class="flex mt-6 md:mt-8">
               <div class="w-1/4 ml-12">
-                <img class="w-full" src="~assets/img/svg/phone.svg">
+                <img class="w-auto md:h-56" src="~assets/img/svg/phone.svg">
               </div>
               <div class="sm:w-1/2 sm:pr-0 m-auto">
-                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Bote holt Handy ab</p>
+                <p class="text-blue-400 text-lg md:text-3xl font-bold ">Bote holt Handy ab</p>
               </div>
             </div>
-            <div class="flex mt-6 md:mt-24">
+            <div class="flex mt-6 md:mt-8">
               <div class="w-1/4 ml-12">
-                <img class="w-full" src="~assets/img/svg/earn-money.svg">
+                <img class="w-auto md:h-56" src="~assets/img/svg/earn-money.svg">
               </div>
               <div class="sm:w-1/2 sm:pr-0 m-auto">
-                <p class="text-blue-400 text-lg md:text-4xl font-bold ">Geldbetrag erhalten </p>
+                <p class="text-blue-200 text-lg md:text-3xl font-bold ">Den vorher ausgemachten Geldbetrag erhalten!</p>
               </div>
             </div>
           </div>
+        </section>
+
+        <section>
+          <h2 class="mt-12 sm:mt-24 text-4xl font-bold">
+            Wirkt alles sehr unseriös für dich?
+          </h2>
+          <p class="mt-4 text-xl text-gray-500">
+            Dann konntaktiere uns einfach! Wir sind ein sehr jugens Unternehmen, wodurch man noch nichts von uns gehört hat. Deswegen konntaktiere uns einfach wenn du Fragen oder Bedenken hast.
+            <br><nuxt-link to="/contactUs" class="text-gray-200 hover:text-blue-300">
+              Klicke hier wenn du uns konntaktieren willst.
+            </nuxt-link>
+          </p>
         </section>
 
         <section class="sm:flex mt-12 sm:mt-24 bg-gray-800 rounded-lg">

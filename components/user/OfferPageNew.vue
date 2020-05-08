@@ -45,7 +45,17 @@
                 class="text-blue-500 hover:text-blue-800"
               >Datenschutzerklärung</a>
             </p>
-            <recaptcha-notice class="pt-6" />
+            <recaptcha-notice class="pt-4 md:pt-6" />
+            <div class="pt-4 md:pt-6 flex">
+              <img
+                class="inline w-1/5"
+                src="~assets/img/icons/Lets_encrypt-logo.png"
+                alt="help button"
+              >
+              <p class="w-4/5 m-auto">
+                Deine Daten sind sicher! Die Website wird durch ein Let’s Encrypt-Zertifikat SSL verschlüsselt.
+              </p>
+            </div>
           </div>
           <div class="text-center hidden md:block">
             <p class="p-2 text-lg">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
@@ -61,10 +71,10 @@
         </div>
         <div>
           <div class="text-center md:hidden">
-            <p v-if="stage==0" class="text-base font-bold">2. Abholung/Versand </p>
-            <p v-if="stage==1" class="text-base font-bold">3. Auszahlung </p>
-            <p v-if="stage==2" class="text-base font-bold">4. Zusammenfassung </p>
-            <p v-if="stage==3" class="text-base font-bold">Fast Fertig <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <p v-if="stage==0" class="text-base font-bold -mb-4">2. Abholung/Versand </p>
+            <p v-if="stage==1" class="text-base font-bold -mb-4">3. Auszahlung </p>
+            <p v-if="stage==2" class="text-base font-bold -mb-4">4. Zusammenfassung </p>
+            <p v-if="stage==3" class="text-base font-bold -mb-4">Fast Fertig <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
           </div>
         </div>
 
