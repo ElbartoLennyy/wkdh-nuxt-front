@@ -12,19 +12,10 @@ module.exports = {
     ],
     link: [
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },
-      {
-        rel: 'stylesheet',
-        href: 'https://fonts.googleapis.com/icon?family=Material+Icons',
-      },
-      {
-        rel: 'stylesheet',
-        // TODO: Reconsider including the entirety of Bootstrap for some typography styles
-        // href: 'https://stackpath.bootstrapcdn.com/bootstrap/4.3.1/css/bootstrap.min.css',
-      },
     ],
   },
   css: [
-    '~/assets/css/toolbox.css',
+    '~/assets/css/loader.css',
   ],
   loading: { color: '#fff' },
   buildModules: [
@@ -41,7 +32,8 @@ module.exports = {
     ['@netsells/nuxt-hotjar', {
       id: process.env.HOTJAR_ID,
       sv: 6,
-    }], */
+    }],
+    */
   ],
   sentry: {
     dsn: process.env.SENTRY_DNS, // Enter your project's DSN here

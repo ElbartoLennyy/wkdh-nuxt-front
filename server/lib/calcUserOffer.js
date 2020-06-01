@@ -1,18 +1,15 @@
 const xlsx = require('xlsx')
-const phones = require('../data/priceListPhones')
+const phones = require('./phones')
 
 function getPrice(userPhone) {
-  let price
-  for (const phone of phones) {
-    if (phone.Phone === userPhone.Phone && phone.Storage === userPhone.Storage) {
-      price = phone.Price
-      break
-    }
+  try {
+    const price = phones.phones[userPhone.Brand][userPhone.Phone][userPhone.Storage].price
+    const prices = calcPrice(userPhone, price)
+
+    return prices
+  } catch (error) {
+    return false
   }
-
-  const prices = calcPrice(userPhone, price)
-
-  return prices
 }
 
 function calcPrice(userPhone, price) {

@@ -2,6 +2,8 @@ const admin = require('firebase-admin')
 const serviceAccount = require('../../firebase-account.json')
 const helper = require('./helper')
 
+const dbReference = 'DEV'
+
 function getCurrentDate() {
   return (new Date().toISOString())
 }
@@ -18,6 +20,8 @@ db.settings({ timestampsInSnapshots: true })
 async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
+  if (price.price === undefined || Number.isNaN(price.price)) { return false }
+
   const docRequest = db.collection('request').doc(id)
   await docRequest.set({
     Date: getCurrentDate(),
@@ -33,7 +37,7 @@ function deletePriceRequest(id) {
 }
 /*
 function deleteUser(id, _callback) {
-    let deleteDoc = db.collection('DEV').doc(id).delete()
+    let deleteDoc = db.collection(dbReference).doc(id).delete()
         .then(() => {
             _callback();
         })
@@ -42,33 +46,35 @@ function deleteUser(id, _callback) {
 
 async function creatNewUser(id) {
   const docRequest = db.collection('request').doc(id)
-  const docUser = db.collection('DEV').doc(id)
+  const docUser = db.collection(dbReference).doc(id)
 
   let data
+  try {
+    const docData = await (await docRequest.get())
+    data = docData.data()
 
-  await docRequest.get()
-    .then((doc) => {
-      if (!doc.exists) {
-        // console.log('No such document!');
-      } else {
-        data = (doc.data())
-        const phone = data.phone
-        docUser.set({
-          Date: getCurrentDate(),
-          ID: id,
-          Price: data.Price,
-          State: 'offer',
-          phone,
-        })
-      }
+    const phone = data.phone
+    if (data.Price === undefined || Number.isNaN(data.Price)) {
+      return false
+    }
+    await docUser.set({
+      Date: getCurrentDate(),
+      ID: id,
+      Price: data.Price,
+      State: 'offer',
+      phone,
     })
+  } catch (error) {
+    console.log(error)
+    return false
+  }
 
   deletePriceRequest(id)
-  return id
+  return true
 }
 
 function setRejectNewOffer(uID) {
-  const docRequest = db.collection('DEV').doc(uID)
+  const docRequest = db.collection(dbReference).doc(uID)
 
   docRequest.set({
     Date: getCurrentDate(),
@@ -78,12 +84,7 @@ function setRejectNewOffer(uID) {
 }
 
 async function setOfferAccept(uID, data) {
-  const docRequest = db.collection('DEV').doc(uID)
-
-  data.Location.latitude = helper.convertToSafeString(data.Location.latitude.toString())
-  data.Location.longitude = helper.convertToSafeString(data.Location.longitude.toString())
-  data.Location.streetName = helper.convertToSafeString(data.Location.streetName)
-  data.Location.streetNumber = helper.convertToSafeString(data.Location.streetNumber)
+  const docRequest = db.collection(dbReference).doc(uID)
 
   data.Name = helper.convertToSafeString(data.Name)
   data.FirstName = helper.convertToSafeString(data.FirstName)
@@ -100,8 +101,18 @@ async function setOfferAccept(uID, data) {
   return true
 }
 
+async function setUserLocation(uID, location, pickUpPossible) {
+  const docRequest = db.collection(dbReference).doc(uID)
+
+  await docRequest.update({
+    Location: location,
+    PickUpPossible: pickUpPossible,
+  })
+  return true
+}
+
 async function getShippmentData(uID) {
-  const refUser = db.collection('DEV').doc(uID)
+  const refUser = db.collection(dbReference).doc(uID)
   const user = await refUser.get()
 
   if (user.data().State === 'shipping') {
@@ -111,21 +122,44 @@ async function getShippmentData(uID) {
 }
 
 async function getUser(uID) {
-  const refUser = db.collection('DEV').doc(uID)
+  if (uID === undefined || uID === '') { return false }
+
+  const refUser = db.collection(dbReference).doc(uID)
 
   const user = await refUser.get()
 
-  if (user.data().State === 'offer') {
-    return user.data()
-  } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
-    return { State: user.data().State }
+  try {
+    if (user.data().State === 'offer') {
+      return user.data()
+    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+      return { State: user.data().State }
+    }
+  } catch (error) {
+    console.log(`current user: ${uID} \n error: ${error}`)
+    const returnValueUser = await setTimeout(getUserAfterError(uID), 800)
+    return returnValueUser
+  }
+}
+async function getUserAfterError(uID) {
+  const refUser = db.collection(dbReference).doc(uID)
+
+  const user = await refUser.get()
+
+  try {
+    if (user.data().State === 'offer') {
+      return user.data()
+    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
+      return { State: user.data().State }
+    }
+  } catch (error) {
+    console.log(`current user: ${user} \n error: ${error}`)
   }
   return false
 }
 
 async function getNewOffer(uID) {
   // console.log(uID)
-  const refUser = db.collection('DEV').doc(uID)
+  const refUser = db.collection(dbReference).doc(uID)
 
   const user = await refUser.get()
 
@@ -136,14 +170,34 @@ async function getNewOffer(uID) {
 }
 
 async function setReturn(uID) {
-  const docRequest = db.collection('DEV').doc(uID)
+  const docRequest = db.collection(dbReference).doc(uID)
 
   await docRequest.update({
     Date: getCurrentDate(),
-    ID: uID,
     State: 'return',
   })
   return true
 }
 
-module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser }
+async function getCourierData(city) {
+  try {
+    const couriers = await db.collection('courier').where('location.city', '==', city).get()
+    const pickUpTimes = []
+    for (const courier of couriers.docs) {
+      pickUpTimes.push({
+        cId: courier.data().id,
+        pickUpTimes: courier.data().pickUpTimes,
+        location: {
+          lat: courier.data().location.latitude,
+          lon: courier.data().location.longitude,
+        },
+      })
+    }
+    return pickUpTimes
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }

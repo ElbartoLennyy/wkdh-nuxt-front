@@ -6,14 +6,23 @@ const priceCalc = require('../lib/calcUserOffer')
 const router = express.Router()
 
 router.post('/getData', function(req, res, next) {
+  const dataArray = []
   if (req.body.Stage === 0) {
-    return res.send(phonesData.brands)
+    for (const brand in phonesData.phones) {
+      console.log(brand)
+      dataArray.push(brand)
+    }
   } else if (req.body.Stage === 1) {
-    const brand = req.body.Brand
-    return res.send(phonesData.phones[brand])
+    for (const phone in phonesData.phones[req.body.Brand]) {
+      dataArray.push(phone)
+    }
+  } else if (req.body.Stage === 2) {
+    for (const storage in phonesData.phones[req.body.Brand][req.body.Phone]) {
+      dataArray.push(storage)
+    }
   }
-
-  return res.sendStatus(400)
+  console.log(dataArray)
+  return res.send(dataArray)
 })
 
 router.post('/getPrice', function(req, res, next) {
@@ -60,10 +69,16 @@ router.post('/getPrice', function(req, res, next) {
 })
 
 router.post('/accept', async function(req, res, next) {
-  await fbData.creatNewUser(req.body.ReqID)
-  res.send({
-    Status: 'done',
-  })
+  try {
+    const result = await fbData.creatNewUser(req.body.ReqID)
+    if (result === false) {
+      res.status(500).end()
+    } else if (result) {
+      res.send()
+    }
+  } catch (error) {
+    res.status(500).end()
+  }
 })
 
 router.post('/reject', async function(req, res, next) {

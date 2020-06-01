@@ -1,11 +1,11 @@
 <template>
-  <div class="font-sans min-h-screen">
+  <div class="font-sans min-h-screen overflow-y-scroll">
     <div class="md:flex">
       <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
           <div class="flex items-center text-center">
             <img
-              class="inline w-5 "
+              class="inline w-5 text-purple-500 text-pink-500"
               src="~assets/img/svg/back.svg"
               alt="back button"
             >
@@ -19,7 +19,7 @@
             Wähle die passenden Daten für dein Handy aus
           </p>
 
-          <div class="flex items-center text-center md:pt-6">
+          <div class="flex items-center text-center md:pt-4">
             <img
               class="inline w-5 "
               src="~assets/img/svg/help.svg"
@@ -44,23 +44,23 @@
           </div>
         </div>
 
-        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10">
+        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
           <div
             class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
             :style="{ width: `${progress}%` }"
           />
         </div>
       </div>
-      <div class="md:w-2/3 p-2 h-screen overflow-y-auto">
+      <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full">
           <template v-if="stage === 0">
             <p class="text-gray-200">
               Von welcher Marke ist dein Handy?
             </p>
             <button
-              v-for="brand in values.brands"
+              v-for="brand in brands"
               :key="brand"
-              class="mt-3 block w-full"
+              class="mt-3 block w-full text-left"
               @click="selectBrand(brand)"
             >
               <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
@@ -78,7 +78,7 @@
               class="mt-3 block w-full"
               @click="selectPhone(phone)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
+              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
                 {{ phone }}
               </div>
             </button>
@@ -88,56 +88,17 @@
               Wieviel internen Speicher hat dein Handy?
             </p>
             <button
-              v-for="(storage, storageId) in values.storages"
+              v-for="storageId in values.storages"
               :key="storageId"
               class="mt-3 block w-full"
-              @click="selectStorage(storage.title)"
+              @click="selectStorage(storageId)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
-                <span :class="`text-${storage.color} text-4xl`">{{ storage.title }}</span> <span class="text-sm">GB</span>
+              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
+                <span :class="`text-4xl`">{{ storageId }}</span> <span class="text-sm">GB</span>
               </div>
             </button>
           </template>
           <template v-else-if="stage === 3">
-            <p class="text-gray-200">
-              In welchem äußerlichen Zustand ist dein Handy?
-            </p>
-            <form>
-              <div
-                v-for="(condition, conditionId ) in values.conditions"
-                :key="conditionId"
-                class="w-full"
-              >
-                <input
-                  :id="conditionId"
-                  v-model="request.condition"
-                  name="condition"
-                  type="radio"
-                  :value="conditionId"
-                >
-                <label
-                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.condition === conditionId ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
-                  :for="conditionId"
-                >
-                  {{ condition.title }}
-                </label>
-                <p class="mt-2 text-gray-600 text-sm">
-                  {{ condition.description }}
-                </p>
-              </div>
-            </form>
-            <button
-              class="mt-4 block w-full"
-              :disabled="!request.condition"
-              @click="next"
-            >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
-                Weiter
-              </div>
-            </button>
-          </template>
-          <template v-else-if="stage === 4">
             <p class="text-gray-200">
               Welche Defekte besitzt dein Handy?
             </p>
@@ -145,11 +106,13 @@
               <div
                 v-for="(defect, defectId) in values.defects"
                 :key="defectId"
+                class=" -mt-4"
               >
                 <input
                   :id="defectId"
                   v-model="request.defects"
                   type="checkbox"
+                  class="appearance-none"
                   :value="defectId"
                 >
                 <label
@@ -159,7 +122,7 @@
                 >
                   {{ defect.title }}
                 </label>
-                <p class="mt-2 text-gray-600 text-sm">
+                <p class="mt-1 text-gray-600 text-sm">
                   {{ defect.description }}
                 </p>
               </div>
@@ -168,8 +131,48 @@
               class="mt-4 block w-full"
               @click="next"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                 Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 4">
+            <p class="text-gray-200">
+              In welchem äußerlichen Zustand ist dein Handy?
+            </p>
+            <form>
+              <div
+                v-for="(condition, conditionId ) in values.conditions"
+                :key="conditionId"
+                class="w-full -mt-4"
+              >
+                <input
+                  :id="conditionId"
+                  v-model="request.condition"
+                  name="condition"
+                  type="radio"
+                  class="appearance-none"
+                  :value="conditionId"
+                >
+                <label
+                  class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+                  :class="request.condition === conditionId ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :for="conditionId"
+                >
+                  {{ condition.title }}
+                </label>
+                <p class="mt-1 text-gray-600 text-sm">
+                  {{ condition.description }}
+                </p>
+              </div>
+            </form>
+            <button
+              class="mt-4 block w-full"
+              :disabled="!request.condition"
+              @click="next"
+            >
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                Weiter
               </div>
             </button>
           </template>
@@ -178,11 +181,16 @@
               Welches Zubehör hast du noch?
             </p>
             <form>
-              <div v-for="(accessory,accessoryId) in values.accessories" :key="accessoryId">
+              <div
+                v-for="(accessory,accessoryId) in values.accessories"
+                :key="accessoryId"
+                class=" -mt-4"
+              >
                 <input
                   :id="accessoryId"
                   v-model="request.accessories"
                   type="checkbox"
+                  class="appearance-none"
                   :value="accessoryId"
                 >
                 <label
@@ -199,7 +207,7 @@
               class="mt-4 block w-full"
               @click="confirmAccessories"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
@@ -214,10 +222,10 @@
               <p
                 class="text-2xl text-white"
               >
-                Entweder sind einige Daten falsch oder wir kaufen dein Handy derzeit nicht an
+                Wir kaufen dein Handy mit diesem Defekt leider nicht an
               </p>
               <p class="text-base text-gray-600">
-                Trotzdem vielen Dank für deine Anfrage :D
+                Trotzdem vielen Dank für deine Anfrage
               </p>
             </template>
             <template v-else>
@@ -270,9 +278,6 @@
                 </p>
                 <button @click="priceDetailsShown = !priceDetailsShown">
                   <div class="text-gray-500 text-sm flex items-center">
-                    <span class="icon-header-icon material-icons">
-                      {{ priceDetailsShown ? 'expand_less' : 'expand_more' }}
-                    </span>
                     Wie entsteht der Preis?
                   </div>
                 </button>
@@ -297,15 +302,15 @@
                   class="mt-4 block w-full"
                   @click="acceptOffer"
                 >
-                  <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg">
-                    Weiter zur Dateneingabe
+                  <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                    Angebot annehmen und jetzt Handy verkaufen!
                   </div>
                 </button>
                 <button
                   class="mt-4 block w-full"
                   @click="rejectOffer"
                 >
-                  <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+                  <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
                     Ablehnen
                   </div>
                 </button>
@@ -318,7 +323,7 @@
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg">
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
                 Zurück
               </div>
             </button>
@@ -336,12 +341,10 @@ import * as values from '~/data/values'
 
 export default {
   components: { RecaptchaNotice },
-  asyncData: async context => ({
-    brandOptions: await context.$axios.$post('/handy/getData', { Stage: 0 }),
-  }),
   data: () => ({
     stage: 0,
     values,
+    brands: null,
     request: {
       brand: null,
       phone: null,
@@ -359,19 +362,30 @@ export default {
     },
   },
   created() {
-    // TODO: Find a cleaner way to do this
-    this.values.brands = this.brandOptions
+    this.getBrands()
   },
   methods: {
+    async getBrands() {
+      try {
+        const res = await this.$axios.$post('/handy/getData', { Stage: 0 })
+        console.log(res)
+        this.brands = res
+      } catch (error) {
+        console.log(error)
+      }
+    },
     async selectBrand(brand) {
       this.request.brand = brand
       this.values.phones = (
         await this.$axios.$post('/handy/getData', { Stage: 1, Brand: brand })
-      ).phones
+      )
       this.next()
     },
-    selectPhone(phone) {
+    async selectPhone(phone) {
       this.request.phone = phone
+      this.values.storages = (
+        await this.$axios.$post('/handy/getData', { Stage: 2, Brand: this.request.brand, Phone: phone })
+      )
       this.next()
     },
     selectStorage(storage) {
@@ -403,11 +417,13 @@ export default {
         this.offer = { price: data.Price, id: data.RequestID }
       })
     },
-    acceptOffer() {
-      this.$axios
-        .post('/handy/accept', { ReqID: this.offer.id })
-        .then(() => (this.$router.push(`/user/${this.offer.id}`)))
-        .catch(error => (this.error = error))
+    async acceptOffer() {
+      try {
+        await this.$axios.post('/handy/accept', { ReqID: this.offer.id })
+        this.$router.push(`/user/${this.offer.id}`)
+      } catch (error) {
+        console.log(error)
+      }
     },
     rejectOffer() {
       this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {

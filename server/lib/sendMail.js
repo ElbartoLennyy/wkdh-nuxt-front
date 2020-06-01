@@ -49,9 +49,9 @@ const timeFormat = new Intl.DateTimeFormat([], {
   hour: '2-digit', minute: '2-digit', timeZone: 'Europe/Berlin',
 })
 
-function sendOfferAcceptMail(uID, userDetails) {
+function sendOfferAcceptMail(uID, userDetails, userLocation) {
   if (userDetails.TransportType === 'pickUp') {
-    const startDate = new Date(userDetails.TransportData)
+    const startDate = new Date(userDetails.TransportData.time)
     const endDate = addHours(startDate, 1)
     const formattedDay = formatDate(startDate, 'PPPP', { locale: deLocale })
     const formattedStartTime = timeFormat.format(startDate)
@@ -64,7 +64,7 @@ function sendOfferAcceptMail(uID, userDetails) {
       text: `Hey ${userDetails.FirstName}, hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.
       Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
       ${formattedDay} zwischen ${formattedStartTime}
-      und ${formattedEndTime} bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      und ${formattedEndTime} bei dir Zuhause, ${userLocation.Place} ${userLocation.Adress}, abholen
       soll.`,
       html: `<h2>Hey ${userDetails.FirstName},</h2>
 
@@ -72,7 +72,7 @@ function sendOfferAcceptMail(uID, userDetails) {
       
       <p>Du hast bei deiner Versandmethode gewählt, dass einer unserer Boten dein Gerät am
       <strong>${formattedDay}</strong> zwischen <strong>${formattedStartTime}</strong>
-      und <strong>${formattedEndTime}</strong> bei dir Zuhause, ${userDetails.Location.city} ${userDetails.Location.streetName} ${userDetails.Location.streetNumber}, abholen
+      und <strong>${formattedEndTime}</strong> bei dir Zuhause, ${userLocation.Place} ${userLocation.Adress}, abholen
       soll.</p>
       
       <p>Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein
@@ -80,9 +80,13 @@ function sendOfferAcceptMail(uID, userDetails) {
       
       <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du zu dem genannten Zeitraum
       bitte bei dir Zuhause bist.</p>
+
+      <p>Hättest du kurz 30 Sekunden, um uns <a href="https://surveys.hotjar.com/s?siteId=1716177&surveyId=156379">drei Fragen zu beantworten?</a>  </p>
       
       <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
       uns doch bitte einfach via Mail an <a href="mailto:kontakt@wirkaufendeinhandy.shop">kontakt@wirkaufendeinhandy.shop.</a></p>
+
+      <p>Bitte denke daran vor der Abholung dein Handy zurückzusetzen.</p>
       
       <h3>Bis bald und alles Gute,<br>
       Alex von Wirkaufendeinhandy.shop</h3>`,
@@ -90,11 +94,10 @@ function sendOfferAcceptMail(uID, userDetails) {
   } else if (userDetails.TransportType === 'shipping') {
     let date = new Date()
     date.setDate(date.getDate() + 7)
-    date = date.toLocaleDateString('de-DE')
+    date = formatDate(date, 'PPPP', { locale: deLocale })
     sendMail({
       from: 'info@wirkaufendeinhandy.shop',
       to: userDetails.Email,
-      // TODO: Insert actual email copy
       subject: 'Auftragsbestätigung - Versandt von deinem Handy',
       text: `Sehe alle Details über die Abholung: https://wirkaufendeinhandy.shop/user/${uID}`,
       html: `<h2>Hey ${userDetails.FirstName},</h2>
@@ -109,9 +112,13 @@ function sendOfferAcceptMail(uID, userDetails) {
       
       <p>Wir freuen uns bereits auf dein Gerät und bitten darum, dass du uns dein Gerät spätestens
       bis zum ${date} losschickst.</p>
+
+      <p>Hättest du kurz 30 Sekunden, um uns <a href="https://surveys.hotjar.com/s?siteId=1716177&surveyId=156379">drei Fragen zu beantworten?</a>  </p>
       
       <p>Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
       uns doch bitte einfach via Mail an kontakt@wirkaufendeinhandy.shop.</p>
+
+      <p>Bitte denke daran vor dem Versand dein Handy zurückzusetzen.</p>
       
       <h3>Bis bald und alles Gute,<br>
       Alex von Wirkaufendeinhandy.shop</h3>`,
