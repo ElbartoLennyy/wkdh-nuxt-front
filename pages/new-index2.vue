@@ -79,7 +79,7 @@
     <div class="w-full h-screen flex flex-col">
       <div class="w-full bg-yellowDark text-white flex p-6 items-center">
         <div class="flex-grow flex items-center">
-          <img src="~assets/img/icons/Datenblatt mit Pen.png" class="object-contain">
+          <img src="~assets/img/icons/datasheet.png" class="object-contain">
           <div>
             <p class="font-bold text-2xl uppercase">Dateneingabe</p>
             <p
