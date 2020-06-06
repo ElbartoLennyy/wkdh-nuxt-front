@@ -41,16 +41,21 @@
           Verkaufen
         </p>
       </div>
-  </div>
-
-  <footerTemplate />
-  </div>
+    </div>
+    <div class="bg-gradient w-full text-center">
+      <p class="text-3xl text-white font-bold tracking-wide p-6">
+        Willkommen im Wirkaufendeinhandy Hilfe-Center
+      </p>
+    </div>
+    <div class="grid grid-cols-4 gap-4">
+<div></div>
+<div></div>
+<div></div>
+<div></div>
+    </div>
+    <footerTemplate />
   </div>
 </template>
-
-<script>
-export default {}
-</script>
 
 <script>
 import footerTemplate from '~/components/newFooter'
@@ -59,3 +64,10 @@ export default {
   components: { footerTemplate },
 }
 </script>
+
+<style>
+.bg-gradient{
+  background: rgb(255,187,57);
+background: linear-gradient(90deg, rgba(255,187,57,1) 0%, rgba(250,164,1,1) 100%);
+}
+</style>
