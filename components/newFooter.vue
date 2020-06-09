@@ -1,27 +1,27 @@
 <template>
   <footer class="w-full">
-    <div class="w-full p-8 flex justify-around text-gray-600 font-light">
-      <div class="w-1/6">
+    <div class="w-full p-4 md:p-8 md:flex justify-around text-gray-600 font-light">
+      <div class="w-full md:w-1/6">
         <img
           class="w-full h-24 object-contain"
           src="~assets/img/icons/Logo-new-1000.png"
           alt="Wirkaufendeinhandy - Logo"
         >
       </div>
-      <div class="w-1/4 space-y-2">
+      <div class="w-full md:w-1/4 space-y-2">
         <p class="font-bold text-black">Verkauf</p>
         <p>Ablauf</p>
         <p>Vorteile</p>
         <p>Verkaufen</p>
       </div>
-      <div class="w-1/4 space-y-2">
+      <div class="w-full md:w-1/4 space-y-2">
         <p class="font-bold text-black">Wirkaufendeinhandy</p>
         <p>Verkaufen</p>
         <p>Kontakt</p>
         <p>FAQ</p>
         <p>Über uns</p>
       </div>
-      <div class="w-1/4">
+      <div class="w-full md:w-1/4">
         <p class="font-bold text-black">Auszahlung</p>
         <div class="flex">
           <img class="h-8 w-auto object-contain" src="~assets/img/icons/paypal-logo.png" alt="PayPal">
@@ -39,7 +39,15 @@
     <hr>
     <div class="text-center text-gray-500 text-sm m-6">
       <p>© 2020 Wirkaufendeinhandy GbR</p>
-      <p class="text-black">Impressum | Datenschutz | AGB</p>
+      <p class="text-black">
+        <nuxt-link class="hover:text-blue-900" to="/imprint">
+          Impressum
+        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/privacy">
+          Datenschutz
+        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/agb.pdf">
+          AGB
+        </nuxt-link>
+      </p>
     </div>
   </footer>
 </template>

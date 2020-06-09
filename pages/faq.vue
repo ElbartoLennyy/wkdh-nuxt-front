@@ -47,7 +47,7 @@
         Willkommen im Wirkaufendeinhandy Hilfe-Center
       </p>
     </div>
-     <div class="grid grid-cols-4 gap-20 px-20 py-12 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold">
+    <div class="grid grid-cols-4 gap-20 px-20 py-12 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold">
       <div class="border-gray-500 border-2 rounded-lg">
         <img class="h-12 xl:h-20 mx-auto m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
         <p class="mb-8">Versand & Lieferstatus</p>
