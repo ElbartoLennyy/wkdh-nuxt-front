@@ -47,7 +47,7 @@
                 Verkaufen
               </nuxt-link>
             </div>
-            <div class="absolute bottom-0 w-full">
+            <div class="absolute bottom-0 w-full mb-8">
               <hr>
               <nuxt-link to="/contactUs" class="flex justify-around">
                 <img src="~assets/img/svg/support.svg" class="h-12 w-auto m-2">
@@ -109,24 +109,24 @@
               </nuxt-link>
             </div>
             <div class="w-full flex-grow flex">
-              <div class="flex flex-col md:space-y-8 xl:space-y-2 w-1/2 p-2 md:p-8">
-                <nuxt-link to="/handy" class="uppercase font-semibold md:font-bold md:text-center text-xl md:text-2xl lg:text-4xl xl:text-6xl hover:text-gray-800">Verkaufe dein Handy<br> in 2 Minuten!</nuxt-link>
-                <img src="~assets/img/icons/Swoosh+text200.png" class="object-scale-down flex-grow md:mx-auto">
-                <nuxt-link to="/handy">
-                  <img src="~assets/img/icons/Kringel-breit.png" class="object-scale-down flex-grow md:mx-auto">
+              <div class="flex flex-col md:space-y-8 xl:space-y-2 w-1/2 md:p-2 md:p-8 ml-6 md:ml-0">
+                <nuxt-link to="/handy" class="uppercase font-semibold md:font-bold md:text-center text-xl md:text-2xl lg:text-4xl xl:text-6xl hover:text-gray-800">Verkaufe dein<br>Handy in 2 <br>Minuten!</nuxt-link>
+                <img src="~assets/img/icons/Swoosh+text200.png" class="object-scale-down md:mx-auto md:w-full -ml-8">
+                <nuxt-link to="/handy" class="flex-grow mt-6">
+                  <img src="~assets/img/icons/Kringel-breit.png" class="object-scale-down md:mx-auto md:w-full -ml-8">
                 </nuxt-link>
               </div>
               <div class="w-1/2 relative">
                 <div
-                  class="flex bg-yellowDark rounded-lg absolute bottom-0 right-0 lg:m-20 mb-2 md:mb-6 h-auto items-center"
+                  class="flex bg-yellowDark rounded-lg absolute bottom-0 right-0 lg:m-20 mb-2 md:mb-6 h-auto items-center -ml-12 md:-ml-0 mr-2"
                 >
-                  <p class="text-white p-2 xl:p-5 justify-center text-xs md:text-base lg:text-lg xl:text-2xl font-bold h-auto">
+                  <p class="text-white p-1 xl:p-5 justify-center text-xs md:text-base lg:text-lg xl:text-2xl font-bold h-auto ">
                     100% Preisgarantie
-                    <br>Verkaufen mit Sicherheit
+                    <br><span class="tracking-tight">Verkaufen mit Sicherheit</span>
                   </p>
                   <img
                     src="~assets/img/icons/Garantie-Sherpe.png"
-                    class="object-contain h-8 md:h-20 xl:h-24 xl:m-5 m-2 flex-initial"
+                    class="object-contain h-12 md:h-20 xl:h-24 xl:m-5 m-1 flex-initial"
                   >
                 </div>
               </div>
@@ -136,7 +136,7 @@
       </div>
     </div>
     <div ref="ablauf" class="w-full h-auto">
-      <div class="w-full bg-yellowDark text-white p-6 items-center hidden md:flex ">
+      <div class="w-full bg-gradientMirrored text-white p-6 items-center hidden md:flex ">
         <img src="~assets/img/icons/datasheet.png" class="object-contain w-1/6 p-6">
         <div>
           <p class="font-bold text-2xl uppercase">Dateneingabe</p>
@@ -176,46 +176,46 @@
         </div>
       </div>
       <div ref="vorteile" class="flex text-yellowDark justify-around">
-        <img src="~assets/img/icons/Garantie-Sherpe.png" class="w-3/12 m-2 mt-4 md:m-8 object-contain object-top">
-        <div class="w-9/12 md:w-1/2 p-2 md:p-8 flex flex-col">
+        <img src="~assets/img/icons/Garantie-Sherpe-drehwurm.png" class="w-3/12 mt-2 md:m-8 object-contain object-top h-auto">
+        <div class="flex-grow md:w-1/2 p-1 md:p-8 flex flex-col mt-4">
           <p class="flex-grow text-xl md:text-6xl font-bold">100% Preisgarantie</p>
           <p class="flex-grow text-lg md:text-5xl">Verkaufen mit Sicherheit</p>
-          <p class="flex-grow pt-2 md:pt-6 text-base md:text-4xl font-bold">
-            <img src="~assets/img/svg/Häkchen.svg" class="inline h-4 md:h-8"> Das bekommen, was vereinbart wurde.
+          <p class="flex-grow pt-2 md:pt-6 text-sm md:text-4xl font-bold mt-2">
+            <img src="~assets/img/svg/Häkchen.svg" class="inline h-4 md:h-8 -ml-6"> Das bekommen, was vereinbart wurde.
           </p>
-          <p class="flex-grow pt-2 md:pt-6 text-base md:text-4xl font-bold">
-            <img src="~assets/img/svg/Häkchen.svg" class="inline h-4 md:h-8"> Gewissenhafte und ehrliche Zweitprüfung.
+          <p class="flex-grow pt-2 md:pt-6 text-sm md:text-4xl font-bold">
+            <img src="~assets/img/svg/Häkchen.svg" class="inline h-4 md:h-8  md:h-8 -ml-6"> Gewissenhafte und ehrliche Zweitprüfung.
           </p>
-          <p class="flex-grow pt-2 md:pt-6 text-base md:text-4xl font-bold">
-            <img src="~assets/img/svg/Häkchen.svg" class="inline h-4 md:h-8"> Faire Preise im An- und Verkauf.
+          <p class="flex-grow pt-2 md:pt-6 text-sm md:text-4xl font-bold">
+            <img src="~assets/img/svg/Häkchen.svg" class="inline h-4 md:h-8  md:h-8 -ml-6"> Faire Preise im An- und Verkauf.
           </p>
         </div>
       </div>
     </div>
-    <div class="w-full flex h-auto">
-      <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-contain h-full w-2/3">
-      <div class="w-1/2 flex flex-col justify-around p-2 md:p-6 -ml-10">
-        <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain flex-grow">
-        <p class="text-yellowDark text-sm md:text-4xl xl:text-6xl font-bold flex-grow">Mit deinem neuen Geld könntest du...</p>
-        <p class="text-black text-sm md:text-4xl xl:text-6xl font-bold flex-grow text-center">Romantischer Städtetrip mit deinem Partner</p>
-        <div class="flex-grow">
-          <nuxt-link to="/handy" class="text-yellowDark block font-bold text-lg md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg text-center transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Jetzt VERKAUFEN</nuxt-link>
+    <div class="w-full h-auto mt-4 relative">
+      <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-contain w-7/12">
+      <div class="w-2/3 flex flex-col justify-between md:p-6 z-10 absolute top-0 right-0 h-full">
+        <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2">
+        <p class="text-yellowDark text-sm md:text-4xl xl:text-6xl font-bold flex-grow ml-auto mr-2 mt-4">Mit deinem neuen Geld <br>könntest du...</p>
+        <p class="text-black text-sm md:text-4xl xl:text-6xl font-bold flex-grow text-center ml-auto mr-2 mt-4">Romantischer Städtetrip<br>mit deinem Partner</p>
+        <div class="flex-grow ml-auto mr-2 mt-4">
+          <nuxt-link to="/handy" class="p-1 text-yellowDark font-bold text-lg md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg text-center transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Jetzt VERKAUFEN</nuxt-link>
         </div>
       </div>
     </div>
-    <div class="w-full p-2 md:p-6 flex flex-col items-center">
-      <div class="w-full md:w-2/3 bg-yellowDark text-center text-white rounded-lg uppercase">
-        <p class="text-lg md:text-4xl font-bold py-2 md:py-4">Verkaufe jetzt dein Handy</p>
-        <p class="text-base md:text-2xl py-2">& Erhalter dein Geld</p>
+    <div class="w-full p-2 md:p-6 flex flex-col items-center mt-2">
+      <div class="w-5/6 p-2 bg-gradient text-center text-white rounded-lg uppercase -space-y-1">
+        <p class="text-lg md:text-4xl font-extrabold md:py-2 md:py-4">Verkaufe jetzt dein Handy</p>
+        <p class="text-base md:text-2xl font-bold md:py-2">& Erhalter dein Geld</p>
       </div>
-      <nuxt-link to="/handy" class="text-yellowDark font-bold text-xl md:text-3xl border-yellowDark border-4 md:border-8 p-2 rounded-lg text-center m-2 md:m-6 hover:text-yellowLight hover:border-yellowLight">Jetzt VERKAUFEN</nuxt-link>
+      <nuxt-link to="/handy" class="text-yellowDark font-extrabold text-xl md:text-3xl border-yellowDark border-4 md:border-8 p-2 rounded-lg text-center m-2 mt-4 md:m-6 hover:text-yellowLight hover:border-yellowLight">Jetzt VERKAUFEN</nuxt-link>
     </div>
-    <div class="w-full bg-yellowDark text-white p-2 md:p-6 text-center flex flex-col items-center">
+    <div class="w-full bg-gradient text-white p-2 md:p-6 text-center flex flex-col items-center">
       <p class="text-xl md:text-4xl font-bold pb-4">Noch irgendwelche Fragen?</p>
       <p class="hidden md:block text-xl font-bold w-1/2 pb-4">Solltest du noch weitere Fragen haben, beantworten wir diese gerne per Mail oder Telefon. Ansonsten schaue gerne mal bei unserem FAQ vorbei</p>
-      <div class="flex uppercase text-lg md:text-3xl justify-around font-bold w-full md:w-2/3">
-        <nuxt-link to="/faq" class=" border-white border-2 md:border-4 rounded-lg p-2 px-2 md:px-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">FAQ</nuxt-link>
-        <nuxt-link to="/contactUs" class=" bg-white text-yellowDark rounded-lg p-2 px-2 md:px-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kontakt</nuxt-link>
+      <div class="flex uppercase text-lg md:text-3xl justify-around font-bold w-full md:w-2/3 mb-1">
+        <nuxt-link to="/faq" class=" border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 md:px-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">FAQ</nuxt-link>
+        <nuxt-link to="/contactUs" class="bg-white w-1/3 text-yellowDark rounded-lg p-1 px-2 md:px-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kontakt</nuxt-link>
       </div>
     </div>
     <footerTemplate />
@@ -242,3 +242,13 @@ export default {
   },
 }
 </script>
+
+<style>
+.bg-gradient{
+background: linear-gradient(90deg, rgba(255,187,57,1) 0%, rgba(250,164,1,1) 100%);
+}
+
+.bg-gradientMirrored{
+background: linear-gradient(90deg, rgba(250,164,1,1) 100%),rgba(255,187,57,1) 0%;
+}
+</style>
