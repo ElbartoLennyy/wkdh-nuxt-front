@@ -1,9 +1,9 @@
 <template>
-  <div class="min-h-screen w-full font-sans max-w-screen-2xl mx-auto">
+  <div class="min-h-screen w-full font-sans max-w-screen-3xl mx-auto">
     <div class="w-full">
       <div class="relative w-full">
         <img
-          class="h-auto w-2/3 object-cover ml-auto hidden md:block  max-h-screen"
+          class="h-auto w-2/3 object-cover ml-auto hidden md:block"
           src="~assets/img/pictures/HappyFacesSchräg.jpg"
         >
         <img
@@ -206,10 +206,10 @@
       </div>
     </div>
     <div class="w-full h-auto mt-4 relative">
-      <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-cover w-7/12 max-h-screen">
+      <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-contain w-1/2">
       <div class="w-2/3 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
         <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2">
-        <div class="ml-auto w-2/3 justify-around flex flex-col h-full">
+        <div class="ml-auto w-2/3 justify-between flex flex-col h-full">
           <p class="text-yellowDark text-sm md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2 mt-4 md:m-0">Mit deinem neuen Geld <br>könntest du...</p>
           <p class="text-black text-sm md:text-3xl xl:text-5xl font-bold flex-grow text-center mr-2 mt-4 md:m-0">Romantischer Städtetrip<br>mit deinem Partner</p>
           <div class="flex-grow mr-4 md:mx-auto ">
