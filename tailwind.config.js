@@ -26,6 +26,17 @@ module.exports = {
       '6xl': '4rem',
       '7xl': '5rem',
     },
+    screens: {
+      sm: '640px',
+
+      md: '768px',
+
+      lg: '1024px',
+
+      xl: '1280px',
+      '2xl': '1920px',
+      '3xl': '2560px',
+    },
   },
   fontFamily: {
     sans: ['Roboto', 'sans-serif'],
