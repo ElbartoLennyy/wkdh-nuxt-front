@@ -1,53 +1,12 @@
 <template>
   <div class="min-h-screen w-full font-sans">
-    <div class="flex w-full p-6 justify-around text-center space-x-6 items-center">
-      <img
-        class="w-1/5 h-auto object-contain"
-        src="~assets/img/icons/Logo-new-1000.png"
-        alt="Wirkaufendeinhandy - Logo"
-      >
-      <div class="flex-grow">
-        <p
-          class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg"
-        >
-          Home
-        </p>
-      </div>
-      <div class="flex-grow">
-        <p
-          class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg"
-        >
-          Ablauf
-        </p>
-      </div>
-      <div class="flex-grow">
-        <p
-          class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg"
-        >
-          Vorteile
-        </p>
-      </div>
-      <div class="flex-grow">
-        <p
-          class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg"
-        >
-          Über uns
-        </p>
-      </div>
-      <div class="flex-grow bg-white rounded-lg p-2">
-        <p
-          class="uppercase p-2 text-xl lg:text-2xl xl:text-3xl font-bold text-white bg-yellowDark rounded-lg"
-        >
-          Verkaufen
-        </p>
-      </div>
-    </div>
+    <headerTemplate />
     <div class="bg-gradient w-full text-center">
       <p class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white font-bold tracking-wide p-6">
         Willkommen im Wirkaufendeinhandy Hilfe-Center
       </p>
     </div>
-    <div class="grid grid-cols-4 gap-20 px-20 py-12 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-20 px-20 py-12 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold">
       <div class="border-gray-500 border-2 rounded-lg">
         <img class="h-12 xl:h-20 mx-auto m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
         <p class="mb-8">Versand & Lieferstatus</p>
@@ -65,15 +24,19 @@
         <p class="mb-8">Auszahlung</p>
       </div>
     </div>
+    <div class="w-full">
+    </div>
     <footerTemplate />
   </div>
 </template>
 
 <script>
+
 import footerTemplate from '~/components/newFooter'
+import headerTemplate from '~/components/newHeader'
 
 export default {
-  components: { footerTemplate },
+  components: { footerTemplate, headerTemplate },
 }
 </script>
 

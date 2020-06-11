@@ -10,8 +10,8 @@
           class="h-auto w-2/3 object-contain ml-auto md:hidden"
           src="~assets/img/pictures/HappyFaces-onlymanSchräg.jpg"
         >
-        <button v-if="isOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-10 cursor-default" @click="isOpen = false" />
-        <div v-if="isOpen" class=" h-screen bg-white w-2/3 z-10 fixed left-0 top-0">
+        <button v-if="isOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="isOpen = false" />
+        <div v-if="isOpen" class=" h-screen bg-white w-2/3 z-30 fixed left-0 top-0">
           <div class="flex p-2 justify-between">
             <img
               class="w-2/3 h-auto object-contain"
@@ -53,6 +53,19 @@
                 <img src="~assets/img/svg/support.svg" class="h-12 w-auto m-2">
                 <p class="text-yellowDark text-lg font-bold flex-grow my-auto">Hilfe/Kontakt</p>
               </nuxt-link>
+              <hr>
+              <div class="text-center text-gray-500 text-xs m-2">
+                <p>© 2020 Wirkaufendeinhandy GbR</p>
+                <p class="text-black">
+                  <nuxt-link class="hover:text-blue-900" to="/imprint">
+                    Impressum
+                  </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/privacy">
+                    Datenschutz
+                  </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/agb.pdf">
+                    AGB
+                  </nuxt-link>
+                </p>
+              </div>
             </div>
           </div>
         </div>
@@ -109,20 +122,20 @@
               </nuxt-link>
             </div>
             <div class="w-full flex-grow flex">
-              <div class="flex flex-col md:space-y-8 xl:space-y-2 w-1/2 md:p-2 md:p-8 ml-6 md:ml-0">
-                <nuxt-link to="/handy" class="uppercase font-semibold md:font-bold md:text-center text-xl md:text-2xl lg:text-4xl xl:text-6xl hover:text-gray-800">Verkaufe dein<br>Handy in 2 <br>Minuten!</nuxt-link>
-                <img src="~assets/img/icons/Swoosh+text200.png" class="object-scale-down md:mx-auto md:w-full -ml-8">
+              <div class="flex flex-col xl:space-y-2 w-1/2 md:p-2 md:ml-0">
+                <nuxt-link to="/handy" class="uppercase font-semibold md:font-bold text-xl md:text-2xl lg:text-4xl xl:text-6xl hover:text-gray-800 ml-6 md:ml-16">Verkaufe dein<br>Handy in 2 <br>Minuten!</nuxt-link>
+                <img src="~assets/img/icons/Swoosh+text200.png" class="object-scale-down -ml-6 md:-ml-0 md:w-5/6">
                 <nuxt-link to="/handy" class="flex-grow mt-6">
-                  <img src="~assets/img/icons/Kringel-breit.png" class="object-scale-down md:mx-auto md:w-full -ml-8">
+                  <img src="~assets/img/icons/Kringel-breit.png" class="object-scale-down -ml-6 md:mx-auto md:ml-0 md:w-4/6">
                 </nuxt-link>
               </div>
               <div class="w-1/2 relative">
                 <div
-                  class="flex bg-yellowDark rounded-lg absolute bottom-0 right-0 lg:m-20 mb-2 md:mb-6 h-auto items-center -ml-12 md:-ml-0 mr-2"
+                  class="flex bg-yellowDark rounded-lg absolute bottom-0 right-0 md:m-6 p-1 mb-2 h-auto items-center -ml-12 md:-ml-0 mr-2"
                 >
-                  <p class="text-white p-1 xl:p-5 justify-center text-xs md:text-base lg:text-lg xl:text-2xl font-bold h-auto ">
+                  <p class="text-white p-1 xl:p-5 justify-center text-xs md:text-lg lg:text-xl xl:text-2xl font-bold h-auto ">
                     100% Preisgarantie
-                    <br><span class="tracking-tight">Verkaufen mit Sicherheit</span>
+                    <br><span class="tracking-tight ext-xs md:text-base lg:text-lg xl:text-2xl">Verkaufen mit Sicherheit</span>
                   </p>
                   <img
                     src="~assets/img/icons/Garantie-Sherpe.png"
@@ -137,7 +150,7 @@
     </div>
     <div ref="ablauf" class="w-full h-auto">
       <div class="w-full bg-gradientMirrored text-white p-6 items-center hidden md:flex ">
-        <img src="~assets/img/icons/datasheet.png" class="object-contain w-1/6 p-6">
+        <img src="~assets/img/icons/datasheet.png" class="object-contain h-32 p-2">
         <div>
           <p class="font-bold text-2xl uppercase">Dateneingabe</p>
           <p
@@ -148,17 +161,17 @@
         </div>
         <div class="bg-white w-1/5 mx-2 h-1" />
 
-        <img src="~assets/img/icons/Box.png" class="object-contain w-1/6 p-6">
+        <img src="~assets/img/icons/Box.png" class="object-contain h-32 p-2">
         <div>
           <p class="font-bold text-2xl uppercase">Versand an uns</p>
           <p class="text-lg">Einfach dein kostenloses Paketlabel ausdrucken und an uns senden.</p>
         </div>
         <div class="bg-white w-1/5 mx-2 h-1" />
 
-        <img src="~assets/img/icons/Moneybag.png" class="object-contain w-1/6 p-6">
+        <img src="~assets/img/icons/Moneybag.png" class="object-contain h-32 p-2">
         <div>
           <p class="font-bold text-2xl uppercase">Zahltag</p>
-          <p class="text-lg">Hi dafür benöte ich noch einen Text lul!</p>
+          <p class="text-lg">Dein Geld wird auf dein Konto überwiesen.</p>
         </div>
       </div>
       <div class="w-full bg-yellowDark text-white flex p-2 items-center md:hidden space-x-6">
@@ -249,6 +262,6 @@ background: linear-gradient(90deg, rgba(255,187,57,1) 0%, rgba(250,164,1,1) 100%
 }
 
 .bg-gradientMirrored{
-background: linear-gradient(90deg, rgba(250,164,1,1) 100%),rgba(255,187,57,1) 0%;
+background: linear-gradient(90deg, rgba(250,164,1,1) 0%, rgba(255,187,57,1) 100%);
 }
 </style>
