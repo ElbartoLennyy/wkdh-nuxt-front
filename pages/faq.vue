@@ -24,8 +24,6 @@
         <p class="mb-8">Auszahlung</p>
       </div>
     </div>
-    <div class="w-full">
-    </div>
     <footerTemplate />
   </div>
 </template>

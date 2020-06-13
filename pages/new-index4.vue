@@ -71,7 +71,7 @@
         </div>
         <div class="absolute top-0 h-full w-full">
           <div class="w-full flex flex-col h-full">
-            <div class="flex w-full p-6 md:justify-around text-center space-x-6 items-center">
+            <div class="flex w-full p-6 text-center  items-center">
               <button class="md:hidden w-1/12" @click="isOpen = !isOpen">
                 <img
                   class="w-full h-auto object-contain"
@@ -84,7 +84,7 @@
                 src="~assets/img/icons/Logo-new-1000.png"
                 alt="Wirkaufendeinhandy - Logo"
               >
-              <div class="flex-grow hidden md:block">
+              <div class="flex-grow mx-2 hidden md:block">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                 >
@@ -92,28 +92,28 @@
                 </p>
               </div>
 
-              <button class="flex-grow hidden md:block" @click="scrollMeTo('ablauf')">
+              <button class="flex-grow mx-2 hidden md:block" @click="scrollMeTo('ablauf')">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                 >
                   Ablauf
                 </p>
               </button>
-              <button class="flex-grow hidden md:block" @click="scrollMeTo('vorteile')">
+              <button class="flex-grow mx-2 hidden md:block" @click="scrollMeTo('vorteile')">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                 >
                   Vorteile
                 </p>
               </button>
-              <nuxt-link to="/aboutUs" class="flex-grow hidden md:block">
+              <nuxt-link to="/aboutUs" class="flex-grow mx-2 hidden md:block">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
                 >
                   Über uns
                 </p>
               </nuxt-link>
-              <nuxt-link to="/handy" class="flex-grow hidden md:block bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 p-2">
+              <nuxt-link to="/handy" class="flex-grow mx-2 hidden md:block bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 p-2">
                 <p
                   class="uppercase p-2 text-xl lg:text-2xl xl:text-3xl font-bold text-white bg-yellowDark rounded-lg"
                 >
@@ -211,7 +211,7 @@
         <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2">
         <div class="ml-auto w-2/3 justify-between flex flex-col h-full">
           <p class="text-yellowDark text-sm md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2 mt-4 md:m-0">Mit deinem neuen Geld <br>könntest du...</p>
-          <p class="text-black text-sm md:text-3xl xl:text-5xl font-bold flex-grow text-center mr-2 mt-4 md:m-0">Romantischer Städtetrip<br>mit deinem Partner</p>
+          <p class="text-black text-sm md:text-3xl xl:text-5xl font-bold flex-grow text-center mr-2 md: mt-4 md:m-0">Romantischer Städtetrip<br>mit deinem Partner</p>
           <div class="flex-grow mr-4 md:mx-auto ">
             <nuxt-link to="/handy" class="p-1 text-yellowDark font-bold text-lg md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg text-center transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Jetzt VERKAUFEN</nuxt-link>
           </div>
@@ -219,7 +219,7 @@
       </div>
     </div>
     <div class="w-full p-2 md:p-6 flex flex-col items-center mt-2">
-      <div class="w-5/6 p-2 bg-gradient text-center text-white rounded-lg uppercase -space-y-1">
+      <div class="w-5/6 p-2 bg-gradient text-center text-white rounded-lg uppercase">
         <p class="text-lg md:text-4xl font-extrabold md:py-2 md:py-4">Verkaufe jetzt dein Handy</p>
         <p class="text-base md:text-2xl font-bold md:py-2">& Erhalter dein Geld</p>
       </div>
