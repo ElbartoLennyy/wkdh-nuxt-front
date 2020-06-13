@@ -19,7 +19,7 @@
       <div class="absolute right-0 top-0 h-full w-2/3">
         <div class="absolute right-0 bottom-0 top-0 flex flex-col justify-around md:justify-start md:w-2/3">
           <div class="text-white font-bold text-center md:text-2xl xl:text-3xl space-y-2 z-10">
-            <img src="~assets/img/svg/dieGründer.svg" alt="Die Gründer" class="object-contain h-16 md:h-20 z-10 mt-16 md:mx-auto">
+            <img src="~assets/img/svg/dieGründer.svg" alt="Die Gründer" class="object-contain h-16 md:h-20 z-10 mt-16 md:mt-20 md:mx-auto">
             <div class="w-1/2 space-y-2 md:space-y-10 xl:space-y-16 ml-auto md:m-auto m-2">
               <p>#jungunternehmer</p>
               <p>#professionell</p>

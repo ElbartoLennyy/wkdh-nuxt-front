@@ -49,9 +49,13 @@
             </div>
             <div class="absolute bottom-0 w-full mb-8">
               <hr>
-              <nuxt-link to="/contactUs" class="flex justify-around">
+              <nuxt-link to="/faq" class="flex justify-around">
                 <img src="~assets/img/svg/support.svg" class="h-12 w-auto m-2">
-                <p class="text-yellowDark text-lg font-bold flex-grow my-auto">Hilfe/Kontakt</p>
+                <p
+                  class="text-yellowDark text-lg font-bold my-auto"
+                >
+                  Hilfe/Kontakt
+                </p>
               </nuxt-link>
               <hr>
               <div class="text-center text-gray-500 text-xs m-2">
