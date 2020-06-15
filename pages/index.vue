@@ -1,5 +1,6 @@
 <template>
   <div class="min-h-screen w-full font-sans max-w-screen-3xl mx-auto">
+    <script id="CookieDeclaration" src="https://consent.cookiebot.com/00000000-0000-0000-0000-000000000000/cd.js" type="text/javascript" async />
     <div class="w-full">
       <div class="relative w-full">
         <img
@@ -250,6 +251,13 @@ export default {
     return {
       isOpen: false,
     }
+  },
+  mounted() {
+    const cookieScript = document.createElement('script')
+    cookieScript.setAttribute('src', 'https://consent.cookiebot.com/uc.js')
+    cookieScript.setAttribute('data-cbid', 'b82a9f37-fd53-4369-8111-77839f5bafd4')
+    cookieScript.setAttribute('data-blockingmode', 'auto')
+    document.head.appendChild(cookieScript)
   },
   methods: {
     scrollMeTo(refName) {
