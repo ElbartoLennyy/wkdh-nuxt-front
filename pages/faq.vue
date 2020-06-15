@@ -1,14 +1,14 @@
 <template>
-  <div class="min-h-screen w-full font-sans">
+  <div class="w-full min-h-screen font-sans max-w-screen-3xl mx-auto">
     <headerTemplate />
     <div class="bg-gradient w-full text-center">
       <p class="text-2xl md:text-3xl lg:text-4xl xl:text-5xl text-white font-bold tracking-wide p-6">
         Willkommen im Wirkaufendeinhandy Hilfe-Center
       </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-20 px-20 py-12 text-center text-xl md:text-2xl lg:text-3xl xl:text-4xl font-semibold">
+    <div class="grid grid-cols-1 md:grid-cols-4 gap-20 px-20 py-12 text-center text-xl lg:text-2xl xl:text-4xl font-semibold">
       <div class="border-gray-500 border-2 rounded-lg">
-        <img class="h-12 xl:h-20 mx-auto m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
+        <img class="h-12 xl:h-20 mx-auto m-2 lg:m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
         <p class="mb-8">Versand & Lieferstatus</p>
       </div>
       <div class="border-gray-500 border-2 rounded-lg">
@@ -24,17 +24,78 @@
         <p class="mb-8">Auszahlung</p>
       </div>
     </div>
+    <p class="text-center font-bold text-lg">Häufige Fragen</p>
+
+    <div class="w-full p-4">
+      <div v-for="(group, index) in groups" :key="index" class="w-full border-gray-500 border-2 p-2 mb-4 rounded-lg">
+        <p class="w-full cursor-pointer text-lg font-bold" @click="activeItem = index">{{ group.name }} </p>
+        <div v-if="activeItem === index">
+          <p>{{ group.desc }} </p>
+        </div>
+      </div>
+    </div>
     <footerTemplate />
   </div>
 </template>
 
 <script>
-
 import footerTemplate from '~/components/newFooter'
 import headerTemplate from '~/components/newHeader'
 
+const groups = {
+  'GROUP A': {
+    name: 'Muss ich den Versand selbst bezahlen?',
+    open: false,
+    desc: 'Wir von Wirkaufendeinhandy bezahlen den kompletten Versand für dich. Sobald du unser Angebot angenommen und deine Daten angegeben hast, erhältst du direkt ein digitales Versandlabel. Dieses Label wird dir einmal in deinem Browser angezeigt und aus Sicherheitsgründen noch einmal an dein E-Mai Postfach gesendet.',
+  },
+  'GROUP B': {
+    name: 'Wie kann ich einen Auftrag bei euch aufgeben?',
+    open: false,
+    desc: 'Gehe einfach auf unsere Website und klicke auf der Seite Home in dem oberen Teil der Seite einfach auf „Los geht’s!“. Fülle danach einfach die entsprechenden Daten zu deinem Handy in dem vorgefertigten Formular aus. Im Anschluss erhältst du sofort dein persönliches Angebot für dein Gerät, welches du nur noch annehmen brauchst.',
+  },
+  'GROUP C': {
+    name: 'Muss ich mein Handy vor dem Verkauf zurücksetzen?',
+    open: false,
+    desc: 'Ja, du musst dein Gerät vor Verkauf zurücksetzen. Deine Daten sind zwar bei uns sicher, doch lassen sich die Geräte von manchen Herstellern (z.B. Apple) nicht ohne die Mitwirkung des Vorbesitzers zurücksetzen.',
+  },
+  'GROUP D': {
+    name: 'Kann ich mehrere Geräte gleichzeitig verkaufen?',
+    open: false,
+    desc: 'Derzeit haben wir noch keine Möglichkeit für den Verkauf mehrerer Geräte auf einmal implementiert. Du kannst bei dem Verkauf mehrerer Geräte auch nur einen Versandschein ausdrucken und die Geräte in nur einem Paket versenden, solange das Paket die Anforderungen für den Versand mit unseren Versandlabeln erfüllt. Für mehr Informationen zu dem Versand deines Geräts, klicke bitte hier.',
+  },
+  'GROUP E': {
+    name: 'Wie kann ich mein Gerät auswählen, dass ich verkaufen möchte?',
+    open: false,
+    desc: 'Klickst du auf einen Verkaufen Button, so wirst du direkt zu einem vorgefertigten Formular weitergeleitet, welches dich alle relevanten Angaben zu deinem Gerät abfragt.',
+  },
+  'GROUP F': {
+    name: 'Wie kann ich einen Auftrag rückgängig machen?',
+    open: false,
+    desc: 'Falls du dein Gerät noch nicht versandt hast, so wird mit nicht versandt deines Geräts innerhalb der Versandfrist das Angebot automatisch ungültig. Hast du dein Gerät hingegen schon versendet, so kontaktiere uns bitte. Unsere Kontaktdaten findest du unter: https://wirkaufendeinhandy.shop/contactUs',
+  },
+  'GROUP G': {
+    name: 'Bis wann kann ich den Verkauf Rückgängig machen?',
+    open: false,
+    desc: 'Mit Absendung deines Geräts haben wir theoretisch das Recht dein Gerät für den vereinbarten Preis anzukaufen und dir den vereinbarten Betrag zu überweisen. Du kannst uns jedoch kontaktieren und wir können dann je nach Fall entscheiden die Kaufabwicklung zu unterbinden.',
+  },
+  'GROUP H': {
+    name: 'Was passiert, wenn ihr den Artikel anders bewertet als ich?',
+    open: false,
+    desc: 'Wenn es dazu kommt, dass wir feststellen, dass unsere Bewertung von deiner Bewertung abweicht, so existieren zwei Möglichkeiten. Möglichkeit eins ist, dass wir dir dein Gerät kostenlos zurücksenden. Die zweite Möglichkeit ist, dass wir dir ein Gegenangebot zukommen lassen. Dieses kannst du dann entweder annehmen oder ablehnen. Wenn du es ablehnst, erhältst du dein Handy kostenlos zurück.',
+  },
+}
+
 export default {
-  components: { footerTemplate, headerTemplate },
+  components: {
+    footerTemplate,
+    headerTemplate,
+  },
+  data() {
+    return {
+      groups,
+      activeItem: null,
+    }
+  },
 }
 </script>
 

@@ -1,5 +1,6 @@
 <template>
   <footer class="w-full">
+    <hr>
     <div class="w-full p-4 md:p-8 md:flex justify-around text-gray-600 font-light">
       <div class="w-full md:w-1/6">
         <img
@@ -9,17 +10,17 @@
         >
       </div>
       <div class="w-full md:w-1/4 space-y-2">
-        <p class="font-bold text-black">Verkauf</p>
-        <p>Ablauf</p>
-        <p>Vorteile</p>
-        <p>Verkaufen</p>
+        <p class="font-bold text-black"><nuxt-link to="/">Verkauf</nuxt-link></p>
+        <p><nuxt-link to="/">Ablauf</nuxt-link></p>
+        <p><nuxt-link to="/">Vorteile</nuxt-link></p>
+        <p><nuxt-link to="/handy">Verkaufen</nuxt-link></p>
       </div>
       <div class="w-full md:w-1/4 space-y-2">
         <p class="font-bold text-black">Wirkaufendeinhandy</p>
-        <p>Verkaufen</p>
-        <p>Kontakt</p>
-        <p>FAQ</p>
-        <p>Über uns</p>
+        <p><nuxt-link to="/handy">Verkaufen</nuxt-link></p>
+        <p><nuxt-link to="/contactUs">Kontakt</nuxt-link></p>
+        <p><nuxt-link to="/faq">FAQ</nuxt-link></p>
+        <p><nuxt-link to="/aboutUs">Über uns</nuxt-link></p>
       </div>
       <div class="w-full md:w-1/4">
         <p class="font-bold text-black">Auszahlung</p>
@@ -42,7 +43,7 @@
       <p class="text-black">
         <nuxt-link class="hover:text-blue-900" to="/imprint">
           Impressum
-        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/privacy">
+        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/privacy.pdf">
           Datenschutz
         </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/agb.pdf">
           AGB
