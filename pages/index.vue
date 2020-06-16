@@ -255,7 +255,7 @@ export default {
   mounted() {
     const cookieScript = document.createElement('script')
     cookieScript.setAttribute('src', 'https://consent.cookiebot.com/uc.js')
-    cookieScript.setAttribute('data-cbid', 'b82a9f37-fd53-4369-8111-77839f5bafd4')
+    cookieScript.setAttribute('data-cbid', `${process.env.NUXT_ENV_COOKIE_TOKEN}`)
     cookieScript.setAttribute('data-blockingmode', 'auto')
     document.head.appendChild(cookieScript)
   },

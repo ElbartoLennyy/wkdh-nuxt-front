@@ -11,7 +11,7 @@
             >
 
             <nuxt-link to="/" @click="back">
-              <span class="text-blue-900 font-bold pl-2">Abbrechen</span>
+              <span class="text-yellowDark font-bold pl-2">Abbrechen</span>
             </nuxt-link>
           </div>
 
@@ -26,7 +26,7 @@
               alt="help button"
             >
 
-            <a href="contactUs" target="_blank" class="text-blue-500 hover:text-blue-800 pl-2">
+            <a href="contactUs" target="_blank" class="text-yellowDark hover:text-yellowLight pl-2">
               Hilfe erhalten
             </a>
           </div>
@@ -37,7 +37,7 @@
               <a
                 target="_blank"
                 href="privacy"
-                class="text-blue-500 hover:text-blue-800"
+                class="text-yellowDark hover:text-yellowLight"
               >Datenschutzerklärung</a>
             </p>
             <recaptcha-notice class="pt-6" />
@@ -46,15 +46,15 @@
 
         <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
           <div
-            class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
+            class="bg-yellowLight h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
             :style="{ width: `${progress}%` }"
           />
         </div>
       </div>
       <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
-        <div class="rounded-lg p-6 md:p-12 bg-gray-900 min-h-full">
+        <div class="rounded-lg p-6 md:p-12 bg-yellowDark min-h-full">
           <template v-if="stage === 0">
-            <p class="text-gray-200">
+            <p class="text-black font-bold">
               Von welcher Marke ist dein Handy?
             </p>
             <button
@@ -63,13 +63,13 @@
               class="mt-3 block w-full text-left"
               @click="selectBrand(brand)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
+              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                 {{ brand }}
               </div>
             </button>
           </template>
           <template v-else-if="stage === 1">
-            <p class="text-gray-200">
+            <p class="text-black font-bold">
               Was für ein Modell ist es?
             </p>
             <button
@@ -78,13 +78,13 @@
               class="mt-3 block w-full"
               @click="selectPhone(phone)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 {{ phone }}
               </div>
             </button>
           </template>
           <template v-else-if="stage === 2">
-            <p class="text-gray-200">
+            <p class="text-black font-bold">
               Wieviel internen Speicher hat dein Handy?
             </p>
             <button
@@ -93,13 +93,13 @@
               class="mt-3 block w-full"
               @click="selectStorage(storageId)"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 <span :class="`text-4xl`">{{ storageId }}</span> <span class="text-sm">GB</span>
               </div>
             </button>
           </template>
           <template v-else-if="stage === 3">
-            <p class="text-gray-200">
+            <p class="text-black font-bold">
               Welche Defekte besitzt dein Handy?
             </p>
             <form>
@@ -117,12 +117,12 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.defects.includes(defectId) ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :class="request.defects.includes(defectId) ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="defectId"
                 >
                   {{ defect.title }}
                 </label>
-                <p class="mt-1 text-gray-600 text-sm">
+                <p class="mt-1 text-gray-900 text-sm">
                   {{ defect.description }}
                 </p>
               </div>
@@ -131,13 +131,13 @@
               class="mt-4 block w-full"
               @click="next"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+              <div class="bg-gray-100 hover:bg-gray-400 font-bold text-black p-4 rounded-lg text-left">
                 Weiter {{ request.defects.length === 0 ? 'ohne Defekte' : '' }}
               </div>
             </button>
           </template>
           <template v-else-if="stage === 4">
-            <p class="text-gray-200">
+            <p class="text-black font-bold">
               In welchem äußerlichen Zustand ist dein Handy?
             </p>
             <form>
@@ -156,7 +156,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.condition === conditionId ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :class="request.condition === conditionId ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="conditionId"
                 >
                   {{ condition.title }}
@@ -171,13 +171,13 @@
               :disabled="!request.condition"
               @click="next"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+              <div class="bg-gray-100 hover:bg-gray-400 font-bold text-black p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
           </template>
           <template v-else-if="stage === 5">
-            <p class="text-gray-200">
+            <p class="text-black font-bold">
               Welches Zubehör hast du noch?
             </p>
             <form>
@@ -195,7 +195,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.accessories.includes(accessoryId) ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
+                  :class="request.accessories.includes(accessoryId) ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="accessoryId"
                 >
                   {{ accessory }}
@@ -207,7 +207,7 @@
               class="mt-4 block w-full"
               @click="confirmAccessories"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+              <div class="bg-gray-100 hover:bg-gray-400 font-bold text-black p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
@@ -220,7 +220,7 @@
             </template>
             <template v-else-if="!offer.price.price">
               <p
-                class="text-2xl text-white"
+                class="text-2xl text-yellowDark font-bold"
               >
                 Wir kaufen dein Handy mit diesem Defekt leider nicht an
               </p>
@@ -230,29 +230,29 @@
             </template>
             <template v-else>
               <div>
-                <p class="text-gray-500 text-lg">
+                <p class="text-gray-900 font-bold text-lg">
                   Dein Handy<br>
-                  <span class="text-white font-bold text-xl">
+                  <span class="text-white font-bold font-bold text-xl">
                     {{ request.brand }} {{ request.phone }}
                   </span>
                 </p>
 
-                <p class="text-gray-500 text-lg ">
+                <p class="text-black font-bold text-lg ">
                   Speicher<br>
-                  <span class="text-white font-bold text-base">
+                  <span class="text-white font-bold font-bold text-base">
                     {{ request.storage }} Gb
                   </span>
                 </p>
-                <p class="text-gray-500 text-lg ">
+                <p class="text-black font-bold text-lg ">
                   Zustand<br>
-                  <span class="text-white font-bold text-base">
+                  <span class="text-white font-bold font-bold text-base">
                     {{ values.conditions[request.condition].title }}
                   </span>
                 </p>
                 <template v-if="request.defects.length >= 1">
-                  <p class="text-gray-500 text-lg ">
+                  <p class="text-black font-bold text-lg ">
                     Defekte<br>
-                    <span class="text-white font-bold text-base">
+                    <span class="text-white font-bold font-bold text-base">
                       <template v-for="defect in request.defects">
                         {{ values.defects[defect].title }}
                         <br :key="defect">
@@ -261,9 +261,9 @@
                   </p>
                 </template>
                 <template v-if="request.accessories.length >= 1">
-                  <p class="text-gray-500 text-lg ">
+                  <p class="text-black font-bold text-lg ">
                     Zubehör<br>
-                    <span class="text-white font-bold text-base">
+                    <span class="text-white font-bold font-bold text-base">
                       <template v-for="accessory in request.accessories">
                         {{ values.accessories[accessory] }}
                         <br :key="accessory">
@@ -271,13 +271,13 @@
                     </span>
                   </p>
                 </template>
-                <p class="text-white text-xl">Wir kaufen dein Handy!</p>
-                <p class="text-white text-2xl md:text-4xl">
+                <p class="text-white font-bold text-xl">Wir kaufen dein Handy!</p>
+                <p class="text-white font-bold text-2xl md:text-4xl">
                   Wir bieten dir
                   <b>{{ offer.price.price }}</b> €
                 </p>
                 <button @click="priceDetailsShown = !priceDetailsShown">
-                  <div class="text-gray-500 text-sm flex items-center">
+                  <div class="text-black font-bold text-sm flex items-center">
                     Wie entsteht der Preis?
                   </div>
                 </button>
@@ -302,7 +302,7 @@
                   class="mt-4 block w-full"
                   @click="acceptOffer"
                 >
-                  <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+                  <div class="bg-gray-100 hover:bg-gray-400 font-bold text-black p-4 rounded-lg text-left">
                     Angebot annehmen und jetzt Handy verkaufen!
                   </div>
                 </button>
@@ -310,7 +310,7 @@
                   class="mt-4 block w-full"
                   @click="rejectOffer"
                 >
-                  <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+                  <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                     Ablehnen
                   </div>
                 </button>
@@ -323,7 +323,7 @@
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 Zurück
               </div>
             </button>
@@ -427,7 +427,7 @@ export default {
     },
     rejectOffer() {
       this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {
-        this.$router.push('/ankauf')
+        this.$router.push('/')
       })
     },
     back() {

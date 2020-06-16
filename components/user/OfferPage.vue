@@ -1,7 +1,7 @@
 <template>
-  <div class="font-sans min-h-screen overflow-y-scroll">
-    <div class="md:flex">
-      <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
+  <div class="font-sans min-h-screen">
+    <div class="md:flex md:overflow-y-hidden">
+      <div class="md:w-1/3 md:min-h-screen p-4 md:p-8 md:pl-16 flex flex-col justify-between md:overflow-hidden">
         <div>
           <div class="flex items-center text-center">
             <img
@@ -45,11 +45,40 @@
                 class="text-blue-500 hover:text-blue-800"
               >Datenschutzerklärung</a>
             </p>
-            <recaptcha-notice class="pt-6" />
+            <recaptcha-notice class="pt-4 md:pt-6" />
+            <div class="pt-4 md:pt-6 flex">
+              <img
+                class="inline w-1/5"
+                src="~assets/img/icons/Lets_encrypt-logo.png"
+                alt="help button"
+              >
+              <p class="w-4/5 m-auto">
+                Deine Daten sind sicher! Die Website wird durch ein Let’s Encrypt-Zertifikat SSL verschlüsselt.
+              </p>
+            </div>
+          </div>
+          <div class="text-center hidden md:block">
+            <p class="p-1 text-lg">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
+
+            <p class="p-1 text-lg">2. Versand <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
+
+            <p class="p-1 text-lg">3. Auszahlung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
+            <p class="p-1 text-lg">4. Zusammenfassung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+          </div>
+        </div>
+        <div>
+          <div class="text-center md:hidden">
+            <p v-if="stage==0" class="text-base font-bold -mb-4">2. Versand</p>
+            <p v-if="stage==1" class="text-base font-bold -mb-4">3. Auszahlung </p>
+            <p v-if="stage==2" class="text-base font-bold -mb-4">4. Zusammenfassung </p>
+            <p v-if="stage==3" class="text-base font-bold -mb-4">Fast Fertig <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
           </div>
         </div>
 
-        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:w-1/2">
+        <div class="bg-gray-300 shadow rounded-full overflow-hidden mt-10 md:hidden">
           <div
             class="bg-blue-600 h-2 m-1 transition-all duration-300 ease-in-out rounded-full"
             :style="{ width: `${progress}%` }"
@@ -66,7 +95,7 @@
               Anrede
             </p>
 
-            <select id="salutation" v-model="form.Salutation" class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-lg">
+            <select id="salutation" v-model="form.Salutation" class="bg-gray-800 hover:bg-gray-700 text-gray-100 p-4 rounded-md">
               <option value="Herr">
                 Herr
               </option>
@@ -78,61 +107,35 @@
             <p class="text-white text-xl mt-4">
               Name
             </p>
-
-            <input
-              id="firstName"
-              v-model.trim="form.FirstName"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-              type="text"
-              placeholder="Vorname*"
-              required
-            >
-            <p class="text-white text-base font-light mb-4">
-              Vorname
-            </p>
-            <input
-              id="name"
-              v-model.trim="form.Name"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-              type="text"
-              placeholder="Nachname*"
-              required
-            >
-            <p class="text-white text-base font-light mb-4">
-              Nachname
-            </p>
-            <input
-              id="email"
-              v-model.trim="form.Email"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-              type="email"
-              placeholder="Email*"
-              required
-            >
-            <p class="text-white text-base font-light mb-4">
-              Email
-            </p>
-            <input
-              id="phoneNumber"
-              v-model.trim="form.PhoneNumber"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-              type="tel"
-              placeholder="Telefonnummer"
-            >
-            <p class="text-white text-base font-light mb-4">
-              Telefonnummer (optional)
-            </p>
-
-            <button
-              type="submit"
-              class="mt-4 block w-full"
-            >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
-                Weiter
+            <div class="flex w-full">
+              <div class="w-1/3">
+                <input
+                  id="firstName"
+                  v-model.trim="form.FirstName"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+                  type="text"
+                  placeholder="Vorname*"
+                  required
+                >
+                <p class="text-white text-base font-light mb-4 mt-1">
+                  Vorname
+                </p>
               </div>
-            </button>
-          </form>
-          <form v-else-if="stage === 1" @submit.prevent="checkPickUp">
+              <div class="ml-4 w-2/3">
+                <input
+                  id="name"
+                  v-model.trim="form.Name"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+                  type="text"
+                  placeholder="Nachname*"
+                  required
+                >
+                <p class="text-white text-base font-light mb-4 mt-1">
+                  Nachname
+                </p>
+              </div>
+            </div>
+
             <p class="text-white text-xl mt-4">
               Adresse
             </p>
@@ -140,14 +143,14 @@
             <input
               id="Adress"
               v-model.trim="address.Adress"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
               type="text"
-              placeholder="Straße, Hausnummer"
+              placeholder="Straße, Hausnummer*"
               required
               autocomplete="shipping street-address"
+              @blur="checkPickUp"
             >
-            <p class="text-white text-base font-light mb-4">
+            <p class="text-white text-base font-light mb-4 mt-1">
               Straße, Hausnummer
             </p>
 
@@ -156,13 +159,14 @@
                 <input
                   id="PLZ"
                   v-model.trim="address.PLZ"
-                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
                   type="text"
-                  placeholder="PLZ"
+                  placeholder="PLZ*"
                   required
                   autocomplete="shipping postal-code"
+                  @blur="checkPickUp"
                 >
-                <p class="text-white text-base font-light mb-4">
+                <p class="text-white text-base font-light mb-4 mt-1">
                   Postleitzahl
                 </p>
               </div>
@@ -170,129 +174,79 @@
                 <input
                   id="Place"
                   v-model.trim="address.Place"
-                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
                   type="text"
-                  placeholder="Ort"
+                  placeholder="Ort*"
                   required
                   autocomplete="shipping locality"
+                  @blur="checkPickUp"
                 >
-                <p class="text-white text-base font-light mb-4">
+                <p class="text-white text-base font-light mb-4 mt-1">
                   Ort
                 </p>
               </div>
             </div>
+            <p v-if="adressError" class="text-red-500 text-sm">Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.</p>
+            <p v-if="pickUpPossible === false && !adressError" class="text-green-300 text-sm">Du kannst dein Handy KOSTENFREI an uns schicken.</p>
+            <p v-if="pickUpPossible && !adressError" class="text-green-500 text-sm">Wir holen dein Gerät ab!</p>
+
+            <p class="text-white text-xl mt-4">
+              Kontakt
+            </p>
+
+            <input
+              id="email"
+              v-model.trim="form.Email"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+              type="email"
+              placeholder="Email*"
+              required
+            >
+            <p class="text-white text-base font-light mb-4 mt-1">
+              Email
+            </p>
+            <input
+              id="phoneNumber"
+              v-model.trim="form.PhoneNumber"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+              type="tel"
+              placeholder="Telefonnummer"
+            >
+            <p class="text-white text-base font-light mb-4 mt-1">
+              Telefonnummer (optional)
+            </p>
+
+            <p class="text-white text-xl mt-4">
+              Transportart
+            </p>
+            <p class="p-4 w-full bg-gray-100 mb-2 rounded-md text-black py-3 rounded-md">Kostenlos verschicken <img class="inline-block h-6" src="~assets/img/icons/dpd-logo.png"> </p>
+
+            <div v-if="form.TransportType === 'pickUp' && pickUpPossible">
+              <p class="text-white text-xl">Wähle bitte eine Abholzeit aus</p>
+              <pickup-picker v-model="pickupTime" :pick-up-times="pickUpTimes" />
+            </div>
+
+            <div v-if="form.TransportType === 'shipping' && (pickUpPossible || pickUpPossible === false)">
+              <p class="text-green-500 text-sm">Du verschickst dein Handy kostenlos selber</p>
+              <p class="text-green-500 text-sm">Das Label erhältst du nach Abschluss</p>
+            </div>
 
             <button
+              :disabled="pickUpPossible === null"
               type="submit"
               class="mt-4 block w-full"
-              :disabled="validatingAddress"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-md text-left">
                 Weiter
-              </div>
-            </button>
-
-            <button
-              type="button"
-              class="mt-4 block w-full"
-              :disabled="validatingAddress"
-              @click.prevent="back()"
-            >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
-                Zurück
               </div>
             </button>
           </form>
-          <form
-            v-else-if="stage === 2 && form.TransportType === 'pickUp'"
-            @submit.prevent="next"
-          >
-            <p class="text-white text-2xl font-bold">Wir holen dein Handy bei dir Zuhause ab!</p>
-            <p class="text-white text-xl">Wähle bitte eine Abholzeit aus</p>
-            <pickup-picker v-model="pickupTime" :pick-up-times="pickUpTimes" />
-
-            <button
-              type="submit"
-              class="mt-4 block w-full"
-              :disabled="validatingAddress"
-            >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
-                Weiter
-              </div>
-            </button>
-
-            <button
-              type="button"
-              class="mt-8 block w-full"
-              @click.prevent="form.TransportType = 'shipping' "
-            >
-              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg md:w-1/2">
-                Willst du dein Handy lieber selber verschicken? - Klicke hier
-              </div>
-              <p class="text-gray-300 text-left">Das Paketlabel würdest du dann am Ende erhalten</p>
-            </button>
-
-            <button
-              type="button"
-              class="mt-4 block w-full"
-              :disabled="validatingAddress"
-              @click.prevent="back()"
-            >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
-                Zurück
-              </div>
-            </button>
-          </form>
-          <template v-else-if="stage === 2 && form.TransportType === 'shipping'">
-            <div v-if="pickUpPossible === true">
-              <p class="text-white text-2xl">Du willst dein Paket selber verschicken</p>
-            </div>
-            <div v-if="pickUpPossible === false">
-              <p class="text-white text-2xl">Leider bist du nicht in unserem Abholradius und können dein Handy nicht abholen.</p>
-              <p class="text-white text-2xl">Du kannst es uns aber kostenlos zuschicken!</p>
-            </div>
-            <p class="text-white text-xl">Nach dem Abschluss des Verkaufs erhältst du die Versandmarke, sowie eine Versandguideline.</p>
-
-            <button
-              type="button"
-              class="mt-4 block w-full"
-              :disabled="pickupTime === null && form.TransportType === 'pickUp'"
-              @click.prevent="next()"
-            >
-              <div
-                class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left"
-              >
-                Weiter
-              </div>
-            </button>
-
-            <button
-              v-if="pickUpPossible === true"
-              type="button"
-              class="mt-8 block w-full"
-              @click.prevent="form.TransportType = 'pickUp' "
-            >
-              <div class="bg-gray-700 hover:bg-gray-600 text-white p-4 rounded-lg md:w-1/2">
-                Du willst dein Handy doch lieber Abholen lassen?
-              </div>
-            </button>
-
-            <button
-              type="button"
-              class="mt-4 block w-full"
-              @click.prevent="back()"
-            >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
-                Zurück
-              </div>
-            </button>
-          </template>
-          <form
-            v-else-if="stage === 3"
-            @submit.prevent="validatePaymentData"
-          >
+          <form v-else-if="stage === 1" @submit.prevent="validatePaymentData">
             <p class="text-white text-xl mt-4">
               Wie willst du das Geld erhalten?
+            </p>
+            <p class="text-white text-base font-light mb-4 mt-1">
+              Das Geld bekommst du nachdem dein Handy überprüft wurde direkt ausgezahlt.
             </p>
             <input
               id="PayPal"
@@ -303,10 +257,10 @@
               value="PayPal"
             >
             <label
-              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg"
               for="PayPal"
               :class="form.PaymentMethod === 'PayPal' ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
-            >PayPal-Gutschrift</label>
+            ><img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Gutschrift</label>
             <input
               id="Überweisung"
               v-model="form.PaymentMethod"
@@ -316,15 +270,15 @@
               value="Überweisung"
             >
             <label
-              class="-mt-4 p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              class="-mt-4 p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg"
               for="Überweisung"
               :class="form.PaymentMethod === 'Überweisung' ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
-            >Überweisung</label>
+            ><img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Überweisung auf dein Bankkonto</label>
 
             <input
               id="paymentData"
               v-model.trim="form.PaymentData"
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
               :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
               :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
               required
@@ -344,6 +298,8 @@
               </button>
             </p>
 
+            <p v-if="paymentDataError" class="text-red-500 text-sm">Bitte überprüfe deine Daten um die Auszahlung zu erhalten</p>
+
             <button
               type="submit"
               class="mt-4 block w-full"
@@ -352,6 +308,7 @@
                 Weiter
               </div>
             </button>
+
             <button
               type="button"
               class="mt-4 block w-full"
@@ -363,11 +320,11 @@
               </div>
             </button>
           </form>
-          <form
-            v-else-if="stage === 4"
-            @submit.prevent="next"
-          >
+          <div v-else-if="stage === 2">
             <div>
+              <p class="text-white text-2xl mb-4 font-bold text-center">
+                Bitte überprüfe noch einmal deine Daten
+              </p>
               <p class="text-gray-500 text-lg">
                 Dein Handy<br>
                 <span class="text-white font-bold text-xl">
@@ -384,7 +341,8 @@
               <p class="text-gray-500 text-lg ">
                 Zustand<br>
                 <span class="text-white font-bold text-base">
-                  {{ values.conditions[offer.phone.Condition].title }}                </span>
+                  {{ values.conditions[offer.phone.Condition].title }}
+                </span>
               </p>
               <template v-if="offer.phone.Defects.length >= 1">
                 <p class="text-gray-500 text-lg ">
@@ -412,24 +370,26 @@
             <p class="text-white text-xl mt-4">
               Name
             </p>
+            <div class="flex">
+              <p
+                class="w-1/2 mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+              >
+                {{ form.FirstName }}
+              </p>
+              <p
+                class="w-1/2 ml-4 mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
+              >
+                {{ form.Name }}
+              </p>
+            </div>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-            >
-              {{ form.FirstName }}
-            </p>
-            <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
-            >
-              {{ form.Name }}
-            </p>
-            <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.Email }}
             </p>
             <template v-if="form.PhoneNumber != ''">
               <p
-                class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
               >
                 {{ form.PhoneNumber }}
               </p>
@@ -438,7 +398,7 @@
               Adresse
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ address.Adress }}
             </p>
@@ -448,7 +408,7 @@
             <div class="flex">
               <div class="w-1/3">
                 <p
-                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
                 >
                   {{ address.PLZ }}
                 </p>
@@ -458,7 +418,7 @@
               </div>
               <div class="w-2/3 ml-4">
                 <p
-                  class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+                  class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
                 >
                   {{ address.Place }}
                 </p>
@@ -479,18 +439,18 @@
               Du erhältst dein Geld via
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.PaymentMethod }}
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-gray-800 rounded-lg hover:bg-gray-700 text-gray-100 py-4 w-full rounded-lg"
+              class="mt-3 p-4 block w-full bg-gray-800 rounded-md hover:bg-gray-700 text-gray-100 py-3 w-full rounded-md"
             >
               {{ form.PaymentData }}
             </p>
             <button
-              type="submit"
               class="mt-4 block w-full"
+              @click="next"
             >
               <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
                 Weiter
@@ -506,8 +466,8 @@
                 Zurück
               </div>
             </button>
-          </form>
-          <form v-else-if="stage === 5" @submit.prevent="acceptOffer">
+          </div>
+          <form v-else-if="stage === 3" @submit.prevent="acceptOffer">
             <p class="text-white text-xl mt-4">
               Bitte bestätige folgendes
             </p>
@@ -521,7 +481,7 @@
               required
             >
             <label
-              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
               :class="endCheckbox.includes('privacy') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
               :for="'privacy'"
             >
@@ -538,7 +498,7 @@
               required
             >
             <label
-              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
               :class="endCheckbox.includes('rightOfWithdrawal') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
               :for="'rightOfWithdrawal'"
             >
@@ -554,7 +514,7 @@
               required
             >
             <label
-              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
+              class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
               :class="endCheckbox.includes('ToS') ? 'bg-gray-200 text-black' : 'bg-gray-800 hover:bg-gray-700 text-gray-100'"
               :for="'ToS'"
             >
@@ -567,7 +527,7 @@
               type="submit"
               class="mt-4 block w-full"
             >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-lg text-left">
+              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-md text-left">
                 Bestätigen und Verkauf verbindlich abschließen
               </div>
             </button>
@@ -577,7 +537,7 @@
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
-              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-lg text-left">
+              <div class="bg-gray-800 hover:bg-gray-700 text-white p-4 rounded-md text-left">
                 Zurück
               </div>
             </button>
@@ -610,12 +570,10 @@ export default {
       PaymentMethod: 'PayPal',
       PaymentData: '',
       TransportData: '',
-      TransportType: 'shipping',
     },
-    pickUpPossible: false,
-    pickUpTimes: null,
-    pickupTime: null,
     validatingAddress: false,
+    adressError: false,
+    paymentDataError: null,
     address: {
       Adress: '',
       PLZ: '',
@@ -624,49 +582,51 @@ export default {
   }),
   computed: {
     progress() {
-      return [0, 20, 40, 60, 80][this.stage]
-    },
-  },
-  watch: {
-    pickupTime({ date, cId }) {
-      this.form.TransportData = { time: new Date(date).toISOString(), cId }
+      return [25, 50, 75, 99][this.stage]
     },
   },
   methods: {
     checkPickUp() {
-      this.validatingAddress = true
-      // eslint-disable-next-line no-undef
-      grecaptcha.ready(async() => {
+      if (this.address.Adress !== '' && this.address.PLZ !== '' && this.address.Place !== '') {
         // eslint-disable-next-line no-undef
-        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-        try {
-          const { location, pickUpData } = await this.$axios.$post('/offer/checkPickUp', { uID: this.offer.ID, Adress: this.address, Token: token })
-          this.address.Adress = location.streetName + ' ' + location.streetNumber
-          this.address.PLZ = location.zipcode
-          this.address.Place = location.city
-          if (pickUpData === false) {
-            this.pickUpPossible = false
-            this.form.TransportType = 'shipping'
-          } else {
-            this.pickUpPossible = true
-            this.form.TransportType = 'pickUp'
-            this.pickUpTimes = pickUpData
+        grecaptcha.ready(async() => {
+          // eslint-disable-next-line no-undef
+          const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
+          try {
+            const { location, pickUpData } = await this.$axios.$post('/offer/checkPickUp', { uID: this.offer.ID, Adress: this.address, Token: token })
+            this.address.Adress = location.streetName + ' ' + location.streetNumber
+            this.address.PLZ = location.zipcode
+            this.address.Place = location.city
+            console.log(pickUpData)
+            if (pickUpData === false || pickUpData.length === 0) {
+              this.pickUpPossible = false
+              this.form.TransportType = 'shipping'
+            } else {
+              this.pickUpPossible = true
+              this.form.TransportType = 'pickUp'
+              this.pickUpTimes = pickUpData
+            }
+            this.adressError = false
+          } catch (error) {
+            this.adressError = true
           }
-          this.next()
-        } catch (error) {
-          alert('Die angegebene Adresse scheint nicht zu existieren. Bitte überprüfe deine Eingaben.')
-        }
-      })
+        })
 
-      this.validatingAddress = false
+        this.validatingAddress = false
+      }
     },
     async validatePaymentData() {
       try {
         const { PaymentMethod, PaymentData } = this.form
-        await this.$axios.$post('/offer/validatePaymentData', {
+        const res = await this.$axios.$post('/offer/validatePaymentData', {
           PaymentMethod, PaymentData,
         })
-        this.next()
+        if (res.Result === true) {
+          this.next()
+          this.paymentDataError = false
+        } else {
+          this.paymentDataError = true
+        }
       } catch {
         // TODO: Make this error message more helpful
         alert('Es gibt ein Problem mit den angegebenen Zahlungsdaten. Bitte überprüfe deine Eingaben.')

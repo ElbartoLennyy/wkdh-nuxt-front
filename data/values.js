@@ -49,6 +49,6 @@ export const defects = {
   },
   BACK: {
     title: 'Kaputte Rückseite',
-    description: 'Das Glas auf der Rückseite ist gesplittert,',
+    description: 'Das Glas auf der Rückseite ist gesplittert.',
   },
 }
