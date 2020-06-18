@@ -264,7 +264,7 @@ export default {
       const element = this.$refs[refName]
       const top = element.offsetTop
 
-      window.scrollTo(0, top)
+      window.scrollTo({ top, behavior: 'smooth' })
     },
   },
 }

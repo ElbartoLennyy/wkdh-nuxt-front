@@ -59,8 +59,7 @@
     <div class="flex w-full justify-around p-2 text-yellowDark font-bold">
       <img src="~assets/img/svg/shop.svg" alt="Shop" class="object-contain h-12 md:h-16 p-2 my-auto">
       <p class="w-3/4 my-auto md:text-xl">
-        An- und Verkäufer für gebrauchte und
-        defekte Smartphones
+        Ankauf, Reparatur und Verkauf von gebrauchten Smartphones
       </p>
     </div>
     <p class="w-full bg-gradient text-white text-center md:text-xl p-1">jedoch komplett</p>

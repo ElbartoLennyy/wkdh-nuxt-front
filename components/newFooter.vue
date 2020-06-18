@@ -43,9 +43,9 @@
       <p class="text-black">
         <nuxt-link class="hover:text-blue-900" to="/imprint">
           Impressum
-        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/privacy.pdf">
+        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/privacy">
           Datenschutz
-        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/agb.pdf">
+        </nuxt-link> | <nuxt-link class="hover:text-blue-900" to="/agb">
           AGB
         </nuxt-link>
       </p>

@@ -24,8 +24,7 @@ async function createParcel(userID, userData, location) {
       email: 'dev@wirkaufendeinhandy.shop',
       country: 'DE',
       shipment: {
-        // TODO: Turn this into an environment variable
-        id: 111, // 111 for production
+        id: process.env.SENDCLOUD_SHIPMENT_ID,
       },
       weight: '1.000',
       order_number: userID,

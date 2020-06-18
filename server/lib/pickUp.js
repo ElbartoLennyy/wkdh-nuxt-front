@@ -1,10 +1,17 @@
-const util = require('util')
-const Distance = require('geo-distance')
-const firebase = require('./firebase')
+// const util = require('util')
+// const Distance = require('geo-distance')
+// const firebase = require('./firebase')
 const geocoder = require('./geocoder')
 
 async function checkPickUp(userLocation) {
   const userGeoLocation = await geocoder.validateAddress(userLocation)
+
+  if (userGeoLocation === false) {
+    return userGeoLocation
+  }
+
+  return { location: userGeoLocation }
+/*
 
   if (userGeoLocation === false) {
     return userGeoLocation
@@ -33,10 +40,11 @@ async function checkPickUp(userLocation) {
   } else if (avaibleCouriers.length >= 1) {
     return { location: userGeoLocation, pickUpData: generateAllPossibleTimes(avaibleCouriers) }
   }
+  */
 }
-
+/*
 function generateAllPossibleTimes(times) {
-  console.log(util.inspect(times, false, null, true /* enable colors */))
+  console.log(util.inspect(times, false, null, true /* enable colors ))
 
   const startTimes = {}
 
@@ -90,9 +98,9 @@ function generateAllPossibleTimes(times) {
       }
     }
   }
-  console.log(util.inspect(startTimes, false, null, true /* enable colors */))
+  console.log(util.inspect(startTimes, false, null, true /* enable colors ))
 
   return startTimes
 }
-
+*/
 module.exports = { checkPickUp }

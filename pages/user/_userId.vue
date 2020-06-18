@@ -3,10 +3,6 @@
     v-if="offer.State === 'offer'"
     :offer="offer"
   />
-  <pick-up-page
-    v-else-if="offer.State === 'pickUp'"
-    :offer="offer"
-  />
   <shipping-page
     v-else-if="offer.State === 'shipping'"
     :offer="offer"
@@ -15,10 +11,9 @@
 
 <script>
 import OfferPage from '~/components/user/OfferPage'
-import PickUpPage from '~/components/user/PickUpPage'
 import ShippingPage from '~/components/user/ShippingPage'
 export default {
-  components: { OfferPage, PickUpPage, ShippingPage },
+  components: { OfferPage, ShippingPage },
   async asyncData(context) {
     const offer = (
       await context.$axios.$post('/offer/getData', {
@@ -31,7 +26,6 @@ export default {
     return {
       title: ({
         offer: 'Angebot',
-        pickUp: 'Abholung',
         shipping: 'Versand',
       })[this.offer.State],
       htmlAttrs: { class: 'toolbox-styles' },
