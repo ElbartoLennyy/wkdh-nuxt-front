@@ -26,17 +26,17 @@ function calcPrice(userPhone, price) {
 
   price -= 5.45
   if (price < 100) {
-    price = price * 0.62
+    price = price * 0.66
   } else if (price < 150) {
-    price = price * 0.68
+    price = price * 0.72
   } else if (price < 200) {
-    price = price * 0.74
+    price = price * 0.77
   } else if (price < 300) {
-    price = price * 0.78
+    price = price * 0.81
   } else if (price < 400) {
-    price = price * 0.82
-  } else if (price >= 400) {
     price = price * 0.84
+  } else if (price >= 400) {
+    price = price * 0.86
   }
   price -= 10
 
