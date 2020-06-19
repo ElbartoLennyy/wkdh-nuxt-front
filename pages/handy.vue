@@ -117,7 +117,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.defects.includes(defectId) ? 'bg-yellowDark text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+                  :class="request.defects.includes(defectId) ? 'bg-yellowDark text-white font-bold' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="defectId"
                 >
                   {{ defect.title }}
@@ -156,7 +156,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.condition === conditionId ? 'bg-yellowDark text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+                  :class="request.condition === conditionId ? 'bg-yellowDark text-white font-bold' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="conditionId"
                 >
                   {{ condition.title }}
@@ -195,7 +195,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.accessories.includes(accessoryId) ? 'bg-yellowDark text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+                  :class="request.accessories.includes(accessoryId) ? 'bg-yellowDark text-white font-bold' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="accessoryId"
                 >
                   {{ accessory }}
@@ -220,12 +220,12 @@
             </template>
             <template v-else-if="!offer.price.price">
               <p
-                class="text-2xl text-yellowDark font-bold"
+                class="text-2xl text-white font-bold"
               >
-                Wir kaufen dein Handy mit diesem Defekt leider nicht an
+                Wir kaufen dein Handy mit diesem Defekt leider nicht an.
               </p>
-              <p class="text-base text-gray-600">
-                Trotzdem vielen Dank für deine Anfrage
+              <p class="text-base text-white">
+                Trotzdem vielen Dank für deine Anfrage.
               </p>
             </template>
             <template v-else>
