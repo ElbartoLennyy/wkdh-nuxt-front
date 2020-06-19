@@ -161,7 +161,7 @@
                 >
                   {{ condition.title }}
                 </label>
-                <p class="mt-1 text-gray-600 text-sm">
+                <p class="mt-1 text-black text-sm">
                   {{ condition.description }}
                 </p>
               </div>
