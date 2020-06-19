@@ -1,3 +1,4 @@
+require('dotenv').config()
 const noma = require('nodemailer')
 
 const formatDate = require('date-fns/format')
@@ -42,9 +43,11 @@ function sendMail(message, test = false) {
   })
 }
 
-const sendTestMail = message => sendMail(message, true)
+// const sendTestMail = message => sendMail(message, true)
 
-function sendOfferAcceptMail(uID, userDetails, userLocation) {
+sendOfferAcceptMail('123456', { FirstName: 'Marius', Email: 'm.marx2103@gmail.com' })
+
+function sendOfferAcceptMail(uID, userDetails) {
   let date = new Date()
   date.setDate(date.getDate() + 7)
   date = formatDate(date, 'PPPP', { locale: deLocale })

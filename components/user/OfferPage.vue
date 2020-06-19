@@ -613,13 +613,19 @@ export default {
       grecaptcha.ready(async() => {
         // eslint-disable-next-line no-undef
         const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-        await this.$axios.post('/offer/accept', {
-          uID: this.offer.ID,
-          data: this.form,
-          Token: token,
-          locationData: this.address,
-        })
-        this.offer.State = this.form.TransportType
+        try {
+          await this.$axios.post('/offer/accept', {
+            uID: this.offer.ID,
+            data: this.form,
+            Token: token,
+            locationData: this.address,
+          })
+          this.offer.State = 'shipping'
+        } catch (error) {
+          console.error(error)
+          alert('Fehler')
+          this.$router.go()
+        }
       })
     },
     next() {
