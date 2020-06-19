@@ -52,9 +52,9 @@
         </div>
       </div>
       <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
-        <div class="rounded-lg p-6 md:p-12 bg-yellowDark min-h-full">
+        <div class="rounded-lg p-6 md:p-12 bg-yellowLight min-h-full">
           <template v-if="stage === 0">
-            <p class="text-black font-bold">
+            <p class="text-white font-bold">
               Von welcher Marke ist dein Handy?
             </p>
             <button
@@ -63,13 +63,13 @@
               class="mt-3 block w-full text-left"
               @click="selectBrand(brand)"
             >
-              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+              <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                 {{ brand }}
               </div>
             </button>
           </template>
           <template v-else-if="stage === 1">
-            <p class="text-black font-bold">
+            <p class="text-white font-bold">
               Was für ein Modell ist es?
             </p>
             <button
@@ -78,13 +78,13 @@
               class="mt-3 block w-full"
               @click="selectPhone(phone)"
             >
-              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 {{ phone }}
               </div>
             </button>
           </template>
           <template v-else-if="stage === 2">
-            <p class="text-black font-bold">
+            <p class="text-white font-bold">
               Wieviel internen Speicher hat dein Handy?
             </p>
             <button
@@ -93,13 +93,13 @@
               class="mt-3 block w-full"
               @click="selectStorage(storageId)"
             >
-              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 <span :class="`text-4xl`">{{ storageId }}</span> <span class="text-sm">GB</span>
               </div>
             </button>
           </template>
           <template v-else-if="stage === 3">
-            <p class="text-black font-bold">
+            <p class="text-white font-bold">
               Welche Defekte besitzt dein Handy?
             </p>
             <form>
@@ -117,7 +117,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.defects.includes(defectId) ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+                  :class="request.defects.includes(defectId) ? 'bg-yellowDark text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="defectId"
                 >
                   {{ defect.title }}
@@ -137,7 +137,7 @@
             </button>
           </template>
           <template v-else-if="stage === 4">
-            <p class="text-black font-bold">
+            <p class="text-white font-bold">
               In welchem äußerlichen Zustand ist dein Handy?
             </p>
             <form>
@@ -156,7 +156,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.condition === conditionId ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+                  :class="request.condition === conditionId ? 'bg-yellowDark text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="conditionId"
                 >
                   {{ condition.title }}
@@ -177,7 +177,7 @@
             </button>
           </template>
           <template v-else-if="stage === 5">
-            <p class="text-black font-bold">
+            <p class="text-white font-bold">
               Welches Zubehör hast du noch?
             </p>
             <form>
@@ -195,7 +195,7 @@
                 >
                 <label
                   class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-                  :class="request.accessories.includes(accessoryId) ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+                  :class="request.accessories.includes(accessoryId) ? 'bg-yellowDark text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
                   :for="accessoryId"
                 >
                   {{ accessory }}
@@ -310,7 +310,7 @@
                   class="mt-4 block w-full"
                   @click="rejectOffer"
                 >
-                  <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
+                  <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                     Ablehnen
                   </div>
                 </button>
@@ -323,7 +323,7 @@
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
-              <div class="bg-gray-200 hover:bg-yellowLight hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 Zurück
               </div>
             </button>
