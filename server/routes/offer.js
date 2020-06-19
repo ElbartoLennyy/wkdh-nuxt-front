@@ -80,7 +80,7 @@ router.post("/deleteUser", (req, res) => {
 })
 */
 
-router.post('/accept', function(req, res, next) {
+router.post('/accept', (req, res) => {
   const token = req.body.Token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
@@ -102,20 +102,19 @@ router.post('/accept', function(req, res, next) {
       return res.status(500).send({ responseError: 'Failed captcha verification' })
     }
 
-    if (req.body.data.TransportType === 'shipping') {
-      const userLocation = await fbData.getUser(req.body.uID)
-      if (userLocation === false) { return }
+    const userLocation = await fbData.getUser(req.body.uID)
+    if (userLocation === false) { return res.status(500).send({ responseError: 'Failed to get User data' }) }
+    try {
       const parcelId = await sendcloud.createParcel(req.body.uID, req.body.data, userLocation.Location)
+      if (!parcelId) { return res.status(500).send({ responseError: 'error while creating parcel' }) }
       req.body.data.TransportData = parcelId
-
-      await fbData.setOfferAccept(req.body.uID, req.body.data)
-      sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
-      res.send({ Obj: 'done' })
-    } else if (req.body.data.TransportType === 'pickUp') {
-      await fbData.setOfferAccept(req.body.uID, req.body.data)
-      sendMail.sendOfferAcceptMail(req.body.uID, req.body.data, req.body.locationData)
-      res.send({ Obj: 'done' })
+    } catch (error) {
+      return res.status(500).send({ responseError: error, message: 'Failed creating parcel label' })
     }
+
+    await fbData.setOfferAccept(req.body.uID, req.body.data)
+    sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
+    res.send({ Obj: 'done' })
   })
 })
 

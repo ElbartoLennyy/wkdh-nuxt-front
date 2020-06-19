@@ -2,6 +2,7 @@ const axios = require('axios')
 
 const publicKey = process.env.SENDCLOUD_PUBLIC_KEY
 const secretKey = process.env.SENDCLOUD_PRIVATE_KEY
+const shippmentId = process.env.SENDCLOUD_SHIPMENT_ID
 
 const client = axios.create({
   auth: {
@@ -24,7 +25,7 @@ async function createParcel(userID, userData, location) {
       email: 'dev@wirkaufendeinhandy.shop',
       country: 'DE',
       shipment: {
-        id: process.env.SENDCLOUD_SHIPMENT_ID,
+        id: shippmentId,
       },
       weight: '1.000',
       order_number: userID,
@@ -43,17 +44,12 @@ async function createParcel(userID, userData, location) {
   }
 
   const { data: body } = await client.post('https://panel.sendcloud.sc/api/v2/parcels', newParcelData)
-  try {
-    if (body.parcel.status.id === 1000) {
-      return body.parcel.id
-    } else {
-      return false
-    }
-  } catch (e) {
+  if (body.parcel.status.id === 1000) {
+    return body.parcel.id
+  } else {
     return false
   }
 }
-
 async function downloadLabel(parcelID, outputPath) {
   const response = await client.get(
     `https://panel.sendcloud.sc/api/v2/labels/normal_printer/${parcelID}?start_from=0`,

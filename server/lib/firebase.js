@@ -94,7 +94,7 @@ async function setOfferAccept(uID, data) {
   await docRequest.update({
     Date: getCurrentDate(),
     ID: uID,
-    State: data.TransportType,
+    State: 'shipping',
     data,
   })
 
