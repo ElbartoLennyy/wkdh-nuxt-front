@@ -8,7 +8,7 @@
     </div>
     <div class="grid grid-cols-1 md:grid-cols-4 gap-20 px-20 py-12 text-center text-xl lg:text-2xl xl:text-4xl font-semibold">
       <div class="border-gray-500 border-2 rounded-lg" @click="scrollMeTo('versand')">
-        <img class="h-12 xl:h-20 mx-auto m-2 lg:m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
+        <img class="h-12 xl:h-20 mx-auto m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
         <p class="mb-8">Versand & Lieferstatus</p>
       </div>
       <div class="border-gray-500 border-2 rounded-lg" @click="scrollMeTo('verkaufen')">

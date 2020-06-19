@@ -95,7 +95,7 @@
               Anrede
             </p>
 
-            <select id="salutation" v-model="form.Salutation" class="bg-white hover:bg-yellowLight hover:text-white text-black p-4 rounded-md">
+            <select id="salutation" v-model="form.Salutation" class="bg-white hover:bg-gray-300 text-black p-4 rounded-md">
               <option value="Herr">
                 Herr
               </option>
@@ -112,7 +112,7 @@
                 <input
                   id="firstName"
                   v-model.trim="form.FirstName"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
                   type="text"
                   placeholder="Vorname*"
                   required
@@ -125,7 +125,7 @@
                 <input
                   id="name"
                   v-model.trim="form.Name"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
                   type="text"
                   placeholder="Nachname*"
                   required
@@ -143,7 +143,7 @@
             <input
               id="Adress"
               v-model.trim="address.Adress"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               type="text"
               placeholder="Straße, Hausnummer*"
               required
@@ -159,7 +159,7 @@
                 <input
                   id="PLZ"
                   v-model.trim="address.PLZ"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
                   type="text"
                   placeholder="PLZ*"
                   required
@@ -174,7 +174,7 @@
                 <input
                   id="Place"
                   v-model.trim="address.Place"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
                   type="text"
                   placeholder="Ort*"
                   required
@@ -194,7 +194,7 @@
             <input
               id="email"
               v-model.trim="form.Email"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               type="email"
               placeholder="Email*"
               required
@@ -205,7 +205,7 @@
             <input
               id="phoneNumber"
               v-model.trim="form.PhoneNumber"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               type="tel"
               placeholder="Telefonnummer"
             >
@@ -218,15 +218,15 @@
             </p>
             <p class="p-4 w-full bg-gray-100 mb-2 rounded-md text-black py-3 rounded-md">Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/icons/dpd-logo.png"> </p>
 
-            <p class="text-green-600 font-bold text-sm">Du verschickst dein Handy kostenlos selber</p>
-            <p class="text-green-600 font-bold text-sm">Das Label erhältst du nach Abschluss</p>
+            <p class="text-white font-bold text-sm">Du verschickst dein Handy kostenlos selber</p>
+            <p class="text-white font-bold text-sm">Das Label erhältst du nach Abschluss</p>
 
             <button
               type="submit"
               class="mt-4 block w-full"
               :disabled="adressError"
             >
-              <div class="bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold p-4 rounded-md text-left">
+              <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-md text-left">
                 Weiter
               </div>
             </button>
@@ -247,9 +247,9 @@
               value="PayPal"
             >
             <label
-              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg"
+              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg font-bold"
               for="PayPal"
-              :class="form.PaymentMethod === 'PayPal' ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+              :class="form.PaymentMethod === 'PayPal' ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400'"
             ><img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Gutschrift</label>
             <input
               id="Überweisung"
@@ -260,15 +260,15 @@
               value="Überweisung"
             >
             <label
-              class="-mt-4 p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg"
+              class="-mt-4 p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg font-bold"
               for="Überweisung"
-              :class="form.PaymentMethod === 'Überweisung' ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+              :class="form.PaymentMethod === 'Überweisung' ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400'"
             ><img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Überweisung auf dein Bankkonto</label>
 
             <input
               id="paymentData"
               v-model.trim="form.PaymentData"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
               :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
               required
@@ -294,18 +294,18 @@
               type="submit"
               class="mt-4 block w-full"
             >
-              <div class="bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
 
             <button
               type="button"
-              class="mt-4 block w-full"
+              class="mt-4 block w-full text-yellowDark"
               :disabled="validatingAddress"
               @click.prevent="back()"
             >
-              <div class="bg-white hover:bg-yellowLight hover:text-white p-4 rounded-lg text-left">
+              <div class="bg-white hover:bg-gray-300 p-4 rounded-lg text-left">
                 Zurück
               </div>
             </button>
@@ -362,24 +362,24 @@
             </p>
             <div class="flex">
               <p
-                class="w-1/2 mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                class="w-1/2 mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               >
                 {{ form.FirstName }}
               </p>
               <p
-                class="w-1/2 ml-4 mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                class="w-1/2 ml-4 mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               >
                 {{ form.Name }}
               </p>
             </div>
             <p
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
             >
               {{ form.Email }}
             </p>
             <template v-if="form.PhoneNumber != ''">
               <p
-                class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
               >
                 {{ form.PhoneNumber }}
               </p>
@@ -388,7 +388,7 @@
               Adresse
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
             >
               {{ address.Adress }}
             </p>
@@ -398,7 +398,7 @@
             <div class="flex">
               <div class="w-1/3">
                 <p
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
                 >
                   {{ address.PLZ }}
                 </p>
@@ -408,7 +408,7 @@
               </div>
               <div class="w-2/3 ml-4">
                 <p
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
                 >
                   {{ address.Place }}
                 </p>
@@ -424,12 +424,19 @@
               Du erhältst dein Geld via
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              v-if="form.PaymentMethod === 'PayPal'"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
             >
-              {{ form.PaymentMethod }}
+              <img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Gutschrift
             </p>
             <p
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-yellowLight hover:text-white text-black py-3 w-full rounded-md"
+              v-if="form.PaymentMethod === 'Überweisung'"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+            >
+              <img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Überweisung auf dein Bankkonto
+            </p>
+            <p
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
             >
               {{ form.PaymentData }}
             </p>
@@ -437,7 +444,7 @@
               class="mt-4 block w-full"
               @click="next"
             >
-              <div class="bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold p-4 rounded-lg text-left">
+              <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-lg text-left">
                 Weiter
               </div>
             </button>
@@ -447,7 +454,7 @@
               :disabled="validatingAddress"
               @click.prevent="back()"
             >
-              <div class="bg-white hover:bg-yellowLight hover:text-white p-4 rounded-lg text-left">
+              <div class="bg-white hover:bg-gray-300 p-4 rounded-lg text-left text-yellowDark">
                 Zurück
               </div>
             </button>
@@ -467,12 +474,12 @@
             >
             <label
               class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-              :class="endCheckbox.includes('privacy') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+              :class="endCheckbox.includes('privacy') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold'"
               :for="'privacy'"
             >
               Ich bin mit der Speicherung meiner Daten gemäß Datenschutzerklärung einverstanden.
             </label>
-            <a class="text-blue-900 hover:underline" href="privacy" target="_blank">Datenschutzerklärung</a>
+            <a class="text-blue-700 block underline" href="/privacy" target="_blank">Datenschutzerklärung</a>
 
             <input
               id="rightOfWithdrawal"
@@ -484,7 +491,7 @@
             >
             <label
               class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-              :class="endCheckbox.includes('rightOfWithdrawal') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+              :class="endCheckbox.includes('rightOfWithdrawal') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold'"
               :for="'rightOfWithdrawal'"
             >
               Ich bestätige die Regelung bezüglich des Wiederrufsrechts bei wirkaufendeinhandy.shop (AGBs siehe 3.2)
@@ -500,12 +507,12 @@
             >
             <label
               class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-              :class="endCheckbox.includes('ToS') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:text-black hover:bg-gray-400 text-yellowDark font-bold'"
+              :class="endCheckbox.includes('ToS') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold'"
               :for="'ToS'"
             >
               Ich bin mit den geltenden AGBs einverstanden
             </label>
-            <a class="text-blue-900 hover:underline" href="AGB" target="_blank">AGBs</a>
+            <a class="text-blue-700 block underline" href="/agb" target="_blank">AGBs</a>
 
             <button
               v-if="endCheckbox.length === 3"
@@ -522,7 +529,7 @@
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
-              <div class="bg-white hover:bg-yellowLight hover:text-white p-4 rounded-md text-left">
+              <div class="bg-white hover:bg-gray-300 p-4 rounded-md text-left">
                 Zurück
               </div>
             </button>

@@ -43,10 +43,6 @@ function sendMail(message, test = false) {
   })
 }
 
-// const sendTestMail = message => sendMail(message, true)
-
-sendOfferAcceptMail('123456', { FirstName: 'Marius', Email: 'elbarto2002@gmail.com' })
-
 function sendOfferAcceptMail(uID, userDetails) {
   let date = new Date()
   const currentDate = date

@@ -8,6 +8,14 @@
           src="~assets/img/icons/Logo-new-1000.png"
           alt="Wirkaufendeinhandy - Logo"
         >
+        <div class="flex w-full justify-center">
+          <p class="text-sm p-2">in Kooperation mit</p>
+          <a href="https://www.whitelion-agency.de/" target="_blank"><img
+            class="h-8 object-contain my-auto"
+            src="~assets/img/icons/white-lion.png"
+            alt="Wirkaufendeinhandy - Logo"
+          ></a>
+        </div>
       </div>
       <div class="w-full md:w-1/4 space-y-2">
         <p class="font-bold text-black"><nuxt-link to="/">Verkauf</nuxt-link></p>
