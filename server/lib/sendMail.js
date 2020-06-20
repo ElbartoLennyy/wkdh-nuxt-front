@@ -45,7 +45,7 @@ function sendMail(message, test = false) {
 
 function sendOfferAcceptMail(uID, userDetails) {
   let date = new Date()
-  const currentDate = date
+  const currentDate = date.toLocaleString()
   date.setDate(date.getDate() + 7)
   date = formatDate(date, 'PPPP', { locale: deLocale })
   sendMail({
