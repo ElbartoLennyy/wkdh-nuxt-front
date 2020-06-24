@@ -9,7 +9,7 @@
           alt="Wirkaufendeinhandy - Logo"
         >
         <div class="flex w-full justify-center">
-          <p class="text-sm p-2">in Kooperation mit</p>
+          <p class="text-xs">in Kooperation mit</p>
           <a href="https://www.whitelion-agency.de/" target="_blank"><img
             class="h-8 object-contain my-auto"
             src="~assets/img/icons/white-lion.png"
@@ -35,6 +35,7 @@
         <div class="flex">
           <img class="h-8 w-auto object-contain" src="~assets/img/icons/paypal-logo.png" alt="PayPal">
           <img class="h-8 w-auto object-contain pl-6" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bank">
+          <p class="pl-2 my-auto font-bold text-black">IBAN</p>
         </div>
         <p class="font-bold text-black">Versand</p>
         <img class="h-8 w-auto object-contain mt-2" src="~assets/img/icons/dpd-logo.png" alt="Dpd Logo">
