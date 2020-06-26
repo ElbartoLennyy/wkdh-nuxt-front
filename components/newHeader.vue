@@ -3,11 +3,13 @@
     <button v-if="isOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="isOpen = false" />
     <div v-if="isOpen" class=" h-screen bg-white w-2/3 z-30 fixed left-0 top-0">
       <div class="flex p-2 justify-between">
-        <img
-          class="w-2/3 h-auto object-contain"
-          src="~assets/img/icons/Logo-new-1000.png"
-          alt="Wirkaufendeinhandy - Logo"
-        >
+        <div class="w-2/3">
+          <img
+            class="w-full h-auto object-contain"
+            src="~assets/img/icons/Logo-new-1000.png"
+            alt="Wirkaufendeinhandy - Logo"
+          >
+        </div>
         <button class="w-1/6 p-2" @click="isOpen = false">
           <img
             class="h-full w-full object-contain"

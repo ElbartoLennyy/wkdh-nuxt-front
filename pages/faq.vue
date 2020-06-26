@@ -6,9 +6,9 @@
         Willkommen im Wirkaufendeinhandy Hilfe-Center
       </p>
     </div>
-    <div class="grid grid-cols-1 md:grid-cols-4 gap-20 px-20 py-12 text-center text-xl lg:text-2xl xl:text-4xl font-semibold">
+    <div class="grid grid-cols-1 md:grid-cols-2 2xl:grid-cols-4 gap-10 px-20 py-12 text-center text-lg lg:text-xl xl:text-2xl font-semibold">
       <div class="border-gray-500 border-2 rounded-lg" @click="scrollMeTo('versand')">
-        <img class="h-12 xl:h-20 mx-auto m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
+        <img class="h-12 lg:h-16 xl:h-20 mx-auto m-8" src="~assets/img/svg/Versand-Lieferstatus.svg" alt="">
         <p class="mb-8">Versand & Lieferstatus</p>
       </div>
       <div class="border-gray-500 border-2 rounded-lg" @click="scrollMeTo('verkaufen')">
@@ -24,7 +24,8 @@
         <p class="mb-8">Auszahlung</p>
       </div>
     </div>
-    <p class="text-center font-bold text-lg">Häufige Fragen</p>
+    <p class="text-center font-bold text-lg lg:text-xl xl:text-2xl ">Unsere meistbeantworteten Fragen</p>
+    <p class="mx-6 text-center font-medium text-tiny lg:text-base xl:text-lg ">Solltest du in unserem FAQ keine für dich passende Antwort finden, so kontaktiere uns gerne über einen von dir gewählten Kontaktweg.</p>
 
     <div class="w-full p-4">
       <div v-for="(group, index) in groups" :ref="group.ref" :key="index" class="w-full border-gray-500 border-2 p-2 mb-4 rounded-lg">

@@ -45,5 +45,10 @@ module.exports = {
   },
   build: {
     extractCSS: true,
+    postcss: {
+      'postcss-cssnext': {
+        browsers: ['last 2 versions', 'ie >= 9'],
+      },
+    },
   },
 }
