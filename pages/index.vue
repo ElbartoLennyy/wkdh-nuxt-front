@@ -262,7 +262,7 @@
     </div>
     <div class="w-full h-auto mt-4 relative">
       <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-contain w-7/12 md:w-1/2">
-      <div class="w-2/3 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
+      <div class="w-7/12 xs:w-2/3 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
         <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2 -mt-6">
         <div class="ml-auto w-5/6 justify-between flex flex-col h-full text-center mt-6">
           <p class="text-yellowDark text-sm sm:text-md md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2">Mit deinem neuen Geld <br>könntest du...</p>
@@ -284,8 +284,8 @@
       <p class="text-xl md:text-4xl font-bold pb-4">Noch irgendwelche Fragen?</p>
       <p class="hidden md:block text-xl font-bold w-1/2 pb-4">Solltest du noch weitere Fragen haben, beantworten wir diese gerne per Mail oder Telefon. Ansonsten schaue gerne mal bei unserem FAQ vorbei</p>
       <div class="flex uppercase text-lg md:text-3xl justify-around font-bold w-full md:w-2/3 mb-1">
-        <nuxt-link to="/faq" class="border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 md:px-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">FAQ</nuxt-link>
-        <nuxt-link to="/contactUs" class="border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 md:px-8 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kontakt</nuxt-link>
+        <nuxt-link to="/faq" class="border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">FAQ</nuxt-link>
+        <nuxt-link to="/contactUs" class="border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kontakt</nuxt-link>
       </div>
     </div>
     <footerTemplate />
