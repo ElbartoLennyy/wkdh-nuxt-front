@@ -1,8 +1,9 @@
+require('dotenv').config()
 const admin = require('firebase-admin')
 const serviceAccount = require('../../firebase-account.json')
 const helper = require('./helper')
 
-const dbReference = 'DEV'
+const dbReference = process.env.FIREBASE_DATABASE_REFERENCE
 
 function getCurrentDate() {
   return (new Date().toISOString())
