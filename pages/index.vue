@@ -11,8 +11,8 @@
           class="h-auto w-2/3 object-contain ml-auto md:hidden"
           src="~assets/img/pictures/HappyFaces-onlymanSchräg.jpg"
         >
-        <button v-if="isOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="isOpen = false" />
-        <div v-if="isOpen" class="bg-white w-2/3 z-30 fixed inset-y-0 left-0 flex flex-col justify-between">
+        <button v-if="sidebarIsOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="sidebarIsOpen = false" />
+        <div v-if="sidebarIsOpen" class="bg-white w-2/3 z-30 fixed inset-y-0 left-0 flex flex-col justify-between">
           <div>
             <div class="flex p-2 justify-between">
               <div class="w-2/3">
@@ -22,7 +22,7 @@
                   alt="Wirkaufendeinhandy - Logo"
                 >
               </div>
-              <button class="w-1/6 p-2" @click="isOpen = false">
+              <button class="w-1/6 p-2" @click="sidebarIsOpen = false">
                 <img
                   class="h-full w-full object-contain"
                   src="~assets/img/svg/cross.svg"
@@ -80,8 +80,8 @@
         </div>
         <div class="absolute top-0 h-full w-full">
           <div class="w-full flex flex-col h-full">
-            <div class="flex w-full p-6 md:justify-around text-center space-x-6 items-center md:justify-around">
-              <button class="md:hidden w-1/12" @click="isOpen = !isOpen">
+            <div class="flex w-full p-6 md:justify-around text-center space-x-6 items-center">
+              <button class="md:hidden w-1/12" @click="sidebarIsOpen = !sidebarIsOpen">
                 <img
                   class="w-full h-auto object-contain"
                   src="~assets/img/svg/menu.svg"
@@ -185,18 +185,60 @@
           <p class="text-base lg:text-lg">Dein Geld wird auf dein Konto überwiesen.</p>
         </div>
       </div>
-      <div class="w-full bg-yellowDark text-white flex p-2 items-center md:hidden space-x-6">
-        <div class="flex-grow">
-          <img src="~assets/img/svg/Datenangabe.svg" class="h-12 mx-auto">
-          <p class="text-center">Datenangabe</p>
+      <div class="w-full bg-yellowDark text-white p-1 pt-2 md:hidden">
+        <div class="flex justify-between font-bold">
+          <div class="w-1/3">
+            <img src="~assets/img/svg/Datenangabe.svg" class="h-12 mx-auto">
+            <p class="text-center">Dateneingabe</p>
+          </div>
+          <div class="w-1/3">
+            <img src="~assets/img/svg/Versand.svg" class="h-12 mx-auto">
+            <p class="text-center">Versand an uns</p>
+          </div>
+          <div class="w-1/3">
+            <img src="~assets/img/svg/Zahltag.svg" class="h-12 mx-auto">
+            <p class="text-center">Zahltag</p>
+          </div>
         </div>
-        <div class="flex-grow">
-          <img src="~assets/img/svg/Versand.svg" class="h-12 mx-auto">
-          <p class="text-center">Versand an uns</p>
+        <div v-if="!procedureIsOpen" @click="procedureIsOpen = !procedureIsOpen">
+          <p class="text-center text-sm pt-2">mehr erfahren</p>
+          <img src="~assets/img/svg/keyboard_arrow_down-white-18dp.svg" alt="Pfeil nach unten" class="h-6 -mt-1 mx-auto">
         </div>
-        <div class="flex-grow">
-          <img src="~assets/img/svg/Zahltag.svg" class="h-12 mx-auto">
-          <p class="text-center">Zahltag</p>
+        <div v-if="procedureIsOpen" @click="procedureIsOpen = !procedureIsOpen">
+          <p class="text-center text-sm pt-2">weniger erfahren</p>
+          <img src="~assets/img/svg/keyboard_arrow_up-white-18dp.svg" alt="Pfeil nach oben" class="h-6 -mt-1 mx-auto">
+        </div>
+      </div>
+      <div v-if="procedureIsOpen">
+        <div class="w-full bg-gradientMirrored text-white p-6">
+          <div class="flex">
+            <img src="~assets/img/icons/datasheet.png" class="object-contain w-1/4 m-auto h-16 lg:h-32 p-2">
+            <div>
+              <p class="font-bold text-xl lg:text-2xl uppercase">Dateneingabe</p>
+              <p
+                class="text-base lg:text-lg"
+              >
+                Gebe die Daten deines Handys an und erhalte ein uverbindliches Angebot.
+              </p>
+            </div>
+          </div>
+          <img src="~assets/img/svg/arrow_downward-white-18dp.svg" class="object-contain h-16 p-2 mx-auto">
+
+          <div class="flex">
+            <img src="~assets/img/icons/Box.png" class="object-contain w-1/4 m-auto h-16 lg:h-32 p-2">
+            <div>
+              <p class="font-bold text-xl lg:text-2xl uppercase">Versand an uns</p>
+              <p class="text-base lg:text-lg">Einfach dein kostenloses Paketlabel ausdrucken und an uns senden.</p>
+            </div>
+          </div>
+          <img src="~assets/img/svg/arrow_downward-white-18dp.svg" class="object-contain h-16 p-2 mx-auto">
+          <div class="flex">
+            <img src="~assets/img/icons/Moneybag.png" class="object-contain w-1/4 m-auto h-16 lg:h-32 p-2">
+            <div>
+              <p class="font-bold text-xl lg:text-2xl uppercase">Zahltag</p>
+              <p class="text-base lg:text-lg">Dein Geld wird auf dein Konto überwiesen.</p>
+            </div>
+          </div>
         </div>
       </div>
       <div ref="vorteile" class="flex justify-around">
@@ -257,7 +299,8 @@ export default {
   components: { footerTemplate },
   data() {
     return {
-      isOpen: false,
+      sidebarIsOpen: false,
+      procedureIsOpen: false,
     }
   },
   mounted() {
