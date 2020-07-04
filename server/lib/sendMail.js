@@ -71,8 +71,7 @@ function sendOfferAcceptMail(uID, userDetails) {
 
 <p style="font-family: Arial, Helvetica, sans-serif;">hiermit bestätigen wir dir den Eingang deiner Ankaufsanfrage für dein Handy.</p>
 
-<p style="font-family: Arial, Helvetica, sans-serif;">Du hast bei deiner Versandmethode gewählt, dass du uns dein Gerät via Post zusendest.
-    Den Versandschein um dein Gerät zu versenden findest als PDF Datei auf unserer Website. <a href="https://wirkaufendeinhandy.shop/user/${uID}">Folge einfach dem Link</a></p>
+<p style="font-family: Arial, Helvetica, sans-serif;">Den Versandschein um dein Gerät zu versenden findest als PDF Datei auf unserer Website. <a href="https://wirkaufendeinhandy.shop/user/${uID}">Folge einfach dem Link</a></p>
 
 <p style="font-family: Arial, Helvetica, sans-serif;">Dein Geld überweisen wir dir nach erfolgreichem Check deines Geräts automatisch auf dein
     angegebenes Konto.</p>

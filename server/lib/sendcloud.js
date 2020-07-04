@@ -67,10 +67,4 @@ async function returnParcel(parcelID) {
   const { data } = await axios.get(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/return_portal_url`)
   return data
 }
-
-async function getParcel() {
-  const { data } = await axios.get('https://panel.sendcloud.sc/api/v2/parcels')
-  return data
-}
-
 module.exports = { createParcel, downloadLabel }
