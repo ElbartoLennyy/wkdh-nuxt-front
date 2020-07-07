@@ -12,8 +12,8 @@
         alt="Gründer - Marius Marx - Alexander Gerick"
         class="object-cover w-2/3 relative absolute z-0 max-h-screen"
       >
-      <div class="w-2/3 flex text-yellowDark font-bold md:text-2xl">
-        <p class="ml-6">Marius Marx</p>
+      <div class="w-2/3 flex text-yellowDark font-bold md:text-2xl md:justify-around">
+        <p class="ml-6 md:flex-grow md:text-center">Marius Marx</p>
         <p class="mr-4 flex-grow text-center">Alexander Gerick</p>
       </div>
       <div class="absolute right-0 top-0 h-full w-2/3">
@@ -35,15 +35,15 @@
       </div>
     </div>
     <div class="flex bg-gradientMirrored justify-around p-2 text-white text-lg md:text-xl font-semibold">
-      <div class="flex space-x-4">
-        <img src="~assets/img/svg/kalender.svg" alt="Kalender" class="h-12 object-contain my-auto">
+      <div class="flex">
+        <img src="~assets/img/svg/kalender.svg" alt="Kalender" class="h-12 object-contain my-auto mr-4">
         <p>
           Gegründet:
           <br>Januar 2020
         </p>
       </div>
-      <div class="flex space-x-4">
-        <img src="~assets/img/svg/ort.svg" alt="Ort" class="h-12 object-contain my-auto">
+      <div class="flex">
+        <img src="~assets/img/svg/ort.svg" alt="Ort" class="h-12 object-contain my-auto mr-4">
         <p>
           Hauptsitz:
           <br>Görlitz

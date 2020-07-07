@@ -1,8 +1,12 @@
 <template>
   <div class="min-h-screen w-full font-sans max-w-screen-3xl mx-auto">
-    <!--- <script id="CookieDeclaration" src="https://consent.cookiebot.com/00000000-0000-0000-0000-000000000000/cd.js" type="text/javascript" async /> --->
+    <script id="CookieDeclaration" src="https://consent.cookiebot.com/00000000-0000-0000-0000-000000000000/cd.js" type="text/javascript" async />
     <div class="w-full">
       <div class="relative w-full">
+        <div class="md:hidden fixed bottom-0 w-full text-center bg-white z-20 h-32 border-yellowDark border-t-4">
+          <p class="text-yellowDark font-bold mt-2">Du  willst dein gebrauchtes Handy jetzt verkaufen?</p>
+          <nuxt-link to="/handy" class="uppercase bg-gradient text-white font-bold inline-block p-2 mt-2 text-xl">Verkaufe hier!</nuxt-link>
+        </div>
         <img
           class="h-auto w-2/3 object-cover ml-auto hidden md:block"
           src="~assets/img/pictures/HappyFacesSchräg.jpg"
@@ -81,7 +85,7 @@
         <div class="absolute top-0 h-full w-full">
           <div class="w-full flex flex-col h-full">
             <div class="flex w-full p-6 md:justify-around text-center space-x-6 items-center">
-              <button class="md:hidden w-1/12" @click="sidebarIsOpen = !sidebarIsOpen">
+              <button class="md:hidden w-1/6" @click="sidebarIsOpen = !sidebarIsOpen">
                 <img
                   class="w-full h-auto object-contain"
                   src="~assets/img/svg/menu.svg"
@@ -89,7 +93,7 @@
                 >
               </button>
               <img
-                class="w-1/3 md:w-1/5 h-auto object-contain"
+                class="w-1/2 p-2 md:p-0 md:w-1/5 h-auto object-contain"
                 src="~assets/img/icons/Logo-new-1000.png"
                 alt="Wirkaufendeinhandy - Logo"
               >
@@ -205,7 +209,7 @@
           <img src="~assets/img/svg/keyboard_arrow_down-white-18dp.svg" alt="Pfeil nach unten" class="h-6 -mt-1 mx-auto">
         </div>
         <div v-if="procedureIsOpen" @click="procedureIsOpen = !procedureIsOpen">
-          <p class="text-center text-sm pt-2">weniger erfahren</p>
+          <p class="text-center text-sm pt-2">weniger anzeigen</p>
           <img src="~assets/img/svg/keyboard_arrow_up-white-18dp.svg" alt="Pfeil nach oben" class="h-6 -mt-1 mx-auto">
         </div>
       </div>
@@ -263,7 +267,7 @@
     <div class="w-full h-auto mt-4 relative">
       <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-contain w-7/12 md:w-1/2">
       <div class="w-7/12 xs:w-2/3 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
-        <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2 -mt-6">
+        <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2 -mt-2">
         <div class="ml-auto w-5/6 justify-between flex flex-col h-full text-center mt-6">
           <p class="text-yellowDark text-sm sm:text-md md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2">Mit deinem neuen Geld <br>könntest du...</p>
           <p class="text-black text-sm sm:text-md md:text-3xl xl:text-5xl font-bold flex-grow mr-2">Romantischer Städtetrip<br>mit deinem Partner</p>

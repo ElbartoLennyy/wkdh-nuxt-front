@@ -5,7 +5,7 @@
         <div>
           <div class="flex items-center text-center">
             <img
-              class="inline w-5 text-purple-500 text-pink-500"
+              class="inline w-5"
               src="~assets/img/svg/back.svg"
               alt="back button"
             >
@@ -232,27 +232,27 @@
               <div>
                 <p class="text-gray-900 font-bold text-lg">
                   Dein Handy<br>
-                  <span class="text-white font-bold font-bold text-xl">
+                  <span class="text-white font-bold text-xl">
                     {{ request.brand }} {{ request.phone }}
                   </span>
                 </p>
 
                 <p class="text-black font-bold text-lg ">
                   Speicher<br>
-                  <span class="text-white font-bold font-bold text-base">
+                  <span class="text-white font-bold text-base">
                     {{ request.storage }} Gb
                   </span>
                 </p>
                 <p class="text-black font-bold text-lg ">
                   Zustand<br>
-                  <span class="text-white font-bold font-bold text-base">
+                  <span class="text-white font-bold text-base">
                     {{ values.conditions[request.condition].title }}
                   </span>
                 </p>
                 <template v-if="request.defects.length >= 1">
                   <p class="text-black font-bold text-lg ">
                     Defekte<br>
-                    <span class="text-white font-bold font-bold text-base">
+                    <span class="text-white font-bold text-base">
                       <template v-for="defect in request.defects">
                         {{ values.defects[defect].title }}
                         <br :key="defect">
@@ -263,7 +263,7 @@
                 <template v-if="request.accessories.length >= 1">
                   <p class="text-black font-bold text-lg ">
                     Zubehör<br>
-                    <span class="text-white font-bold font-bold text-base">
+                    <span class="text-white font-bold text-base">
                       <template v-for="accessory in request.accessories">
                         {{ values.accessories[accessory] }}
                         <br :key="accessory">
@@ -335,8 +335,8 @@
 </template>
 
 <script>
+// import ICountUp from 'vue-countup-v2'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
-
 import * as values from '~/data/values'
 
 export default {
