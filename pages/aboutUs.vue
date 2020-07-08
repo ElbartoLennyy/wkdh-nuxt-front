@@ -13,8 +13,8 @@
         class="object-cover w-2/3 relative absolute z-0 max-h-screen"
       >
       <div class="w-2/3 flex text-yellowDark font-bold md:text-2xl md:justify-around">
-        <p class="ml-6 md:flex-grow md:text-center">Marius Marx</p>
-        <p class="mr-4 flex-grow text-center">Alexander Gerick</p>
+        <p class="ml-6 md:flex-grow text-center">Marius Marx</p>
+        <p class="mr-4 flex-grow text-center pr-6 md:pr-0">Alexander Gerick</p>
       </div>
       <div class="absolute right-0 top-0 h-full w-2/3">
         <div class="absolute right-0 bottom-0 top-0 flex flex-col justify-around md:justify-start md:w-2/3">

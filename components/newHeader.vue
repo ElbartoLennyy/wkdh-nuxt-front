@@ -18,7 +18,7 @@
           >
         </button>
       </div>
-      <div class="w-full text-center space-y-10 overflow-hidden">
+      <div class="w-full text-center space-y-10 overflow-hidden mt-8">
         <nuxt-link
           to="/"
           class="uppercase block text-xl font-bold text-yellowDark w-1/2 mx-auto"
@@ -36,7 +36,7 @@
         <div class="bg-yellowDark rounded-lg p-2 mx-4">
           <nuxt-link
             to="/handy"
-            class="uppercase block p-2 text-xl font-bold text-yellowDark bg-white rounded-lg"
+            class="uppercase block p-2 text-xl font-bold text-yellowDark bg-white rounded-sm"
           >
             Verkaufen
           </nuxt-link>
@@ -69,7 +69,7 @@
       </div>
     </div>
     <div class="w-full flex flex-col h-full">
-      <div class="flex w-full p-6 md:justify-around text-center space-x-6 items-center md:justify-around">
+      <div class="flex w-full p-6 text-center space-x-6 items-center md:justify-around">
         <button class="md:hidden w-1/12" @click="isOpen = !isOpen">
           <img
             class="w-full h-auto object-contain"

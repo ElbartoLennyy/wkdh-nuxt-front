@@ -44,6 +44,7 @@ module.exports = {
     proxyHeaders: false,
   },
   build: {
+    transpile: ['countup.js', 'vue-countup-v2'],
     extractCSS: true,
     postcss: {
       'postcss-cssnext': {

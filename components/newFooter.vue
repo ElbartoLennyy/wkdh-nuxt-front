@@ -3,11 +3,13 @@
     <hr>
     <div class="w-full p-4 md:p-8 md:flex justify-around text-gray-600 font-light text-center md:text-left">
       <div class="w-full md:w-1/6 flex md:block justify-around">
-        <img
-          class="w-auto h-12 md:h-20 object-contain mt-auto"
-          src="~assets/img/icons/Logo-new-1000.png"
-          alt="Wirkaufendeinhandy - Logo"
-        >
+        <nuxt-link class="h-12 md:h-20 mt-auto" to="/">
+          <img
+            class="w-auto h-full object-contain"
+            src="~assets/img/icons/Logo-new-1000.png"
+            alt="Wirkaufendeinhandy - Logo"
+          >
+        </nuxt-link>
         <div class="md:flex md:pt-4">
           <p class="text-xs pb-1">in Kooperation mit</p>
           <a href="https://www.whitelion-agency.de/" target="_blank"><img

@@ -3,9 +3,8 @@
     <script id="CookieDeclaration" src="https://consent.cookiebot.com/00000000-0000-0000-0000-000000000000/cd.js" type="text/javascript" async />
     <div class="w-full">
       <div class="relative w-full">
-        <div class="md:hidden fixed bottom-0 w-full text-center bg-white z-20 h-32 border-yellowDark border-t-4">
-          <p class="text-yellowDark font-bold mt-2">Du  willst dein gebrauchtes Handy jetzt verkaufen?</p>
-          <nuxt-link to="/handy" class="uppercase bg-gradient text-white font-bold inline-block p-2 mt-2 text-xl">Verkaufe hier!</nuxt-link>
+        <div class="md:hidden fixed bottom-0 w-full text-center z-20 h-24">
+          <nuxt-link to="/handy" class="uppercase bg-gradient text-white font-bold inline-block p-3 text-xl rounded-lg border-white border-2">Verkaufe hier!</nuxt-link>
         </div>
         <img
           class="h-auto w-2/3 object-cover ml-auto hidden md:block"
@@ -50,7 +49,7 @@
               <div class="bg-yellowDark rounded-lg p-2 mx-4">
                 <nuxt-link
                   to="/handy"
-                  class="uppercase block p-2 text-xl font-bold text-yellowDark bg-white rounded-lg"
+                  class="uppercase block p-2 text-xl font-bold text-yellowDark bg-white rounded-sm"
                 >
                   Verkaufen
                 </nuxt-link>
@@ -84,8 +83,8 @@
         </div>
         <div class="absolute top-0 h-full w-full">
           <div class="w-full flex flex-col h-full">
-            <div class="flex w-full p-6 md:justify-around text-center space-x-6 items-center">
-              <button class="md:hidden w-1/6" @click="sidebarIsOpen = !sidebarIsOpen">
+            <div class="flex w-full p-6 text-center space-x-6 items-center md:justify-around">
+              <button class="md:hidden w-1/12" @click="sidebarIsOpen = !sidebarIsOpen">
                 <img
                   class="w-full h-auto object-contain"
                   src="~assets/img/svg/menu.svg"
@@ -93,48 +92,46 @@
                 >
               </button>
               <img
-                class="w-1/2 p-2 md:p-0 md:w-1/5 h-auto object-contain"
+                class="w-1/3 md:w-1/5 h-auto object-contain"
                 src="~assets/img/icons/Logo-new-1000.png"
                 alt="Wirkaufendeinhandy - Logo"
               >
-              <div class="w-3/4 flex justify-between items-center">
-                <div class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
-                  <p
-                    class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                  >
-                    Home
-                  </p>
-                </div>
-
-                <button class="hidden md:block bg-white rounded-lg p-2 xl:px-8" @click="scrollMeTo('ablauf')">
-                  <p
-                    class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                  >
-                    Ablauf
-                  </p>
-                </button>
-                <button class="hidden md:block bg-white rounded-lg p-2 xl:px-8" @click="scrollMeTo('vorteile')">
-                  <p
-                    class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                  >
-                    Vorteile
-                  </p>
-                </button>
-                <nuxt-link to="/aboutUs" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
-                  <p
-                    class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                  >
-                    Über uns
-                  </p>
-                </nuxt-link>
-                <nuxt-link to="/handy" class="hidden md:block bg-white rounded-lg transition duration-300 ease-in-out transform hover:scale-110 p-2">
-                  <p
-                    class="uppercase p-2 text-xl lg:text-2xl xl:text-3xl font-bold text-white bg-yellowDark rounded-sm"
-                  >
-                    Verkaufen
-                  </p>
-                </nuxt-link>
+              <div class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Home
+                </p>
               </div>
+
+              <button class="hidden md:block bg-white rounded-lg p-2 xl:px-8" @click="scrollMeTo('ablauf')">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Ablauf
+                </p>
+              </button>
+              <button class="hidden md:block bg-white rounded-lg p-2 xl:px-8" @click="scrollMeTo('vorteile')">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Vorteile
+                </p>
+              </button>
+              <nuxt-link to="/aboutUs" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Über uns
+                </p>
+              </nuxt-link>
+              <nuxt-link to="/handy" class="hidden md:block bg-white rounded-lg transition duration-300 ease-in-out transform hover:scale-110 p-2">
+                <p
+                  class="uppercase p-2 text-xl lg:text-2xl xl:text-3xl font-bold text-white bg-yellowDark rounded-sm"
+                >
+                  Verkaufen
+                </p>
+              </nuxt-link>
             </div>
             <div class="w-full flex-grow flex">
               <div class="flex flex-col lg:-space-y-1 xl:space-y-0 w-1/2 md:p-2 md:ml-0">
@@ -293,6 +290,7 @@
       </div>
     </div>
     <footerTemplate />
+    <dir class="h-16 w-full" />
   </div>
 </template>
 
