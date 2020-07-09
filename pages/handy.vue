@@ -54,6 +54,33 @@
       <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-yellowLight min-h-full">
           <template v-if="stage === 0">
+            <div class="fixed inset-0 bg-gradient-vertical h-screen overflow-hidden text-white font-bold text-center">
+              <p class="text-3xl pt-16">Du erhältst...</p>
+              <p class="text-6xl pt-4">215,00€</p>
+              <p class="text-xl pt-8 px-8">Mit diesem Geld könntest du...</p>
+              <agile :autoplay="true" :najjv-buttons="false">
+                <div class="slide">
+                  <h3>eine Alpaka Tour machen</h3>
+                  <img
+                    src="~assets/img/pictures/events/Alpaka.jpg"
+                    alt="Alpaka"
+                  >
+                </div>
+                <div class="slide">
+                  <h3>einen Lambo fahren</h3>
+                  <img
+                    src="~assets/img/pictures/events/Audi R8 Streckentraining.jpg"
+                    alt="Alpaka"
+                  >
+                </div> <div class="slide">
+                  <h3>einen BMW C63s Huracan LT fahren</h3>
+                  <img
+                    src="~assets/img/pictures/events/Kampfflugzeug fliegen.jpg"
+                    alt="Alpaka"
+                  >
+                </div>
+              </agile>
+            </div>
             <p class="text-white font-bold">
               Von welcher Marke ist dein Handy?
             </p>
@@ -229,6 +256,8 @@
               </p>
             </template>
             <template v-else>
+              <p>lul</p>
+              <!--
               <div>
                 <p class="text-gray-900 font-bold text-lg">
                   Dein Handy<br>
@@ -315,6 +344,7 @@
                   </div>
                 </button>
               </div>
+              -->
             </template>
           </template>
           <div class="mt-2 w-full">
@@ -335,12 +365,16 @@
 </template>
 
 <script>
+import { VueAgile } from 'vue-agile'
 // import ICountUp from 'vue-countup-v2'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 import * as values from '~/data/values'
 
 export default {
-  components: { RecaptchaNotice },
+  components: {
+    RecaptchaNotice,
+    agile: VueAgile,
+  },
   data: () => ({
     stage: 0,
     values,
@@ -446,3 +480,10 @@ export default {
   }),
 }
 </script>
+
+<style >
+
+.bg-gradient-vertical{
+   background-image: linear-gradient( rgba(250,164,1,1),rgba(255,187,57,1));
+}
+</style>
