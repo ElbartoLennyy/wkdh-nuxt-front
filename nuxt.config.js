@@ -18,6 +18,7 @@ module.exports = {
     '~/assets/css/loader.css',
   ],
   loading: { color: '#fff' },
+  plugins: ['~/plugins/vue-agile'],
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',
@@ -25,15 +26,13 @@ module.exports = {
   modules: [
     '@nuxtjs/sentry',
     '@nuxtjs/axios',
-    /*
-    ['nuxt-facebook-pixel-module', {
+    /* ['nuxt-facebook-pixel-module', {
       pixelId: process.env.FACEBOOK_PIXEL_ID,
     }],
     ['@netsells/nuxt-hotjar', {
       id: process.env.HOTJAR_ID,
       sv: 6,
-    }],
-    */
+    }], */
   ],
   sentry: {
     dsn: process.env.SENTRY_DNS, // Enter your project's DSN here

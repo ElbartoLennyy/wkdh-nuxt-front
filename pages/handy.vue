@@ -54,33 +54,6 @@
       <div class="md:w-2/3 p-2 h-screen md:overflow-y-auto">
         <div class="rounded-lg p-6 md:p-12 bg-yellowLight min-h-full">
           <template v-if="stage === 0">
-            <div class="fixed inset-0 bg-gradient-vertical h-screen overflow-hidden text-white font-bold text-center">
-              <p class="text-3xl pt-16">Du erhältst...</p>
-              <p class="text-6xl pt-4">215,00€</p>
-              <p class="text-xl pt-8 px-8">Mit diesem Geld könntest du...</p>
-              <agile :autoplay="true" :najjv-buttons="false">
-                <div class="slide">
-                  <h3>eine Alpaka Tour machen</h3>
-                  <img
-                    src="~assets/img/pictures/events/Alpaka.jpg"
-                    alt="Alpaka"
-                  >
-                </div>
-                <div class="slide">
-                  <h3>einen Lambo fahren</h3>
-                  <img
-                    src="~assets/img/pictures/events/Audi R8 Streckentraining.jpg"
-                    alt="Alpaka"
-                  >
-                </div> <div class="slide">
-                  <h3>einen BMW C63s Huracan LT fahren</h3>
-                  <img
-                    src="~assets/img/pictures/events/Kampfflugzeug fliegen.jpg"
-                    alt="Alpaka"
-                  >
-                </div>
-              </agile>
-            </div>
             <p class="text-white font-bold">
               Von welcher Marke ist dein Handy?
             </p>
@@ -256,95 +229,43 @@
               </p>
             </template>
             <template v-else>
-              <p>lul</p>
-              <!--
-              <div>
-                <p class="text-gray-900 font-bold text-lg">
-                  Dein Handy<br>
-                  <span class="text-white font-bold text-xl">
-                    {{ request.brand }} {{ request.phone }}
-                  </span>
-                </p>
-
-                <p class="text-black font-bold text-lg ">
-                  Speicher<br>
-                  <span class="text-white font-bold text-base">
-                    {{ request.storage }} Gb
-                  </span>
-                </p>
-                <p class="text-black font-bold text-lg ">
-                  Zustand<br>
-                  <span class="text-white font-bold text-base">
-                    {{ values.conditions[request.condition].title }}
-                  </span>
-                </p>
-                <template v-if="request.defects.length >= 1">
-                  <p class="text-black font-bold text-lg ">
-                    Defekte<br>
-                    <span class="text-white font-bold text-base">
-                      <template v-for="defect in request.defects">
-                        {{ values.defects[defect].title }}
-                        <br :key="defect">
-                      </template>
-                    </span>
-                  </p>
-                </template>
-                <template v-if="request.accessories.length >= 1">
-                  <p class="text-black font-bold text-lg ">
-                    Zubehör<br>
-                    <span class="text-white font-bold text-base">
-                      <template v-for="accessory in request.accessories">
-                        {{ values.accessories[accessory] }}
-                        <br :key="accessory">
-                      </template>
-                    </span>
-                  </p>
-                </template>
-                <p class="text-white font-bold text-xl">Wir kaufen dein Handy!</p>
-                <p class="text-white font-bold text-2xl md:text-4xl">
-                  Wir bieten dir
-                  <b>{{ offer.price.price }}</b> €
-                </p>
-                <button @click="priceDetailsShown = !priceDetailsShown">
-                  <div class="text-black font-bold text-sm flex items-center">
-                    Wie entsteht der Preis?
-                  </div>
-                </button>
-                <div
-                  v-if="priceDetailsShown"
-                  class="w-full mt-2 mb-4 bg-white text-gray-900 p-4"
-                  style="border-radius: 14px"
-                >
-                  <div class="font-semibold">Potentieller Endverkaufswert: {{ offer.price.sellingPrice }} €</div>
-                  <div class="text-gray-700">
-                    <div>– Marktplatz-Verkaufsgebühren (5%): {{ offer.price.sellingPrice * 0.05 }} €</div>
-                    <div>– Überprüfungs- und Verwaltungsaufwand: 4 €</div>
-                    <div>– Hosting- und Marketingkosten: 6 €</div>
-                    <div>– Differenzbesteuerung (19%): {{ (offer.price.sellingPrice - offer.price.price) * 0.19 }} €</div>
-                    <div>– Versandkosten: 10 €</div>
-                    <div>– Abholkosten (optional): 6 €</div>
-                    <div v-if="request.defects.length > 0">– Reparaturkosten</div>
-                  </div>
-                  <div class="font-semibold">= Unser Angebot: {{ offer.price.price }} €</div>
+              <div class="text-white font-bold text-center rounded-lg">
+                <p class="text-3xl">Du erhältst...</p>
+                <div class="text-6xl">
+                  <ICountUp
+                    :end-val="offer.price.price"
+                    :options="options"
+                    class="text-6xl"
+                    @ready="onReady"
+                  />
+                  €
                 </div>
-                <button
-                  class="mt-4 block w-full"
-                  @click="acceptOffer"
-                >
-                  <div class="bg-gray-100 hover:bg-gray-400 font-bold text-black p-4 rounded-lg text-left">
-                    Angebot annehmen und jetzt Handy verkaufen!
-                  </div>
+                <p class="text-xl px-8 pt-6">Mit diesem Geld könntest du...</p>
+                <client-only>
+                  <agile
+                    :autoplay="true"
+                    :nav-buttons="false"
+                    :dots="false"
+                    :pause-on-hover="false"
+                    class="my-6"
+                  >
+                    <div v-for="event in eventListComputed" :key="event.name">
+                      <h3>{{ event.description }}</h3>
+                      <img
+                        :src="require(`../assets/img/pictures/events/${event.picName}.jpg`)"
+                        :alt="event.name"
+                        class="mt-4 max-w-lg mx-auto"
+                      >
+                    </div>
+                  </agile>
+                </client-only>
+                <button class="bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 font-bold text-3xl w-full" @click="acceptOffer">
+                  Weiter zum Verkauf
                 </button>
-                <button
-                  class="mt-4 block w-full"
-                  @click="rejectOffer"
-                >
-                  <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
-                    Ablehnen
-                  </div>
+                <button class="block mx-auto bg-gray-400 p-2 text-md border-2 mt-6 border-gray-500 rounded-lg font-bold px-4" @click="rejectOffer">
+                  zurück zu Home
                 </button>
               </div>
-              -->
             </template>
           </template>
           <div class="mt-2 w-full">
@@ -366,7 +287,7 @@
 
 <script>
 import { VueAgile } from 'vue-agile'
-// import ICountUp from 'vue-countup-v2'
+import ICountUp from 'vue-countup-v2'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 import * as values from '~/data/values'
 
@@ -374,6 +295,7 @@ export default {
   components: {
     RecaptchaNotice,
     agile: VueAgile,
+    ICountUp,
   },
   data: () => ({
     stage: 0,
@@ -389,10 +311,154 @@ export default {
     },
     offer: null,
     priceDetailsShown: false,
+    eventList: [{
+      name: 'Alpaka Wanderung',
+      description: 'eine Alpakawanderung unternehmen',
+      picName: 'Alpaka',
+      startPrice: 30,
+      endPrice: 55,
+    }, {
+      name: 'Paintball spielen',
+      description: 'mit deinen Freunden Paintball spielen gehen',
+      picName: 'Paintball',
+      startPrice: 54,
+      endPrice: 80,
+    },
+    {
+      name: 'Dinner',
+      description: 'mit deinem Lebenspartner in ein schickes Restaurant essen gehen',
+      picName: 'Restaurant',
+      startPrice: 60,
+      endPrice: 90,
+    },
+    {
+      name: 'Tauchkurs',
+      description: 'einen Tauchkurs belegen',
+      picName: 'tauchen',
+      startPrice: 70,
+      endPrice: 90,
+    },
+    {
+      name: 'Quad',
+      description: 'mit Freunden eine Offroad Quadtour machen',
+      picName: 'Quad-Quer',
+      startPrice: 75,
+      endPrice: 100,
+    },
+    {
+      name: 'Sushi Kurs',
+      description: 'mit Freunden an einem Sushikurs teilnehmen',
+      picName: 'Sushikurs',
+      startPrice: 85,
+      endPrice: 120,
+    },
+    {
+      name: 'Spawochenende',
+      description: 'mit einer Freundin ein Spawochenende verbringen',
+      picName: 'Spawochenende',
+      startPrice: 90,
+      endPrice: 2000,
+    },
+    {
+      name: 'Rafting',
+      description: 'mit deinen Freunden zum Wildwasserrafting fahren',
+      picName: 'Wildwasserrafting',
+      startPrice: 120,
+      endPrice: 180,
+    }, {
+      name: 'Paragleiten',
+      description: 'Paragleiten gehen',
+      picName: 'Paragleiten',
+      startPrice: 135,
+      endPrice: 200,
+    }, {
+      name: 'Lamborghini fahren',
+      description: 'mit einem Lamborghini auf der Renstrecke fahren',
+      picName: 'Lamborghini huracan',
+      startPrice: 150,
+      endPrice: 220,
+    }, {
+      name: 'Panzer fahren',
+      description: 'mit Panzer fahren',
+      picName: 'Panzer',
+      startPrice: 170,
+      endPrice: 250,
+    }, {
+      name: 'Motorrad Rennstreckentraining',
+      description: 'mit einem Rennmotorrad ein Streckentraining absolvieren',
+      picName: 'Motorrad Rennstreckentraining',
+      startPrice: 190,
+      endPrice: 250,
+    }, {
+      name: 'Fallschirmsprung',
+      description: 'Fallschirmspringen gehen',
+      picName: 'Fallschirmsprung',
+      startPrice: 200,
+      endPrice: 400,
+    }, {
+      name: 'Kampfflugzeug fliegen',
+      description: 'mit einem Kampfflugzeug fliegen',
+      picName: 'Kampfflugzeug fliegen',
+      startPrice: 300,
+      endPrice: 2000,
+    }, {
+      name: 'Städteurlaub',
+      description: 'mit deinem Partner einen 3 Tage Stadturlaub machen',
+      picName: 'Stadttrip Paar',
+      startPrice: 400,
+      endPrice: 2000,
+    }, {
+      name: 'Disneyland',
+      description: 'mit deinem Partner einen 3 Tage Disneylandtrip machen',
+      picName: 'Disneyland',
+      startPrice: 400,
+      endPrice: 2000,
+    }, {
+      name: 'Audi R8',
+      description: 'ein Rennstreckentraining mit einem Audi R8 machen',
+      picName: 'Audi R8 Streckentraining',
+      startPrice: 570,
+      endPrice: 2000,
+    }, {
+      name: 'Shopingtour',
+      description: 'eine Runde shoppen gehen',
+      picName: 'Shopingtour',
+      startPrice: 100,
+      endPrice: 180,
+    }, {
+      name: 'Reiten',
+      description: 'am Strand reiten gehen',
+      picName: 'Reiten am Strand',
+      startPrice: 55,
+      endPrice: 95,
+    }, {
+      name: 'Cocktailkurs',
+      description: 'mit Freunden an einem Cockteilkurs teilnehmen',
+      picName: 'Cocktailkurs',
+      startPrice: 60,
+      endPrice: 110,
+    },
+    ],
+    options: {
+      decimalPlaces: 2,
+      duration: 3,
+      separator: '.',
+      decimal: ',',
+    },
   }),
   computed: {
     progress() {
       return [5, 15, 30, 45, 60, 68, 75][this.stage]
+    },
+    eventListComputed() {
+      const computedList = []
+      for (const event of this.eventList) {
+        console.log(event)
+        if (this.offer.price.price >= event.startPrice && this.offer.price.price <= event.endPrice) {
+          computedList.push(event)
+        }
+      }
+      return computedList
     },
   },
   created() {
