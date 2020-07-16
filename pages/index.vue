@@ -351,6 +351,13 @@ export default {
     cookieScript.setAttribute('data-cbid', `${process.env.NUXT_ENV_COOKIE_TOKEN}`)
     cookieScript.setAttribute('data-blockingmode', 'auto')
     document.head.appendChild(cookieScript)
+    const agile = document.createElement('script')
+    agile.setAttribute('src', 'https://unpkg.com/vue-agile')
+    document.head.appendChild(agile)
+    const agileStyle = document.createElement('link')
+    agileStyle.setAttribute('rel', 'stylesheet')
+    agileStyle.setAttribute('href', 'https://unpkg.com/vue-agile/dist/VueAgile.css')
+    document.head.appendChild(agileStyle)
   },
   methods: {
     scrollMeTo(refName) {

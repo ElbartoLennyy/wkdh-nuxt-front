@@ -465,11 +465,3 @@ export default {
   components: { footerTemplate, headerTemplate },
 }
 </script>
-
-<style>
-@responsive {
-  .bg-illustration {
-    background-image: url('~assets/img/background.svg');
-  }
-}
-</style>

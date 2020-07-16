@@ -254,7 +254,7 @@
                       <img
                         :src="require(`../assets/img/pictures/events/${event.picName}.jpg`)"
                         :alt="event.name"
-                        class="mt-4 max-w-lg mx-auto"
+                        class="mt-4 max-w-lg h-auto w-full mx-auto object-contain"
                       >
                     </div>
                   </agile>
@@ -463,6 +463,15 @@ export default {
   },
   created() {
     this.getBrands()
+  },
+  mounted() {
+    const agile = document.createElement('script')
+    agile.setAttribute('src', 'https://unpkg.com/vue-agile')
+    document.head.appendChild(agile)
+    const agileStyle = document.createElement('link')
+    agileStyle.setAttribute('rel', 'stylesheet')
+    agileStyle.setAttribute('href', 'https://unpkg.com/vue-agile/dist/VueAgile.css')
+    document.head.appendChild(agileStyle)
   },
   methods: {
     async getBrands() {
