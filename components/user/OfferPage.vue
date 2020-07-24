@@ -41,7 +41,7 @@
               Informationen zur Erhebung, Verarbeitung, Speicherung und Löschung deiner Daten findest du in unserer
               <a
                 target="_blank"
-                href="privacy"
+                href="/privacy"
                 class="text-yellowDark hover:text-yellowLight"
               >Datenschutzerklärung</a>
             </p>

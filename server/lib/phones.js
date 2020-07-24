@@ -82,6 +82,20 @@ const phones = {
         price: 278.6,
       },
     },
+    'iPhone SE 1. Gen': {
+      16: {
+        price: 70,
+      },
+      32: {
+        price: 80,
+      },
+      64: {
+        price: 100,
+      },
+      128: {
+        price: 130,
+      },
+    },
     'iPhone 6S Plus': {
       16: {
         price: 189.83333333333334,
@@ -112,16 +126,16 @@ const phones = {
     },
     'iPhone 6 Plus': {
       16: {
-        price: 176.16666666666666,
+        price: 120,
       },
       32: {
-        price: 236.04,
+        price: 130,
       },
       64: {
-        price: 198.07692307692307,
+        price: 140,
       },
       128: {
-        price: 213.6,
+        price: 160,
       },
     },
     'iPhone 6': {
@@ -129,13 +143,13 @@ const phones = {
         price: 76.20833333333333,
       },
       32: {
-        price: 109.58823529411765,
+        price: 80,
       },
       64: {
-        price: 193.85714285714286,
+        price: 90,
       },
       128: {
-        price: 128.91666666666666,
+        price: 110,
       },
     },
   },
