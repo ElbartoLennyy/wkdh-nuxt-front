@@ -24,17 +24,15 @@
             <b>{{ offer.Price.price }}</b> €
           </p>
 
-          <div class="flex items-center text-center md:pt-4">
+          <nuxt-link to="/contactUs" target="_blank" class="md:pt-4 flex text-yellowDark hover:text-yellowLight">
             <img
-              class="inline w-5 "
+              class="w-5 mr-2"
               src="~assets/img/svg/help.svg"
               alt="help button"
             >
 
-            <nuxt-link to="/contactUs" target="_blank" class="text-yellowDark hover:text-yellowLight pl-2">
-              Hilfe erhalten
-            </nuxt-link>
-          </div>
+            Hilfe erhalten
+          </nuxt-link>
 
           <div class="text-gray-700 text-xs md:w-3/4 pt-4">
             <p>
@@ -112,7 +110,7 @@
                 <input
                   id="firstName"
                   v-model.trim="form.FirstName"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
                   type="text"
                   placeholder="Vorname*"
                   required
@@ -125,7 +123,7 @@
                 <input
                   id="name"
                   v-model.trim="form.Name"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
                   type="text"
                   placeholder="Nachname*"
                   required
@@ -143,7 +141,7 @@
             <input
               id="Adress"
               v-model.trim="address.Adress"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
               type="text"
               placeholder="Straße, Hausnummer*"
               required
@@ -159,7 +157,7 @@
                 <input
                   id="PLZ"
                   v-model.trim="address.PLZ"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
                   type="text"
                   placeholder="PLZ*"
                   required
@@ -174,7 +172,7 @@
                 <input
                   id="Place"
                   v-model.trim="address.Place"
-                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                  class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
                   type="text"
                   placeholder="Ort*"
                   required
@@ -194,7 +192,7 @@
             <input
               id="email"
               v-model.trim="form.Email"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
               type="email"
               placeholder="Email*"
               required
@@ -205,7 +203,7 @@
             <input
               id="phoneNumber"
               v-model.trim="form.PhoneNumber"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
               type="tel"
               placeholder="Telefonnummer"
             >
@@ -216,7 +214,30 @@
             <p class="text-white text-xl mt-4">
               Transportart
             </p>
-            <p class="p-4 w-full bg-gray-100 mb-2 rounded-md text-black py-3 rounded-md">Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/icons/dpd-logo.png"> </p>
+
+            <div class="p-4 w-full bg-gray-100 mb-2 rounded-md text-black py-3 flex justify-between" @click="shippingInformationIsOpen = !shippingInformationIsOpen">
+              <p>
+                Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/icons/dpd-logo.png">
+              </p>
+              <img
+                class="w-5 inline"
+                src="~assets/img/svg/help.svg"
+                alt="help button"
+              >
+            </div>
+
+            <div v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 m-12 md:m-16 p-4 rounded-lg bg-white z-30">
+              <p class="text-right" @click="shippingInformationIsOpen = false">X</p>
+              <div class=" flex flex-col justify-around w-full h-full">
+                <p>1. Du erhältst das Versandlabel nach Verkaufsabschluss via Mail.</p>
+                <p>2. Packe dein Paket, prüfe noch einmal das alles dabei ist und klebe es zu.</p>
+                <p>3. Drucke das Label an einem Drucker aus.</p>
+                <p>4. Klebe das Label gut sichtbar auf dein Paket.</p>
+                <p>5. Bringe das Paket zu einem DPD-Paketshop.</p>
+                <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zum Verkauf</button>
+              </div>
+            </div>
+            <button v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="shippingInformationIsOpen = false" />
 
             <p class="text-white font-bold text-sm">Du verschickst dein Handy kostenlos selber</p>
             <p class="text-white font-bold text-sm">Das Label erhältst du nach Abschluss</p>
@@ -268,7 +289,7 @@
             <input
               id="paymentData"
               v-model.trim="form.PaymentData"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
               :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
               :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
               required
@@ -379,7 +400,7 @@
             </p>
             <template v-if="form.PhoneNumber != ''">
               <p
-                class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
               >
                 {{ form.PhoneNumber }}
               </p>
@@ -552,6 +573,7 @@ export default {
     stage: 0,
     values,
     endCheckbox: [],
+    shippingInformationIsOpen: false,
     form: {
       Email: '',
       Salutation: 'Herr',

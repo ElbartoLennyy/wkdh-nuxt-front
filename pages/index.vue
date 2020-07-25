@@ -8,11 +8,11 @@
         </div>
         <img
           class="h-auto w-2/3 object-cover ml-auto hidden md:block"
-          src="~assets/img/pictures/HappyFacesSchräg.jpg"
+          src="~assets/img/pictures/HappyFacesaslant.jpg"
         >
         <img
           class="h-auto w-2/3 object-contain ml-auto md:hidden"
-          src="~assets/img/pictures/HappyFaces-onlymanSchräg.jpg"
+          src="~assets/img/pictures/HappyFaces-onlymanaslant.jpg"
         >
         <button v-if="sidebarIsOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="sidebarIsOpen = false" />
         <div v-if="sidebarIsOpen" class="bg-white w-2/3 z-30 fixed inset-y-0 left-0 flex flex-col justify-between">
@@ -250,13 +250,13 @@
           <p class="text-xl md:text-6xl font-bold text-yellowDark">100% Preisgarantie</p>
           <p class="text-lg md:text-4xl text-yellowDark font-bold">Verkaufen mit Sicherheit</p>
           <div class="flex pt-2 md:pt-6 text-sm md:text-2xl font-bold mt-2">
-            <img src="~assets/img/svg/Häkchen.svg" class="inline h-6 md:h-10"> <p class="w-11/12 ml-auto">Das bekommen, was vereinbart wurde. </p>
+            <img src="~assets/img/svg/check.svg" class="inline h-6 md:h-10"> <p class="w-11/12 ml-auto">Das bekommen, was vereinbart wurde. </p>
           </div>
           <div class="flex pt-2 md:pt-6 text-sm md:text-2xl font-bold">
-            <img src="~assets/img/svg/Häkchen.svg" class="inline h-6 md:h-10"> <p class="w-11/12 ml-auto">Gewissenhafte und ehrliche Zweitprüfung.</p>
+            <img src="~assets/img/svg/check.svg" class="inline h-6 md:h-10"> <p class="w-11/12 ml-auto">Gewissenhafte und ehrliche Zweitprüfung.</p>
           </div>
           <div class="flex pt-2 md:pt-6 text-sm md:text-2xl font-bold">
-            <img src="~assets/img/svg/Häkchen.svg" class="inline h-6 md:h-10"> <p class="w-11/12 ml-auto">Faire Preise im An- und Verkauf.</p>
+            <img src="~assets/img/svg/check.svg" class="inline h-6 md:h-10"> <p class="w-11/12 ml-auto">Faire Preise im An- und Verkauf.</p>
           </div>
         </div>
       </div>
@@ -272,13 +272,13 @@
           :swipe-distance="5000"
         >
           <div>
-            <img src="~assets/img/pictures/StadttripPaarSchräg.jpg" class="object-contain w-7/12 md:w-1/2">
+            <img src="~assets/img/pictures/StadttripPaaraslant.jpg" class="object-contain w-7/12 md:w-1/2">
           </div>
           <div>
-            <img src="~assets/img/pictures/Quad-schräg.jpg" class="object-contain w-7/12 md:w-1/2">
+            <img src="~assets/img/pictures/Quad-aslant.jpg" class="object-contain w-7/12 md:w-1/2">
           </div>
           <div>
-            <img src="~assets/img/pictures/cocktails-schräg.jpg" class="object-contain w-7/12 md:w-1/2">
+            <img src="~assets/img/pictures/cocktails-aslant.jpg" class="object-contain w-7/12 md:w-1/2">
           </div>
         </agile>
       </client-only>
