@@ -500,6 +500,13 @@ export default {
   props: {
     offer: { type: Object, required: true },
   },
+  async fetch() {
+    const personalData = await this.$axios.$post('/offer/checkPersonalDataIsAvaible', { uID: this.offer.ID })
+
+    if (personalData !== false) {
+      console.log(personalData)
+    }
+  },
   data: () => ({
     stage: 0,
     values,
@@ -527,13 +534,6 @@ export default {
     progress() {
       return [25, 50, 75, 99][this.stage]
     },
-  },
-  async mounted() {
-    const personalData = await this.$axios.$post('/offer/checkPersonalDataIsAvaible', { uID: this.offer.ID })
-
-    if (personalData !== false) {
-      console.log(personalData)
-    }
   },
   methods: {
     checkPickUp() {

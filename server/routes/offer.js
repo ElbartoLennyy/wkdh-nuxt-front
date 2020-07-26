@@ -72,7 +72,8 @@ router.post('/validatePaymentData', (req, res) => {
 router.post('/checkPersonalDataIsAvaible', async(req, res) => {
   try {
     const formData = await firebase.getPersonalDataForForm(req.body.uID)
-    res.send(formData)
+    console.log(formData)
+    res.send({ formData })
   } catch (error) {
     res.status(500).end(error)
   }
