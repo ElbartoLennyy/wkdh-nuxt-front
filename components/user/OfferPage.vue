@@ -227,7 +227,7 @@
             </div>
 
             <div v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 m-12 md:m-16 p-4 rounded-lg bg-white z-30">
-              <p class="text-right" @click="shippingInformationIsOpen = false">X</p>
+              <button class="absolute top-0 right-0 p-2" @click="shippingInformationIsOpen = false">X</button>
               <div class=" flex flex-col justify-around w-full h-full">
                 <p>1. Du erhältst das Versandlabel nach Verkaufsabschluss via Mail.</p>
                 <p>2. Packe dein Paket, prüfe noch einmal das alles dabei ist und klebe es zu.</p>
@@ -239,8 +239,14 @@
             </div>
             <button v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="shippingInformationIsOpen = false" />
 
-            <p class="text-white font-bold text-sm">Du verschickst dein Handy kostenlos selber</p>
-            <p class="text-white font-bold text-sm">Das Label erhältst du nach Abschluss</p>
+            <label class="flex text-white">
+              <input class="mr-2 mt-1" type="checkbox" required>
+              <span class="text-sm">
+                Mit der Bestätigung meiner Daten erkläre ich mich mit den
+                <nuxt-link class="underline hover:text-gray-400" to="/agb" target="_blank">AGB</nuxt-link> von Wirkaufendeinhandy.shop einverstanden und habe die <nuxt-link class="underline hover:text-gray-400" to="/privacy" target="_blank">
+                  Datenschutzhinweise</nuxt-link> zur Kenntnis genommen
+              </span>
+            </label>
 
             <button
               type="submit"
@@ -463,10 +469,10 @@
             </p>
             <button
               class="mt-4 block w-full"
-              @click="next"
+              @submit.prevent="acceptOffer"
             >
               <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-lg text-left">
-                Weiter
+                Jetzt Verkauf abschließen
               </div>
             </button>
             <button
@@ -480,81 +486,6 @@
               </div>
             </button>
           </div>
-          <form v-else-if="stage === 3" @submit.prevent="acceptOffer">
-            <p class="text-white text-xl mt-4">
-              Bitte bestätige folgendes
-            </p>
-
-            <input
-              id="privacy"
-              v-model="endCheckbox"
-              type="checkbox"
-              class="appearance-none"
-              value="privacy"
-              required
-            >
-            <label
-              class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-              :class="endCheckbox.includes('privacy') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold'"
-              :for="'privacy'"
-            >
-              Ich bin mit der Speicherung meiner Daten gemäß Datenschutzerklärung einverstanden.
-            </label>
-            <a class="text-blue-700 block underline" href="/privacy" target="_blank">Datenschutzerklärung</a>
-
-            <input
-              id="rightOfWithdrawal"
-              v-model="endCheckbox"
-              type="checkbox"
-              class="appearance-none"
-              value="rightOfWithdrawal"
-              required
-            >
-            <label
-              class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-              :class="endCheckbox.includes('rightOfWithdrawal') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold'"
-              :for="'rightOfWithdrawal'"
-            >
-              Ich bestätige die Regelung bezüglich des Wiederrufsrechts bei wirkaufendeinhandy.shop (AGBs siehe 3.2)
-            </label>
-
-            <input
-              id="ToS"
-              v-model="endCheckbox"
-              type="checkbox"
-              class="appearance-none"
-              value="ToS"
-              required
-            >
-            <label
-              class="p-4 rounded-md block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out"
-              :class="endCheckbox.includes('ToS') ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400 text-yellowDark font-bold'"
-              :for="'ToS'"
-            >
-              Ich bin mit den geltenden AGBs einverstanden
-            </label>
-            <a class="text-blue-700 block underline" href="/agb" target="_blank">AGBs</a>
-
-            <button
-              v-if="endCheckbox.length === 3"
-              type="submit"
-              class="mt-4 block w-full"
-            >
-              <div class="bg-gray-100 hover:bg-gray-400 text-black p-4 rounded-md text-left">
-                Bestätigen und Verkauf verbindlich abschließen
-              </div>
-            </button>
-            <p v-else-if="endCheckbox.length != 3" class="text-white font-bold text-xl">Bitte klick auf die Button oben, um alles zu bestätigen.</p>
-            <button
-              type="button"
-              class="mt-4 block w-full"
-              @click.prevent="back()"
-            >
-              <div class="bg-white hover:bg-gray-300 p-4 rounded-md text-left">
-                Zurück
-              </div>
-            </button>
-          </form>
         </div>
       </div>
     </div>
@@ -572,7 +503,6 @@ export default {
   data: () => ({
     stage: 0,
     values,
-    endCheckbox: [],
     shippingInformationIsOpen: false,
     form: {
       Email: '',
@@ -597,6 +527,13 @@ export default {
     progress() {
       return [25, 50, 75, 99][this.stage]
     },
+  },
+  async mounted() {
+    const personalData = await this.$axios.$post('/offer/checkPersonalDataIsAvaible', { uID: this.offer.ID })
+
+    if (personalData !== false) {
+      console.log(personalData)
+    }
   },
   methods: {
     checkPickUp() {
@@ -659,6 +596,13 @@ export default {
     },
     next() {
       this.stage++
+      if (this.stage > 3) {
+        this.$axios.post('/offer/updatePersonalData', {
+          uID: this.offer.ID,
+          data: this.form,
+          location: this.address,
+        })
+      }
     },
     back() {
       this.stage--

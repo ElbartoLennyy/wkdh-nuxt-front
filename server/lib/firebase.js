@@ -64,6 +64,7 @@ async function creatNewUser(id) {
       Price: data.Price,
       State: 'offer',
       phone,
+      personalDataIsAvaible: false,
     })
   } catch (error) {
     console.log(error)
@@ -201,4 +202,47 @@ async function getCourierData(city) {
   }
 }
 
-module.exports = { /* deleteUser, */ getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
+async function getPersonalDataForForm(uId) {
+  const docUser = db.collection(dbReference).doc(uId)
+
+  try {
+    let userData = await docUser.get()
+    userData = userData.data()
+
+    if (userData.personalDataIsAvaible === undefined || userData.personalDataIsAvaible === false) {
+      return false
+    } else if (userData.personalDataIsAvaible && userData.State === 'offer') {
+      return { userdata: userData.data, location: userData.Location }
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+async function setPersonalData(data, Location, uId) {
+  const docUser = db.collection(dbReference).doc(uId)
+
+  try {
+    let userData = await docUser.get()
+    userData = userData.data()
+
+    if (userData.State === 'offer') {
+      await docUser.set({
+        data,
+        Location,
+        personalDataIsAvaible: true,
+      })
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+module.exports = { /* deleteUser, */ setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }

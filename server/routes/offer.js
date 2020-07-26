@@ -6,6 +6,7 @@ const pickUp = require('../lib/pickUp')
 const validator = require('../lib/validation')
 const sendcloud = require('../lib/sendcloud')
 const sendMail = require('../lib/sendMail')
+const firebase = require('../lib/firebase')
 
 router.post('/getData', async function(req, res, next) {
   const userData = await fbData.getUser(req.body.uID)
@@ -66,6 +67,24 @@ router.post('/validatePaymentData', (req, res) => {
   res.send({
     Result: result,
   })
+})
+
+router.post('/checkPersonalDataIsAvaible', async(req, res) => {
+  try {
+    const formData = await firebase.getPersonalDataForForm(req.body.uID)
+    res.send(formData)
+  } catch (error) {
+    res.status(500).end(error)
+  }
+})
+
+router.post('/updatePersonalData', async(req, res) => {
+  try {
+    await firebase.setPersonalData(req.body.data, req.body.location, req.body.uID)
+    res.send()
+  } catch (error) {
+    res.status(500).end(error)
+  }
 })
 
 /*

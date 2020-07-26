@@ -93,7 +93,7 @@ const phones = {
         price: 100,
       },
       128: {
-        price: 130,
+        price: 150,
       },
     },
     'iPhone 6S Plus': {
