@@ -469,7 +469,7 @@
             </p>
             <button
               class="mt-4 block w-full"
-              @submit.prevent="acceptOffer"
+              @click="acceptOffer"
             >
               <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-lg text-left">
                 Jetzt Verkauf abschließen
@@ -502,9 +502,23 @@ export default {
   },
   async fetch() {
     const personalData = await this.$axios.$post('/offer/checkPersonalDataIsAvaible', { uID: this.offer.ID })
+    if (personalData.formData !== false) {
+      this.form.Email = personalData.formData.userdata.Email
+      this.form.Salutation = personalData.formData.userdata.Salutation
+      this.form.Name = personalData.formData.userdata.Name
+      this.form.FirstName = personalData.formData.userdata.FirstName
 
-    if (personalData !== false) {
-      console.log(personalData)
+      this.address.Adress = `${personalData.formData.location.streetName} ${personalData.formData.location.streetNumber}`
+      this.address.PLZ = personalData.formData.location.zipcode
+      this.address.Place = personalData.formData.location.city
+
+      if (personalData.formData.userdata.PaymentData !== '') {
+        this.form.PaymentMethod = personalData.formData.userdata.PaymentMethod
+        this.form.PaymentData = personalData.formData.userdata.PaymentData
+      }
+      if (personalData.formData.userdata.PhoneNumber !== '') {
+        this.form.PhoneNumber = personalData.formData.userdata.PhoneNumber
+      }
     }
   },
   data: () => ({
@@ -596,7 +610,7 @@ export default {
     },
     next() {
       this.stage++
-      if (this.stage > 3) {
+      if (this.stage < 3) {
         this.$axios.post('/offer/updatePersonalData', {
           uID: this.offer.ID,
           data: this.form,

@@ -453,7 +453,6 @@ export default {
     eventListComputed() {
       const computedList = []
       for (const event of this.eventList) {
-        console.log(event)
         if (this.offer.price.price >= event.startPrice && this.offer.price.price <= event.endPrice) {
           computedList.push(event)
         }

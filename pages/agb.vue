@@ -197,6 +197,10 @@
         offensichtlichen Verstoß das angebotene Gerät auch der fachgerechten
         Entsorgung zuführen oder die Strafverfolgungsbehörden unterrichten.
       </p>
+      <h3 class="text-xl ml-6">
+        2.3. Widerrufsrecht bei Verträgen mit Verbrauchern
+      </h3>
+      <p class="ml-10"> <span class="-ml-4">a)</span> Bei einem erfolgreichen Vertragsschluss im Ankauf seitens der Wirkaufendeinhandy GbR, verzichtet der Verkäufer auf sein Widerrufsrecht.</p>
       <h2 class="text-xl font-bold">
         <a name="_Hlk32771563">
           3. Abholung, Versand und Transportschäden von Elektronikprodukten

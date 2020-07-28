@@ -201,20 +201,12 @@ async function getCourierData(city) {
   }
 }
 
-test()
-async function test() {
-  const res = await getPersonalDataForForm('wvprds5gm')
-  console.log(res)
-}
-
 async function getPersonalDataForForm(uId) {
   const docUser = db.collection(dbReference).doc(uId)
 
   try {
     let userData = await docUser.get()
     userData = userData.data()
-
-    console.log(userData)
 
     if (userData.personalDataIsAvaible === undefined || userData.personalDataIsAvaible === false) {
       return false
@@ -237,10 +229,9 @@ async function setPersonalData(data, Location, uId) {
     userData = userData.data()
 
     if (userData.State === 'offer') {
-      await docUser.set({
-        data,
-        Location,
+      await docUser.update({
         personalDataIsAvaible: true,
+        data,
       })
       return true
     } else {

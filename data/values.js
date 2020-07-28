@@ -36,7 +36,7 @@ export const conditions = {
 export const defects = {
   BATTERY: {
     title: 'Akku in schlechtem Zustand',
-    description: 'Akku entlädt sich sehr schnell oder lädt nicht mehr.',
+    description: 'Akku entlädt sich sehr schnell oder lädt nicht mehr oder verfügt über weniger als 80% der Ausgangsleistung.',
   },
   PORT: {
     title: 'Defekter Anschluss',
