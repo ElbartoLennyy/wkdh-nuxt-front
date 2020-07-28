@@ -51,7 +51,7 @@
       </div>
     </div>
     <div class="w-full relative pb-6 md:hidden">
-      <img src="~assets/img/pictures/Handyübergabe.jpg" alt="Handyübergabe" class="object-contain">
+      <img src="~assets/img/pictures/Handyuebergabe.jpg" alt="Handyübergabe" class="object-contain">
       <div class="absolute bottom-0 bg-gradientMirrored w-full text-white text-center text-3xl font-bold we-are-div">
         <p class="pt-8">Wir sind:</p>
       </div>
