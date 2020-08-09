@@ -20,20 +20,20 @@
         </div>
       </div>
       <div class="w-full mt-4 md:mt-0 md:w-1/4 space-y-1">
-        <p class="font-bold text-black"><nuxt-link to="/">Verkauf</nuxt-link></p>
-        <p><nuxt-link to="/">Ablauf</nuxt-link></p>
-        <p><nuxt-link to="/">Vorteile</nuxt-link></p>
-        <p><nuxt-link to="/handy">Verkaufen</nuxt-link></p>
+        <p class="font-bold text-black"><nuxt-link to="/">Wirkaufendeinhandy</nuxt-link></p>
+        <p><nuxt-link to="/">Verkauf</nuxt-link></p>
+        <p><nuxt-link to="/fastrepair">Reparatur</nuxt-link></p>
+        <p><a href="https://kaufedeinhandy.de">Shop</a></p>
       </div>
       <div class="w-full md:w-1/4 space-y-1">
-        <p class="font-bold text-black pt-4">Wirkaufendeinhandy</p>
+        <p class="font-bold text-black">Verkauf</p>
         <p><nuxt-link to="/handy">Verkaufen</nuxt-link></p>
         <p><nuxt-link to="/contactUs">Kontakt</nuxt-link></p>
         <p><nuxt-link to="/faq">FAQ</nuxt-link></p>
         <p><nuxt-link to="/aboutUs">Über uns</nuxt-link></p>
       </div>
       <div class="w-full md:w-1/4">
-        <p class="font-bold text-black pt-4">Auszahlung</p>
+        <p class="font-bold text-black">Auszahlung</p>
         <div class="flex justify-center md:justify-start">
           <img class="h-8 w-auto object-contain" src="~assets/img/icons/paypal-logo.png" alt="PayPal">
           <img class="h-8 w-auto object-contain pl-6" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bank">

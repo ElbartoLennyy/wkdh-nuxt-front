@@ -46,6 +46,18 @@
               >
                 Über Uns
               </nuxt-link>
+              <nuxt-link
+                to="/fastrepair"
+                class="uppercase block text-xl font-bold text-yellowDark"
+              >
+                Reparatur
+              </nuxt-link>
+              <a
+                href="https://kaufedeinhandy.de"
+                class="uppercase block text-xl font-bold text-yellowDark"
+              >
+                Shop
+              </a>
               <div class="bg-yellowDark rounded-lg p-2 mx-4">
                 <nuxt-link
                   to="/handy"
@@ -104,20 +116,20 @@
                 </p>
               </div>
 
-              <button class="hidden md:block bg-white rounded-lg p-2 xl:px-8" @click="scrollMeTo('ablauf')">
-                <p
-                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                >
-                  Ablauf
-                </p>
-              </button>
-              <nuxt-link to="/repair" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
+              <nuxt-link to="/fastrepair" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
                 >
                   Reparatur
                 </p>
               </nuxt-link>
+              <a href="https://kaufedeinhandy.de" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Shop
+                </p>
+              </a>
               <nuxt-link to="/aboutUs" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
@@ -160,7 +172,7 @@
         </div>
       </div>
     </div>
-    <div ref="ablauf" class="w-full h-auto">
+    <div class="w-full h-auto">
       <div class="w-full bg-gradientMirrored text-white p-6 items-center hidden md:flex ">
         <img src="~assets/img/icons/datasheet.png" class="object-contain h-16 lg:h-32 p-2">
         <div>
@@ -242,7 +254,7 @@
           </div>
         </div>
       </div>
-      <div ref="vorteile" class="flex justify-around">
+      <div class="flex justify-around">
         <div class="w-1/4 md:w-2/6 my-auto">
           <img src="~assets/img/icons/Garantie-Sherpe-drehwurm.png" class="w-full md:mt-6 object-contain md:-mr-10">
         </div>

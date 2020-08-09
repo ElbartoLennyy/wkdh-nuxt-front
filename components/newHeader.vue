@@ -33,6 +33,22 @@
             Über Uns
           </p>
         </nuxt-link>
+        <nuxt-link
+          to="/fastrepair"
+          class="uppercase block text-xl font-bold text-yellowDark w-1/2 mx-auto"
+        >
+          <p :class="$route.name === 'fastrepair' ? 'border-b-4 border-yellowDark' :''">
+            Reparatur
+          </p>
+        </nuxt-link>
+        <a
+          href="https://kaufedeinhandy.de"
+          class="uppercase block text-xl font-bold text-yellowDark w-1/2 mx-auto"
+        >
+          <p>
+            Shop
+          </p>
+        </a>
         <div class="bg-yellowDark rounded-lg p-2 mx-4">
           <nuxt-link
             to="/handy"
@@ -105,6 +121,21 @@
             FAQ
           </p>
         </nuxt-link>
+        <nuxt-link to="/fastrepair" class="hidden md:block">
+          <p
+            class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+            :class="$route.name === 'faq' ? 'border-b-4 border-yellowDark' :''"
+          >
+            Reparatur
+          </p>
+        </nuxt-link>
+        <a href="https://kaufedeinhandy.de" class="hidden md:block">
+          <p
+            class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
+          >
+            Shop
+          </p>
+        </a>
         <nuxt-link to="/handy" class="hidden md:block bg-white rounded-lg transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110 p-2">
           <p
             class="uppercase p-2 text-xl lg:text-2xl xl:text-3xl font-bold text-white bg-yellowDark rounded-lg"

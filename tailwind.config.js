@@ -5,6 +5,7 @@ module.exports = {
         buttonBlue: '#02baff',
         yellowLight: '#ffbb39',
         yellowDark: '#faa401',
+        fastRepair: '#171717',
       },
       scale: {
         99: '.99',
