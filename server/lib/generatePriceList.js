@@ -3,7 +3,7 @@ const util = require('util')
 const fs = require('fs')
 const Ebay = require('ebay-node-api')
 // const phones = require('../data/priceListPhones')
-const phonesData = require('./phones')
+const phonesData = require('./data/phones')
 
 // const storages = [8, 16, 32, 64, 128, 256, 512]
 

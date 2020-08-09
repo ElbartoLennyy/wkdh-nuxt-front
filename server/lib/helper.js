@@ -12,7 +12,7 @@ function checkAccessory(acc, accID) {
 }
 
 function getRandomId() {
-  return Math.random().toString(36).substr(2, 9)
+  return Math.random().toString(36).substr(2, 11)
 }
 
 function convertToSafeString(s) {

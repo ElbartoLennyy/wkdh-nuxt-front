@@ -6,11 +6,7 @@ const geocoder = require('./geocoder')
 async function checkPickUp(userLocation) {
   const userGeoLocation = await geocoder.validateAddress(userLocation)
 
-  if (userGeoLocation === false) {
-    return userGeoLocation
-  }
-
-  return { location: userGeoLocation }
+  return userGeoLocation
 /*
 
   if (userGeoLocation === false) {

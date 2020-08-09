@@ -1,5 +1,5 @@
 const xlsx = require('xlsx')
-const phones = require('./phones')
+const phones = require('./data/phones')
 
 function getPrice(userPhone) {
   try {

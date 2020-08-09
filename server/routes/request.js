@@ -1,7 +1,7 @@
 const express = require('express')
 const request = require('request')
 const fbData = require('../lib/firebase')
-const phonesData = require('../lib/phones')
+const phonesData = require('../lib/data/phones')
 const priceCalc = require('../lib/calcUserOffer')
 const router = express.Router()
 
@@ -9,7 +9,6 @@ router.post('/getData', function(req, res, next) {
   const dataArray = []
   if (req.body.Stage === 0) {
     for (const brand in phonesData.phones) {
-      console.log(brand)
       dataArray.push(brand)
     }
   } else if (req.body.Stage === 1) {
@@ -21,7 +20,6 @@ router.post('/getData', function(req, res, next) {
       dataArray.push(storage)
     }
   }
-  console.log(dataArray)
   return res.send(dataArray)
 })
 

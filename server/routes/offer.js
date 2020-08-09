@@ -36,20 +36,15 @@ router.post('/checkPickUp', function(req, res, next) {
       return res.status(500).send({ responseError: 'Failed captcha verification' })
     }
 
-    const { location, pickUpData } = await pickUp.checkPickUp(req.body.Adress)
+    const location = await pickUp.checkPickUp(req.body.Adress)
 
-    if (location === undefined) {
+    if (location === undefined || location === false) {
       console.log('location undefined')
       res.status(500).end()
     } else {
-      if (pickUpData === false) {
-        fbData.setUserLocation(uID, location, false)
-      } else {
-        fbData.setUserLocation(uID, location, true)
-      }
+      fbData.setUserLocation(uID, location)
       res.send({
         location,
-        pickUpData,
       })
     }
   })

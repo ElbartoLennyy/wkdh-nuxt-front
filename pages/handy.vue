@@ -61,7 +61,7 @@
               v-for="brand in brands"
               :key="brand"
               class="mt-3 block w-full text-left"
-              @click="selectBrand(brand)"
+              @click="getPhone(1, brand)"
             >
               <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                 {{ brand }}
@@ -76,7 +76,7 @@
               v-for="phone in values.phones"
               :key="phone"
               class="mt-3 block w-full"
-              @click="selectPhone(phone)"
+              @click="getPhone(2, phone)"
             >
               <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
                 {{ phone }}
@@ -461,7 +461,7 @@ export default {
     },
   },
   created() {
-    this.getBrands()
+    this.getPhone(0)
   },
   mounted() {
     const agile = document.createElement('script')
@@ -473,28 +473,28 @@ export default {
     document.head.appendChild(agileStyle)
   },
   methods: {
-    async getBrands() {
+    async getPhone(stage, phoneData) {
       try {
-        const res = await this.$axios.$post('/handy/getData', { Stage: 0 })
-        console.log(res)
-        this.brands = res
+        if (stage === 0) {
+          const res = await this.$axios.$post('/handy/getData', { Stage: 0 })
+          this.brands = res
+        } else if (stage === 1) {
+          this.request.brand = phoneData
+          this.values.phones = (
+            await this.$axios.$post('/handy/getData', { Stage: 1, Brand: phoneData })
+          )
+          this.next()
+        } else if (stage === 2) {
+          this.request.phone = phoneData
+          this.values.storages = (
+            await this.$axios.$post('/handy/getData', { Stage: 2, Brand: this.request.brand, Phone: phoneData })
+          )
+          this.next()
+        }
       } catch (error) {
         console.log(error)
+        this.$router.go()
       }
-    },
-    async selectBrand(brand) {
-      this.request.brand = brand
-      this.values.phones = (
-        await this.$axios.$post('/handy/getData', { Stage: 1, Brand: brand })
-      )
-      this.next()
-    },
-    async selectPhone(phone) {
-      this.request.phone = phone
-      this.values.storages = (
-        await this.$axios.$post('/handy/getData', { Stage: 2, Brand: this.request.brand, Phone: phone })
-      )
-      this.next()
     },
     selectStorage(storage) {
       this.request.storage = parseInt(storage)

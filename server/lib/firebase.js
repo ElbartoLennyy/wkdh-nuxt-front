@@ -36,15 +36,6 @@ async function uploadPriceRequest(price, phone) {
 function deletePriceRequest(id) {
   db.collection('request').doc(id).delete()
 }
-/*
-function deleteUser(id, _callback) {
-    let deleteDoc = db.collection(dbReference).doc(id).delete()
-        .then(() => {
-            _callback();
-        })
-}
-*/
-
 async function creatNewUser(id) {
   const docRequest = db.collection('request').doc(id)
   const docUser = db.collection(dbReference).doc(id)
@@ -102,12 +93,11 @@ async function setOfferAccept(uID, data) {
   return true
 }
 
-async function setUserLocation(uID, location, pickUpPossible) {
+async function setUserLocation(uID, location) {
   const docRequest = db.collection(dbReference).doc(uID)
 
   await docRequest.update({
     Location: location,
-    PickUpPossible: pickUpPossible,
   })
   return true
 }
@@ -242,5 +232,88 @@ async function setPersonalData(data, Location, uId) {
     return false
   }
 }
+// REPAIR --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
-module.exports = { /* deleteUser, */ setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
+async function createRepairOffer(repairData) {
+  const uId = helper.getRandomId()
+
+  const docRepair = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    await docRepair.set({
+      Date: getCurrentDate(),
+      ID: uId,
+      State: 'offer',
+      repairData,
+    })
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+  return uId
+}
+
+async function getRepairOffer(uId) {
+  const docRepair = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    let repairOffer = await docRepair.get()
+    repairOffer = repairOffer.data()
+    return repairOffer
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+async function getPersonalDataForFormRepair(uId) {
+  const docUser = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    let userData = await docUser.get()
+    userData = userData.data()
+
+    if (userData.personalDataIsAvaible === undefined || userData.personalDataIsAvaible === false) {
+      return false
+    } else if (userData.personalDataIsAvaible && userData.State === 'offer') {
+      return { userdata: userData.data, location: userData.Location }
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+async function setPersonalDataRepair(data, uId) {
+  const docUser = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    let userData = await docUser.get()
+    userData = userData.data()
+    if (userData.State === 'offer') {
+      await docUser.update({
+        personalDataIsAvaible: true,
+        data,
+      })
+      return true
+    } else {
+      return false
+    }
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+async function setUserLocationRepair(uID, location) {
+  const docRequest = db.collection(`${dbReference}Repair`).doc(uID)
+
+  await docRequest.update({
+    Location: location,
+  })
+  return true
+}
+
+module.exports = { setUserLocationRepair, setPersonalDataRepair, getPersonalDataForFormRepair, getRepairOffer, createRepairOffer, setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }

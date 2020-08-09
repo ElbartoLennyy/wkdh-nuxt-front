@@ -111,13 +111,13 @@
                   Ablauf
                 </p>
               </button>
-              <button class="hidden md:block bg-white rounded-lg p-2 xl:px-8" @click="scrollMeTo('vorteile')">
+              <nuxt-link to="/repair" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
                 >
-                  Vorteile
+                  Reparatur
                 </p>
-              </button>
+              </nuxt-link>
               <nuxt-link to="/aboutUs" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
