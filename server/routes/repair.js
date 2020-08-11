@@ -51,6 +51,8 @@ router.post('/getPrice', function(req, res, next) {
         return res.status(500).send({ responseError: 'Failed captcha verification' })
       }
 
+      
+
       res.send({ price: 200 })
     })
   } catch (error) {
