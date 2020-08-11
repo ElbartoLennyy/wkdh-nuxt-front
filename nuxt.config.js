@@ -19,7 +19,6 @@ module.exports = {
     '~/assets/css/loader.css',
   ],
   loading: { color: '#fff' },
-  plugins: ['~/plugins/vue-agile'],
   buildModules: [
     '@nuxtjs/eslint-module',
     '@nuxtjs/tailwindcss',

@@ -275,14 +275,7 @@
     </div>
     <div class="w-full h-auto mt-4 relative">
       <client-only>
-        <agile
-          :autoplay="true"
-          :nav-buttons="false"
-          :autoplay-speed="5000"
-          :dots="false"
-          :pause-on-hover="false"
-          :swipe-distance="5000"
-        >
+        <carousel>
           <div>
             <img src="~assets/img/pictures/StadttripPaaraslant.jpg" class="object-contain w-7/12 md:w-1/2">
           </div>
@@ -292,20 +285,14 @@
           <div>
             <img src="~assets/img/pictures/cocktails-aslant.jpg" class="object-contain w-7/12 md:w-1/2">
           </div>
-        </agile>
+        </carousel>
       </client-only>
       <div class="w-7/12 xs:w-2/3 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
         <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2 -mt-2">
         <div class="ml-auto w-5/6 justify-between flex flex-col h-full text-center mt-6">
           <p class="text-yellowDark text-sm sm:text-md md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2">Mit deinem neuen Geld <br>könntest du...</p>
           <client-only>
-            <agile
-              :autoplay="true"
-              :nav-buttons="false"
-              :autoplay-speed="5000"
-              :dots="false"
-              :pause-on-hover="false"
-              :swipe-distance="5000"
+            <carousel
               class="text-black text-sm sm:text-md md:text-3xl xl:text-5xl font-bold flex-grow"
             >
               <div>
@@ -317,7 +304,7 @@
               <div>
                 <p class="mr-2">einen Cocktail Kurs<br>mit deinem Freunden besuchen</p>
               </div>
-            </agile>
+            </carousel>
           </client-only>
           <div class="sm:mr-4 md:mx-auto transition duration-300 ease-in-out transform hover:scale-110">
             <nuxt-link to="/handy" class="p-1 text-yellowDark font-bold text-md md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg">JETZT VERKAUFEN</nuxt-link>
@@ -347,10 +334,10 @@
 
 <script>
 import footerTemplate from '~/components/newFooter'
+import Carousel from '~/components/Carousel'
 
 export default {
-
-  components: { footerTemplate },
+  components: { footerTemplate, Carousel },
   data() {
     return {
       sidebarIsOpen: false,
@@ -363,13 +350,6 @@ export default {
     cookieScript.setAttribute('data-cbid', `${process.env.NUXT_ENV_COOKIE_TOKEN}`)
     cookieScript.setAttribute('data-blockingmode', 'auto')
     document.head.appendChild(cookieScript)
-    const agile = document.createElement('script')
-    agile.setAttribute('src', 'https://unpkg.com/vue-agile')
-    document.head.appendChild(agile)
-    const agileStyle = document.createElement('link')
-    agileStyle.setAttribute('rel', 'stylesheet')
-    agileStyle.setAttribute('href', 'https://unpkg.com/vue-agile/dist/VueAgile.css')
-    document.head.appendChild(agileStyle)
   },
   methods: {
     scrollMeTo(refName) {
