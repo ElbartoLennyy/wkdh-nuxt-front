@@ -242,11 +242,7 @@
                 </div>
                 <p class="text-xl px-8 pt-6">Mit diesem Geld könntest du...</p>
                 <client-only>
-                  <agile
-                    :autoplay="true"
-                    :nav-buttons="false"
-                    :dots="false"
-                    :pause-on-hover="false"
+                  <carousel
                     class="my-6"
                   >
                     <div v-for="event in eventListComputed" :key="event.name">
@@ -257,7 +253,7 @@
                         class="mt-4 max-w-lg h-auto w-full mx-auto object-contain"
                       >
                     </div>
-                  </agile>
+                  </carousel>
                 </client-only>
                 <button class="bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 font-bold text-3xl w-full" @click="acceptOffer">
                   Weiter zum Verkauf
@@ -286,15 +282,16 @@
 </template>
 
 <script>
-import { VueAgile } from 'vue-agile'
 import ICountUp from 'vue-countup-v2'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 import * as values from '~/data/values'
 
+import Carousel from '~/components/Carousel'
+
 export default {
   components: {
     RecaptchaNotice,
-    agile: VueAgile,
+    Carousel,
     ICountUp,
   },
   data: () => ({
@@ -462,15 +459,6 @@ export default {
   },
   created() {
     this.getPhone(0)
-  },
-  mounted() {
-    const agile = document.createElement('script')
-    agile.setAttribute('src', 'https://unpkg.com/vue-agile')
-    document.head.appendChild(agile)
-    const agileStyle = document.createElement('link')
-    agileStyle.setAttribute('rel', 'stylesheet')
-    agileStyle.setAttribute('href', 'https://unpkg.com/vue-agile/dist/VueAgile.css')
-    document.head.appendChild(agileStyle)
   },
   methods: {
     async getPhone(stage, phoneData) {

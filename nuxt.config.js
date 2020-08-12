@@ -14,6 +14,9 @@ module.exports = {
     link: [
       { rel: 'icon', type: 'image/png', href: '/favicon.png' },
     ],
+    script: [
+      { src: 'https://consent.cookiebot.com/uc.js', 'data-cbid': process.env.NUXT_ENV_COOKIE_TOKEN, 'data-blockingmode': 'auto' },
+    ],
   },
   css: [
     '~/assets/css/loader.css',

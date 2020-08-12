@@ -2,7 +2,7 @@
   <agile
     :autoplay="true"
     :nav-buttons="false"
-    :autoplay-speed="5000"
+    :autoplay-speed="4000"
     :dots="false"
     :pause-on-hover="false"
     :swipe-distance="5000"

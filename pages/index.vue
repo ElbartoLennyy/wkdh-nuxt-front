@@ -327,6 +327,19 @@
         <nuxt-link to="/contactUs" class="border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kontakt</nuxt-link>
       </div>
     </div>
+    <script
+      type="text/javascript"
+      src="https://www.provenexpert.com/widget/landing_wirkaufendeinhandy-gbr.js?feedback=1&avatar=1&competence=1&style=black%22%3E"
+    />
+    <link
+      rel="stylesheet"
+      type="text/css"
+      href="https://www.provenexpert.com/css/widget_landing.css"
+      media="screen,print"
+    >
+
+    <div id="pewl" />
+
     <footerTemplate />
     <dir class="h-16 w-full" />
   </div>
@@ -343,13 +356,6 @@ export default {
       sidebarIsOpen: false,
       procedureIsOpen: false,
     }
-  },
-  mounted() {
-    const cookieScript = document.createElement('script')
-    cookieScript.setAttribute('src', 'https://consent.cookiebot.com/uc.js')
-    cookieScript.setAttribute('data-cbid', `${process.env.NUXT_ENV_COOKIE_TOKEN}`)
-    cookieScript.setAttribute('data-blockingmode', 'auto')
-    document.head.appendChild(cookieScript)
   },
   methods: {
     scrollMeTo(refName) {
