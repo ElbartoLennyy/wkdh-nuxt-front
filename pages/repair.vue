@@ -189,16 +189,17 @@ export default {
     async getPhone(stage, phoneData) {
       try {
         if (stage === 0) {
-          const res = await this.$axios.$post('/repair/getData', { Stage: 0 })
+          const res = await this.$axios.$post('/repair/getData', { stage: 0 })
+          console.log(res)
           this.brands = res
         } else if (stage === 1) {
           this.request.brand = phoneData
-          const res = await this.$axios.$post('/repair/getData', { Stage: 1, Brand: phoneData })
+          const res = await this.$axios.$post('/repair/getData', { stage: 1, brand: phoneData })
           this.values.phones = res
           this.next()
         } else if (stage === 2) {
           this.request.phone = phoneData
-          const res = await this.$axios.$post('/repair/getData', { Stage: 2, Brand: this.request.brand, Phone: phoneData })
+          const res = await this.$axios.$post('/repair/getData', { stage: 2, brand: this.request.brand, phone: phoneData })
           this.values.defects = res
           this.next()
         }
@@ -220,9 +221,9 @@ export default {
           )
 
           const res = await this.$axios.$post('/repair/getPrice', {
-            Brand: this.request.brand,
-            Phone: this.request.phone,
-            Defects: this.request.defects,
+            brand: this.request.brand,
+            phone: this.request.phone,
+            defects: this.request.defects,
             token,
           })
           this.offer = res.price

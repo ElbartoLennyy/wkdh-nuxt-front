@@ -1,8 +1,6 @@
 const phonesData = require('./data/mobileparts')
 
 function getRepairPrice(phone) {
-  console.log(phone)
-
   const shippingPart = 4
   const pricePerHour = 16
 
@@ -10,8 +8,8 @@ function getRepairPrice(phone) {
 
   const shippingCost = 9
 
-  const time = phonesData.parts[phone.Brand][phone.Phone][phone.Defect].time
-  const partPrice = phonesData.parts[phone.Brand][phone.Phone][phone.Defect].price
+  const time = phonesData.parts[phone.brand][phone.phone][phone.defect].time
+  const partPrice = phonesData.parts[phone.brand][phone.phone][phone.defect].price
 
   const price = (partPrice + pricePerHour * time) * multiplikator + shippingPart + shippingCost
 

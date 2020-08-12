@@ -9,16 +9,16 @@ const router = express.Router()
 router.post('/getData', function(req, res) {
   try {
     const dataArray = []
-    if (req.body.Stage === 0) {
+    if (req.body.stage === 0) {
       for (const brand in phonesData.parts) {
         dataArray.push(brand)
       }
-    } else if (req.body.Stage === 1) {
-      for (const phone in phonesData.parts[req.body.Brand]) {
+    } else if (req.body.stage === 1) {
+      for (const phone in phonesData.parts[req.body.brand]) {
         dataArray.push(phone)
       }
-    } else if (req.body.Stage === 2) {
-      for (const defects in phonesData.parts[req.body.Brand][req.body.Phone]) {
+    } else if (req.body.stage === 2) {
+      for (const defects in phonesData.parts[req.body.brand][req.body.phone]) {
         dataArray.push(defects)
       }
     }
@@ -53,11 +53,11 @@ router.post('/getPrice', function(req, res, next) {
       }
 
       let endPrice = 0
-      for (const defect of req.body.Defects) {
+      for (const defect of req.body.defects) {
         endPrice += repairPrice.getRepairPrice({
-          Brand: req.body.Brand,
-          Phone: req.body.Phone,
-          Defect: defect,
+          brand: req.body.brand,
+          phone: req.body.phone,
+          defect,
         })
       }
       endPrice = (Math.ceil(endPrice / 5) * 5) - 0.05
@@ -81,7 +81,6 @@ router.post('/accept', function(req, res) {
 
     request(verificationURL, async(err, response, body) => {
       if (err) {
-        console.log(err)
         return res.status(500).send({ responseError: err })
       }
 
@@ -93,11 +92,11 @@ router.post('/accept', function(req, res) {
       }
 
       let price = 0
-      for (const defect of req.body.Defects) {
+      for (const defect of req.body.defects) {
         price += repairPrice.getRepairPrice({
-          Brand: req.body.Brand,
-          Phone: req.body.Phone,
-          Defect: defect,
+          brand: req.body.brand,
+          phone: req.body.phone,
+          defect,
         })
       }
       price = (Math.ceil(price / 5) * 5) - 0.05
@@ -155,7 +154,7 @@ router.post('/updatePersonalData', async(req, res) => {
 
 router.post('/validateAdress', function(req, res, next) {
   const uID = req.body.uID
-  const token = req.body.Token
+  const token = req.body.token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
     return res.status(500).send({ responseError: 'Please select captcha first' })
