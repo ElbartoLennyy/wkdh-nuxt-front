@@ -3,6 +3,7 @@ const request = require('request')
 const firebase = require('../lib/firebase')
 const pickUp = require('../lib/pickUp')
 const phonesData = require('../lib/data/mobileparts')
+const repairPrice = require('../lib/repairPrice')
 const router = express.Router()
 
 router.post('/getData', function(req, res) {
@@ -51,9 +52,17 @@ router.post('/getPrice', function(req, res, next) {
         return res.status(500).send({ responseError: 'Failed captcha verification' })
       }
 
-      
+      let endPrice = 0
+      for (const defect of req.body.Defects) {
+        endPrice += repairPrice.getRepairPrice({
+          Brand: req.body.Brand,
+          Phone: req.body.Phone,
+          Defect: defect,
+        })
+      }
+      endPrice = (Math.ceil(endPrice / 5) * 5) - 0.05
 
-      res.send({ price: 200 })
+      res.send({ price: endPrice })
     })
   } catch (error) {
     res.status(500).end(error)
@@ -83,8 +92,15 @@ router.post('/accept', function(req, res) {
         return res.status(500).send({ responseError: 'Failed captcha verification' })
       }
 
-      // TODO get Price
-      const price = 200
+      let price = 0
+      for (const defect of req.body.Defects) {
+        price += repairPrice.getRepairPrice({
+          Brand: req.body.Brand,
+          Phone: req.body.Phone,
+          Defect: defect,
+        })
+      }
+      price = (Math.ceil(price / 5) * 5) - 0.05
 
       const result = await firebase.createRepairOffer({
         brand: req.body.brand,
