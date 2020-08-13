@@ -18,6 +18,8 @@ admin.initializeApp({
 const db = admin.firestore()
 db.settings({ timestampsInSnapshots: true })
 
+const FieldValue = admin.firestore.FieldValue
+
 async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
@@ -259,7 +261,11 @@ async function getRepairOffer(uId) {
   try {
     let repairOffer = await docRepair.get()
     repairOffer = repairOffer.data()
-    return repairOffer
+    if (repairOffer.State === 'offer') {
+      return repairOffer
+    } else {
+      return false
+    }
   } catch (error) {
     console.log(error)
     return false
@@ -316,4 +322,39 @@ async function setUserLocationRepair(uID, location) {
   return true
 }
 
-module.exports = { setUserLocationRepair, setPersonalDataRepair, getPersonalDataForFormRepair, getRepairOffer, createRepairOffer, setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
+// PAYMENT
+
+async function createSessionCode(uId) {
+  const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
+
+  const sessionCode = helper.getRandomId()
+
+  await docRequest.update({
+    sessionCode,
+  })
+
+  return sessionCode
+}
+
+async function getSessionCode(uId) {
+  const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    const doc = await docRequest.get()
+
+    return doc.data().sessionCode
+  } catch (error) {
+    return false
+  }
+}
+
+function deleteSessionCode(uId) {
+  const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
+
+  docRequest.update({
+    sessionCode: FieldValue.delete(),
+
+  })
+}
+
+module.exports = { createSessionCode, getSessionCode, deleteSessionCode, setUserLocationRepair, setPersonalDataRepair, getPersonalDataForFormRepair, getRepairOffer, createRepairOffer, setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }

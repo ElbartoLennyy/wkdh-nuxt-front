@@ -1,7 +1,7 @@
 const express = require('express')
 const request = require('request')
 const firebase = require('../lib/firebase')
-const pickUp = require('../lib/pickUp')
+const geocoder = require('../lib/geocoder')
 const phonesData = require('../lib/data/mobileparts')
 const repairPrice = require('../lib/repairPrice')
 const router = express.Router()
@@ -175,7 +175,7 @@ router.post('/validateAdress', function(req, res, next) {
       return res.status(500).send({ responseError: 'Failed captcha verification' })
     }
 
-    const location = await pickUp.checkPickUp(req.body.Adress)
+    const location = await geocoder.validateAddress(req.body.Adress)
 
     if (location === undefined || location === false) {
       console.log('location undefined')

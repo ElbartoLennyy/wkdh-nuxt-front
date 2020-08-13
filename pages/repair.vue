@@ -16,7 +16,7 @@
           </div>
 
           <p class="text-3xl md:text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
-            Wähle die passenden Daten für dein Handy aus
+            Wähle die passenden Daten für deine Reparatur aus
           </p>
 
           <div class="flex items-center text-center md:pt-4">
@@ -69,6 +69,14 @@
             </button>
           </template>
           <template v-else-if="stage === 1">
+            <div
+              class="mb-3 block text-left md:w-1/3"
+            >
+              <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                {{ request.brand }}
+              </div>
+            </div>
+
             <p class="text-white font-bold">
               Was für ein Modell ist es?
             </p>
@@ -84,6 +92,22 @@
             </button>
           </template>
           <template v-else-if="stage === 2">
+            <div class="md:flex">
+              <div
+                class="mb-3 block text-left md:w-1/3"
+              >
+                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  {{ request.brand }}
+                </div>
+              </div>
+              <div
+                class="mb-3 block text-left md:w-1/3 md:ml-4"
+              >
+                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  {{ request.phone }}
+                </div>
+              </div>
+            </div>
             <p class="text-white font-bold">
               Was sollen wir reparieren?
             </p>
@@ -126,10 +150,34 @@
               </div>
             </template>
             <template v-if="offer != null">
+              <div class="md:flex">
+                <div
+                  class="mb-3 block text-left md:w-1/3"
+                >
+                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                    {{ request.brand }}
+                  </div>
+                </div>
+                <div
+                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                >
+                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                    {{ request.phone }}
+                  </div>
+                </div>
+                <div
+                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                >
+                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                    {{ request.defects.join() }}
+                  </div>
+                </div>
+              </div>
+
               <div class="text-white font-bold text-center rounded-lg">
-                <p class="text-3xl">Kosten {{ offer }}</p>
-                <button class="bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 font-bold text-3xl w-full" @click="acceptOffer" :disabled="acceptIsDisabeld">
-                  Weiter zum Verkauf
+                <p class="text-3xl m-4">Preis: {{ offer }}€</p>
+                <button class="bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 font-bold text-3xl w-full" :disabled="acceptIsDisabeld" @click="acceptOffer">
+                  Weiter zur Bezalung
                 </button>
                 <button class="block mx-auto bg-gray-400 p-2 text-md border-2 mt-6 border-gray-500 rounded-lg font-bold px-4" @click="rejectOffer">
                   zurück zu Home

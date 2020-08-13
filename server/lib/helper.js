@@ -21,8 +21,6 @@ function convertToSafeString(s) {
 }
 
 function convertToJsonPhone(obj) {
-  console.log(obj)
-
   obj.Brand = convertToSafeString(JSON.stringify(obj.Brand))
   obj.Phone = convertToSafeString(JSON.stringify(obj.Phone))
   obj.Storage = convertToSafeString(JSON.stringify(obj.Storage))

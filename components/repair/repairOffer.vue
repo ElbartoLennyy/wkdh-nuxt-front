@@ -16,11 +16,11 @@
           </div>
 
           <p class="text-3xl md:text-5xl font-bold w-4/5 mt-8 tracking-tighter leading-none">
-            Wir kaufen dein Handy!
+            Wir reparieren dein Handy!
           </p>
 
           <p class="text-2xl md:text-4xl">
-            Wir bieten dir
+            Dein Preis:
             <b>{{ offer.repairData.price }}</b> €
           </p>
 
@@ -56,15 +56,15 @@
             </div>
           </div>
           <div class="text-center hidden md:block">
-            <p class="p-1 text-lg">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <p class="p-1 text-lg">1. Datenangabe <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
             <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
 
             <p class="p-1 text-lg">2. Versand <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
             <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
 
-            <p class="p-1 text-lg">3. Auszahlung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <p class="p-1 text-lg">3. Überprüfung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
             <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
-            <p class="p-1 text-lg">4. Zusammenfassung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <p class="p-1 text-lg">4. Bezahlung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
           </div>
         </div>
         <div>
@@ -258,149 +258,53 @@
               </div>
             </button>
           </form>
-          <form v-else-if="stage === 1" @submit.prevent="validatePaymentData">
-            <p class="text-white text-xl mt-4">
-              Wie willst du das Geld erhalten?
-            </p>
-            <p class="text-white text-base font-light mb-4 mt-1">
-              Das Geld bekommst du nachdem dein Handy überprüft wurde direkt ausgezahlt.
-            </p>
-            <input
-              id="PayPal"
-              v-model="form.PaymentMethod"
-              name="paymentMethod"
-              type="radio"
-              class="appearance-none"
-              value="PayPal"
-            >
-            <label
-              class="p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg font-bold"
-              for="PayPal"
-              :class="form.PaymentMethod === 'PayPal' ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400'"
-            ><img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Gutschrift</label>
-            <input
-              id="Überweisung"
-              v-model="form.PaymentMethod"
-              name="paymentMethod"
-              type="radio"
-              class="appearance-none"
-              value="Überweisung"
-            >
-            <label
-              class="-mt-4 p-4 rounded-lg block w-full cursor-pointer transform active:scale-98 transition duration-150 ease-in-out text-lg font-bold"
-              for="Überweisung"
-              :class="form.PaymentMethod === 'Überweisung' ? 'bg-yellowLight text-white' : 'bg-gray-200 hover:bg-gray-400'"
-            ><img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Überweisung auf dein Bankkonto</label>
-
-            <input
-              id="paymentData"
-              v-model.trim="form.PaymentData"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
-              :placeholder="form.PaymentMethod === 'PayPal' ? 'PayPal-Emailadresse' : 'IBAN'"
-              :type="form.PaymentMethod === 'PayPal' ? 'email' : 'text'"
-              required
-            >
-            <p
-              v-if="form.PaymentMethod === 'PayPal' && form.PaymentData !== form.Email"
-              class="text-sm text-gray-900"
-            >
-              <button
-                type="button"
-                class="hover:underline text-left"
-                @click="form.PaymentData = form.Email"
-              >
-                Gleiche Emailadresse (<span
-                  class="text-gray-700"
-                >{{ form.Email }}</span>) für PayPal verwenden
-              </button>
-            </p>
-
-            <p v-if="paymentDataError" class="text-red-500 text-sm">Bitte überprüfe deine Daten um die Auszahlung zu erhalten</p>
-
-            <button
-              type="submit"
-              class="mt-4 block w-full"
-            >
-              <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-lg text-left">
-                Weiter
-              </div>
-            </button>
-
-            <button
-              type="button"
-              class="mt-4 block w-full text-yellowDark"
-              :disabled="validatingAddress"
-              @click.prevent="back()"
-            >
-              <div class="bg-white hover:bg-gray-300 p-4 rounded-lg text-left">
-                Zurück
-              </div>
-            </button>
-          </form>
-          <div v-else-if="stage === 2">
+          <div v-else-if="stage === 1">
             <div>
               <p class="text-white text-2xl mb-4 font-bold text-center">
                 Bitte überprüfe noch einmal deine Daten
               </p>
-              <p class="text-gray-700 text-lg">
-                Dein Handy<br>
-                <span class="text-white font-bold text-xl">
-                  {{ offer.phone.Brand }} {{ offer.phone.Phone }}
-                </span>
-              </p>
 
-              <p class="text-gray-700 text-lg ">
-                Speicher<br>
-                <span class="text-white font-bold text-base">
-                  {{ offer.phone.Storage }} Gb
-                </span>
-              </p>
-              <p class="text-gray-700 text-lg ">
-                Zustand<br>
-                <span class="text-white font-bold text-base">
-                  {{ values.conditions[offer.phone.Condition].title }}
-                </span>
-              </p>
-              <template v-if="offer.phone.Defects.length >= 1">
-                <p class="text-gray-700 text-lg ">
-                  Defekte<br>
-                  <span class="text-white font-bold text-base">
-                    <template v-for="defect in offer.phone.Defects">
-                      {{ values.defects[defect].title }}
-                      <br :key="defect">
-                    </template>
-                  </span>
-                </p>
-              </template>
-              <template v-if="offer.phone.Accessorys.length >= 1">
-                <p class="text-gray-700 text-lg ">
-                  Zubehör<br>
-                  <span class="text-white font-bold text-base">
-                    <template v-for="accessory in offer.phone.Accessorys">
-                      {{ values.accessories[accessory] }}
-                      <br :key="accessory">
-                    </template>
-                  </span>
-                </p>
-              </template>
+              <div class="md:flex">
+                <div
+                  class="mb-3 block text-left md:w-1/3"
+                >
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
+                    {{ offer.repairData.brand }}
+                  </div>
+                </div>
+                <div
+                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                >
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
+                    {{ offer.repairData.phone }}
+                  </div>
+                </div>
+                <div
+                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                >
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
+                    {{ offer.repairData.defects.join() }}
+                  </div>
+                </div>
+              </div>
             </div>
             <p class="text-white text-xl mt-4">
               Name
             </p>
             <div class="flex">
               <p
-                class="w-1/2 mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                class="w-1/2 mt-3 p-4 block bg-white rounded-md hover:bg-gray-300 text-black py-3"
               >
                 {{ form.FirstName }}
               </p>
               <p
-                class="w-1/2 ml-4 mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+                class="w-1/2 ml-4 mt-3 p-4 block bg-white rounded-md hover:bg-gray-300 text-black py-3"
               >
                 {{ form.Name }}
               </p>
             </div>
             <p
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
+              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3"
             >
               {{ form.Email }}
             </p>
@@ -444,36 +348,41 @@
                 </p>
               </div>
             </div>
-            <p class="text-gray-800">
-              Du verschickst dein Handy selbst. Das Label erhältst du am Ende.
-            </p>
-            <p class="text-gray-800 text-sm">
-              Du erhältst dein Geld via
-            </p>
-            <p
-              v-if="form.PaymentMethod === 'PayPal'"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
-            >
-              <img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Gutschrift
-            </p>
-            <p
-              v-if="form.PaymentMethod === 'Überweisung'"
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
-            >
-              <img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Überweisung auf dein Bankkonto
-            </p>
-            <p
-              class="mt-3 p-4 block w-full bg-white rounded-md hover:bg-gray-300 text-black py-3 w-full rounded-md"
-            >
-              {{ form.PaymentData }}
-            </p>
+
             <button
+              type="submit"
               class="mt-4 block w-full"
-              @click="acceptOffer"
+              @click="next"
             >
-              <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-lg text-left">
-                Jetzt Verkauf abschließen
+              <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-md text-left">
+                Weiter zur Bezahlung
               </div>
+            </button>
+
+            <button
+              type="button"
+              class="mt-4 block w-full"
+              :disabled="validatingAddress"
+              @click.prevent="back()"
+            >
+              <div class="bg-white hover:bg-gray-300 p-4 rounded-lg text-left text-yellowDark">
+                Zurück
+              </div>
+            </button>
+          </div>
+          <div v-if="stage === 2">
+            <button
+              class="bg-white hover:bg-gray-300 p-2 rounded-lg text-left font-bold block w-full"
+            >
+              <img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Direkt zu PayPal
+            </button>
+
+            <button
+              id="checkout-button"
+              class="bg-white hover:bg-gray-300 p-2 rounded-lg text-left font-bold block w-full mt-4"
+              @click="finishPaymentStripe"
+            >
+              <img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Stripe Balabala bEZAHLUNG
             </button>
             <button
               type="button"
@@ -493,8 +402,10 @@
 </template>
 
 <script>
+import { loadStripe } from '@stripe/stripe-js'
 import RecaptchaNotice from '~/components/RecaptchaNotice'
 import * as values from '~/data/values'
+
 export default {
   components: { RecaptchaNotice },
   props: {
@@ -531,7 +442,6 @@ export default {
       Name: '',
       FirstName: '',
       PhoneNumber: '',
-      PaymentMethod: 'PayPal',
       PaymentData: '',
       TransportData: '',
     },
@@ -543,6 +453,7 @@ export default {
       PLZ: '',
       Place: '',
     },
+    session_id: null,
   }),
   computed: {
     progress() {
@@ -557,7 +468,7 @@ export default {
           // eslint-disable-next-line no-undef
           const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
           try {
-            const { location, pickUpData } = await this.$axios.$post('/repair/validateAdress', { uID: this.offer.ID, Adress: this.address, Token: token })
+            const { location, pickUpData } = await this.$axios.$post('/repair/validateAdress', { uID: this.offer.ID, Adress: this.address, token })
             this.address.Adress = location.streetName + ' ' + location.streetNumber
             this.address.PLZ = location.zipcode
             this.address.Place = location.city
@@ -571,54 +482,30 @@ export default {
         this.validatingAddress = false
       }
     },
-    async validatePaymentData() {
-      try {
-        const { PaymentMethod, PaymentData } = this.form
-        const res = await this.$axios.$post('/repair/validatePaymentData', {
-          PaymentMethod, PaymentData,
-        })
-        if (res.Result === true) {
-          this.next()
-          this.paymentDataError = false
-        } else {
-          this.paymentDataError = true
-        }
-      } catch {
-        // TODO: Make this error message more helpful
-        alert('Es gibt ein Problem mit den angegebenen Zahlungsdaten. Bitte überprüfe deine Eingaben.')
-      }
-    },
-    acceptOffer() {
-      // eslint-disable-next-line no-undef
-      grecaptcha.ready(async() => {
-        // eslint-disable-next-line no-undef
-        const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
-        try {
-          await this.$axios.post('/repair/accept', {
-            uID: this.offer.ID,
-            data: this.form,
-            Token: token,
-            locationData: this.address,
-          })
-          this.offer.State = 'shipping'
-        } catch (error) {
-          console.error(error)
-          alert('Fehler')
-          this.$router.go()
-        }
-      })
-    },
-    next() {
-      this.stage++
-      if (this.stage < 3) {
+    async next() {
+      if (this.stage === 0) {
         this.$axios.post('/repair/updatePersonalData', {
           uID: this.offer.ID,
           data: this.form,
         })
+      } else if (this.stage === 1) {
+        const sessionID = await this.$axios.post('/checkout/createCheckoutSession', {
+          uId: this.offer.ID,
+        })
+        this.session_id = sessionID.data.session_id
       }
+      this.stage++
     },
     back() {
       this.stage--
+    },
+    async finishPaymentStripe() {
+      console.log(this.session_id)
+
+      const stripe = await loadStripe(process.env.NUXT_ENV_STRIPE_PK)
+      stripe.redirectToCheckout({
+        sessionId: this.session_id,
+      })
     },
   },
   head: () => ({

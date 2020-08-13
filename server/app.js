@@ -16,5 +16,6 @@ api.use('/handy', require('./routes/request'))
 api.use('/offer', require('./routes/offer'))
 api.use('/newOffer', require('./routes/newOffer'))
 api.use('/repair', require('./routes/repair'))
+api.use('/checkout', require('./routes/checkout'))
 
 module.exports = app
