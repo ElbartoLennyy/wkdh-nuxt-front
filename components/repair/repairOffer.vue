@@ -489,10 +489,14 @@ export default {
           data: this.form,
         })
       } else if (this.stage === 1) {
-        const sessionID = await this.$axios.post('/checkout/createCheckoutSession', {
-          uId: this.offer.ID,
-        })
-        this.session_id = sessionID.data.session_id
+        try {
+          const sessionID = await this.$axios.post('/checkout/createCheckoutSession', {
+            uId: this.offer.ID,
+          })
+          this.session_id = sessionID.data.session_id
+        } catch (error) {
+          console.log(error)
+        }
       }
       this.stage++
     },

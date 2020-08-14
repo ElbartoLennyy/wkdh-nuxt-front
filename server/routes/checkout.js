@@ -18,4 +18,21 @@ router.post('/createCheckoutSession', async(req, res) => {
   }
 })
 
+router.post('/checkSuccess', async(req, res) => {
+  try {
+    const sessionCode = await firebase.getSessionCode(req.body.uId)
+
+    if (sessionCode !== false) {
+      if (sessionCode === req.body.sessionCode) {
+        await firebase.setPaymentSucessful(req.body.uId)
+        res.status(200).end()
+      }
+    } else {
+      res.status(500).send({ error: true, errorMsg: 'Can´t get sessionCode for user' })
+    }
+  } catch (error) {
+    res.status(500).send({ error: true, errorMsg: error })
+  }
+})
+
 module.exports = router

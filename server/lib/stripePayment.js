@@ -7,7 +7,7 @@ async function createCheckoutSession(product, uId) {
   const productName = `Reparatur ${product.defects.join()} - ${product.brand} ${product.phone}`
 
   const session = await stripe.checkout.sessions.create({
-    payment_method_types: ['card', 'ideal'],
+    payment_method_types: ['card', 'ideal', 'giropay'],
     line_items: [{
       price_data: {
         currency: 'eur',
@@ -19,8 +19,8 @@ async function createCheckoutSession(product, uId) {
       quantity: 1,
     }],
     mode: 'payment',
-    success_url: `https://wirkaufendeinhandy.shop/rUser/${uId}/success/${sessionCode}`,
-    cancel_url: `https://wirkaufendeinhandy.shop/rUser/${uId}/cancel/${sessionCode}`,
+    success_url: `https://wirkaufendeinhandy.shop/rUser/${uId}?success=true&&sessionCode=${sessionCode}`,
+    cancel_url: `https://wirkaufendeinhandy.shop/rUser/${uId}?success=false&&sessionCode=${sessionCode}`,
   })
 
   return session.id

@@ -123,10 +123,12 @@ router.post('/getRepair', async function(req, res) {
     const offer = await firebase.getRepairOffer(req.body.uId)
     if (offer !== false) {
       res.send(offer)
+    } else {
+      res.status(500).end('user not avaible')
     }
   } catch (error) {
     console.log(error)
-    res.status(500).error(error)
+    res.status(500).end(error)
   }
 })
 

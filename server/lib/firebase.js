@@ -261,7 +261,7 @@ async function getRepairOffer(uId) {
   try {
     let repairOffer = await docRepair.get()
     repairOffer = repairOffer.data()
-    if (repairOffer.State === 'offer') {
+    if (repairOffer.State === 'offer' || repairOffer.State === 'shipping') {
       return repairOffer
     } else {
       return false
@@ -336,18 +336,6 @@ async function createSessionCode(uId) {
   return sessionCode
 }
 
-async function getSessionCode(uId) {
-  const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
-
-  try {
-    const doc = await docRequest.get()
-
-    return doc.data().sessionCode
-  } catch (error) {
-    return false
-  }
-}
-
 function deleteSessionCode(uId) {
   const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
 
@@ -357,4 +345,36 @@ function deleteSessionCode(uId) {
   })
 }
 
-module.exports = { createSessionCode, getSessionCode, deleteSessionCode, setUserLocationRepair, setPersonalDataRepair, getPersonalDataForFormRepair, getRepairOffer, createRepairOffer, setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
+async function getSessionCode(uId) {
+  const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    const doc = await docRequest.get()
+
+    if (doc.data().State === 'offer') {
+      return doc.data().sessionCode
+    } else {
+      return false
+    }
+  } catch (error) {
+    return false
+  }
+}
+
+async function setPaymentSucessful(uId) {
+  deleteSessionCode(uId)
+
+  const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
+
+  try {
+    await docRequest.update({
+      State: 'shipping',
+    })
+    return true
+  } catch (error) {
+    console.log(error)
+    return false
+  }
+}
+
+module.exports = { setPaymentSucessful, createSessionCode, getSessionCode, deleteSessionCode, setUserLocationRepair, setPersonalDataRepair, getPersonalDataForFormRepair, getRepairOffer, createRepairOffer, setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
