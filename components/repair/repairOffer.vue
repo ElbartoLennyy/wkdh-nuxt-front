@@ -371,22 +371,19 @@
             </button>
           </div>
           <div v-if="stage === 2">
-            <button
-              class="bg-white hover:bg-gray-300 p-2 rounded-lg text-left font-bold block w-full"
-            >
-              <img class="inline-block h-10 mr-2" src="~assets/img/icons/paypal-logo.png" alt="PayPal">Direkt zu PayPal
-            </button>
-
+            <p class="text-white font-bold">Wähle deine Zahlungsmethode aus</p>
             <button
               id="checkout-button"
-              class="bg-white hover:bg-gray-300 p-2 rounded-lg text-left font-bold block w-full mt-4"
+              class="bg-gray-200 hover:bg-gray-300 p-2 rounded-md text-left font-bold block w-full mt-4 flex justify-center space-x-2 max-w-screen-payPalButton"
               @click="finishPaymentStripe"
             >
-              <img class="inline-block h-10 mr-2" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bankkonto">Stripe Balabala bEZAHLUNG
+              <img class=" my-auto inline-block h-6 mr-2" src="~assets/img/icons/Visa_inc.png" alt="Visa"> <img class=" my-auto inline-block h-10 mr-2" src="~assets/img/svg/mc_vrt_pos.svg" alt="Mastercard"><img class=" my-auto inline-block h-8 mr-2" src="~assets/img/icons/giropay.png" alt="giropay"> <img class=" my-auto inline-block h-8 mr-2" src="~assets/img/icons/IDEAL.png" alt="IDEAL">
             </button>
+            <div id="paypal-button-container" ref="paypalButton" class="max-w-screen-payPalButton mt-4" />
+
             <button
               type="button"
-              class="mt-4 block w-full"
+              class="mt-4 w-full max-w-screen-payPalButton"
               :disabled="validatingAddress"
               @click.prevent="back()"
             >
@@ -454,6 +451,7 @@ export default {
       Place: '',
     },
     session_id: null,
+    payPalSession: null,
   }),
   computed: {
     progress() {
@@ -494,18 +492,47 @@ export default {
             uId: this.offer.ID,
           })
           this.session_id = sessionID.data.session_id
+          this.payPalSession = sessionID.data.payPalSession.orderID
         } catch (error) {
           console.log(error)
         }
       }
       this.stage++
+
+      if (this.stage === 2) {
+        const payPalSession = this.payPalSession
+        const uId = this.offer.ID
+        const axios = this.$axios
+        const router = this.$router
+        this.$nextTick(() => {
+          // eslint-disable-next-line no-undef
+          paypal.Buttons({
+            style: {
+              color: 'silver',
+            },
+            createOrder(data, actions) {
+              return payPalSession
+            },
+            onApprove(data) {
+              return axios.post('/checkout/checkPayPalTransaction', {
+                orderID: data.orderID,
+                uId,
+              }).then((res) => {
+                if (res.data) {
+                  router.go()
+                } else {
+                  alert('Ein fehler ist aufgetreten')
+                }
+              })
+            },
+          }).render(this.$refs.paypalButton)
+        })
+      }
     },
     back() {
       this.stage--
     },
     async finishPaymentStripe() {
-      console.log(this.session_id)
-
       const stripe = await loadStripe(process.env.NUXT_ENV_STRIPE_PK)
       stripe.redirectToCheckout({
         sessionId: this.session_id,
@@ -516,6 +543,8 @@ export default {
     script: [
       {
         src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`,
+      }, {
+        src: 'https://www.paypal.com/sdk/js?client-id=Ab6GLEFNhy_P1Eg_3KVd8tijXaaw6sQQ5Id-mD8RquZYihy-38itqdjvuiqWrUl_erWI2Z33i1hFl0xI&currency=EUR&disable-funding=credit,card,bancontact,blik,eps,giropay,ideal,mybank,p24,sepa,venmo&buyer-country=DE&locale=de_DE',
       },
     ],
   }),

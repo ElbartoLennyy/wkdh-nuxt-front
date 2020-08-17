@@ -19,8 +19,8 @@ async function createCheckoutSession(product, uId) {
       quantity: 1,
     }],
     mode: 'payment',
-    success_url: `https://wirkaufendeinhandy.shop/rUser/${uId}?success=true&&sessionCode=${sessionCode}`,
-    cancel_url: `https://wirkaufendeinhandy.shop/rUser/${uId}?success=false&&sessionCode=${sessionCode}`,
+    success_url: `https://wirkaufendeinhandy.shop/rUser/${uId}?success=true&sessionCode=${sessionCode}`,
+    cancel_url: `https://wirkaufendeinhandy.shop/rUser/${uId}?success=false`,
   })
 
   return session.id

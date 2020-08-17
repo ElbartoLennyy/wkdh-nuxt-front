@@ -1,7 +1,7 @@
 <template>
   <footer class="w-full">
     <hr>
-    <div class="w-full p-4 md:p-8 md:flex justify-around text-gray-600 font-light text-center md:text-left">
+    <div class="w-full p-4 md:p-8 md:flex justify-between text-gray-600 font-light text-center md:text-left">
       <div class="w-full md:w-1/6 flex md:block justify-between">
         <nuxt-link class="h-12 md:h-20 mt-auto" to="/">
           <img
@@ -25,19 +25,22 @@
         <p><nuxt-link to="/fastrepair">Reparatur</nuxt-link></p>
         <p><a href="https://kaufedeinhandy.de">Shop</a></p>
       </div>
-      <div class="w-full md:w-1/4 space-y-1">
-        <p class="font-bold text-black">Verkauf</p>
+      <div class="w-full md:w-1/6 space-y-1">
+        <p class="font-bold text-black">Service</p>
         <p><nuxt-link to="/handy">Verkaufen</nuxt-link></p>
+        <p><nuxt-link to="/repair">Reparatur</nuxt-link></p>
         <p><nuxt-link to="/contactUs">Kontakt</nuxt-link></p>
         <p><nuxt-link to="/faq">FAQ</nuxt-link></p>
         <p><nuxt-link to="/aboutUs">Über uns</nuxt-link></p>
       </div>
-      <div class="w-full md:w-1/4">
-        <p class="font-bold text-black">Auszahlung</p>
-        <div class="flex justify-center md:justify-start">
-          <img class="h-8 w-auto object-contain" src="~assets/img/icons/paypal-logo.png" alt="PayPal">
-          <img class="h-8 w-auto object-contain pl-6" src="~assets/img/icons/baseline_account_balance_black_24dp.png" alt="Bank">
-          <p class="pl-2 my-auto font-bold text-black">IBAN</p>
+      <div class="w-full md:w-1/3">
+        <p class="font-bold text-black">Bezahlung</p>
+        <div class="flex justify-center md:justify-start space-x-2">
+          <img class="h-8 my-auto w-auto object-contain" src="~assets/img/icons/paypal-logo.png" alt="PayPal">
+          <img class="h-5 my-auto w-auto object-contain" src="~assets/img/svg/klarna-logo.svg" alt="Sofort">
+          <img class="h-5 my-auto w-auto object-contain" src="~assets/img/icons/Visa_inc.png" alt="Visa">
+          <img class="h-8 my-auto w-auto object-contain" src="~assets/img/svg/mc_vrt_pos.svg" alt="Mastercard">
+          <img class="h-5 my-auto w-auto object-contain" src="~assets/img/icons/giropay.png" alt="Giropay">
         </div>
         <p class="font-bold text-black pt-4">Versand</p>
         <img class="h-8 w-auto object-contain mt-2 mx-auto md:m-0" src="~assets/img/icons/dpd-logo.png" alt="Dpd Logo">
