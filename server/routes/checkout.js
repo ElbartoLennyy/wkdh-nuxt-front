@@ -2,6 +2,7 @@ const { Router } = require('express')
 const firebase = require('../lib/firebase')
 const stripe = require('../lib/stripePayment')
 const paypal = require('../lib/payPalPayment')
+const dhl = require('../lib/dhlShipping')
 
 const router = Router()
 
@@ -26,7 +27,11 @@ router.post('/checkSuccess', async(req, res) => {
 
     if (sessionCode !== false) {
       if (sessionCode === req.body.sessionCode) {
-        await firebase.setPaymentSucessful(req.body.uId)
+        const data = await firebase.getRepairOffer(req.body.uId)
+        const parcel = await dhl.createReturnParcel(req.body.uId, data, data.Location)
+        if (!parcel) { return res.status(500).send({ responseError: 'error while creating parcel' }) }
+
+        await firebase.setPaymentSucessful(req.body.uId, parcel)
         res.status(200).end()
       }
     } else {
@@ -43,7 +48,10 @@ router.post('/checkPayPalTransaction', async(req, res) => {
     const repair = await firebase.getRepairOffer(req.body.uId)
     const success = await paypal.capturePayPalTransaction(orderID, repair)
     if (success) {
-      await firebase.setPaymentSucessful(req.body.uId)
+      const parcel = await dhl.createReturnParcel(req.body.uId, repair, repair.Location)
+      if (!parcel) { return res.status(500).send({ responseError: 'error while creating parcel' }) }
+
+      await firebase.setPaymentSucessful(req.body.uId, parcel)
     }
     res.send(success)
   } catch (error) {

@@ -4,7 +4,7 @@ const request = require('request')
 const fbData = require('../lib/firebase')
 const pickUp = require('../lib/pickUp')
 const validator = require('../lib/validation')
-const sendcloud = require('../lib/sendcloud')
+const dhl = require('../lib/dhlShipping')
 const sendMail = require('../lib/sendMail')
 const firebase = require('../lib/firebase')
 
@@ -82,18 +82,6 @@ router.post('/updatePersonalData', async(req, res) => {
   }
 })
 
-/*
-router.post("/deleteUser", (req, res) => {
-    res.contentType("json");
-
-    fbData.deleteUser(JSON.stringify(req.body.uID), obj => {
-
-        res.status(200).send(JSON.stringify({ Obj: obj }));
-    });
-
-})
-*/
-
 router.post('/accept', (req, res) => {
   const token = req.body.Token
 
@@ -119,9 +107,9 @@ router.post('/accept', (req, res) => {
     const userLocation = await fbData.getUser(req.body.uID)
     if (userLocation === false) { return res.status(500).send({ responseError: 'Failed to get User data' }) }
     try {
-      const parcelId = await sendcloud.createParcel(req.body.uID, req.body.data, userLocation.Location)
-      if (!parcelId) { return res.status(500).send({ responseError: 'error while creating parcel' }) }
-      req.body.data.TransportData = parcelId
+      const parcel = await dhl.createReturnParcel(req.body.uID, req.body.data, userLocation.Location)
+      if (!parcel) { return res.status(500).send({ responseError: 'error while creating parcel' }) }
+      req.body.data.TransportData = parcel
     } catch (error) {
       return res.status(500).send({ responseError: error, message: 'Failed creating parcel label' })
     }

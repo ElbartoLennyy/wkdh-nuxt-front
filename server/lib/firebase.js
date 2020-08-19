@@ -107,9 +107,18 @@ async function setUserLocation(uID, location) {
 async function getShippmentData(uID) {
   const refUser = db.collection(dbReference).doc(uID)
   const user = await refUser.get()
-
-  if (user.data().State === 'shipping') {
-    return user.data()
+  if (user.data() !== undefined) {
+    if (user.data().State === 'shipping') {
+      return (user.data().data.TransportData)
+    }
+  } else {
+    const repairUser = db.collection(`${dbReference}Repair`).doc(uID)
+    const repair = await repairUser.get()
+    if (repair.data() !== undefined) {
+      if (repair.data().State === 'shipping') {
+        return (repair.data().TransportData)
+      }
+    }
   }
   return false
 }
@@ -361,7 +370,7 @@ async function getSessionCode(uId) {
   }
 }
 
-async function setPaymentSucessful(uId) {
+async function setPaymentSucessful(uId, parcel) {
   deleteSessionCode(uId)
 
   const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
@@ -369,6 +378,7 @@ async function setPaymentSucessful(uId) {
   try {
     await docRequest.update({
       State: 'shipping',
+      TransportData: parcel,
     })
     return true
   } catch (error) {

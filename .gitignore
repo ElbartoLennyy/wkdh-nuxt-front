@@ -1,7 +1,6 @@
 /node_modules
 /.nuxt
 /.env
-/cache
 /firebase-account.json
 /server/data/priceParts
 

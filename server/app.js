@@ -4,6 +4,7 @@ const logger = require('morgan')
 const app = express()
 
 app.get('/user/:userId/label.pdf', require('./routes/label'))
+app.get('/user/:userId/label.png', require('./routes/qr'))
 
 const api = express.Router()
 app.use('/api', api)

@@ -58,13 +58,4 @@ async function downloadLabel(parcelID, outputPath) {
   return { stream: response.data, length: response.headers['content-length'] }
 }
 
-async function deleteParcel(parcelID) {
-  const { data } = await client.post(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/cancel`)
-  return data
-}
-
-async function returnParcel(parcelID) {
-  const { data } = await axios.get(`https://panel.sendcloud.sc/api/v2/parcels/${parcelID}/return_portal_url`)
-  return data
-}
 module.exports = { createParcel, downloadLabel }

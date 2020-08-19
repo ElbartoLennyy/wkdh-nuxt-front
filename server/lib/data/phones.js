@@ -1,5 +1,10 @@
 const phones = {
   Apple: {
+    'iPhone 11': {
+      64: {
+        price: 580,
+      },
+    }, 
     'iPhone Xs Max': {
       64: {
         price: 583.5238095238095,
