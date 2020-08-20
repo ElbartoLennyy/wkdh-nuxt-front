@@ -78,7 +78,7 @@
           </template>
           <template v-else-if="stage === 1">
             <div
-              class="mb-3 block text-left md:w-1/3"
+              class="mb-3 block text-left md:w-1/4"
             >
               <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                 {{ request.brand }}
@@ -102,17 +102,56 @@
           <template v-else-if="stage === 2">
             <div class="md:flex">
               <div
-                class="mb-3 block text-left md:w-1/3"
+                class="mb-3 block text-left md:w-1/4"
               >
                 <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.brand }}
                 </div>
               </div>
               <div
-                class="mb-3 block text-left md:w-1/3 md:ml-4"
+                class="mb-3 block text-left md:w-1/4 md:ml-4"
               >
                 <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.phone }}
+                </div>
+              </div>
+            </div>
+
+            <p class="text-white font-bold">
+              Welche Farbe hat dein Handy?
+            </p>
+            <button
+              v-for="color in values.colors"
+              :key="color"
+              class="mt-3 block w-full"
+              @click="getPhone(3, color)"
+            >
+              <div class="bg-gray-200 hover:bg-yellowDark hover:text-white text-yellowDark font-bold p-4 rounded-lg text-left">
+                {{ color }}
+              </div>
+            </button>
+          </template>
+          <template v-else-if="stage === 3">
+            <div class="md:flex">
+              <div
+                class="mb-3 block text-left md:w-1/4"
+              >
+                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  {{ request.brand }}
+                </div>
+              </div>
+              <div
+                class="mb-3 block text-left md:w-1/4 md:ml-4"
+              >
+                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  {{ request.phone }}
+                </div>
+              </div>
+              <div
+                class="mb-3 block text-left md:w-1/4 md:ml-4"
+              >
+                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  {{ request.color }}
                 </div>
               </div>
             </div>
@@ -151,7 +190,7 @@
               </div>
             </button>
           </template>
-          <template v-else-if="stage === 3">
+          <template v-else-if="stage === 4">
             <template v-if="!offer">
               <div style="width:100%">
                 <div id="loader" />
@@ -160,21 +199,28 @@
             <template v-if="offer != null">
               <div class="md:flex">
                 <div
-                  class="mb-3 block text-left md:w-1/3"
+                  class="mb-3 block text-left md:w-1/4"
                 >
                   <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.brand }}
                   </div>
                 </div>
                 <div
-                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                  class="mb-3 block text-left md:w-1/4 md:ml-4"
                 >
                   <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.phone }}
                   </div>
                 </div>
                 <div
-                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                  class="mb-3 block text-left md:w-1/4 md:ml-4"
+                >
+                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                    {{ request.color }}
+                  </div>
+                </div>
+                <div
+                  class="mb-3 block text-left md:w-1/4 md:ml-4"
                 >
                   <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.defects.join() }}
@@ -224,11 +270,13 @@ export default {
       brand: null,
       phone: null,
       defects: [],
+      color: null,
     },
     offer: null,
     values: {
       phones: null,
       defects: null,
+      colors: null,
     },
     acceptIsDisabeld: false,
     error: null,
@@ -255,7 +303,12 @@ export default {
           this.next()
         } else if (stage === 2) {
           this.request.phone = phoneData
-          const res = await this.$axios.$post('/repair/getData', { stage: 2, brand: this.request.brand, phone: phoneData })
+          const res = await this.$axios.$post('/repair/getData', { stage: 2, brand: this.request.brand, phone: this.request.phone })
+          this.values.colors = res
+          this.next()
+        } else if (stage === 3) {
+          this.request.color = phoneData
+          const res = await this.$axios.$post('/repair/getData', { stage: 3, brand: this.request.brand, phone: this.request.phone })
           this.values.defects = res
           this.next()
         }

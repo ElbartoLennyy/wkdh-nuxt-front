@@ -8,8 +8,8 @@ function getRepairPrice(phone) {
 
   const shippingCost = 9
 
-  const time = phonesData.parts[phone.brand][phone.phone][phone.defect].time
-  const partPrice = phonesData.parts[phone.brand][phone.phone][phone.defect].price
+  const time = phonesData.parts[phone.brand][phone.phone].defects[phone.defect].time
+  const partPrice = phonesData.parts[phone.brand][phone.phone].defects[phone.defect].price
 
   const price = (partPrice + pricePerHour * time) * multiplikator + shippingPart + shippingCost
 

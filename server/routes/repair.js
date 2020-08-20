@@ -23,7 +23,11 @@ router.post('/getData', function(req, res) {
       dataArray.push(phone)
     }
   } else if (req.body.stage === 2) {
-    for (const defects in phonesData.parts[req.body.brand][req.body.phone]) {
+    for (const color of phonesData.parts[req.body.brand][req.body.phone].color) {
+      dataArray.push(color)
+    }
+  } else if (req.body.stage === 3) {
+    for (const defects in phonesData.parts[req.body.brand][req.body.phone].defects) {
       dataArray.push(defects)
     }
   }
