@@ -1,5 +1,13 @@
 <template>
   <div class="font-sans min-h-screen overflow-y-scroll">
+    <div v-if="error" class="w-full bg-red-400 text-center p-2">
+      <p>
+        Leider ist etwas schief gelaufen. Versuche es erneut oder kontaktiere uns
+        <nuxt-link to="/contactUs" class="underline hover:text-gray-600">
+          hier
+        </nuxt-link>
+      </p>
+    </div>
     <div class="md:flex">
       <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
@@ -223,6 +231,7 @@ export default {
       defects: null,
     },
     acceptIsDisabeld: false,
+    error: null,
   }),
   computed: {
     progress() {
@@ -238,7 +247,6 @@ export default {
       try {
         if (stage === 0) {
           const res = await this.$axios.$post('/repair/getData', { stage: 0 })
-          console.log(res)
           this.brands = res
         } else if (stage === 1) {
           this.request.brand = phoneData
@@ -252,8 +260,8 @@ export default {
           this.next()
         }
       } catch (error) {
-        console.log(error)
-        this.$router.go()
+        this.error = error
+        this.back()
       }
     },
     getRepairPrice() {
@@ -277,7 +285,8 @@ export default {
           this.offer = res.price
         })
       } catch (error) {
-        this.$router.go()
+        this.error = error
+        this.back()
       }
     },
     acceptOffer() {
@@ -299,9 +308,9 @@ export default {
           this.$router.push(`/rUser/${res.data.uId}`)
         })
       } catch (error) {
-        console.log(error)
         this.acceptIsDisabeld = false
-        this.$router.go()
+        this.error = error
+        this.back()
       }
     },
     back() {

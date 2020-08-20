@@ -1,11 +1,11 @@
 <template>
   <offer-page
-    v-if="offer.State === 'offer'"
-    :offer="offer"
+    v-if="offer.userData.State === 'offer'"
+    :offer="offer.userData"
   />
   <shipping-page
-    v-else-if="offer.State === 'shipping'"
-    :offer="offer"
+    v-else-if="offer.userData.State === 'shipping'"
+    :offer="offer.userData"
   />
 </template>
 
@@ -19,7 +19,8 @@ export default {
       await context.$axios.$post('/offer/getData', {
         uID: context.route.params.userId,
       })
-    ).Obj
+    )
+    console.log(offer)
     return { offer }
   },
   head() {

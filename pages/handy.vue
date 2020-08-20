@@ -1,5 +1,13 @@
 <template>
   <div class="font-sans min-h-screen overflow-y-scroll">
+    <div v-if="error" class="w-full bg-red-400 text-center p-2">
+      <p>
+        Leider ist etwas schief gelaufen. Versuche es erneut oder kontaktiere uns
+        <nuxt-link to="/contactUs" class="underline hover:text-gray-600">
+          hier
+        </nuxt-link>
+      </p>
+    </div>
     <div class="md:flex">
       <div class="md:w-1/3 md:min-h-screen p-4 md:p-12 md:pl-16 flex flex-col justify-between">
         <div>
@@ -218,11 +226,11 @@
                 <div id="loader" />
               </div>
             </template>
-            <template v-else-if="!offer.price.price">
+            <template v-else-if="!offer.price">
               <p
                 class="text-2xl text-white font-bold"
               >
-                Wir kaufen dein Handy mit diesem Defekt leider nicht an.
+                Wir kaufen dein Handy leider nicht an.
               </p>
               <p class="text-base text-white">
                 Trotzdem vielen Dank für deine Anfrage.
@@ -236,7 +244,6 @@
                     :end-val="offer.price.price"
                     :options="options"
                     class="text-6xl"
-                    @ready="onReady"
                   />
                   €
                 </div>
@@ -307,6 +314,7 @@ export default {
       accessories: [],
     },
     offer: null,
+    error: null,
     priceDetailsShown: false,
     eventList: [{
       name: 'Alpaka Wanderung',
@@ -480,8 +488,8 @@ export default {
           this.next()
         }
       } catch (error) {
-        console.log(error)
-        this.$router.go()
+        this.error = error
+        this.back()
       }
     },
     selectStorage(storage) {
@@ -500,34 +508,39 @@ export default {
           { action: 'request' },
         )
 
-        const data = await this.$axios.$post('/handy/getPrice', {
-          Brand: this.request.brand,
-          Phone: this.request.phone,
-          Storage: this.request.storage,
-          Condition: this.request.condition,
-          Defects: this.request.defects,
-          Accessorys: this.request.accessories,
-          Token: token,
-        })
-
-        this.offer = { price: data.Price, id: data.RequestID }
+        try {
+          const data = await this.$axios.$post('/handy/getPrice', {
+            Brand: this.request.brand,
+            Phone: this.request.phone,
+            Storage: this.request.storage,
+            Condition: this.request.condition,
+            Defects: this.request.defects,
+            Accessorys: this.request.accessories,
+            Token: token,
+          })
+          this.offer = { price: data.Price, id: data.RequestID }
+        } catch (error) {
+          this.offer.price = false
+        }
       })
     },
     async acceptOffer() {
       try {
-        await this.$axios.post('/handy/accept', { ReqID: this.offer.id })
+        await this.$axios.post('/handy/accept', { reqID: this.offer.id })
         this.$router.push(`/user/${this.offer.id}`)
       } catch (error) {
         console.log(error)
       }
     },
     rejectOffer() {
-      this.$axios.post('/handy/reject', { ReqID: this.offer.id }).finally(() => {
+      this.$axios.post('/handy/reject', { reqID: this.offer.id }).finally(() => {
         this.$router.push('/')
       })
     },
     back() {
-      this.stage--
+      if (this.stage > 0) {
+        this.stage--
+      }
     },
     next() {
       this.stage++

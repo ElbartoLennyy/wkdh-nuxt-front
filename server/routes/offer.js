@@ -2,52 +2,54 @@ const express = require('express')
 const router = express.Router()
 const request = require('request')
 const fbData = require('../lib/firebase')
-const pickUp = require('../lib/pickUp')
 const validator = require('../lib/validation')
 const dhl = require('../lib/dhlShipping')
 const sendMail = require('../lib/sendMail')
 const firebase = require('../lib/firebase')
+const geocoder = require('../lib/geocoder')
+function asyncHelper(fn) {
+  return function(req, res, next) {
+    fn(req, res, next).catch(next)
+  }
+}
 
-router.post('/getData', async function(req, res, next) {
+router.post('/getData', asyncHelper(async function(req, res, next) {
   const userData = await fbData.getUser(req.body.uID)
-  res.send({ Obj: userData })
-})
+  res.send({ userData })
+}))
 
-router.post('/checkPickUp', function(req, res, next) {
+router.post('/validateAdress', function(req, res, next) {
   const uID = req.body.uID
   const token = req.body.Token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    return res.status(500).send({ responseError: 'Please select captcha first' })
+    throw new Error('Please select captcha first')
   }
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
 
-  request(verificationURL, async(err, response, body) => {
+  request(verificationURL, asyncHelper(async(err, response, body) => {
     if (err) {
-      console.log(err)
-      return res.send({ responseError: err })
-    }
-
-    body = JSON.parse(body)
-
-    if (body.success !== undefined && !body.success) {
-      console.log('Failed captcha verification error:' + body)
-      return res.status(500).send({ responseError: 'Failed captcha verification' })
-    }
-
-    const location = await pickUp.checkPickUp(req.body.Adress)
-
-    if (location === undefined || location === false) {
-      console.log('location undefined')
-      res.status(500).end()
+      throw new Error(err)
     } else {
-      fbData.setUserLocation(uID, location)
-      res.send({
-        location,
-      })
+      body = JSON.parse(body)
+
+      if (body.success !== undefined && !body.success) {
+        throw new Error('Failed captcha verification')
+      }
+
+      const location = await geocoder.validateAddress(req.body.Adress)
+
+      if (location === undefined || location === false) {
+        throw new Error('location undefined')
+      } else {
+        await fbData.setUserLocation(uID, location)
+        res.send({
+          location,
+        })
+      }
     }
-  })
+  }))
 })
 
 router.post('/validatePaymentData', (req, res) => {
@@ -60,64 +62,46 @@ router.post('/validatePaymentData', (req, res) => {
   }
 
   res.send({
-    Result: result,
+    result,
   })
 })
 
-router.post('/checkPersonalDataIsAvaible', async(req, res) => {
-  try {
-    const formData = await firebase.getPersonalDataForForm(req.body.uID)
-    res.send({ formData })
-  } catch (error) {
-    res.status(500).end(error)
-  }
-})
-
-router.post('/updatePersonalData', async(req, res) => {
-  try {
-    await firebase.setPersonalData(req.body.data, req.body.location, req.body.uID)
-    res.send()
-  } catch (error) {
-    res.status(500).end(error)
-  }
-})
+router.post('/updatePersonalData', asyncHelper(async(req, res) => {
+  await firebase.setPersonalData(req.body.data, req.body.uID)
+  res.send()
+}))
 
 router.post('/accept', (req, res) => {
   const token = req.body.Token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    return res.status(500).send({ responseError: 'Please select captcha first' })
+    throw new Error('Please select captcha first')
   }
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
 
-  request(verificationURL, async(err, response, body) => {
+  request(verificationURL, asyncHelper(async(err, response, body) => {
     if (err) {
-      console.log(err)
-      return res.status(500).send({ responseError: err })
+      throw new Error(err)
     }
 
     body = JSON.parse(body)
 
     if (body.success !== undefined && !body.success) {
-      console.log('Failed captcha verification error:' + body)
-      return res.status(500).send({ responseError: 'Failed captcha verification' })
+      throw new Error('Failed captcha verification')
     }
 
     const userLocation = await fbData.getUser(req.body.uID)
-    if (userLocation === false) { return res.status(500).send({ responseError: 'Failed to get User data' }) }
-    try {
-      const parcel = await dhl.createReturnParcel(req.body.uID, req.body.data, userLocation.Location)
-      if (!parcel) { return res.status(500).send({ responseError: 'error while creating parcel' }) }
-      req.body.data.TransportData = parcel
-    } catch (error) {
-      return res.status(500).send({ responseError: error, message: 'Failed creating parcel label' })
+    if (userLocation === false) {
+      throw new Error('Failed to get User data')
     }
+    const parcel = await dhl.createReturnParcel(req.body.uID, req.body.data, userLocation.Location)
+    req.body.data.TransportData = parcel
 
     await fbData.setOfferAccept(req.body.uID, req.body.data)
     sendMail.sendOfferAcceptMail(req.body.uID, req.body.data)
-    res.send({ Obj: 'done' })
-  })
+    res.send()
+  }))
 })
 
 module.exports = router

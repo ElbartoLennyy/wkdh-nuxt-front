@@ -11,26 +11,21 @@ async function validateAddress(place) {
   })
 
   const res = await geocoder.geocode(placeString)
-  try {
-    if (res[0].extra === undefined) { return false }
-    if (res[0].extra.confidence >= 4) {
-      return false
-    }
-  } catch (error) {
-    return false
+  if (res[0].extra === undefined) { throw new Error('location not found') }
+  if (res[0].extra.confidence >= 4) {
+    throw new Error('location not confident')
   }
 
-  if (res[0].streetName === undefined || res[0].streetName === '') { return false }
-  if (res[0].streetNumber === undefined || res[0].streetNumber === '') { return false }
-  if (res[0].zipcode === undefined || res[0].zipcode === '') { return false }
-  if (res[0].city === undefined || res[0].city === '') { return false }
-  if (res[0].countryCode !== 'DE') { return false }
-  if (res[0].latitude === undefined || res[0].latitude === '') { return false }
-  if (res[0].longitude === undefined || res[0].longitude === '') { return false }
+  if (res[0].streetName === undefined || res[0].streetName === '') { throw new Error('location not found') }
+  if (res[0].streetNumber === undefined || res[0].streetNumber === '') { throw new Error('location not found') }
+  if (res[0].zipcode === undefined || res[0].zipcode === '') { throw new Error('location not found') }
+  if (res[0].city === undefined || res[0].city === '') { throw new Error('location not found') }
+  if (res[0].countryCode !== 'DE') { throw new Error('location not found') }
+  if (res[0].latitude === undefined || res[0].latitude === '') { throw new Error('location not found') }
+  if (res[0].longitude === undefined || res[0].longitude === '') { throw new Error('location not found') }
 
   delete res[0].extra
   delete res[0].administrativeLevels
-  console.log(res)
   return res[0]
 }
 

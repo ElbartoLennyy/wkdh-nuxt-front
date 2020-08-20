@@ -1,5 +1,13 @@
 <template>
   <div class="font-sans min-h-screen">
+    <div v-if="error" class="w-full bg-red-400 text-center p-2">
+      <p>
+        Leider ist etwas schief gelaufen. Versuche es erneut oder kontaktiere uns
+        <nuxt-link to="/contactUs" class="underline hover:text-gray-600">
+          hier
+        </nuxt-link>
+      </p>
+    </div>
     <div class="md:flex md:overflow-y-hidden">
       <div class="md:w-1/3 md:min-h-screen p-4 md:p-8 md:pl-16 flex flex-col justify-between md:overflow-hidden">
         <div>
@@ -352,6 +360,7 @@
             <button
               type="submit"
               class="mt-4 block w-full"
+              :disabled="loadingData"
               @click="next"
             >
               <div class="bg-gray-200 hover:bg-gray-400 font-bold p-4 rounded-md text-left">
@@ -408,24 +417,23 @@ export default {
   props: {
     offer: { type: Object, required: true },
   },
-  async fetch() {
-    const personalData = await this.$axios.$post('/repair/checkPersonalDataIsAvaible', { uID: this.offer.ID })
-    if (personalData.formData !== false) {
-      this.form.Email = personalData.formData.userdata.Email
-      this.form.Salutation = personalData.formData.userdata.Salutation
-      this.form.Name = personalData.formData.userdata.Name
-      this.form.FirstName = personalData.formData.userdata.FirstName
+  fetch() {
+    if (this.offer.personalDataIsAvaible === true) {
+      this.form.Email = this.offer.data.Email
+      this.form.Salutation = this.offer.data.Salutation
+      this.form.Name = this.offer.data.Name
+      this.form.FirstName = this.offer.data.FirstName
 
-      this.address.Adress = `${personalData.formData.location.streetName} ${personalData.formData.location.streetNumber}`
-      this.address.PLZ = personalData.formData.location.zipcode
-      this.address.Place = personalData.formData.location.city
+      this.address.Adress = `${this.offer.Location.streetName} ${this.offer.Location.streetNumber}`
+      this.address.PLZ = this.offer.Location.zipcode
+      this.address.Place = this.offer.Location.city
 
-      if (personalData.formData.userdata.PaymentData !== '') {
-        this.form.PaymentMethod = personalData.formData.userdata.PaymentMethod
-        this.form.PaymentData = personalData.formData.userdata.PaymentData
+      if (this.offer.PaymentMethod !== '') {
+        this.form.PaymentMethod = this.offer.PaymentMethod
+        this.form.PaymentData = this.offer.PaymentData
       }
-      if (personalData.formData.userdata.PhoneNumber !== '') {
-        this.form.PhoneNumber = personalData.formData.userdata.PhoneNumber
+      if (this.offer.data.PhoneNumber !== '') {
+        this.form.PhoneNumber = this.offer.data.PhoneNumber
       }
     }
   },
@@ -452,6 +460,8 @@ export default {
     },
     session_id: null,
     payPalSession: null,
+    error: null,
+    loadingData: false,
   }),
   computed: {
     progress() {
@@ -466,11 +476,10 @@ export default {
           // eslint-disable-next-line no-undef
           const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
           try {
-            const { location, pickUpData } = await this.$axios.$post('/repair/validateAdress', { uID: this.offer.ID, Adress: this.address, token })
+            const { location } = await this.$axios.$post('/repair/validateAdress', { uID: this.offer.ID, Adress: this.address, token })
             this.address.Adress = location.streetName + ' ' + location.streetNumber
             this.address.PLZ = location.zipcode
             this.address.Place = location.city
-            console.log(pickUpData)
             this.adressError = false
           } catch (error) {
             this.adressError = true
@@ -487,14 +496,17 @@ export default {
           data: this.form,
         })
       } else if (this.stage === 1) {
+        this.loadingData = true
         try {
           const sessionID = await this.$axios.post('/checkout/createCheckoutSession', {
             uId: this.offer.ID,
           })
           this.session_id = sessionID.data.session_id
           this.payPalSession = sessionID.data.payPalSession.orderID
+          this.loadingData = false
         } catch (error) {
-          console.log(error)
+          this.error = true
+          this.back()
         }
       }
       this.stage++

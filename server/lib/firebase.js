@@ -9,8 +9,6 @@ function getCurrentDate() {
   return (new Date().toISOString())
 }
 
-// console.log(getCurrentDate());
-
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),
 })
@@ -20,10 +18,12 @@ db.settings({ timestampsInSnapshots: true })
 
 const FieldValue = admin.firestore.FieldValue
 
+// update/set Methods Repair / User ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
+
 async function uploadPriceRequest(price, phone) {
   const id = helper.getRandomId()
 
-  if (price.price === undefined || Number.isNaN(price.price)) { return false }
+  if (price.price === undefined || Number.isNaN(price.price)) { throw new Error('price in NaN') }
 
   const docRequest = db.collection('request').doc(id)
   await docRequest.set({
@@ -38,72 +38,96 @@ async function uploadPriceRequest(price, phone) {
 function deletePriceRequest(id) {
   db.collection('request').doc(id).delete()
 }
+
 async function creatNewUser(id) {
   const docRequest = db.collection('request').doc(id)
   const docUser = db.collection(dbReference).doc(id)
 
-  let data
-  try {
-    const docData = await (await docRequest.get())
-    data = docData.data()
+  const docData = await (await docRequest.get())
+  const data = docData.data()
 
-    const phone = data.phone
-    if (data.Price === undefined || Number.isNaN(data.Price)) {
-      return false
-    }
-    await docUser.set({
-      Date: getCurrentDate(),
-      ID: id,
-      Price: data.Price,
-      State: 'offer',
-      phone,
-    })
-  } catch (error) {
-    console.log(error)
-    return false
+  const phone = data.phone
+  if (data.Price === undefined || Number.isNaN(data.Price)) {
+    throw new Error('price is not a number')
   }
+  await docUser.set({
+    Date: getCurrentDate(),
+    ID: id,
+    Price: data.Price,
+    State: 'offer',
+    phone,
+  })
 
   deletePriceRequest(id)
-  return true
-}
-
-function setRejectNewOffer(uID) {
-  const docRequest = db.collection(dbReference).doc(uID)
-
-  docRequest.set({
-    Date: getCurrentDate(),
-    ID: uID,
-    State: 'reject/newOffer',
-  })
 }
 
 async function setOfferAccept(uID, data) {
   const docRequest = db.collection(dbReference).doc(uID)
 
-  data.Name = helper.convertToSafeString(data.Name)
-  data.FirstName = helper.convertToSafeString(data.FirstName)
-
-  data.PaymentData = helper.convertToSafeString(data.PaymentData)
-
   await docRequest.update({
     Date: getCurrentDate(),
-    ID: uID,
     State: 'shipping',
     data,
   })
-
-  return true
 }
 
-async function setUserLocation(uID, location) {
-  const docRequest = db.collection(dbReference).doc(uID)
+async function setUserLocation(uId, location, isRepair = false) {
+  let docUser
+  if (isRepair) {
+    docUser = db.collection(`${dbReference}Repair`).doc(uId)
+  } else {
+    docUser = db.collection(dbReference).doc(uId)
+  }
 
-  await docRequest.update({
-    Location: location,
+  let userData = await docUser.get()
+  userData = userData.data()
+
+  if (userData.State === 'offer') {
+    await docUser.update({
+      Location: location,
+    })
+  } else {
+    throw new Error('cant set location - User not in offer')
+  }
+}
+
+async function setPersonalData(data, uId, isRepair = false) {
+  let docUser
+  if (isRepair) {
+    docUser = db.collection(`${dbReference}Repair`).doc(uId)
+  } else {
+    docUser = db.collection(dbReference).doc(uId)
+  }
+
+  let userData = await docUser.get()
+  userData = userData.data()
+
+  if (userData.State === 'offer') {
+    await docUser.update({
+      personalDataIsAvaible: true,
+      data,
+    })
+  } else {
+    throw new Error('not allowed to update Data')
+  }
+}
+
+async function createRepairOffer(repairData) {
+  const uId = helper.getRandomId()
+
+  const docRepair = db.collection(`${dbReference}Repair`).doc(uId)
+
+  await docRepair.set({
+    Date: getCurrentDate(),
+    ID: uId,
+    State: 'offer',
+    repairData,
   })
-  return true
+
+  return uId
 }
 
+// Get Methods Repair / User ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 async function getShippmentData(uID) {
   const refUser = db.collection(dbReference).doc(uID)
   const user = await refUser.get()
@@ -120,218 +144,29 @@ async function getShippmentData(uID) {
       }
     }
   }
-  return false
+  throw new Error('can´t get shipping data - user is not defined ')
 }
 
-async function getUser(uID) {
-  if (uID === undefined || uID === '') { return false }
-
-  const refUser = db.collection(dbReference).doc(uID)
-
-  const user = await refUser.get()
-
-  try {
-    if (user.data().State === 'offer') {
-      return user.data()
-    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
-      return { State: user.data().State }
-    }
-  } catch (error) {
-    console.log(`current user: ${uID} \n error: ${error}`)
-    const returnValueUser = await setTimeout(getUserAfterError(uID), 800)
-    return returnValueUser
+async function getUser(uId, isRepair = false) {
+  let docUser
+  if (isRepair) {
+    docUser = db.collection(`${dbReference}Repair`).doc(uId)
+  } else {
+    docUser = db.collection(dbReference).doc(uId)
   }
-}
-async function getUserAfterError(uID) {
-  const refUser = db.collection(dbReference).doc(uID)
 
-  const user = await refUser.get()
+  const user = await docUser.get()
 
-  try {
-    if (user.data().State === 'offer') {
-      return user.data()
-    } else if (user.data().State === 'shipping' || user.data().State === 'pickUp') {
-      return { State: user.data().State }
-    }
-  } catch (error) {
-    console.log(`current user: ${user} \n error: ${error}`)
-  }
-  return false
-}
-
-async function getNewOffer(uID) {
-  // console.log(uID)
-  const refUser = db.collection(dbReference).doc(uID)
-
-  const user = await refUser.get()
-
-  if (user.data().State === 'newOffer') {
+  if (user.data().State === 'offer') {
     return user.data()
-  }
-  return false
-}
-
-async function setReturn(uID) {
-  const docRequest = db.collection(dbReference).doc(uID)
-
-  await docRequest.update({
-    Date: getCurrentDate(),
-    State: 'return',
-  })
-  return true
-}
-
-async function getCourierData(city) {
-  try {
-    const couriers = await db.collection('courier').where('location.city', '==', city).get()
-    const pickUpTimes = []
-    for (const courier of couriers.docs) {
-      pickUpTimes.push({
-        cId: courier.data().id,
-        pickUpTimes: courier.data().pickUpTimes,
-        location: {
-          lat: courier.data().location.latitude,
-          lon: courier.data().location.longitude,
-        },
-      })
-    }
-    return pickUpTimes
-  } catch (error) {
-    console.log(error)
-    return false
+  } else if (user.data().State === 'shipping') {
+    return { State: user.data().State }
+  } else {
+    throw new Error('Forbidden to access user')
   }
 }
 
-async function getPersonalDataForForm(uId) {
-  const docUser = db.collection(dbReference).doc(uId)
-
-  try {
-    let userData = await docUser.get()
-    userData = userData.data()
-
-    if (userData.personalDataIsAvaible === undefined || userData.personalDataIsAvaible === false) {
-      return false
-    } else if (userData.personalDataIsAvaible && userData.State === 'offer') {
-      return { userdata: userData.data, location: userData.Location }
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-    return false
-  }
-}
-
-async function setPersonalData(data, Location, uId) {
-  const docUser = db.collection(dbReference).doc(uId)
-
-  try {
-    let userData = await docUser.get()
-    userData = userData.data()
-
-    if (userData.State === 'offer') {
-      await docUser.update({
-        personalDataIsAvaible: true,
-        data,
-      })
-      return true
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-    return false
-  }
-}
-// REPAIR --------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
-
-async function createRepairOffer(repairData) {
-  const uId = helper.getRandomId()
-
-  const docRepair = db.collection(`${dbReference}Repair`).doc(uId)
-
-  try {
-    await docRepair.set({
-      Date: getCurrentDate(),
-      ID: uId,
-      State: 'offer',
-      repairData,
-    })
-  } catch (error) {
-    console.log(error)
-    return false
-  }
-  return uId
-}
-
-async function getRepairOffer(uId) {
-  const docRepair = db.collection(`${dbReference}Repair`).doc(uId)
-
-  try {
-    let repairOffer = await docRepair.get()
-    repairOffer = repairOffer.data()
-    if (repairOffer.State === 'offer' || repairOffer.State === 'shipping') {
-      return repairOffer
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-    return false
-  }
-}
-
-async function getPersonalDataForFormRepair(uId) {
-  const docUser = db.collection(`${dbReference}Repair`).doc(uId)
-
-  try {
-    let userData = await docUser.get()
-    userData = userData.data()
-
-    if (userData.personalDataIsAvaible === undefined || userData.personalDataIsAvaible === false) {
-      return false
-    } else if (userData.personalDataIsAvaible && userData.State === 'offer') {
-      return { userdata: userData.data, location: userData.Location }
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-    return false
-  }
-}
-
-async function setPersonalDataRepair(data, uId) {
-  const docUser = db.collection(`${dbReference}Repair`).doc(uId)
-
-  try {
-    let userData = await docUser.get()
-    userData = userData.data()
-    if (userData.State === 'offer') {
-      await docUser.update({
-        personalDataIsAvaible: true,
-        data,
-      })
-      return true
-    } else {
-      return false
-    }
-  } catch (error) {
-    console.log(error)
-    return false
-  }
-}
-
-async function setUserLocationRepair(uID, location) {
-  const docRequest = db.collection(`${dbReference}Repair`).doc(uID)
-
-  await docRequest.update({
-    Location: location,
-  })
-  return true
-}
-
-// PAYMENT
+// Payment ------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
 async function createSessionCode(uId) {
   const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
@@ -356,18 +191,9 @@ function deleteSessionCode(uId) {
 
 async function getSessionCode(uId) {
   const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
+  const doc = await docRequest.get()
 
-  try {
-    const doc = await docRequest.get()
-
-    if (doc.data().State === 'offer') {
-      return doc.data().sessionCode
-    } else {
-      return false
-    }
-  } catch (error) {
-    return false
-  }
+  return doc.data().sessionCode
 }
 
 async function setPaymentSucessful(uId, parcel) {
@@ -375,16 +201,10 @@ async function setPaymentSucessful(uId, parcel) {
 
   const docRequest = db.collection(`${dbReference}Repair`).doc(uId)
 
-  try {
-    await docRequest.update({
-      State: 'shipping',
-      TransportData: parcel,
-    })
-    return true
-  } catch (error) {
-    console.log(error)
-    return false
-  }
+  await docRequest.update({
+    State: 'shipping',
+    TransportData: parcel,
+  })
 }
 
-module.exports = { setPaymentSucessful, createSessionCode, getSessionCode, deleteSessionCode, setUserLocationRepair, setPersonalDataRepair, getPersonalDataForFormRepair, getRepairOffer, createRepairOffer, setPersonalData, getPersonalDataForForm, getUser, setRejectNewOffer, setReturn, setOfferAccept, getNewOffer, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation, getCourierData }
+module.exports = { setPaymentSucessful, createSessionCode, getSessionCode, deleteSessionCode, createRepairOffer, setPersonalData, getUser, setOfferAccept, getShippmentData, uploadPriceRequest, deletePriceRequest, creatNewUser, setUserLocation }

@@ -27,14 +27,8 @@ async function createCheckoutSession(product, uId) {
       },
     }],
   })
-  let order
-  try {
-    order = await payPalClient.client().execute(request)
-  } catch (err) {
-    // 4. Handle any errors from the call
-    console.error(err)
-    return false
-  }
+
+  const order = await payPalClient.client().execute(request)
 
   // 5. Return a successful response to the client with the order ID
   return {
@@ -48,18 +42,11 @@ async function capturePayPalTransaction(orderID, repair) {
   // 3. Call PayPal to get the transaction details
   const request = new paypal.orders.OrdersGetRequest(orderID)
 
-  let order
-  try {
-    order = await payPalClient.client().execute(request)
-  } catch (err) {
-  // 4. Handle any errors from the call
-    console.error(err)
-    return false
-  }
+  const order = await payPalClient.client().execute(request)
 
   // 5. Validate the transaction details are as expected
   if (order.result.purchase_units[0].amount.value !== (repair.repairData.price).toString()) {
-    return false
+    throw new Error('payed amount is diffrent')
   }
 
   // 6. Save the transaction in your database

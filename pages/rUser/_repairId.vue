@@ -37,7 +37,6 @@ export default {
           })
         } catch (errorCode) {
           error = true
-          console.log(errorCode)
         }
       }
     }

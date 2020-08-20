@@ -6,17 +6,17 @@ module.exports = async(req, res) => {
   const { userId } = req.params
   const parcelData = await fbData.getShippmentData(userId)
 
-  const pngPath = `cache/shipping-labels/${parcelData.shipmentNumber}.png`
+  const pdfPath = `cache/shipping-labels/${parcelData.shipmentNumber}.pdf`
 
-  if (!fs.existsSync(pngPath)) {
-    fs.writeFile(pngPath, parcelData.qrLabelData, 'base64', function(err) {
+  if (!fs.existsSync(pdfPath)) {
+    fs.writeFile(pdfPath, parcelData.labelData, 'base64', function(err) {
       if (err) {
         throw new Error(err)
       } else {
-        res.sendFile(path.resolve(pngPath))
+        res.sendFile(path.resolve(pdfPath))
       }
     })
   } else {
-    res.sendFile(path.resolve(pngPath))
+    res.sendFile(path.resolve(pdfPath))
   }
 }

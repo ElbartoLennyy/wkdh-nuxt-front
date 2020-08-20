@@ -5,6 +5,12 @@ const phonesData = require('../lib/data/phones')
 const priceCalc = require('../lib/calcUserOffer')
 const router = express.Router()
 
+function asyncHelper(fn) {
+  return function(req, res, next) {
+    fn(req, res, next).catch(next)
+  }
+}
+
 router.post('/getData', function(req, res, next) {
   const dataArray = []
   if (req.body.Stage === 0) {
@@ -27,63 +33,46 @@ router.post('/getPrice', function(req, res, next) {
   const token = req.body.Token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    return res.status(500).send({ responseError: 'Please select captcha first' })
+    throw new Error('Please select captcha first')
   }
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
 
-  request(verificationURL, async(err, response, body) => {
+  request(verificationURL, asyncHelper(async(err, response, body) => {
     if (err) {
-      console.log(err)
-      return res.status(500).send({ responseError: err })
-    }
-
-    body = JSON.parse(body)
-
-    if (body.success !== undefined && !body.success) {
-      console.log('Failed captcha verification error:' + JSON.stringify(body))
-      return res.status(500).send({ responseError: 'Failed captcha verification' })
-    }
-
-    // const currentPhone = (helper.convertToJsonPhone(req.body)) Schauenn ob Alle in enum definiert sind
-
-    const currentPhone = req.body
-    delete currentPhone.Token
-
-    const price = await priceCalc.getPrice(currentPhone)
-
-    if (price === undefined || price === false) {
-      res.send({
-        Price: false,
-      })
+      throw new Error(err)
     } else {
-      const requestID = await fbData.uploadPriceRequest(price, currentPhone)
-      res.send({
-        Price: price,
-        RequestID: requestID,
-      })
+      body = JSON.parse(body)
+
+      if (body.success !== undefined && !body.success) {
+        throw new Error('Failed captcha verification')
+      }
+
+      const currentPhone = req.body
+      delete currentPhone.Token
+
+      const price = await priceCalc.getPrice(currentPhone)
+
+      if (price === undefined || price === false) {
+        throw new Error('no price avaible')
+      } else {
+        const requestID = await fbData.uploadPriceRequest(price, currentPhone)
+        res.send({
+          Price: price,
+          RequestID: requestID,
+        })
+      }
     }
-  })
+  }))
 })
 
-router.post('/accept', async function(req, res, next) {
-  try {
-    const result = await fbData.creatNewUser(req.body.ReqID)
-    if (result === false) {
-      res.status(500).end()
-    } else if (result) {
-      res.send()
-    }
-  } catch (error) {
-    res.status(500).end()
-  }
-})
+router.post('/accept', asyncHelper(async function(req, res, next) {
+  await fbData.creatNewUser(req.body.reqID)
+  res.send()
+}))
 
-router.post('/reject', async function(req, res, next) {
-  await fbData.deletePriceRequest(req.body.ReqID)
-  res.send({
-    Status: 'done',
-  })
-})
-
+router.post('/reject', asyncHelper(async function(req, res, next) {
+  await fbData.deletePriceRequest(req.body.reqID)
+  res.send()
+}))
 module.exports = router
