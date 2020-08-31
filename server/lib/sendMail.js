@@ -83,7 +83,7 @@ function sendOfferAcceptMail(uID, userDetails) {
         Fragen zu beantworten?</a> </p>
 
 <p style="font-family: Arial, Helvetica, sans-serif;">Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere
-    uns doch bitte einfach via Mail an kontakt@wirkaufendeinhandy.shop.</p>
+    uns doch bitte einfach via Mail an <a href="mailto:kontakt@wirkaufendeinhandy.shop">kontakt@wirkaufendeinhandy.shop</a>.</p>
 
 <p style="font-family: Arial, Helvetica, sans-serif;">Bitte denke daran vor dem Versand dein Handy zurückzusetzen.</p>
 
@@ -112,6 +112,59 @@ function sendOfferAcceptMail(uID, userDetails) {
   })
 }
 
-// E:\User\Alex\Dokumente\code\js\wkdh-nuxt-front\assets\img\icons\Logo-new-1000.png
-// E:\User\Alex\Dokumente\code\js\wkdh-nuxt-front\server\lib\assets\img\icons\Logo-new-1000.png
-module.exports = { sendOfferAcceptMail }
+function sendSuccessfulPaymentMail(uID, userDetails) {
+  const date = new Date()
+  const currentDate = date.toLocaleString()
+  sendMail({
+    from: 'info@wirkaufendeinhandy.shop',
+    to: userDetails.Email,
+    subject: 'Auftragsbestätigung - Versandt von deinem Handy',
+    text: `Sehe alle Details über die Abholung: https://wirkaufendeinhandy.shop/user/${uID}`,
+    html: `<div class="header" style="padding-block-end: 2rem;display: flex;flex-wrap: nowrap;">
+    <img src="cid:wkdh-logo" style="max-width: 30%;height: auto;object-fit: scale-down;">
+    <div class="text-left" style="text-align: right;min-width: 70%;">
+        <p class="email" style="font-family: Arial, Helvetica, sans-serif;color: blue;text-decoration: underline;">
+            ${userDetails.Email}
+        </p>
+
+
+        <p style="font-family: Arial, Helvetica, sans-serif;">${currentDate}</p>
+    </div>
+</div>
+
+<h1 style="font-family: Arial, Helvetica, sans-serif;color: orange;">Deine Auftragsbestätigung</h1>
+
+<h2 style="font-family: Arial, Helvetica, sans-serif;">Hey ${userDetails.FirstName},</h2>
+
+<p style="font-family: Arial, Helvetica, sans-serif;">hiermit bestätigen wir dir den Eingang deines Reparaturauftrags an Wirkaufendeinhandy.</p>
+
+<p style="font-family: Arial, Helvetica, sans-serif;">Den QR-Code für den Versand ohne Drucker, sowie das normale Paketlabel um dein Gerät zu versenden, findest du auf unserer Website. <a href="https://wirkaufendeinhandy.shop/rUser/${uID}">Folge einfach dem Link</a></p>
+
+<p style="font-family: Arial, Helvetica, sans-serif;">Falls du noch Fragen haben solltest oder gewisse Angaben falsch sein sollten kontaktiere uns doch bitte einfach via Mail an <a href="mailto:kontakt@wirkaufendeinhandy.shop">kontakt@wirkaufendeinhandy.shop</a>. </p>
+
+<h3 style="font-family: Arial, Helvetica, sans-serif;">Bis bald und alles Gute,<br>
+    Alex von Wirkaufendeinhandy.shop</h3>
+
+    <hr>
+
+    <div class="footer" style="text-align: center;font-size: small;">
+        <p style="font-family: Arial, Helvetica, sans-serif;">© 2020 Wirkaufendeinhandy GbR</p>
+        <p style="font-family: Arial, Helvetica, sans-serif;">
+          <a href="https://wirkaufendeinhandy.shop/imprint">
+            Impressum
+          </a> | <a href="https://wirkaufendeinhandy.shop/privacy">
+            Datenschutz
+          </a> | <a href="https://wirkaufendeinhandy.shop/agb">
+            AGB
+          </a>
+        </p>
+      </div>`,
+    attachments: [{
+      filename: 'Logo-new-1000.png',
+      path: `${__dirname}/../../assets/img/icons/Logo-new-1000.png`,
+      cid: 'wkdh-logo', // same cid value as in the html img src
+    }],
+  })
+}
+
+module.exports = { sendOfferAcceptMail, sendSuccessfulPaymentMail }

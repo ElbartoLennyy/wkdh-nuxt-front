@@ -225,7 +225,7 @@
 
             <div class="p-4 w-full bg-gray-100 mb-2 rounded-md text-black py-3 flex justify-between" @click="shippingInformationIsOpen = !shippingInformationIsOpen">
               <p>
-                Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/icons/dpd-logo.png">
+                Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/svg/DHL_logo_rgb.svg">
               </p>
               <img
                 class="w-5 inline"

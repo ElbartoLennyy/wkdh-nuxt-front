@@ -1,9 +1,9 @@
 const parts = {
   Apple: {
-    'iPhone SE (2020)': {
-      defects: {},
-      color: ['Schwarz', 'Weiß', 'Rot'],
-    },
+    // 'iPhone SE (2020)': {
+    //   defects: {},
+    //   color: ['Schwarz', 'Weiß', 'Rot'],
+    // },
     // 'iPhone 11 Pro Max': {},
     // 'iPhone 11 Pro': {},
     // 'iPhone 11': {},
@@ -227,7 +227,7 @@ const parts = {
       },
       color: ['Schwarz', 'Pink', 'Gold', 'Weiß', 'Silber'],
     },
-    'Galaxy S6 Edge Plus': {},
+    // 'Galaxy S6 Edge Plus': {},
     'Galaxy S6 Edge': {
       defects: {
         Akku: { price: 12.95, time: 1.3 },
@@ -303,13 +303,95 @@ const parts = {
   Huawai: {
     'P Smart Plus': {
       defects: {
-        Akku: { price: 8.75, time: 0.5 },
-        Display: { price: 14.00, time: 0.6 },
-        Hörmuschel: { price: 0.57, time: 0.75 },
-        Lautsprecher: { price: 1.95, time: 0.6 },
-        Port: { price: 3.25, time: 1.5 },
+        Akku: { price: 50.00, time: 0.5 },
+        Display: { price: 50.00, time: 1.5 },
+        Backplate: { price: 13, time: 0.7 },
       },
-      color: ['Gold', 'Grau', 'Silber'],
+      color: ['Schwarz', 'Lila'],
+    },
+    'P Smart Pro (2019)': {
+      defects: {},
+      color: ['Schwarz', 'Breathing Crystal'],
+    },
+    'P Smart (2019)': {
+      defects: {
+        Akku: { price: 50.00, time: 0.5 },
+        Display: { price: 50.00, time: 1.5 },
+        Backplate: { price: 13, time: 0.7 },
+        Port: { price: 6, time: 2 },
+      },
+      color: ['Schwarz', 'Sapphire Blau'],
+    },
+    'P Smart': {
+      defects: {
+        Akku: { price: 8.5, time: 1.5 },
+        Display: { price: 21, time: 1.5 },
+        Backplate: { price: 14, time: 0.7 },
+      },
+      color: ['Schwarz', 'Blau', 'Gold'],
+    },
+    'P 40 Pro': {
+      defects: {
+        Display: { price: 260.00, time: 1.6 },
+        Backplate: { price: 45, time: 0.7 },
+      },
+      color: ['Schwarz', 'Gold', 'Weiß'],
+    },
+    'P 40 Lite': {
+      defects: {
+        Akku: { price: 70, time: 1.5 },
+        Display: { price: 70, time: 1.5 },
+        Backplate: { price: 14, time: 0.7 },
+      },
+      color: ['Schwarz', 'Grün', 'Pink'],
+    },
+    'P 40': {
+      defects: {
+        Akku: { price: 144.00, time: 1.5 },
+        Display: { price: 144.00, time: 1.5 },
+        Backplate: { price: 36, time: 0.7 },
+      },
+      color: ['Schwarz', 'Gold', 'Weiß'],
+    },
+    'P 30 Pro': {
+      defects: {
+        Akku: { price: 13, time: 1 },
+        Backplate: { price: 30, time: 0.7 },
+      },
+      color: ['Schwarz', 'Blau', 'Breathing Crytal', 'Amber Sunrise'],
+    },
+    'P 30 Lite': {
+      defects: {},
+      color: ['Schwarz', 'Blau', 'Weiß'],
+    },
+    'P 30': {
+      defects: {
+        Display: { price: 115.00, time: 1.5 },
+        Backplate: { price: 35, time: 0.7 },
+      },
+      color: ['Schwarz', 'Aurora Blue', 'Breathing Crystal'],
+    },
+    'Mate 20 Pro': {
+      defects: {
+        Akku: { price: 8.75, time: 1.5 },
+        Display: { price: 210.00, time: 1.5 },
+        Port: { price: 6, time: 1 },
+      },
+      color: ['Twilight', 'Schwarz', 'Blau', 'Grün'],
+    },
+    'Mate 20 Lite': {
+      defects: {
+        Akku: { price: 8.75, time: 1.5 },
+        Display: { price: 60.00, time: 1.5 },
+        Backplate: { price: 15, time: 1 },
+      },
+      color: ['Schwarz', 'Blau', 'Gold'],
+    },
+    'Mate 20': {
+      defects: {
+        Display: { price: 105.00, time: 1.5 },
+      },
+      color: ['Twilight', 'Schwarz', 'Blau'],
     },
   },
 }

@@ -43,7 +43,7 @@
           <img class="h-5 my-auto w-auto object-contain" src="~assets/img/icons/giropay.png" alt="Giropay">
         </div>
         <p class="font-bold text-black pt-4">Versand</p>
-        <img class="h-8 w-auto object-contain mt-2 mx-auto md:m-0" src="~assets/img/icons/dpd-logo.png" alt="Dpd Logo">
+        <img class="h-8 w-auto object-contain mt-2 mx-auto md:m-0" src="~assets/img/svg/DHL_logo_rgb.svg" alt="DHL Logo">
         <p class="font-bold text-black">Sozial</p>
         <div class="flex pt-4 space-x-4 justify-center md:justify-start">
           <a href="https://www.instagram.com/wirkaufendeinhandy.shop/?hl=de" target="_blank"><img class="h-8 w-auto object-contain" src="~assets/img/icons/Instagram-logo.png" alt="Instagram Logo"></a>

@@ -1,5 +1,5 @@
 <template>
-  <div class="w-full min-h-screen font-sans max-w-screen-3xl mx-auto">
+  <div class="w-full min-h-screen font-sans mx-auto">
     <headerTemplate />
 
     <div class="max-w-screen-xl mx-auto">

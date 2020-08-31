@@ -102,6 +102,7 @@ router.post('/accept', function(req, res) {
       brand: req.body.brand,
       phone: req.body.phone,
       defects: req.body.defects,
+      color: req.body.color,
       price,
     })
     res.send({ uId })

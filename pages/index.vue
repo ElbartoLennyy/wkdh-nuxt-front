@@ -108,35 +108,34 @@
                 src="~assets/img/icons/Logo-new-1000.png"
                 alt="Wirkaufendeinhandy - Logo"
               >
-              <div class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
+              <div class="hidden md:block bg-white rounded-lg p-2 xl:px-8 transition duration-300 ease-in-out transform hover:scale-110">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
                 >
                   Home
                 </p>
               </div>
-
-              <nuxt-link to="/fastrepair" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
-                <p
-                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                >
-                  Reparatur
-                </p>
-              </nuxt-link>
-              <a href="https://kaufedeinhandy.de" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
-                <p
-                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
-                >
-                  Shop
-                </p>
-              </a>
-              <nuxt-link to="/aboutUs" class="hidden md:block bg-white rounded-lg p-2 xl:px-8">
+              <nuxt-link to="/aboutUs" class="hidden md:block bg-white rounded-lg p-2 xl:px-8 transition duration-300 ease-in-out transform hover:scale-110">
                 <p
                   class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
                 >
                   Über uns
                 </p>
               </nuxt-link>
+              <nuxt-link to="/fastrepair" class="hidden md:block bg-white rounded-lg p-2 xl:px-8 transition duration-300 ease-in-out transform hover:scale-110">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Reparatur
+                </p>
+              </nuxt-link>
+              <a href="https://kaufedeinhandy.de" class="hidden md:block bg-white rounded-lg p-2 xl:px-8 transition duration-300 ease-in-out transform hover:scale-110">
+                <p
+                  class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark hover:border-b-4 hover:border-yellowDark"
+                >
+                  Shop
+                </p>
+              </a>
               <nuxt-link to="/handy" class="hidden md:block bg-white rounded-lg transition duration-300 ease-in-out transform hover:scale-110 p-2">
                 <p
                   class="uppercase p-2 text-xl lg:text-2xl xl:text-3xl font-bold text-white bg-yellowDark rounded-sm"
@@ -254,6 +253,7 @@
           </div>
         </div>
       </div>
+
       <div class="flex justify-around">
         <div class="w-1/4 md:w-2/6 my-auto">
           <img src="~assets/img/icons/Garantie-Sherpe-drehwurm.png" class="w-full md:mt-6 object-contain md:-mr-10">
@@ -343,7 +343,7 @@
     </div>
 
     <footerTemplate />
-    <dir class="h-16 w-full" />
+    <div class="h-16 w-full" />
   </div>
 </template>
 

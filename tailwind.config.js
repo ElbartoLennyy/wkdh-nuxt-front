@@ -37,6 +37,9 @@ module.exports = {
       '3xl': '2560px',
       payPalButton: '700px',
     },
+    listStyleType: {
+      decimal: 'decimal',
+    },
   },
   fontFamily: {
     sans: ['Roboto', 'sans-serif'],

@@ -4,6 +4,7 @@
 /firebase-account.json
 /server/data/priceParts
 
+cache/shipping-labels/
 /logs
 *.log
 npm-debug.log*

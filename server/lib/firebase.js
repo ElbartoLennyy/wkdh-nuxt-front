@@ -160,7 +160,13 @@ async function getUser(uId, isRepair = false) {
   if (user.data().State === 'offer') {
     return user.data()
   } else if (user.data().State === 'shipping') {
-    return { State: user.data().State }
+    if (isRepair) {
+      return { State: user.data().State, repairData: user.data().repairData }
+    } else {
+      return { State: user.data().State, phone: user.data().phone }
+    }
+  } else if (isRepair && user.data().State === 'inShipping') {
+    return { State: user.data().State, repairData: user.data().repairData }
   } else {
     throw new Error('Forbidden to access user')
   }

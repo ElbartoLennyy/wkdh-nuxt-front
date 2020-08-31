@@ -57,5 +57,3 @@ async function downloadLabel(parcelID, outputPath) {
   )
   return { stream: response.data, length: response.headers['content-length'] }
 }
-
-module.exports = { createParcel, downloadLabel }

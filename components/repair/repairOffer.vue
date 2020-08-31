@@ -67,12 +67,10 @@
             <p class="p-1 text-lg">1. Datenangabe <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
             <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
 
-            <p class="p-1 text-lg">2. Versand <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <p class="p-1 text-lg">2. Überprüfung <img v-if="stage >=1" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
             <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
 
-            <p class="p-1 text-lg">3. Überprüfung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
-            <img class="object-center inline-block h-4" src="~assets/img/icons/further-icon.png">
-            <p class="p-1 text-lg">4. Bezahlung <img v-if="stage >=3" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
+            <p class="p-1 text-lg">3. Bezahlung <img v-if="stage >=2" class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
           </div>
         </div>
         <div>
@@ -225,7 +223,7 @@
 
             <div class="p-4 w-full bg-gray-100 mb-2 rounded-md text-black py-3 flex justify-between" @click="shippingInformationIsOpen = !shippingInformationIsOpen">
               <p>
-                Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/icons/dpd-logo.png">
+                Kostenlos verschicken <img class="inline-block h-6 object-scale-down" src="~assets/img/svg/DHL_logo_rgb.svg">
               </p>
               <img
                 class="w-5 inline"
@@ -285,6 +283,13 @@
                 >
                   <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                     {{ offer.repairData.phone }}
+                  </div>
+                </div>
+                <div
+                  class="mb-3 block text-left md:w-1/3 md:ml-4"
+                >
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
+                    {{ offer.repairData.color }}
                   </div>
                 </div>
                 <div

@@ -80,7 +80,7 @@
             <div
               class="mb-3 block text-left md:w-1/4"
             >
-              <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+              <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                 {{ request.brand }}
               </div>
             </div>
@@ -104,14 +104,14 @@
               <div
                 class="mb-3 block text-left md:w-1/4"
               >
-                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.brand }}
                 </div>
               </div>
               <div
                 class="mb-3 block text-left md:w-1/4 md:ml-4"
               >
-                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.phone }}
                 </div>
               </div>
@@ -136,21 +136,21 @@
               <div
                 class="mb-3 block text-left md:w-1/4"
               >
-                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.brand }}
                 </div>
               </div>
               <div
                 class="mb-3 block text-left md:w-1/4 md:ml-4"
               >
-                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.phone }}
                 </div>
               </div>
               <div
                 class="mb-3 block text-left md:w-1/4 md:ml-4"
               >
-                <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                   {{ request.color }}
                 </div>
               </div>
@@ -201,28 +201,28 @@
                 <div
                   class="mb-3 block text-left md:w-1/4"
                 >
-                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.brand }}
                   </div>
                 </div>
                 <div
                   class="mb-3 block text-left md:w-1/4 md:ml-4"
                 >
-                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.phone }}
                   </div>
                 </div>
                 <div
                   class="mb-3 block text-left md:w-1/4 md:ml-4"
                 >
-                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.color }}
                   </div>
                 </div>
                 <div
                   class="mb-3 block text-left md:w-1/4 md:ml-4"
                 >
-                  <div class="bg-gray-200 hover:text-white text-yellowDark font-bold p-4 rounded-lg">
+                  <div class="bg-gray-200 text-yellowDark font-bold p-4 rounded-lg">
                     {{ request.defects.join() }}
                   </div>
                 </div>
@@ -241,7 +241,7 @@
           </template>
           <div class="mt-2 w-full">
             <button
-              v-if="stage !== 0 && stage !== 3"
+              v-if="stage !== 0 && stage !== 4"
               class="mt-4 block w-full"
               @click.prevent="back()"
             >
@@ -356,6 +356,8 @@ export default {
             brand: this.request.brand,
             phone: this.request.phone,
             defects: this.request.defects,
+            color: this.request.color,
+
             token,
           })
           this.$router.push(`/rUser/${res.data.uId}`)

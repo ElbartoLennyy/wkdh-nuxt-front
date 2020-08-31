@@ -13,7 +13,7 @@
       :offer="offer"
     />
     <status
-      v-if="offer.State === 'shipping'"
+      v-if="offer.State === 'shipping' || offer.State === 'inShipping' || offer.State === 'repair' || offer.State === 'shippingBack'"
       :offer="offer"
     />
   </div>
