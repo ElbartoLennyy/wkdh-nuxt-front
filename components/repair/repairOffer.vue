@@ -235,12 +235,12 @@
             <div v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 m-12 md:m-16 p-4 rounded-lg bg-white z-30">
               <button class="absolute top-0 right-0 p-2" @click="shippingInformationIsOpen = false">X</button>
               <div class=" flex flex-col justify-around w-full h-full">
-                <p>1. Du erhältst das Versandlabel nach Verkaufsabschluss via Mail.</p>
-                <p>2. Packe dein Paket, prüfe noch einmal das alles dabei ist und klebe es zu.</p>
-                <p>3. Drucke das Label an einem Drucker aus.</p>
-                <p>4. Klebe das Label gut sichtbar auf dein Paket.</p>
-                <p>5. Bringe das Paket zu einem DPD-Paketshop.</p>
-                <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zum Verkauf</button>
+                <p>1. Du erhältst das Versandlabel und den QR-Code nach der Bezahlung.</p>
+                <p>2. Packe dein kaputtes Handy in ein Paket.</p>
+                <p>3. Gehe zu DHL und zeige den QR-Code vor.</p>
+                <p>4. Verschicke das Paket.</p>
+                <p>5. Wir schicken dir dein repariertes Handy zurück.</p>
+                <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zur Reparatur</button>
               </div>
             </div>
             <button v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="shippingInformationIsOpen = false" />

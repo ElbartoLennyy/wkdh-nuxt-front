@@ -6,7 +6,7 @@
       <h1 class="font-bold text-2xl">Impressum</h1>
 
       <h2 class="mt-4 font-bold text-xl">Angaben gemäß § 5 TMG</h2>
-      <p>Wirkaufendeinhandy GbR <br><br> Alexander Gerick <br> Marius-Julian Marx <br> <br>Azaleenweg 11 <br> 02827 Görlitz</p>
+      <p>Wirkaufendeinhandy GbR <br><br> Alexander Gerick <br> Marius-Julian Marx <br> <br>Rudolf-Seiffert Straße 33 <br> 10369 Berlin</p>
 
       <h2 class="mt-4 font-bold text-xl">Kontakt</h2>
 

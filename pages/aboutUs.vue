@@ -46,7 +46,7 @@
         <img src="~assets/img/svg/ort.svg" alt="Ort" class="h-12 object-contain my-auto mr-4">
         <p>
           Hauptsitz:
-          <br>Görlitz
+          <br>Berlin
         </p>
       </div>
     </div>
