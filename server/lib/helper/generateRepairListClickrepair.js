@@ -1,3 +1,5 @@
+const fs = require('fs')
+const json2xls = require('json2xls')
 const phonesData = require('../data/mobileparts')
 const repair = require('../repairPrice')
 
@@ -12,10 +14,15 @@ for (const brand in phonesData.parts) {
         defect,
       }
 
-      repairPhone.price = repair.getRepairPrice(repairPhone)
+      repairPhone.price = (Math.ceil((repair.getRepairPrice(repairPhone)) / 5) * 5) - 0.05
+
       repairPhones.push(repairPhone)
     }
   }
 }
 
 console.log(repairPhones)
+
+const xls = json2xls(repairPhones)
+
+fs.writeFileSync('repaitPhone.xlsx', xls, 'binary')
