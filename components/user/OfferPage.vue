@@ -240,7 +240,7 @@
                 <p>1. Du erhältst das Versandlabel und den QR-Code nach Verkaufsabschluss.</p>
                 <p>2. Packe dein Paket, prüfe noch einmal das alles dabei ist und klebe es zu.</p>
                 <p>3. Gehe zu DHL und zeige den QR-Code vor.</p>
-                <p>4. Bringe das Paket zu deinem DHl-Paketshop.</p>
+                <p>4. Bringe das Paket zu deinem DHL-Paketshop.</p>
                 <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zum Verkauf</button>
               </div>
             </div>

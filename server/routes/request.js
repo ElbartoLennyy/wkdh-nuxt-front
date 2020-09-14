@@ -29,7 +29,7 @@ router.post('/getData', function(req, res, next) {
   return res.send(dataArray)
 })
 
-router.post('/getPrice', function(req, res, next) {
+router.post('/getPrice', function(req, res) {
   const token = req.body.Token
 
   if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
@@ -38,7 +38,7 @@ router.post('/getPrice', function(req, res, next) {
 
   const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
 
-  request(verificationURL, asyncHelper(async(err, response, body) => {
+  request(verificationURL, async function(err, response, body) {
     if (err) {
       throw new Error(err)
     } else {
@@ -54,6 +54,7 @@ router.post('/getPrice', function(req, res, next) {
       const price = await priceCalc.getPrice(currentPhone)
 
       if (price === undefined || price === false) {
+        res.status(500).send({ error: 'price to low' })
         throw new Error('no price avaible')
       } else {
         const requestID = await fbData.uploadPriceRequest(price, currentPhone)
@@ -63,7 +64,7 @@ router.post('/getPrice', function(req, res, next) {
         })
       }
     }
-  }))
+  })
 })
 
 router.post('/accept', asyncHelper(async function(req, res, next) {

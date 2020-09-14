@@ -221,12 +221,12 @@
             </button>
           </template>
           <template v-else-if="stage === 6">
-            <template v-if="!offer">
+            <template v-if="offer === null">
               <div style="width:100%">
                 <div id="loader" />
               </div>
             </template>
-            <template v-else-if="!offer.price">
+            <template v-else-if="offer === false">
               <p
                 class="text-2xl text-white font-bold"
               >
@@ -520,7 +520,8 @@ export default {
           })
           this.offer = { price: data.Price, id: data.RequestID }
         } catch (error) {
-          this.offer.price = false
+          this.offer = false
+          console.log(this.offer)
         }
       })
     },

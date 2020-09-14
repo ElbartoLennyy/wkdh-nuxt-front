@@ -12,8 +12,14 @@ for (const brand in phonesData.parts) {
         brand,
         phone,
         defect,
+        Dauer: '4 d',
       }
 
+      if (repairPhone.brand === 'Apple') {
+        repairPhone.Ersatzteilqualität = 'B'
+      } else {
+        repairPhone.Ersatzteilqualität = 'A'
+      }
       repairPhone.price = (Math.ceil((repair.getRepairPrice(repairPhone)) / 5) * 5) - 0.05
 
       repairPhones.push(repairPhone)

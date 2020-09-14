@@ -40,7 +40,7 @@ function calcPrice(userPhone, price) {
   }
   price -= 10
 
-  if (price <= 30) {
+  if (price <= 20) {
     console.log('price to low')
 
     return false
