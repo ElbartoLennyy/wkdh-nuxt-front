@@ -3,6 +3,9 @@ const logger = require('morgan')
 
 const app = express()
 
+// Necessary for Google Cloud Run
+app.set('trust proxy', true)
+
 app.get('/user/:userId/label.pdf', require('./routes/label'))
 app.get('/user/:userId/label.png', require('./routes/qr'))
 

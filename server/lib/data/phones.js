@@ -84,7 +84,6 @@ const phones = {
         price: 237.25,
       },
     },
-    'iPhone SE 1. Gen': {},
     'iPhone 6S Plus': {
       16: {
         price: 174.89473684210526,
@@ -222,7 +221,14 @@ const phones = {
         price: 55.638888888888886,
       },
     },
-    'Galaxy Note 10 Plus': {},
+    'Galaxy Note 10 Plus': {
+      256: {
+        price: 462.1875,
+      },
+      512: {
+        price: 500,
+      },
+    },
     'Galaxy Note 10': {
       256: {
         price: 462.1875,
@@ -236,30 +242,31 @@ const phones = {
         price: 379.75,
       },
     },
-    'Galaxy Note 8 Duos': {},
     'Galaxy Note 8': {
       64: {
         price: 273.6666666666667,
       },
     },
-    'Galaxy Note 5': {},
     'Galaxy Note 4': {
       32: {
-        price: 102.95454545454545,
+        price: 80,
       },
     },
     'Galaxy Note 3': {
       32: {
-        price: 71.88888888888889,
+        price: 50,
       },
     },
-    'Galaxy Grand Prime': {},
     'Galaxy Alpha': {
       32: {
         price: 51.5,
       },
     },
-    'Galaxy A80': {},
+    'Galaxy A80': {
+      128: {
+        price: 248.28,
+      },
+    },
     'Galaxy A8 (2018)': {
       32: {
         price: 169.66666666666666,
@@ -275,7 +282,6 @@ const phones = {
         price: 185.59259259259258,
       },
     },
-    'Galaxy A7': {},
     'Galaxy A50': {
       128: {
         price: 208.66666666666666,
@@ -327,7 +333,6 @@ const phones = {
   },
   LG: {
     V30: {},
-    'Nexus 5': {},
     'G6 Platinum': {
       32: {
         price: 207.6,
@@ -348,8 +353,6 @@ const phones = {
         price: 91.8,
       },
     },
-    G3: {},
-    G2: {},
   },
   Huawei: {
     'P30 Pro': {
@@ -474,12 +477,8 @@ const phones = {
         price: 59,
       },
     },
-    'Nova 2': {},
-    Nova: {},
-    'Honor 8': {},
   },
   Nokia: {
-    'Nokia 8': {},
     'Nokia 7': {
       32: {
         price: 161,
@@ -491,8 +490,6 @@ const phones = {
         price: 31.571428571428573,
       },
     },
-    'Nokia 4': {},
-    'Nokia 3': {},
   },
 }
 

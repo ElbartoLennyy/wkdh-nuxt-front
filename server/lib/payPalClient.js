@@ -23,10 +23,10 @@ function client() {
  *
  */
 function environment() {
-  const clientId = process.env.PAYPAL_CLIENT_ID || 'PAYPAL-SANDBOX-CLIENT-ID'
-  const clientSecret = process.env.PAYPAL_CLIENT_SECRET || 'PAYPAL-SANDBOX-CLIENT-SECRET'
+  const clientId = process.env.NUXT_ENV_PAYPAL_CLIENT_ID
+  const clientSecret = process.env.PAYPAL_CLIENT_SECRET
 
-  return new checkoutNodeJssdk.core.SandboxEnvironment(
+  return new checkoutNodeJssdk.core.LiveEnvironment(
     clientId, clientSecret,
   )
 }

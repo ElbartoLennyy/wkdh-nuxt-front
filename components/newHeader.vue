@@ -121,14 +121,6 @@
             Über uns
           </p>
         </nuxt-link>
-        <nuxt-link to="/faq" class="hidden md:block">
-          <p
-            class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"
-            :class="$route.name === 'faq' ? 'border-b-4 border-yellowDark' :''"
-          >
-            FAQ
-          </p>
-        </nuxt-link>
         <nuxt-link to="/fastrepair" class="hidden md:block">
           <p
             class="uppercase text-xl lg:text-2xl xl:text-3xl font-bold text-yellowDark transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-110"

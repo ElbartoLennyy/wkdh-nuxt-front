@@ -52,16 +52,9 @@
               >Datenschutzerklärung</a>
             </p>
             <recaptcha-notice class="pt-4 md:pt-6" />
-            <div class="pt-4 md:pt-6 flex">
-              <img
-                class="inline w-1/5 object-scale-down"
-                src="~assets/img/icons/Lets_encrypt-logo.png"
-                alt="help button"
-              >
-              <p class="w-4/5 m-auto">
-                Deine Daten sind sicher! Die Website wird durch ein Let’s Encrypt-Zertifikat SSL verschlüsselt.
-              </p>
-            </div>
+            <p class="pt-4 md:pt-6">
+              Deine Daten sind sicher! Die Website wird durch Google Trust Services SSL verschlüsselt.
+            </p>
           </div>
           <div class="text-center hidden md:block">
             <p class="p-1 text-lg">1. Datenangabe <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
@@ -232,15 +225,18 @@
               >
             </div>
 
-            <div v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 m-12 md:m-16 p-4 rounded-lg bg-white z-30">
+            <div v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 m-12 md:m-16 p-4 rounded-lg bg-white z-30 overflow-y-auto">
               <button class="absolute top-0 right-0 p-2" @click="shippingInformationIsOpen = false">X</button>
-              <div class=" flex flex-col justify-around w-full h-full">
-                <p>1. Du erhältst das Versandlabel und den QR-Code nach der Bezahlung.</p>
-                <p>2. Packe dein kaputtes Handy in ein Paket.</p>
-                <p>3. Gehe zu DHL und zeige den QR-Code vor.</p>
-                <p>4. Verschicke das Paket.</p>
-                <p>5. Wir schicken dir dein repariertes Handy zurück.</p>
-                <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zur Reparatur</button>
+              <div>
+                <div class="w-full md:m-4">
+                  <ol class="list-decimal space-y-2">
+                    <li>Nach erfolgreicher Bezahlung erhältst du eine Mail mit deinem Versandlabel.</li>
+                    <li>Dein Versandlabel wird sowohl als QR-Code, als auch als Durcklabel zur verfügung stehen.</li>
+                    <li>Packe einfach dein Paket und prüfe noch einmal das alles dabei ist und klebe es zu.</li>
+                    <li>Bringe das Paket zu deinem DHL-Paketshop.</li>
+                    <li>Warte, bis wir dein Handy repariert haben und es bei dir Zuhause wieder ankommt.</li>
+                  </ol>
+                </div>
               </div>
             </div>
             <button v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 bg-black opacity-25 w-full h-full z-20 cursor-default" @click="shippingInformationIsOpen = false" />
@@ -481,7 +477,7 @@ export default {
           // eslint-disable-next-line no-undef
           const token = await grecaptcha.execute(process.env.NUXT_ENV_RECAPTCHA_TOKEN, { action: 'acceptOffer' })
           try {
-            const { location } = await this.$axios.$post('/repair/validateAdress', { uID: this.offer.ID, Adress: this.address, token })
+            const { location } = await this.$axios.$post('/repair/validateAdress', { uID: this.offer.ID, Adress: this.address, Token: token })
             this.address.Adress = location.streetName + ' ' + location.streetNumber
             this.address.PLZ = location.zipcode
             this.address.Place = location.city
@@ -561,7 +557,7 @@ export default {
       {
         src: `https://www.google.com/recaptcha/api.js?render=${process.env.NUXT_ENV_RECAPTCHA_TOKEN}`,
       }, {
-        src: 'https://www.paypal.com/sdk/js?client-id=Ab6GLEFNhy_P1Eg_3KVd8tijXaaw6sQQ5Id-mD8RquZYihy-38itqdjvuiqWrUl_erWI2Z33i1hFl0xI&currency=EUR&disable-funding=credit,card,bancontact,blik,eps,giropay,ideal,mybank,p24,sepa,venmo&buyer-country=DE&locale=de_DE',
+        src: `https://www.paypal.com/sdk/js?client-id=${process.env.NUXT_ENV_PAYPAL_CLIENT_ID}&currency=EUR&disable-funding=credit,card,bancontact,blik,eps,giropay,ideal,mybank,p24,sepa,venmo&locale=de_DE`,
       },
     ],
   }),

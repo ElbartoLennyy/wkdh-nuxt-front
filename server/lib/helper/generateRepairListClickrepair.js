@@ -12,15 +12,34 @@ for (const brand in phonesData.parts) {
         brand,
         phone,
         defect,
-        Dauer: '4 d',
+        Dauer: '96',
       }
 
-      if (repairPhone.brand === 'Apple') {
-        repairPhone.Ersatzteilqualität = 'B'
-      } else {
-        repairPhone.Ersatzteilqualität = 'A'
+      // if (repairPhone.brand === 'Apple') {
+      //   repairPhone.Ersatzteilqualität = 'B'
+      // } else {
+      //   repairPhone.Ersatzteilqualität = 'A'
+      // }
+
+      repairPhone.price = (Math.ceil((repair.getRepairPrice(repairPhone)) / 5) * 5)
+      if (repairPhone.defect === 'Akku') {
+        repairPhone.defect = 'reparatur-akku'
+      } else if (repairPhone.defect === 'Display') {
+        repairPhone.defect = 'reparatur-lcd-toucheinheit'
+      } else if (repairPhone.defect === 'Port') {
+        repairPhone.defect = 'reparatur-ladeanschluss'
+      } else if (repairPhone.defect === 'Backplate') {
+        repairPhone.defect = 'reparatur-akkudeckel'
+      } else if (repairPhone.defect === 'Hörmuschel') {
+        repairPhone.defect = 'reparatur-ohrmuschel'
+      } else if (repairPhone.defect === 'Lautsprecher') {
+        repairPhone.defect = 'reparatur-lautsprecher'
+      } else if (repairPhone.defect === 'Kamera (komplett)') {
+        repairPhone.defect = 'reparatur-hauptkamera'
       }
-      repairPhone.price = (Math.ceil((repair.getRepairPrice(repairPhone)) / 5) * 5) - 0.05
+
+      repairPhone.brand = `${repairPhone.brand} ${repairPhone.phone}`
+      delete repairPhone.phone
 
       repairPhones.push(repairPhone)
     }

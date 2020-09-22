@@ -333,7 +333,7 @@ export default {
             brand: this.request.brand,
             phone: this.request.phone,
             defects: this.request.defects,
-            token,
+            Token: token,
           })
           this.offer = res.price
         })
@@ -358,7 +358,7 @@ export default {
             defects: this.request.defects,
             color: this.request.color,
 
-            token,
+            Token: token,
           })
           this.$router.push(`/rUser/${res.data.uId}`)
         })

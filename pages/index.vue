@@ -290,7 +290,7 @@
       <div class="w-7/12 xs:w-2/3 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
         <img src="~assets/img/icons/Swoosh+text200.png" class="object-contain -ml-2 -mt-2">
         <div class="ml-auto w-5/6 justify-between flex flex-col h-full text-center mt-6">
-          <p class="text-yellowDark text-sm sm:text-md md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2">Mit deinem neuen Geld <br>könntest du...</p>
+          <p class="text-yellowDark text-xs sm:text-md md:text-3xl xl:text-5xl 2xl:text-6 font-bold flex-grow  mr-2">Mit deinem neuen Geld <br>könntest du...</p>
           <client-only>
             <carousel
               class="text-black text-sm sm:text-md md:text-3xl xl:text-5xl font-bold flex-grow"
@@ -319,7 +319,30 @@
       </div>
       <nuxt-link to="/handy" class="text-yellowDark m-6 p-2 font-extrabold text-xl md:text-3xl border-yellowDark border-4 md:border-8 rounded-lg text-center transition duration-300 ease-in-out transform hover:scale-110">JETZT VERKAUFEN</nuxt-link>
     </div>
-    <div class="w-full bg-gradient text-white p-2 md:p-6 text-center flex flex-col items-center">
+
+    <div class="w-full h-auto bg-gradient text-center text-white font-bold p-2">
+      <p class="text-2xl">Reparatur? Wirkaufendeinhandy.shop!</p>
+    </div>
+
+    <div class="w-full h-auto relative">
+      <div>
+        <img src="~assets/img/pictures/repair.jpg" class="object-contain w-7/12 md:w-1/2">
+      </div>
+      <div class="w-1/2 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
+        <div class="ml-auto w-5/6 justify-between flex flex-col h-full mt-6">
+          <p class="text-sm md:text-2xl font-bold flex-grow">  <img src="~assets/img/svg/check.svg" class="inline h-5 md:h-10"> Zuverlässig</p>
+          <p class="text-sm md:text-2xl font-bold flex-grow -ml-2">  <img src="~assets/img/svg/check.svg" class="inline h-5 md:h-10"> Unkompliziert</p>
+          <p class="text-sm md:text-2xl font-bold flex-grow -ml-4">  <img src="~assets/img/svg/check.svg" class="inline h-5 md:h-10"> Super Schnell</p>
+          <p class="text-sm md:text-2xl font-bold flex-grow -ml-6">  <img src="~assets/img/svg/check.svg" class="inline h-5 md:h-10"> Sicher durch Garantie</p>
+
+          <div class="mx-auto transition duration-300 ease-in-out transform hover:scale-110 flex-grow ">
+            <nuxt-link to="/repair" class="p-1 text-yellowDark font-bold text-sm md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg">JETZT&nbsp;REPARIEREN</nuxt-link>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="w-full bg-gradient text-white p-2 md:p-6 text-center flex flex-col items-center mt-6">
       <p class="text-xl md:text-4xl font-bold pb-4">Noch irgendwelche Fragen?</p>
       <p class="hidden md:block text-xl font-bold w-1/2 pb-4">Solltest du noch weitere Fragen haben, beantworten wir diese gerne per Mail oder Telefon. Ansonsten schaue gerne mal bei unserem FAQ vorbei</p>
       <div class="flex uppercase text-lg md:text-3xl justify-around font-bold w-full md:w-2/3 mb-1">
@@ -327,23 +350,9 @@
         <nuxt-link to="/contactUs" class="border-white w-1/3 border-4 md:border-4 rounded-lg p-1 px-2 transition duration-300 ease-in-out transform hover:-translate-y-1 hover:scale-105">Kontakt</nuxt-link>
       </div>
     </div>
-    <div class="my-6">
-      <script
-        type="text/javascript"
-        src="https://www.provenexpert.com/widget/landing_wirkaufendeinhandy-gbr.js?feedback=1&avatar=1&competence=1&style=black%22%3E"
-      />
-      <link
-        rel="stylesheet"
-        type="text/css"
-        href="https://www.provenexpert.com/css/widget_landing.css"
-        media="screen,print"
-      >
-
-      <div id="pewl" />
-    </div>
 
     <footerTemplate />
-    <div class="h-16 w-full" />
+    <div class="h-24 w-full" />
   </div>
 </template>
 
@@ -378,4 +387,5 @@ background: linear-gradient(90deg, rgba(255,187,57,1) 0%, rgba(250,164,1,1) 100%
 .bg-gradientMirrored{
 background: linear-gradient(90deg, rgba(250,164,1,1) 0%, rgba(255,187,57,1) 100%);
 }
+
 </style>

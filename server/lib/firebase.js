@@ -1,6 +1,6 @@
 require('dotenv').config()
 const admin = require('firebase-admin')
-const serviceAccount = require('../../firebase-account.json')
+const serviceAccount = JSON.parse(process.env.FIREBASE_ACCOUNT)
 const helper = require('./helper')
 
 const dbReference = process.env.FIREBASE_DATABASE_REFERENCE

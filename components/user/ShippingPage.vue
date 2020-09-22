@@ -36,7 +36,7 @@
         <div class="rounded-lg p-6 md:p-12 bg-yellowDark min-h-screen">
           <p class="text-white text-2xl mb-4 font-bold text-center">Zu deinem Versandlabel</p>
           <div class="md:flex m-4 md:justify-center text-2xl">
-            <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 " target="_blank" :href="`/user/${this.$route.params.userId}/label.pdf`"> <img src="~assets/img/svg/qrCode.svg" alt="" class="h-6 mr-2 inline">QR-Code </a>
+            <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 " target="_blank" :href="`/user/${this.$route.params.userId}/label.png`"> <img src="~assets/img/svg/qrCode.svg" alt="" class="h-6 mr-2 inline">QR-Code </a>
             <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 mt-6 " target="_blank" :href="`/user/${this.$route.params.userId}/label.pdf`"> <img src="~assets/img/svg/printer.svg" alt="" class="h-6 mr-2 inline">Druck-Label </a>
           </div>
           <div class="text-white">

@@ -7,7 +7,7 @@ const parts = {
     // 'iPhone 11 Pro Max': {},
     // 'iPhone 11 Pro': {},
     // 'iPhone 11': {},
-    'iPhone Xs Max': {
+    'iPhone XS Max': {
       defects: {
         Akku: { price: 17.50, time: 1.5 },
         Display: { price: 167.00, time: 1.5 },
@@ -15,7 +15,7 @@ const parts = {
       },
       color: ['Gold', 'Space Grau', 'Silber'],
     },
-    'iPhone Xs': {
+    'iPhone XS': {
       defects: {
         Akku: { price: 14.00, time: 1.5 },
         Display: { price: 97.00, time: 1.5 },
@@ -78,7 +78,7 @@ const parts = {
       },
       color: ['Schwarz', 'Gold', 'Rose Gold', 'Silber'],
     },
-    'iPhone SE (2016)': {
+    'iPhone SE': {
       defects: {
         Akku: { price: 6.75, time: 1.25 },
         Display: { price: 12.00, time: 1.25 },
@@ -152,7 +152,7 @@ const parts = {
       },
       color: ['Schwarz', 'Grau', 'Pink', 'Weiß'],
     },
-    'Galaxy S10 Plus': {
+    'Galaxy S10+': {
       defects: {
         Akku: { price: 17.00, time: 1.5 },
         Display: { price: 210.16, time: 1.5 },
@@ -176,7 +176,7 @@ const parts = {
       },
       color: ['Schwarz', 'Blau', 'Grün', 'Weiß', 'Gelb'],
     },
-    'Galaxy S9 Plus': {
+    'Galaxy S9+': {
       defects: {
         Akku: { price: 16.75, time: 1.3 },
         Display: { price: 159.00, time: 1.4 },
@@ -192,7 +192,7 @@ const parts = {
       },
       color: ['Schwarz', 'Blau', 'Gold', 'Grau', 'Lila'],
     },
-    'Galaxy S8 Plus': {
+    'Galaxy S8+ ': {
       defects: {
         Akku: { price: 18.00, time: 1.5 },
         Display: { price: 134.00, time: 1.5 },
@@ -227,8 +227,8 @@ const parts = {
       },
       color: ['Schwarz', 'Pink', 'Gold', 'Weiß', 'Silber'],
     },
-    // 'Galaxy S6 Edge Plus': {},
-    'Galaxy S6 Edge': {
+    // 'Galaxy S6 edge+': {},
+    'Galaxy S6 edge': {
       defects: {
         Akku: { price: 12.95, time: 1.3 },
         Display: { price: 62.00, time: 1.5 },
@@ -260,7 +260,7 @@ const parts = {
       },
       color: ['Schwarz', 'Pink', 'Silber', 'Weiß'],
     },
-    'Galaxy Note 10 Lite': {
+    'Galaxy Note 10 lite': {
       defects: {
         Akku: { price: 18.15, time: 1.5 },
         Display: { price: 107.00, time: 1.5 },
@@ -300,7 +300,7 @@ const parts = {
     },
   },
 
-  Huawai: {
+  Huawei: {
     'P Smart Plus': {
       defects: {
         Akku: { price: 50.00, time: 0.5 },
@@ -313,7 +313,7 @@ const parts = {
       defects: {},
       color: ['Schwarz', 'Breathing Crystal'],
     },
-    'P Smart (2019)': {
+    'P smart (2019)': {
       defects: {
         Akku: { price: 50.00, time: 0.5 },
         Display: { price: 50.00, time: 1.5 },
@@ -322,7 +322,7 @@ const parts = {
       },
       color: ['Schwarz', 'Sapphire Blau'],
     },
-    'P Smart': {
+    'P smart': {
       defects: {
         Akku: { price: 8.5, time: 1.5 },
         Display: { price: 21, time: 1.5 },
@@ -330,14 +330,14 @@ const parts = {
       },
       color: ['Schwarz', 'Blau', 'Gold'],
     },
-    'P 40 Pro': {
+    'P40 Pro': {
       defects: {
         Display: { price: 260.00, time: 1.6 },
         Backplate: { price: 45, time: 0.7 },
       },
       color: ['Schwarz', 'Gold', 'Weiß'],
     },
-    'P 40 Lite': {
+    'P40 lite': {
       defects: {
         Akku: { price: 70, time: 1.5 },
         Display: { price: 70, time: 1.5 },
@@ -345,7 +345,7 @@ const parts = {
       },
       color: ['Schwarz', 'Grün', 'Pink'],
     },
-    'P 40': {
+    P40: {
       defects: {
         Akku: { price: 144.00, time: 1.5 },
         Display: { price: 144.00, time: 1.5 },
@@ -353,18 +353,18 @@ const parts = {
       },
       color: ['Schwarz', 'Gold', 'Weiß'],
     },
-    'P 30 Pro': {
+    'P30 Pro': {
       defects: {
         Akku: { price: 13, time: 1 },
         Backplate: { price: 30, time: 0.7 },
       },
       color: ['Schwarz', 'Blau', 'Breathing Crytal', 'Amber Sunrise'],
     },
-    'P 30 Lite': {
+    'P30 lite': {
       defects: {},
       color: ['Schwarz', 'Blau', 'Weiß'],
     },
-    'P 30': {
+    P30: {
       defects: {
         Display: { price: 115.00, time: 1.5 },
         Backplate: { price: 35, time: 0.7 },
@@ -379,7 +379,7 @@ const parts = {
       },
       color: ['Twilight', 'Schwarz', 'Blau', 'Grün'],
     },
-    'Mate 20 Lite': {
+    'Mate 20 lite': {
       defects: {
         Akku: { price: 8.75, time: 1.5 },
         Display: { price: 60.00, time: 1.5 },

@@ -35,7 +35,7 @@ async function createReturnParcel(userID, userData, location) {
     returnDocumentType: 'BOTH',
   }
 
-  const res = await client.post('https://cig.dhl.de/services/sandbox/rest/returns/', newParcelData)
+  const res = await client.post('https://cig.dhl.de/services/production/rest/returns/', newParcelData)
   if (res.status === 201) {
     return res.data
   } else {

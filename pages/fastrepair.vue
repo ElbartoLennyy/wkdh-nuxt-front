@@ -19,7 +19,7 @@
             <p class="text-sm md:text-2xl font-bold flex-grow -ml-6">  <img src="~assets/img/svg/check.svg" class="inline h-5 md:h-10"> Sicher durch Garantie</p>
 
             <div class="mx-auto transition duration-300 ease-in-out transform hover:scale-110 flex-grow ">
-              <nuxt-link to="/repair" class="p-1 text-yellowDark font-bold text-md md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg">JETZT&nbsp;REPARIEREN</nuxt-link>
+              <nuxt-link to="/repair" class="p-1 text-yellowDark font-bold text-sm md:text-3xl xl:text-5xl border-yellowDark border-4 md:border-8 md:p-2 rounded-lg">JETZT&nbsp;REPARIEREN</nuxt-link>
             </div>
           </div>
         </div>
@@ -42,17 +42,17 @@
         </div>
       </div>
 
-      <div class="w-full h-auto relative mt-4 mb-4">
+      <div class="w-full h-auto relative mt-4 md:mb-4">
         <div>
-          <img src="~assets/img/pictures/dhl.jpg" class="object-contain w-7/12 md:w-1/2">
+          <img src="~assets/img/pictures/dhl.jpg" class="object-contain w-7/12 md:w-1/2 pb-8 md:pb-0">
         </div>
         <div class="w-3/4 flex flex-col md:p-6 z-10 absolute top-0 right-0 h-full">
-          <p class="bg-white p-2 text-xl md:text-2xl font-bold mt-6">Kostenfreier Versand mit DHL</p>
-          <div class="ml-auto w-2/3 justify-between flex flex-col h-full">
+          <p class="bg-white p-2 text-xl md:text-2xl font-bold mt-1 md:mt-6">Kostenfreier Versand mit DHL</p>
+          <div class="ml-auto w-8/12 justify-between flex flex-col h-full">
             <p class="text-sm md:text-2xl text-center font-bold w-5/6 ml-auto">Dein kostenloses<br>Versandlabel via Mail</p>
             <div class="flex text-sm md:text-2xl font-semibold justify-end">
               <img src="~assets/img/svg/qrCode.svg" alt="" class="w-1/6 h-6 md:h-10 my-auto">
-              <p class="w-5/6 md:text-2xl text-center -ml-4">einfach als QR-Code<br>(ohne durcken)</p>
+              <p class="w-5/6 md:text-2xl text-center -ml-2">einfach als QR-Code<br>(ohne durcken)</p>
             </div>
             <p class="text-center w-5/6 ml-auto">oder</p>
             <div class="flex text-sm md:text-2xl font-semibold justify-between">

@@ -52,16 +52,9 @@
               >Datenschutzerklärung</a>
             </p>
             <recaptcha-notice class="pt-4 md:pt-6" />
-            <div class="pt-4 md:pt-6 flex">
-              <img
-                class="inline w-1/5 object-scale-down"
-                src="~assets/img/icons/Lets_encrypt-logo.png"
-                alt="help button"
-              >
-              <p class="w-4/5 m-auto">
-                Deine Daten sind sicher! Die Website wird durch ein Let’s Encrypt-Zertifikat SSL verschlüsselt.
-              </p>
-            </div>
+            <p class="pt-4 md:pt-6">
+              Deine Daten sind sicher! Die Website wird durch Google Trust Services SSL verschlüsselt.
+            </p>
           </div>
           <div class="text-center hidden md:block">
             <p class="p-1 text-lg">1. Handyauswahl <img class="inline-block h-4" src="~assets/img/icons/green-check-icon.png"></p>
@@ -236,11 +229,18 @@
 
             <div v-if="shippingInformationIsOpen" class="fixed top-0 bottom-0 left-0 right-0 m-12 md:m-16 p-4 rounded-lg bg-white z-30">
               <button class="absolute top-0 right-0 p-2" @click="shippingInformationIsOpen = false">X</button>
-              <div class=" flex flex-col justify-around w-full h-full">
-                <p>1. Du erhältst das Versandlabel und den QR-Code nach Verkaufsabschluss.</p>
-                <p>2. Packe dein Paket, prüfe noch einmal das alles dabei ist und klebe es zu.</p>
-                <p>3. Gehe zu DHL und zeige den QR-Code vor.</p>
-                <p>4. Bringe das Paket zu deinem DHL-Paketshop.</p>
+              <div class="w-full h-full">
+                <div>
+                  <div class="w-full md:m-4">
+                    <ol class="list-decimal space-y-2">
+                      <li>Nach erfolgreicher Aufgabe des Ankaufsauftrags erhältst du eine Mail mit deinem Versandlabel.</li>
+                      <li>Dein Versandlabel wird sowohl als QR-Code, als auch als Durcklabel zur verfügung stehen.</li>
+                      <li>Packe einfach dein Paket und prüfe noch einmal das alles dabei ist und klebe es zu.</li>
+                      <li>Bringe das Paket zu deinem DHL-Paketshop.</li>
+                      <li>Warte, bis wir dein Handy geprüft haben und erhalte dein Geld auf dein Konto überwiesen.</li>
+                    </ol>
+                  </div>
+                </div>
                 <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zum Verkauf</button>
               </div>
             </div>

@@ -1,8 +1,9 @@
 const express = require('express')
-const request = require('request')
 const fbData = require('../lib/firebase')
 const phonesData = require('../lib/data/phones')
 const priceCalc = require('../lib/calcUserOffer')
+const recaptchaVerification = require('../lib/recaptchaVerfication')
+
 const router = express.Router()
 
 function asyncHelper(fn) {
@@ -29,43 +30,22 @@ router.post('/getData', function(req, res, next) {
   return res.send(dataArray)
 })
 
-router.post('/getPrice', function(req, res) {
-  const token = req.body.Token
+router.post('/getPrice', recaptchaVerification, asyncHelper(async function(req, res) {
+  const currentPhone = req.body
+  delete currentPhone.Token
 
-  if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    throw new Error('Please select captcha first')
+  const price = await priceCalc.getPrice(currentPhone)
+
+  if (price === undefined || price === false) {
+    throw new Error('no price avaible')
+  } else {
+    const requestID = await fbData.uploadPriceRequest(price, currentPhone)
+    res.send({
+      Price: price,
+      RequestID: requestID,
+    })
   }
-
-  const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
-
-  request(verificationURL, async function(err, response, body) {
-    if (err) {
-      throw new Error(err)
-    } else {
-      body = JSON.parse(body)
-
-      if (body.success !== undefined && !body.success) {
-        throw new Error('Failed captcha verification')
-      }
-
-      const currentPhone = req.body
-      delete currentPhone.Token
-
-      const price = await priceCalc.getPrice(currentPhone)
-
-      if (price === undefined || price === false) {
-        res.status(500).send({ error: 'price to low' })
-        throw new Error('no price avaible')
-      } else {
-        const requestID = await fbData.uploadPriceRequest(price, currentPhone)
-        res.send({
-          Price: price,
-          RequestID: requestID,
-        })
-      }
-    }
-  })
-})
+}))
 
 router.post('/accept', asyncHelper(async function(req, res, next) {
   await fbData.creatNewUser(req.body.reqID)

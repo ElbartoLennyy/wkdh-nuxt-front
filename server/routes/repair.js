@@ -1,9 +1,9 @@
 const express = require('express')
-const request = require('request')
 const firebase = require('../lib/firebase')
 const geocoder = require('../lib/geocoder')
 const phonesData = require('../lib/data/mobileparts')
 const repairPrice = require('../lib/repairPrice')
+const recaptchaVerification = require('../lib/recaptchaVerfication')
 const router = express.Router()
 
 function asyncHelper(fn) {
@@ -34,80 +34,40 @@ router.post('/getData', function(req, res) {
   return res.send(dataArray)
 })
 
-router.post('/getPrice', function(req, res, next) {
-  const token = req.body.token
-
-  if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    throw new Error('Please select captcha first')
-  }
-
-  const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
-
-  request(verificationURL, (err, response, body) => {
-    if (err) {
-      throw new Error(err)
-    } else {
-      body = JSON.parse(body)
-
-      if (body.success !== undefined && !body.success) {
-        throw new Error('Failed captcha verification')
-      }
-
-      let endPrice = 0
-      for (const defect of req.body.defects) {
-        endPrice += repairPrice.getRepairPrice({
-          brand: req.body.brand,
-          phone: req.body.phone,
-          defect,
-        })
-      }
-      endPrice = (Math.ceil(endPrice / 5) * 5) - 0.05
-
-      res.send({ price: endPrice })
-    }
-  })
-})
-
-router.post('/accept', function(req, res) {
-  const token = req.body.token
-
-  if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    throw new Error('Please select captcha first')
-  }
-
-  const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
-
-  request(verificationURL, asyncHelper(async(err, response, body) => {
-    if (err) {
-      throw new Error(err)
-    }
-
-    body = JSON.parse(body)
-
-    if (body.success !== undefined && !body.success) {
-      throw new Error('Failed captcha verification')
-    }
-
-    let price = 0
-    for (const defect of req.body.defects) {
-      price += repairPrice.getRepairPrice({
-        brand: req.body.brand,
-        phone: req.body.phone,
-        defect,
-      })
-    }
-    price = (Math.ceil(price / 5) * 5) - 0.05
-
-    const uId = await firebase.createRepairOffer({
+router.post('/getPrice', recaptchaVerification, function(req, res, next) {
+  let endPrice = 0
+  for (const defect of req.body.defects) {
+    endPrice += repairPrice.getRepairPrice({
       brand: req.body.brand,
       phone: req.body.phone,
-      defects: req.body.defects,
-      color: req.body.color,
-      price,
+      defect,
     })
-    res.send({ uId })
-  }))
+  }
+  endPrice = (Math.ceil(endPrice / 5) * 5) - 0.05
+
+  res.send({ price: endPrice })
 })
+
+router.post('/accept', recaptchaVerification, asyncHelper(async(req, res) => {
+  let price = 0
+  for (const defect of req.body.defects) {
+    price += repairPrice.getRepairPrice({
+      brand: req.body.brand,
+      phone: req.body.phone,
+      defect,
+    })
+  }
+  price = (Math.ceil(price / 5) * 5) - 0.05
+
+  const uId = await firebase.createRepairOffer({
+    brand: req.body.brand,
+    phone: req.body.phone,
+    defects: req.body.defects,
+    color: req.body.color,
+    price,
+  })
+  res.send({ uId })
+}))
 
 router.post('/getRepair', asyncHelper(async function(req, res) {
   const offer = await firebase.getUser(req.body.uId, true)
@@ -119,38 +79,18 @@ router.post('/updatePersonalData', asyncHelper(async(req, res) => {
   res.send()
 }))
 
-router.post('/validateAdress', function(req, res, next) {
+router.post('/validateAdress', asyncHelper(async function(req, res, next) {
   const uID = req.body.uID
-  const token = req.body.token
 
-  if (token === undefined || req.body['g-recaptcha-response'] === '' || token === null) {
-    throw new Error('Please select captcha first')
+  const location = await geocoder.validateAddress(req.body.Adress)
+
+  if (location === undefined || location === false) {
+    throw new Error('location undefined')
+  } else {
+    await firebase.setUserLocation(uID, location, true)
+    res.send({
+      location,
+    })
   }
-
-  const verificationURL = 'https://www.google.com/recaptcha/api/siteverify?secret=' + process.env.RECAPTCHA_SECRET_KEY + '&response=' + token + '&remoteip=' + req.connection.remoteAddress
-
-  request(verificationURL, asyncHelper(async(err, response, body) => {
-    if (err) {
-      throw new Error(err)
-    }
-
-    body = JSON.parse(body)
-
-    if (body.success !== undefined && !body.success) {
-      throw new Error('Failed captcha verification')
-    }
-
-    const location = await geocoder.validateAddress(req.body.Adress)
-
-    if (location === undefined || location === false) {
-      throw new Error('location undefined')
-    } else {
-      await firebase.setUserLocation(uID, location, true)
-      res.send({
-        location,
-      })
-    }
-  }))
-})
-
+}))
 module.exports = router

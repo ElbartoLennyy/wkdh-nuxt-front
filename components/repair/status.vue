@@ -46,8 +46,8 @@
         </div>
       </div>
 
-      <div class="md:w-2/3 p-2 h-full">
-        <div class="rounded-lg p-6 md:p-12 bg-yellowDark h-full">
+      <div class="md:w-2/3 p-2 min-h-screen">
+        <div class="rounded-lg p-6 md:p-12 bg-yellowDark min-h-screen">
           <div class="md:flex">
             <div
               class="mb-3 block text-left md:w-1/3"
@@ -81,8 +81,8 @@
           <div v-if="offer.State === 'shipping'">
             <p class="text-white text-2xl mb-4 font-bold text-center">Zu deinem Versandlabel</p>
             <div class="md:flex m-4 md:justify-center text-2xl">
-              <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 " target="_blank" :href="`/rUser/${this.$route.params.userId}/label.pdf`"> <img src="~assets/img/svg/qrCode.svg" alt="" class="h-6 mr-2 inline">QR-Code </a>
-              <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 mt-6 " target="_blank" :href="`/rUser/${this.$route.params.userId}/label.pdf`"> <img src="~assets/img/svg/printer.svg" alt="" class="h-6 mr-2 inline">Druck-Label </a>
+              <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 " target="_blank" :href="`/user/${this.$route.params.repairId}/label.png`"> <img src="~assets/img/svg/qrCode.svg" alt="" class="h-6 mr-2 inline">QR-Code </a>
+              <a class="bg-gray-200 font-bold p-4 rounded-lg w-full md:w-1/4 text-center block md:m-6 mt-6 " target="_blank" :href="`/user/${this.$route.params.repairId}/label.pdf`"> <img src="~assets/img/svg/printer.svg" alt="" class="h-6 mr-2 inline">Druck-Label </a>
             </div>
             <div class="text-white">
               <p class="font-bold">
@@ -112,6 +112,7 @@
                 </div>
               </div>
             </div>
+            <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zum Verkauf</button>
           </div>
           <div v-if="offer.State !== 'shipping'" class="w-full text-center text-lg space-y-4 mt-4 text-white">
             <p class="line-through text-black">Du versendest dein Gerät</p>
