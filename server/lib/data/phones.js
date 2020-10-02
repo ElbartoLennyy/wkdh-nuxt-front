@@ -287,6 +287,11 @@ const phones = {
         price: 208.66666666666666,
       },
     },
+    'Galaxy A51': {
+      128: {
+        price: 208,
+      },
+    },
     'Galaxy A20e': {
       32: {
         price: 97.625,

@@ -4,7 +4,7 @@ const payPalClient = require('./payPalClient.js')
 async function createCheckoutSession(product, uId) {
   const request = new paypal.orders.OrdersCreateRequest()
 
-  const productName = `Reparatur ${product.defects.join()} - ${product.brand} ${product.phone}`
+  const productName = `Reparatur ${product.defects.join()} - ${product.brand} ${product.phone} - ${uId}`
 
   request.prefer('return=representation')
   request.requestBody({
@@ -40,6 +40,9 @@ async function capturePayPalTransaction(orderID, repair) {
 // 2a. Get the order ID from the request body
 
   // 3. Call PayPal to get the transaction details
+  const requestPayment = new paypal.orders.OrdersCaptureRequest(orderID)
+  await payPalClient.client().execute(requestPayment)
+
   const request = new paypal.orders.OrdersGetRequest(orderID)
 
   const order = await payPalClient.client().execute(request)

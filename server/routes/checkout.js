@@ -28,8 +28,7 @@ router.post('/checkSuccess', asyncHelper(async(req, res) => {
 
   if (user.State === 'shipping') {
     return res.send()
-  }
-  if (user.sessionCode === req.body.sessionCode) {
+  } else if (user.sessionCode === req.body.sessionCode) {
     const parcel = await dhl.createReturnParcel(req.body.uId, user.data, user.Location)
     await firebase.setPaymentSucessful(req.body.uId, parcel)
     res.send()
@@ -40,12 +39,12 @@ router.post('/checkSuccess', asyncHelper(async(req, res) => {
 
 router.post('/checkPayPalTransaction', asyncHelper(async(req, res) => {
   const orderID = req.body.orderID
-  const repair = await firebase.getShippmentData(req.body.uId, true)
+  const repair = await firebase.getUser(req.body.uId, true)
   const success = await paypal.capturePayPalTransaction(orderID, repair)
   if (success) {
     const parcel = await dhl.createReturnParcel(req.body.uId, repair, repair.Location)
     await firebase.setPaymentSucessful(req.body.uId, parcel)
-    res.send()
+    res.send(true)
   }
 }))
 
