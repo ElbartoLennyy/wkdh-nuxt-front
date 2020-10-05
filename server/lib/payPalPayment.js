@@ -40,8 +40,6 @@ async function capturePayPalTransaction(orderID, repair) {
 // 2a. Get the order ID from the request body
 
   // 3. Call PayPal to get the transaction details
-  const requestPayment = new paypal.orders.OrdersCaptureRequest(orderID)
-  await payPalClient.client().execute(requestPayment)
 
   const request = new paypal.orders.OrdersGetRequest(orderID)
 
@@ -52,8 +50,8 @@ async function capturePayPalTransaction(orderID, repair) {
     throw new Error('payed amount is diffrent')
   }
 
-  // 6. Save the transaction in your database
-  // await database.saveTransaction(orderID);
+  const requestPayment = new paypal.orders.OrdersCaptureRequest(orderID)
+  await payPalClient.client().execute(requestPayment)
 
   // 7. Return a successful response to the client
   return true

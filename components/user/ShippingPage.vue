@@ -65,6 +65,8 @@
               </div>
             </div>
           </div>
+          <nuxt-link to="/contactUs" target="_blank" class="md:block hidden bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 mt-6 font-bold px-4">Ich brauche Hilfe!</nuxt-link>
+          <a href="https://wa.me/4915236318531?text=" target="_blank" class="md:hidden block bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 mt-6 font-bold px-4"><img class="h-6 inline" src="~assets/img/icons/WhatsApp-logo.png" alt="facebook Logo">Ich brauche Hilfe!</a>
         </div>
       </div>
     </div>

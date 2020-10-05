@@ -29,6 +29,12 @@
             </p>
             <img src="~assets/img/icons/Logo-new-1000.png" alt="Wirkaufendeinhandy" class="object-contain w-1/2 my-2">
           </div>
+          <div>
+            <p class="text-2xl md:text-4xl">
+              Du hast bezahlt:
+              <b>{{ offer.repairData.price }}</b> €
+            </p>
+          </div>
           <div class="flex items-center text-center md:pt-4">
             <img
               class="inline w-5 "
@@ -112,7 +118,8 @@
                 </div>
               </div>
             </div>
-            <button class="bg-yellowDark rounded-lg p-2 text-white" @click="shippingInformationIsOpen = false">Zurück zum Verkauf</button>
+            <nuxt-link to="/contactUs" target="_blank" class="md:block hidden bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 mt-6 font-bold px-4">Ich brauche Hilfe!</nuxt-link>
+            <a href="https://wa.me/4915236318531?text=" target="_blank" class="md:hidden block bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 mt-6 font-bold px-4"><img class="h-6 inline" src="~assets/img/icons/WhatsApp-logo.png" alt="facebook Logo">Ich brauche Hilfe!</a>
           </div>
           <div v-if="offer.State !== 'shipping'" class="w-full text-center text-lg space-y-4 mt-4 text-white">
             <p class="line-through text-black">Du versendest dein Gerät</p>

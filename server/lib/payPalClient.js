@@ -26,9 +26,15 @@ function environment() {
   const clientId = process.env.NUXT_ENV_PAYPAL_CLIENT_ID
   const clientSecret = process.env.PAYPAL_CLIENT_SECRET
 
-  return new checkoutNodeJssdk.core.LiveEnvironment(
-    clientId, clientSecret,
-  )
+  if (process.env.IS_PRODUCTION === 'true') {
+    return new checkoutNodeJssdk.core.LiveEnvironment(
+      clientId, clientSecret,
+    )
+  } else {
+    return new checkoutNodeJssdk.core.SandboxEnvironment(
+      clientId, clientSecret,
+    )
+  }
 }
 
 async function prettyPrint(jsonData, pre = '') {

@@ -27,7 +27,7 @@ export default {
   async asyncData(context) {
     let error
     if (context.route.query.success !== undefined) {
-      if (context.route.query.success !== 'true' || context.route.query.sessionCode === undefined) {
+      if (context.route.query.success !== 'true') {
         error = true
       } else {
         try {

@@ -22,7 +22,6 @@ const realTransport = noma.createTransport({
     pass: process.env.SMTP_PASSWORD,
   },
   pool: true,
-  secure: true,
 })
 
 function sendMail(message, test = false) {

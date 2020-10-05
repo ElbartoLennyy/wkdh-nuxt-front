@@ -401,6 +401,8 @@
                 Zurück
               </div>
             </button>
+            <nuxt-link to="/contactUs" target="_blank" class="md:block max-w-screen-payPalButton hidden bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 mt-6 font-bold px-4">Ich brauche Hilfe!</nuxt-link>
+            <a href="https://wa.me/4915236318531?text=" target="_blank" class="md:hidden max-w-screen-payPalButton block bg-white text-yellowDark rounded-lg border-yellowDark border-2 p-2 mt-6 font-bold px-4"><img class="h-6 inline" src="~assets/img/icons/WhatsApp-logo.png" alt="facebook Logo">Ich brauche Hilfe!</a>
           </div>
         </div>
       </div>
@@ -516,7 +518,6 @@ export default {
         const payPalSession = this.payPalSession
         const uId = this.offer.ID
         const axios = this.$axios
-        const router = this.$router
         this.$nextTick(() => {
           // eslint-disable-next-line no-undef
           paypal.Buttons({
@@ -532,7 +533,7 @@ export default {
                 uId,
               }).then((res) => {
                 if (res.data) {
-                  router.go()
+                  location.replace(`/rUser/${uId}?success=true`)
                 } else {
                   alert('Ein fehler ist aufgetreten')
                 }
